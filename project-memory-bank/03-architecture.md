@@ -2,9 +2,11 @@
 
 First real architectural content, established in Phase 1
 ([[08-roadmap]], ADR-005/ADR-006 in [[11-decisions]]), extended in Phase 2
-with a second pattern for judgment-based skills (ADR-007/ADR-008), and
-reused as-is (no new base pattern) in Phase 3 (`acceptance-test-engineer`) —
-see "Pattern 2, reused for Phase 3" below.
+with a second pattern for judgment-based skills (ADR-007/ADR-008), reused
+as-is (no new base pattern) in Phase 3 (`acceptance-test-engineer`), and
+reused a third time in Phase 4 (`feature-planner`) alongside a new
+architectural decision making composition mandatory rather than optional —
+see "Pattern 2, reused for Phase 4" and ADR-010 below.
 
 ## Pattern: SKILL.md + optional deterministic engine
 
@@ -219,3 +221,72 @@ New this phase: [[17-experiment-viability-check]] — the first attempt at
 using more than one existing skill together (composing `codebase-
 intelligence`'s real Phase 1 output into `acceptance-test-engineer`'s input),
 run as an explicitly-labeled pilot, not the real Experiment B (ADR-009).
+
+---
+
+## Pattern 2, reused for Phase 4: `feature-planner` — plus mandatory composition (ADR-010)
+
+Phase 4 reused Pattern 2 a third time (deterministic pre-processing +
+agent-driven derivation against a fixed checklist), swapping the domain to
+turning a task description into a structured plan. The new architectural
+element this phase is **not** the judgment-workflow split — that part is
+now well-established — it's that `codebase-intelligence`'s report becomes a
+**required precondition**, not optional composed context (ADR-010 in
+[[11-decisions]]). Every prior skill's composition with `codebase-
+intelligence` was optional; this is the first time a missing upstream
+report is a hard failure condition.
+
+```
+skills/feature-planner/
+  SKILL.md            <- contract: Step 1 precondition, Step 2 engine, Steps 3-4 agent reasoning
+  engine/              <- deterministic, stdlib-only Python package
+    models.py            shared schema (CiReportContext, RelevanceReport,
+                          PlanningFlag, FeaturePlanningReport)
+    ci_report_loader.py  loads a codebase-intelligence report.json into a
+                          LOCAL, independent schema (no cross-package import)
+                          — missing/malformed report -> CiReportError, a
+                          hard failure per ADR-010
+    relevance_scorer.py  keyword-overlap scoring of ci_report modules against
+                          the task text, annotated with fan_in/fan_out/hotspot
+                          blast-radius signal from the dependency graph
+    planning_patterns.py / planning_scanner.py   fixed regex table: vague
+                          scope terms, weak goal modals, scope-boundary/
+                          verification absence checks (mirrors Phase 3's
+                          testability_scanner.py exactly)
+    stats.py, report.py, render_json.py / render_markdown.py, cli.py
+  tests/                unit + integration tests, one file per engine module
+```
+
+`ci_report_loader.py` deliberately does not import `codebase-intelligence`'s
+own `engine.models` — it defines its own lightweight dataclasses for the
+subset of fields it needs (module path/docstring/functions/classes/imports,
+dependency-graph fan_in/fan_out/hotspots) and loads them from the JSON
+directly. This keeps `feature-planner` portable on its own (same rationale
+as every other engine being stdlib-only) while still consuming a real,
+already-computed structural map instead of re-deriving one.
+
+The 10-category Plan Quality checklist this skill's Step 3 uses lives in
+[[05-evaluation-framework]], a third checklist alongside the failure-first
+and acceptance-coverage ones — all three now share the same category-10
+honesty-valve convention.
+
+**Real evidence composition matters, found via dogfooding, not claimed in
+the abstract**: `examples/feature-planner/example-run.md` regenerates a
+fresh `codebase-intelligence` report against this repo's current (4-skill)
+state and runs a real task against it. Two genuine findings came out of
+that one real run: (1) the relevance scorer's path-weighting floods when a
+task's keywords collide with a shared directory name — the true target file
+ranked 13th, not 1st (L13 in [[12-known-limitations]], not fixed, a
+documented boundary the agent's Step 3 judgment is specifically designed to
+absorb — and did, correctly, in that same run); (2) grounding "affected
+files" in the real module list surfaced that `acceptance-test-engineer`'s
+own CLI had zero test coverage — the second cross-skill dogfood finding in
+this project (after L10), fixed same-session.
+
+Evaluation harness architecture is identical in shape to Phases 2-3
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md), except every fixture now pairs a `task.txt` with a synthetic
+`ci_report.json`, so the required-composition precondition is exercised on
+every fixture, not just the real dogfood run — see
+`evaluations/feature-planner/RESULTS.md` and L8/A5 (now applying a third
+time).

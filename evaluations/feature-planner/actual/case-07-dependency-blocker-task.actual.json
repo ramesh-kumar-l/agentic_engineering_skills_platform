@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "p1",
+      "category": "dependency-blocker",
+      "description": "This task is explicitly blocked on the data team's migration script landing — do not start the schema migration until that dependency is confirmed available.",
+      "grounding": "Task states 'once the migration script from the data team lands' — an explicit external precondition.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p2",
+      "category": "affected-files",
+      "description": "engine/reporting.py and engine/db.py are the files to change.",
+      "grounding": "Both scored in the relevance report (5 and 2) on real keyword overlap (reporting, database, data).",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "p3",
+      "category": "step-sequence",
+      "description": "1) Wait for/confirm the migration script from the data team; 2) run the migration to the new schema; 3) update engine/db.py's query layer for the new schema; 4) update engine/reporting.py's generate_report to match.",
+      "grounding": "Ordered so the external blocker in p1 is resolved before any repo-internal step begins.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

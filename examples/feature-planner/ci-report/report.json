@@ -1,0 +1,3259 @@
+{
+  "root_path": "D:\\ClaudeProjects\\agentic_engineering_skills_platform",
+  "generated_at": "2026-08-22T19:41:55.829659+00:00",
+  "file_count": 242,
+  "language_breakdown": {
+    "unknown": 29,
+    "markdown": 68,
+    "json": 64,
+    "python": 75,
+    "javascript": 2,
+    "toml": 4
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "language": "unknown",
+      "size_bytes": 59,
+      "line_count": 6
+    },
+    {
+      "path": "CHANGELOG.md",
+      "language": "markdown",
+      "size_bytes": 3236,
+      "line_count": 55
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "language": "markdown",
+      "size_bytes": 1974,
+      "line_count": 43
+    },
+    {
+      "path": "LICENSE",
+      "language": "unknown",
+      "size_bytes": 11558,
+      "line_count": 201
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "size_bytes": 2631,
+      "line_count": 47
+    },
+    {
+      "path": "ROADMAP.md",
+      "language": "markdown",
+      "size_bytes": 2298,
+      "line_count": 48
+    },
+    {
+      "path": "SECURITY.md",
+      "language": "markdown",
+      "size_bytes": 1127,
+      "line_count": 27
+    },
+    {
+      "path": ".claude/settings.local.json",
+      "language": "json",
+      "size_bytes": 624,
+      "line_count": 12
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/RESULTS.md",
+      "language": "markdown",
+      "size_bytes": 4127,
+      "line_count": 121
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/run_evaluation.py",
+      "language": "python",
+      "size_bytes": 8340,
+      "line_count": 194
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/actual/case-01-vague-requirement.actual.json",
+      "language": "json",
+      "size_bytes": 1149,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/actual/case-02-well-specified-requirement.actual.json",
+      "language": "json",
+      "size_bytes": 910,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/actual/case-03-missing-error-handling.actual.json",
+      "language": "json",
+      "size_bytes": 1143,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/actual/case-04-missing-boundary.actual.json",
+      "language": "json",
+      "size_bytes": 1140,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/actual/case-05-implicit-permission-requirement.actual.json",
+      "language": "json",
+      "size_bytes": 1101,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/actual/case-06-ambiguous-scope.actual.json",
+      "language": "json",
+      "size_bytes": 1159,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/actual/case-07-already-has-acceptance-criteria.actual.json",
+      "language": "json",
+      "size_bytes": 976,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/actual/case-08-conflicting-requirement.actual.json",
+      "language": "json",
+      "size_bytes": 1574,
+      "line_count": 40
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/eval_cases/case-01-vague-requirement.md",
+      "language": "markdown",
+      "size_bytes": 1048,
+      "line_count": 18
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/eval_cases/case-02-well-specified-requirement.md",
+      "language": "markdown",
+      "size_bytes": 890,
+      "line_count": 14
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/eval_cases/case-03-missing-error-handling.md",
+      "language": "markdown",
+      "size_bytes": 868,
+      "line_count": 14
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/eval_cases/case-04-missing-boundary.md",
+      "language": "markdown",
+      "size_bytes": 705,
+      "line_count": 12
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/eval_cases/case-05-implicit-permission-requirement.md",
+      "language": "markdown",
+      "size_bytes": 805,
+      "line_count": 14
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/eval_cases/case-06-ambiguous-scope.md",
+      "language": "markdown",
+      "size_bytes": 690,
+      "line_count": 13
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/eval_cases/case-07-already-has-acceptance-criteria.md",
+      "language": "markdown",
+      "size_bytes": 877,
+      "line_count": 14
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/eval_cases/case-08-conflicting-requirement.md",
+      "language": "markdown",
+      "size_bytes": 926,
+      "line_count": 15
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/expected/case-01-vague-requirement.expected.json",
+      "language": "json",
+      "size_bytes": 504,
+      "line_count": 14
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/expected/case-02-well-specified-requirement.expected.json",
+      "language": "json",
+      "size_bytes": 349,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/expected/case-03-missing-error-handling.expected.json",
+      "language": "json",
+      "size_bytes": 410,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/expected/case-04-missing-boundary.expected.json",
+      "language": "json",
+      "size_bytes": 374,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/expected/case-05-implicit-permission-requirement.expected.json",
+      "language": "json",
+      "size_bytes": 387,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/expected/case-06-ambiguous-scope.expected.json",
+      "language": "json",
+      "size_bytes": 460,
+      "line_count": 13
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/expected/case-07-already-has-acceptance-criteria.expected.json",
+      "language": "json",
+      "size_bytes": 401,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/expected/case-08-conflicting-requirement.expected.json",
+      "language": "json",
+      "size_bytes": 512,
+      "line_count": 9
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/fixtures/case-01-vague-requirement/requirement.txt",
+      "language": "unknown",
+      "size_bytes": 67,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/fixtures/case-02-well-specified-requirement/requirement.txt",
+      "language": "unknown",
+      "size_bytes": 131,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/fixtures/case-03-missing-error-handling/requirement.txt",
+      "language": "unknown",
+      "size_bytes": 70,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/fixtures/case-04-missing-boundary/requirement.txt",
+      "language": "unknown",
+      "size_bytes": 50,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/fixtures/case-05-implicit-permission-requirement/requirement.txt",
+      "language": "unknown",
+      "size_bytes": 59,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/fixtures/case-06-ambiguous-scope/requirement.txt",
+      "language": "unknown",
+      "size_bytes": 68,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/fixtures/case-07-already-has-acceptance-criteria/requirement.txt",
+      "language": "unknown",
+      "size_bytes": 266,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/acceptance-test-engineer/fixtures/case-08-conflicting-requirement/requirement.txt",
+      "language": "unknown",
+      "size_bytes": 96,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/RESULTS.md",
+      "language": "markdown",
+      "size_bytes": 3897,
+      "line_count": 121
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/run_evaluation.py",
+      "language": "python",
+      "size_bytes": 8109,
+      "line_count": 188
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/actual/case-01-obvious-bug.actual.json",
+      "language": "json",
+      "size_bytes": 337,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/actual/case-02-subtle-bug.actual.json",
+      "language": "json",
+      "size_bytes": 365,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/actual/case-03-security-issue.actual.json",
+      "language": "json",
+      "size_bytes": 339,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/actual/case-04-broad-except.actual.json",
+      "language": "json",
+      "size_bytes": 375,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/actual/case-05-clean-diff.actual.json",
+      "language": "json",
+      "size_bytes": 275,
+      "line_count": 4
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/actual/case-06-large-noisy-diff.actual.json",
+      "language": "json",
+      "size_bytes": 464,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/actual/case-07-missing-context.actual.json",
+      "language": "json",
+      "size_bytes": 483,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/actual/case-08-concurrency-bug.actual.json",
+      "language": "json",
+      "size_bytes": 474,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/eval_cases/case-01-obvious-bug.md",
+      "language": "markdown",
+      "size_bytes": 934,
+      "line_count": 16
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/eval_cases/case-02-subtle-bug.md",
+      "language": "markdown",
+      "size_bytes": 744,
+      "line_count": 13
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/eval_cases/case-03-security-issue.md",
+      "language": "markdown",
+      "size_bytes": 747,
+      "line_count": 14
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/eval_cases/case-04-broad-except.md",
+      "language": "markdown",
+      "size_bytes": 855,
+      "line_count": 15
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/eval_cases/case-05-clean-diff.md",
+      "language": "markdown",
+      "size_bytes": 649,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/eval_cases/case-06-large-noisy-diff.md",
+      "language": "markdown",
+      "size_bytes": 834,
+      "line_count": 14
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/eval_cases/case-07-missing-context.md",
+      "language": "markdown",
+      "size_bytes": 968,
+      "line_count": 16
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/eval_cases/case-08-concurrency-bug.md",
+      "language": "markdown",
+      "size_bytes": 812,
+      "line_count": 14
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/expected/case-01-obvious-bug.expected.json",
+      "language": "json",
+      "size_bytes": 202,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/expected/case-02-subtle-bug.expected.json",
+      "language": "json",
+      "size_bytes": 201,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/expected/case-03-security-issue.expected.json",
+      "language": "json",
+      "size_bytes": 238,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/expected/case-04-broad-except.expected.json",
+      "language": "json",
+      "size_bytes": 246,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/expected/case-05-clean-diff.expected.json",
+      "language": "json",
+      "size_bytes": 51,
+      "line_count": 4
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/expected/case-06-large-noisy-diff.expected.json",
+      "language": "json",
+      "size_bytes": 215,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/expected/case-07-missing-context.expected.json",
+      "language": "json",
+      "size_bytes": 228,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/expected/case-08-concurrency-bug.expected.json",
+      "language": "json",
+      "size_bytes": 228,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/fixtures/case-01-obvious-bug/change.diff",
+      "language": "unknown",
+      "size_bytes": 190,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/fixtures/case-02-subtle-bug/change.diff",
+      "language": "unknown",
+      "size_bytes": 224,
+      "line_count": 10
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/fixtures/case-03-security-issue/change.diff",
+      "language": "unknown",
+      "size_bytes": 329,
+      "line_count": 9
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/fixtures/case-04-broad-except/change.diff",
+      "language": "unknown",
+      "size_bytes": 278,
+      "line_count": 11
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/fixtures/case-05-clean-diff/change.diff",
+      "language": "unknown",
+      "size_bytes": 189,
+      "line_count": 9
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/fixtures/case-06-large-noisy-diff/change.diff",
+      "language": "unknown",
+      "size_bytes": 660,
+      "line_count": 22
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/fixtures/case-07-missing-context/change.diff",
+      "language": "unknown",
+      "size_bytes": 239,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/fixtures/case-08-concurrency-bug/change.diff",
+      "language": "unknown",
+      "size_bytes": 311,
+      "line_count": 12
+    },
+    {
+      "path": "evaluations/codebase-intelligence/RESULTS.md",
+      "language": "markdown",
+      "size_bytes": 1643,
+      "line_count": 48
+    },
+    {
+      "path": "evaluations/codebase-intelligence/run_evaluation.py",
+      "language": "python",
+      "size_bytes": 5246,
+      "line_count": 121
+    },
+    {
+      "path": "evaluations/codebase-intelligence/eval_cases/case-01-simple-python.md",
+      "language": "markdown",
+      "size_bytes": 842,
+      "line_count": 10
+    },
+    {
+      "path": "evaluations/codebase-intelligence/eval_cases/case-02-multi-package-python.md",
+      "language": "markdown",
+      "size_bytes": 1117,
+      "line_count": 17
+    },
+    {
+      "path": "evaluations/codebase-intelligence/eval_cases/case-03-mixed-lang.md",
+      "language": "markdown",
+      "size_bytes": 1092,
+      "line_count": 18
+    },
+    {
+      "path": "evaluations/codebase-intelligence/eval_cases/case-04-empty-edge-case.md",
+      "language": "markdown",
+      "size_bytes": 983,
+      "line_count": 16
+    },
+    {
+      "path": "evaluations/codebase-intelligence/expected/empty-edge-case.expected.json",
+      "language": "json",
+      "size_bytes": 148,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/codebase-intelligence/expected/mixed-lang.expected.json",
+      "language": "json",
+      "size_bytes": 256,
+      "line_count": 10
+    },
+    {
+      "path": "evaluations/codebase-intelligence/expected/multi-package-python.expected.json",
+      "language": "json",
+      "size_bytes": 257,
+      "line_count": 10
+    },
+    {
+      "path": "evaluations/codebase-intelligence/expected/simple-python.expected.json",
+      "language": "json",
+      "size_bytes": 155,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/empty-edge-case/notes.txt",
+      "language": "unknown",
+      "size_bytes": 213,
+      "line_count": 3
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/package.json",
+      "language": "json",
+      "size_bytes": 107,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/server.py",
+      "language": "python",
+      "size_bytes": 76,
+      "line_count": 6
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+      "language": "javascript",
+      "size_bytes": 70,
+      "line_count": 3
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js",
+      "language": "javascript",
+      "size_bytes": 82,
+      "line_count": 5
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/requirements.txt",
+      "language": "unknown",
+      "size_bytes": 17,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+      "language": "python",
+      "size_bytes": 102,
+      "line_count": 6
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+      "language": "python",
+      "size_bytes": 86,
+      "line_count": 6
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py",
+      "language": "python",
+      "size_bytes": 75,
+      "line_count": 5
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/__init__.py",
+      "language": "python",
+      "size_bytes": 0,
+      "line_count": 0
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+      "language": "python",
+      "size_bytes": 228,
+      "line_count": 10
+    },
+    {
+      "path": "evaluations/feature-planner/RESULTS.md",
+      "language": "markdown",
+      "size_bytes": 5008,
+      "line_count": 129
+    },
+    {
+      "path": "evaluations/feature-planner/run_evaluation.py",
+      "language": "python",
+      "size_bytes": 9129,
+      "line_count": 211
+    },
+    {
+      "path": "evaluations/feature-planner/actual/case-01-vague-task.actual.json",
+      "language": "json",
+      "size_bytes": 1178,
+      "line_count": 28
+    },
+    {
+      "path": "evaluations/feature-planner/actual/case-02-well-scoped-task.actual.json",
+      "language": "json",
+      "size_bytes": 1523,
+      "line_count": 36
+    },
+    {
+      "path": "evaluations/feature-planner/actual/case-03-hotspot-task.actual.json",
+      "language": "json",
+      "size_bytes": 1572,
+      "line_count": 28
+    },
+    {
+      "path": "evaluations/feature-planner/actual/case-04-no-verification-task.actual.json",
+      "language": "json",
+      "size_bytes": 1308,
+      "line_count": 28
+    },
+    {
+      "path": "evaluations/feature-planner/actual/case-05-security-task.actual.json",
+      "language": "json",
+      "size_bytes": 1254,
+      "line_count": 28
+    },
+    {
+      "path": "evaluations/feature-planner/actual/case-06-no-relevant-modules-task.actual.json",
+      "language": "json",
+      "size_bytes": 1249,
+      "line_count": 20
+    },
+    {
+      "path": "evaluations/feature-planner/actual/case-07-dependency-blocker-task.actual.json",
+      "language": "json",
+      "size_bytes": 1251,
+      "line_count": 28
+    },
+    {
+      "path": "evaluations/feature-planner/actual/case-08-conflicting-scope-task.actual.json",
+      "language": "json",
+      "size_bytes": 1770,
+      "line_count": 28
+    },
+    {
+      "path": "evaluations/feature-planner/eval_cases/case-01-vague-task.md",
+      "language": "markdown",
+      "size_bytes": 1248,
+      "line_count": 22
+    },
+    {
+      "path": "evaluations/feature-planner/eval_cases/case-02-well-scoped-task.md",
+      "language": "markdown",
+      "size_bytes": 1096,
+      "line_count": 20
+    },
+    {
+      "path": "evaluations/feature-planner/eval_cases/case-03-hotspot-task.md",
+      "language": "markdown",
+      "size_bytes": 1092,
+      "line_count": 19
+    },
+    {
+      "path": "evaluations/feature-planner/eval_cases/case-04-no-verification-task.md",
+      "language": "markdown",
+      "size_bytes": 944,
+      "line_count": 17
+    },
+    {
+      "path": "evaluations/feature-planner/eval_cases/case-05-security-task.md",
+      "language": "markdown",
+      "size_bytes": 963,
+      "line_count": 17
+    },
+    {
+      "path": "evaluations/feature-planner/eval_cases/case-06-no-relevant-modules-task.md",
+      "language": "markdown",
+      "size_bytes": 1117,
+      "line_count": 20
+    },
+    {
+      "path": "evaluations/feature-planner/eval_cases/case-07-dependency-blocker-task.md",
+      "language": "markdown",
+      "size_bytes": 904,
+      "line_count": 17
+    },
+    {
+      "path": "evaluations/feature-planner/eval_cases/case-08-conflicting-scope-task.md",
+      "language": "markdown",
+      "size_bytes": 1381,
+      "line_count": 24
+    },
+    {
+      "path": "evaluations/feature-planner/expected/case-01-vague-task.expected.json",
+      "language": "json",
+      "size_bytes": 455,
+      "line_count": 13
+    },
+    {
+      "path": "evaluations/feature-planner/expected/case-02-well-scoped-task.expected.json",
+      "language": "json",
+      "size_bytes": 396,
+      "line_count": 9
+    },
+    {
+      "path": "evaluations/feature-planner/expected/case-03-hotspot-task.expected.json",
+      "language": "json",
+      "size_bytes": 394,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/feature-planner/expected/case-04-no-verification-task.expected.json",
+      "language": "json",
+      "size_bytes": 349,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/feature-planner/expected/case-05-security-task.expected.json",
+      "language": "json",
+      "size_bytes": 332,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/feature-planner/expected/case-06-no-relevant-modules-task.expected.json",
+      "language": "json",
+      "size_bytes": 324,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/feature-planner/expected/case-07-dependency-blocker-task.expected.json",
+      "language": "json",
+      "size_bytes": 394,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/feature-planner/expected/case-08-conflicting-scope-task.expected.json",
+      "language": "json",
+      "size_bytes": 349,
+      "line_count": 8
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-01-vague-task/ci_report.json",
+      "language": "json",
+      "size_bytes": 727,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-01-vague-task/task.txt",
+      "language": "unknown",
+      "size_bytes": 63,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-02-well-scoped-task/ci_report.json",
+      "language": "json",
+      "size_bytes": 742,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-02-well-scoped-task/task.txt",
+      "language": "unknown",
+      "size_bytes": 135,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-03-hotspot-task/ci_report.json",
+      "language": "json",
+      "size_bytes": 813,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-03-hotspot-task/task.txt",
+      "language": "unknown",
+      "size_bytes": 75,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-04-no-verification-task/ci_report.json",
+      "language": "json",
+      "size_bytes": 568,
+      "line_count": 24
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-04-no-verification-task/task.txt",
+      "language": "unknown",
+      "size_bytes": 77,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-05-security-task/ci_report.json",
+      "language": "json",
+      "size_bytes": 590,
+      "line_count": 24
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-05-security-task/task.txt",
+      "language": "unknown",
+      "size_bytes": 149,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-06-no-relevant-modules-task/ci_report.json",
+      "language": "json",
+      "size_bytes": 694,
+      "line_count": 31
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-06-no-relevant-modules-task/task.txt",
+      "language": "unknown",
+      "size_bytes": 69,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-07-dependency-blocker-task/ci_report.json",
+      "language": "json",
+      "size_bytes": 525,
+      "line_count": 24
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-07-dependency-blocker-task/task.txt",
+      "language": "unknown",
+      "size_bytes": 108,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-08-conflicting-scope-task/ci_report.json",
+      "language": "json",
+      "size_bytes": 539,
+      "line_count": 24
+    },
+    {
+      "path": "evaluations/feature-planner/fixtures/case-08-conflicting-scope-task/task.txt",
+      "language": "unknown",
+      "size_bytes": 138,
+      "line_count": 1
+    },
+    {
+      "path": "examples/acceptance-test-engineer/example-run.md",
+      "language": "markdown",
+      "size_bytes": 3742,
+      "line_count": 73
+    },
+    {
+      "path": "examples/adversarial-diff-reviewer/dogfood.diff",
+      "language": "unknown",
+      "size_bytes": 2254,
+      "line_count": 46
+    },
+    {
+      "path": "examples/adversarial-diff-reviewer/example-run.md",
+      "language": "markdown",
+      "size_bytes": 3566,
+      "line_count": 69
+    },
+    {
+      "path": "examples/codebase-intelligence/example-run.md",
+      "language": "markdown",
+      "size_bytes": 2352,
+      "line_count": 48
+    },
+    {
+      "path": "examples/codebase-intelligence/report.json",
+      "language": "json",
+      "size_bytes": 31601,
+      "line_count": 968
+    },
+    {
+      "path": "examples/codebase-intelligence/report.md",
+      "language": "markdown",
+      "size_bytes": 2461,
+      "line_count": 47
+    },
+    {
+      "path": "examples/feature-planner/ci-report/report.json",
+      "language": "json",
+      "size_bytes": 110582,
+      "line_count": 3252
+    },
+    {
+      "path": "project-memory-bank/00-project-vision.md",
+      "language": "markdown",
+      "size_bytes": 1978,
+      "line_count": 66
+    },
+    {
+      "path": "project-memory-bank/01-product-thesis.md",
+      "language": "markdown",
+      "size_bytes": 2648,
+      "line_count": 64
+    },
+    {
+      "path": "project-memory-bank/02-requirements.md",
+      "language": "markdown",
+      "size_bytes": 2014,
+      "line_count": 40
+    },
+    {
+      "path": "project-memory-bank/03-architecture.md",
+      "language": "markdown",
+      "size_bytes": 11467,
+      "line_count": 221
+    },
+    {
+      "path": "project-memory-bank/04-skill-contract.md",
+      "language": "markdown",
+      "size_bytes": 2169,
+      "line_count": 90
+    },
+    {
+      "path": "project-memory-bank/05-evaluation-framework.md",
+      "language": "markdown",
+      "size_bytes": 2831,
+      "line_count": 89
+    },
+    {
+      "path": "project-memory-bank/06-security-model.md",
+      "language": "markdown",
+      "size_bytes": 1619,
+      "line_count": 53
+    },
+    {
+      "path": "project-memory-bank/07-current-state.md",
+      "language": "markdown",
+      "size_bytes": 6579,
+      "line_count": 124
+    },
+    {
+      "path": "project-memory-bank/08-roadmap.md",
+      "language": "markdown",
+      "size_bytes": 5194,
+      "line_count": 111
+    },
+    {
+      "path": "project-memory-bank/11-decisions.md",
+      "language": "markdown",
+      "size_bytes": 12427,
+      "line_count": 245
+    },
+    {
+      "path": "project-memory-bank/12-known-limitations.md",
+      "language": "markdown",
+      "size_bytes": 11955,
+      "line_count": 214
+    },
+    {
+      "path": "project-memory-bank/16-assumptions-and-validation.md",
+      "language": "markdown",
+      "size_bytes": 11934,
+      "line_count": 214
+    },
+    {
+      "path": "project-memory-bank/17-experiment-viability-check.md",
+      "language": "markdown",
+      "size_bytes": 6023,
+      "line_count": 105
+    },
+    {
+      "path": "project-memory-bank/active-context.md",
+      "language": "markdown",
+      "size_bytes": 3814,
+      "line_count": 74
+    },
+    {
+      "path": "project-memory-bank/implementation-status.md",
+      "language": "markdown",
+      "size_bytes": 5589,
+      "line_count": 83
+    },
+    {
+      "path": "project-memory-bank/sprint-history/SPRINT-00.md",
+      "language": "markdown",
+      "size_bytes": 3088,
+      "line_count": 100
+    },
+    {
+      "path": "project-memory-bank/sprint-history/SPRINT-01.md",
+      "language": "markdown",
+      "size_bytes": 3402,
+      "line_count": 77
+    },
+    {
+      "path": "project-memory-bank/sprint-history/SPRINT-02.md",
+      "language": "markdown",
+      "size_bytes": 5209,
+      "line_count": 103
+    },
+    {
+      "path": "project-memory-bank/sprint-history/SPRINT-03.md",
+      "language": "markdown",
+      "size_bytes": 6835,
+      "line_count": 123
+    },
+    {
+      "path": "skills/acceptance-test-engineer/pyproject.toml",
+      "language": "toml",
+      "size_bytes": 354,
+      "line_count": 13
+    },
+    {
+      "path": "skills/acceptance-test-engineer/README.md",
+      "language": "markdown",
+      "size_bytes": 1199,
+      "line_count": 38
+    },
+    {
+      "path": "skills/acceptance-test-engineer/SKILL.md",
+      "language": "markdown",
+      "size_bytes": 10796,
+      "line_count": 209
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/cli.py",
+      "language": "python",
+      "size_bytes": 2079,
+      "line_count": 65
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/models.py",
+      "language": "python",
+      "size_bytes": 1201,
+      "line_count": 49
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/patterns.py",
+      "language": "python",
+      "size_bytes": 3834,
+      "line_count": 94
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/render_json.py",
+      "language": "python",
+      "size_bytes": 330,
+      "line_count": 12
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/render_markdown.py",
+      "language": "python",
+      "size_bytes": 2002,
+      "line_count": 53
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/report.py",
+      "language": "python",
+      "size_bytes": 798,
+      "line_count": 25
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/requirement_parser.py",
+      "language": "python",
+      "size_bytes": 1324,
+      "line_count": 36
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/stats.py",
+      "language": "python",
+      "size_bytes": 1052,
+      "line_count": 28
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+      "language": "python",
+      "size_bytes": 1354,
+      "line_count": 42
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/__init__.py",
+      "language": "python",
+      "size_bytes": 22,
+      "line_count": 1
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+      "language": "python",
+      "size_bytes": 975,
+      "line_count": 32
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_report.py",
+      "language": "python",
+      "size_bytes": 511,
+      "line_count": 15
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_requirement_parser.py",
+      "language": "python",
+      "size_bytes": 1242,
+      "line_count": 37
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_stats.py",
+      "language": "python",
+      "size_bytes": 913,
+      "line_count": 26
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_testability_scanner.py",
+      "language": "python",
+      "size_bytes": 1860,
+      "line_count": 48
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/pyproject.toml",
+      "language": "toml",
+      "size_bytes": 342,
+      "line_count": 13
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/README.md",
+      "language": "markdown",
+      "size_bytes": 1085,
+      "line_count": 37
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/SKILL.md",
+      "language": "markdown",
+      "size_bytes": 9605,
+      "line_count": 188
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+      "language": "python",
+      "size_bytes": 1997,
+      "line_count": 64
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/diff_parser.py",
+      "language": "python",
+      "size_bytes": 3895,
+      "line_count": 124
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/models.py",
+      "language": "python",
+      "size_bytes": 1481,
+      "line_count": 68
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/render_json.py",
+      "language": "python",
+      "size_bytes": 314,
+      "line_count": 12
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/render_markdown.py",
+      "language": "python",
+      "size_bytes": 1871,
+      "line_count": 55
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/report.py",
+      "language": "python",
+      "size_bytes": 583,
+      "line_count": 20
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/risk_patterns.py",
+      "language": "python",
+      "size_bytes": 3897,
+      "line_count": 113
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+      "language": "python",
+      "size_bytes": 2149,
+      "line_count": 49
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/stats.py",
+      "language": "python",
+      "size_bytes": 993,
+      "line_count": 35
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/__init__.py",
+      "language": "python",
+      "size_bytes": 22,
+      "line_count": 1
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_cli.py",
+      "language": "python",
+      "size_bytes": 1755,
+      "line_count": 58
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_diff_parser.py",
+      "language": "python",
+      "size_bytes": 2282,
+      "line_count": 91
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+      "language": "python",
+      "size_bytes": 1148,
+      "line_count": 44
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_report.py",
+      "language": "python",
+      "size_bytes": 665,
+      "line_count": 25
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+      "language": "python",
+      "size_bytes": 2256,
+      "line_count": 92
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_stats.py",
+      "language": "python",
+      "size_bytes": 916,
+      "line_count": 39
+    },
+    {
+      "path": "skills/codebase-intelligence/pyproject.toml",
+      "language": "toml",
+      "size_bytes": 334,
+      "line_count": 13
+    },
+    {
+      "path": "skills/codebase-intelligence/README.md",
+      "language": "markdown",
+      "size_bytes": 662,
+      "line_count": 30
+    },
+    {
+      "path": "skills/codebase-intelligence/SKILL.md",
+      "language": "markdown",
+      "size_bytes": 7021,
+      "line_count": 148
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/cli.py",
+      "language": "python",
+      "size_bytes": 1643,
+      "line_count": 51
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/external_deps.py",
+      "language": "python",
+      "size_bytes": 2838,
+      "line_count": 82
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/generic_parser.py",
+      "language": "python",
+      "size_bytes": 1404,
+      "line_count": 43
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/graph.py",
+      "language": "python",
+      "size_bytes": 4014,
+      "line_count": 112
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/models.py",
+      "language": "python",
+      "size_bytes": 2260,
+      "line_count": 80
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/python_parser.py",
+      "language": "python",
+      "size_bytes": 3182,
+      "line_count": 90
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/render_json.py",
+      "language": "python",
+      "size_bytes": 464,
+      "line_count": 16
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/render_markdown.py",
+      "language": "python",
+      "size_bytes": 3170,
+      "line_count": 79
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/report.py",
+      "language": "python",
+      "size_bytes": 3457,
+      "line_count": 89
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/scanner.py",
+      "language": "python",
+      "size_bytes": 3934,
+      "line_count": 120
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/__init__.py",
+      "language": "python",
+      "size_bytes": 111,
+      "line_count": 3
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_external_deps.py",
+      "language": "python",
+      "size_bytes": 1344,
+      "line_count": 44
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_graph.py",
+      "language": "python",
+      "size_bytes": 2122,
+      "line_count": 70
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_integration.py",
+      "language": "python",
+      "size_bytes": 1164,
+      "line_count": 26
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_python_parser.py",
+      "language": "python",
+      "size_bytes": 2282,
+      "line_count": 68
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_report.py",
+      "language": "python",
+      "size_bytes": 1080,
+      "line_count": 29
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_scanner.py",
+      "language": "python",
+      "size_bytes": 1933,
+      "line_count": 57
+    },
+    {
+      "path": "skills/feature-planner/pyproject.toml",
+      "language": "toml",
+      "size_bytes": 424,
+      "line_count": 13
+    },
+    {
+      "path": "skills/feature-planner/README.md",
+      "language": "markdown",
+      "size_bytes": 1583,
+      "line_count": 46
+    },
+    {
+      "path": "skills/feature-planner/SKILL.md",
+      "language": "markdown",
+      "size_bytes": 12724,
+      "line_count": 237
+    },
+    {
+      "path": "skills/feature-planner/engine/ci_report_loader.py",
+      "language": "python",
+      "size_bytes": 2444,
+      "line_count": 65
+    },
+    {
+      "path": "skills/feature-planner/engine/cli.py",
+      "language": "python",
+      "size_bytes": 2611,
+      "line_count": 79
+    },
+    {
+      "path": "skills/feature-planner/engine/models.py",
+      "language": "python",
+      "size_bytes": 2102,
+      "line_count": 80
+    },
+    {
+      "path": "skills/feature-planner/engine/planning_patterns.py",
+      "language": "python",
+      "size_bytes": 2768,
+      "line_count": 76
+    },
+    {
+      "path": "skills/feature-planner/engine/planning_scanner.py",
+      "language": "python",
+      "size_bytes": 1130,
+      "line_count": 40
+    },
+    {
+      "path": "skills/feature-planner/engine/relevance_scorer.py",
+      "language": "python",
+      "size_bytes": 2866,
+      "line_count": 86
+    },
+    {
+      "path": "skills/feature-planner/engine/render_json.py",
+      "language": "python",
+      "size_bytes": 311,
+      "line_count": 12
+    },
+    {
+      "path": "skills/feature-planner/engine/render_markdown.py",
+      "language": "python",
+      "size_bytes": 2479,
+      "line_count": 64
+    },
+    {
+      "path": "skills/feature-planner/engine/report.py",
+      "language": "python",
+      "size_bytes": 1176,
+      "line_count": 35
+    },
+    {
+      "path": "skills/feature-planner/engine/stats.py",
+      "language": "python",
+      "size_bytes": 506,
+      "line_count": 17
+    },
+    {
+      "path": "skills/feature-planner/engine/__init__.py",
+      "language": "python",
+      "size_bytes": 22,
+      "line_count": 1
+    },
+    {
+      "path": "skills/feature-planner/tests/test_ci_report_loader.py",
+      "language": "python",
+      "size_bytes": 1694,
+      "line_count": 56
+    },
+    {
+      "path": "skills/feature-planner/tests/test_integration.py",
+      "language": "python",
+      "size_bytes": 1557,
+      "line_count": 50
+    },
+    {
+      "path": "skills/feature-planner/tests/test_planning_scanner.py",
+      "language": "python",
+      "size_bytes": 1308,
+      "line_count": 40
+    },
+    {
+      "path": "skills/feature-planner/tests/test_relevance_scorer.py",
+      "language": "python",
+      "size_bytes": 2197,
+      "line_count": 68
+    },
+    {
+      "path": "skills/feature-planner/tests/test_report.py",
+      "language": "python",
+      "size_bytes": 1167,
+      "line_count": 40
+    },
+    {
+      "path": "skills/feature-planner/tests/test_stats.py",
+      "language": "python",
+      "size_bytes": 630,
+      "line_count": 19
+    }
+  ],
+  "modules": [
+    {
+      "path": "evaluations/acceptance-test-engineer/run_evaluation.py",
+      "language": "python",
+      "docstring": "Evaluation harness for the acceptance-test-engineer skill.\n\nTwo layers scored separately, per project-memory-bank/05-evaluation-framework.md:\n\n1. Deterministic testability-flag layer: scored automatically \u2014 actual engine\n   output diffed against hand-authored ground truth (same rigor as Phases 1-2).\n2. Judgment layer: this skill's core value is the agent's own derivation of\n   acceptance test cases against the 10-category coverage checklist, which\n   code cannot generate. `actual/*.actual.json` holds real cases this\n   session's agent produced by actually following the SKILL.md workflow\n   against each fixture (not fabricated to match the ground truth). This\n   script scores those actual cases against expected coverage categories via\n   category match plus a keyword hit, computing Precision/Recall/False\n   Positives/False Negatives.\n\nThis is single-run, single-rater evidence (this session's agent only) \u2014 NOT\nthe inter-rater-agreement experiment project-memory-bank/16-assumptions-and-\nvalidation.md (A5) calls for. See RESULTS.md's summary for that caveat, which\napplies identically to this skill as it did to adversarial-diff-reviewer.",
+      "functions": [
+        "score_testability_flags",
+        "_case_text",
+        "_case_matches",
+        "score_judgment_layer",
+        "run"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "sys",
+        "time",
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/run_evaluation.py",
+      "language": "python",
+      "docstring": "Evaluation harness for the adversarial-diff-reviewer skill.\n\nTwo layers scored separately, per project-memory-bank/05-evaluation-framework.md:\n\n1. Deterministic risk-flag layer: scored automatically, same as Phase 1 \u2014\n   actual engine output diffed against hand-authored ground truth.\n2. Judgment layer: this skill's core value is the agent's own adversarial\n   reasoning, which code cannot generate. `actual/*.actual.json` holds real\n   findings this session's agent produced by actually following the SKILL.md\n   workflow against each fixture (not fabricated to match the ground truth).\n   This script scores those actual findings against expected defects via\n   category+file match plus a keyword hit in the description, computing\n   Precision/Recall/False Positives/False Negatives.\n\nThis is single-run, single-rater evidence (this session's agent only) \u2014 NOT\nthe inter-rater-agreement experiment project-memory-bank/16-assumptions-and-\nvalidation.md (A5) calls for. See RESULTS.md's summary for that caveat.",
+      "functions": [
+        "score_risk_flags",
+        "_defect_matches",
+        "score_judgment_layer",
+        "run"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "sys",
+        "time",
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/run_evaluation.py",
+      "language": "python",
+      "docstring": "Evaluation harness for the codebase-intelligence skill.\n\nImplements the Skill -> Evaluation Dataset -> Runtime -> Execution -> Scoring\n-> Report pipeline from project-memory-bank/05-evaluation-framework.md, scoped\nto this one skill (per that file: \"do not over-engineer this before there's\nevidence it's needed\" \u2014 no generic multi-skill harness yet).\n\nCorrectness/Completeness/Efficiency are scored automatically by diffing actual\noutput against hand-authored ground truth. Safety/Relevance/Explainability are\nNOT scored here \u2014 the framework requires those never be self-evaluated by the\nmodel alone, so they are left for human review in RESULTS.md.",
+      "functions": [
+        "summarize",
+        "score_case",
+        "run"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "sys",
+        "time",
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/server.py",
+      "language": "python",
+      "docstring": "Simple server script.",
+      "functions": [
+        "start"
+      ],
+      "classes": [],
+      "imports": [
+        "os"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+      "language": "javascript",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "./utils"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js",
+      "language": "javascript",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+      "language": "python",
+      "docstring": "Command line entry point.",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        ".core"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+      "language": "python",
+      "docstring": "Core logic.",
+      "functions": [
+        "run"
+      ],
+      "classes": [],
+      "imports": [
+        ".utils"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py",
+      "language": "python",
+      "docstring": "Small utility helpers.",
+      "functions": [
+        "double"
+      ],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/__init__.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+      "language": "python",
+      "docstring": "A simple standalone script with no internal dependencies.",
+      "functions": [
+        "greet"
+      ],
+      "classes": [],
+      "imports": [
+        "sys"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/feature-planner/run_evaluation.py",
+      "language": "python",
+      "docstring": "Evaluation harness for the feature-planner skill.\n\nTwo layers scored separately, per project-memory-bank/05-evaluation-framework.md:\n\n1. Deterministic layer: planning-anti-pattern flags AND relevance scoring \u2014\n   scored automatically, actual engine output diffed against hand-authored\n   ground truth (same rigor as Phases 1-3). Each fixture pairs a task.txt\n   with a synthetic ci_report.json (matching codebase-intelligence's real\n   report.json schema) so the required-composition precondition (ADR-010)\n   is exercised on every fixture, not bypassed.\n2. Judgment layer: this skill's core value is the agent's own derivation of\n   a structured plan against the 10-category Plan Quality checklist, which\n   code cannot generate. `actual/*.actual.json` holds real cases this\n   session's agent produced by actually following the SKILL.md workflow\n   against each fixture (not fabricated to match the ground truth). This\n   script scores those actual cases against expected plan categories via\n   category match plus a keyword hit, computing Precision/Recall/False\n   Positives/False Negatives.\n\nThis is single-run, single-rater evidence (this session's agent only) \u2014 NOT\nthe inter-rater-agreement experiment project-memory-bank/16-assumptions-and-\nvalidation.md (A5) calls for. This is the THIRD judgment-based skill\nevaluated this way (after adversarial-diff-reviewer and\nacceptance-test-engineer) \u2014 see RESULTS.md's summary for that caveat.",
+      "functions": [
+        "score_planning_flags",
+        "_case_text",
+        "_case_matches",
+        "score_judgment_layer",
+        "run"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "sys",
+        "time",
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/cli.py",
+      "language": "python",
+      "docstring": "Thin CLI entry point. All real logic lives in report.py and the renderers.\n\nUsage:\n    python -m engine.cli <requirement-file-or-'-'> [--format json|markdown|both] [--out DIR]\n\nReads free-text requirement/feature-description input from a file path or\nstdin.",
+      "functions": [
+        "_read_requirement_text",
+        "main"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "argparse",
+        "sys",
+        "pathlib",
+        ".render_json",
+        ".render_markdown",
+        ".report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/models.py",
+      "language": "python",
+      "docstring": "Shared dataclass schema for the acceptance-test-engineer engine.",
+      "functions": [],
+      "classes": [
+        "RequirementSentence",
+        "TestabilityFlag",
+        "RequirementStats",
+        "RequirementContext",
+        "AcceptanceTestabilityReport"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/patterns.py",
+      "language": "python",
+      "docstring": "Fixed table of mechanically-detectable testability anti-patterns.\n\nThese flag *candidates for ambiguity*, not defects \u2014 a regex cannot know\nwhether a requirement is complete, only whether it exhibits a shape known to\ncorrelate with untestable requirements (unquantified adjectives, weak modal\nverbs, total silence on error/boundary behavior). The agent's derivation of\nactual acceptance test cases (SKILL.md Step 3, against the acceptance-\ncoverage checklist in project-memory-bank/05-evaluation-framework.md) is what\nactually defines correctness; see project-memory-bank/12-known-limitations.md\nfor this layer's documented false-positive/negative rate.",
+      "functions": [],
+      "classes": [
+        "TestabilityPattern",
+        "AbsencePattern"
+      ],
+      "imports": [
+        "__future__",
+        "re",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/render_json.py",
+      "language": "python",
+      "docstring": "Full-detail JSON rendering of an AcceptanceTestabilityReport.",
+      "functions": [
+        "render_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "json",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/render_markdown.py",
+      "language": "python",
+      "docstring": "Condensed, human/agent-readable Markdown rendering of an\nAcceptanceTestabilityReport.",
+      "functions": [
+        "render_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/report.py",
+      "language": "python",
+      "docstring": "Orchestrates parse -> scan -> stats into the deterministic report packet.",
+      "functions": [
+        "build_report"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models",
+        ".requirement_parser",
+        ".stats",
+        ".testability_scanner"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/requirement_parser.py",
+      "language": "python",
+      "docstring": "Stdlib-only parser: free-text requirement -> structured RequirementContext.\n\nNaive by design (see project-memory-bank/12-known-limitations.md): splits on\nnewlines first (so list/bullet items stay distinct sentences even without\nterminal punctuation), then splits each line into sentences on '.', '!', '?'.\nAbbreviations like \"e.g.\" or \"i.e.\" will over-split \u2014 acceptable for a\ntestability *lead* generator, not acceptable if this were claiming to be a\nreal NLP sentence boundary detector.",
+      "functions": [
+        "parse_requirement"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/stats.py",
+      "language": "python",
+      "docstring": "Objective, non-judgmental stats about a parsed requirement.",
+      "functions": [
+        "compute_stats"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+      "language": "python",
+      "docstring": "Applies patterns.py's testability anti-pattern table to a RequirementContext.",
+      "functions": [
+        "scan"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models",
+        ".patterns"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/__init__.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_full_pipeline_produces_valid_json_and_markdown",
+        "test_report_never_fabricates_acceptance_criteria"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "engine.render_json",
+        "engine.render_markdown",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_report.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_report_assembles_stats_flags_and_sentences",
+        "test_empty_requirement_produces_warning"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_requirement_parser.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_splits_multiple_sentences_on_one_line",
+        "test_preserves_bullet_lines_as_distinct_sentences_without_terminal_punctuation",
+        "test_numbered_list_bullet_prefix_is_stripped",
+        "test_blank_lines_produce_no_sentences",
+        "test_empty_text_produces_no_sentences",
+        "test_sentence_indices_are_sequential"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.requirement_parser"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_stats.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_sentence_and_word_counts",
+        "test_existing_criteria_markers_counted",
+        "test_numeric_quantifier_count"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.requirement_parser",
+        "engine.stats",
+        "engine.testability_scanner"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/acceptance-test-engineer/tests/test_testability_scanner.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_vague_performance_term_flagged",
+        "test_weak_modal_should_flagged",
+        "test_no_error_handling_signal_flagged_when_absent",
+        "test_no_error_handling_signal_not_flagged_when_present",
+        "test_no_boundary_signal_flagged_when_no_numbers_present",
+        "test_well_specified_requirement_produces_no_flags",
+        "test_whole_document_flags_have_no_sentence_index"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.requirement_parser",
+        "engine.testability_scanner"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+      "language": "python",
+      "docstring": "Thin CLI entry point. All real logic lives in report.py and the renderers.\n\nUsage:\n    python -m engine.cli <diff-file-or-'-'> [--format json|markdown|both] [--out DIR]\n\nReads a unified diff (e.g. `git diff` output) from a file path or stdin.",
+      "functions": [
+        "_read_diff_text",
+        "main"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "argparse",
+        "sys",
+        "pathlib",
+        ".render_json",
+        ".render_markdown",
+        ".report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/diff_parser.py",
+      "language": "python",
+      "docstring": "Parses unified diff text (git-style or plain) into a structured DiffContext.\n\nDeterministic and stdlib-only. Does not interpret meaning \u2014 that is the\nagent's job per the SKILL.md adversarial workflow.",
+      "functions": [
+        "_strip_prefix",
+        "parse_diff"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/models.py",
+      "language": "python",
+      "docstring": "Shared dataclass schema for the adversarial-diff-reviewer engine.",
+      "functions": [],
+      "classes": [
+        "LineChange",
+        "Hunk",
+        "DiffFile",
+        "RiskFlag",
+        "DiffStats",
+        "DiffContext",
+        "DiffIntelligenceReport"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/render_json.py",
+      "language": "python",
+      "docstring": "Full-detail JSON rendering of a DiffIntelligenceReport.",
+      "functions": [
+        "render_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "json",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/render_markdown.py",
+      "language": "python",
+      "docstring": "Condensed, human/agent-readable Markdown rendering of a DiffIntelligenceReport.",
+      "functions": [
+        "render_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/report.py",
+      "language": "python",
+      "docstring": "Orchestrator: assembles the deterministic pre-review packet (DiffIntelligenceReport).",
+      "functions": [
+        "build_report"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".diff_parser",
+        ".models",
+        ".risk_scanner",
+        ".stats"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/risk_patterns.py",
+      "language": "python",
+      "docstring": "Fixed table of mechanically-detectable risk patterns for added diff lines.\n\nThese are *leads*, not verdicts \u2014 a regex hit does not mean a defect exists,\nand the absence of a hit does not mean the line is safe. The agent's\nadversarial reasoning (SKILL.md Step 3) is what actually judges the diff; see\n[[12-known-limitations]] for this layer's documented false-positive/negative\nrate.",
+      "functions": [],
+      "classes": [
+        "RiskPattern"
+      ],
+      "imports": [
+        "__future__",
+        "re",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+      "language": "python",
+      "docstring": "Applies the risk pattern table to added lines in a DiffContext.",
+      "functions": [
+        "scan"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models",
+        ".risk_patterns"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/stats.py",
+      "language": "python",
+      "docstring": "Computes objective diff statistics from a parsed DiffContext.",
+      "functions": [
+        "compute_stats"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/__init__.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_cli.py",
+      "language": "python",
+      "docstring": "CLI behavior tests \u2014 added in Phase 3 after dogfooding acceptance-test-\nengineer against this CLI's real behavior surfaced that none of it (stdin\nread, --out file writing, nonexistent-path exit code) had test coverage. See\nexamples/acceptance-test-engineer/example-run.md.",
+      "functions": [
+        "test_nonexistent_path_exits_nonzero_with_error",
+        "test_stdin_dash_reads_diff",
+        "test_out_directory_writes_both_report_files",
+        "test_format_json_only_writes_only_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "io",
+        "engine.cli"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_diff_parser.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_parses_file_paths_and_hunk_bounds",
+        "test_line_kinds_and_line_numbers",
+        "test_new_file_detected",
+        "test_deleted_file_detected",
+        "test_multi_file_diff_produces_multiple_files",
+        "test_no_newline_marker_is_ignored",
+        "test_empty_diff_produces_no_files"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.diff_parser"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_full_pipeline_produces_valid_json_and_markdown",
+        "test_secret_value_never_leaks_into_json_or_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "engine.render_json",
+        "engine.render_markdown",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_report.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_build_report_basic_shape",
+        "test_build_report_on_empty_diff"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_hardcoded_secret_flagged_and_redacted",
+        "test_eval_call_flagged",
+        "test_bare_except_flagged",
+        "test_clean_diff_produces_no_flags",
+        "test_all_occurrences_of_a_secret_pattern_on_one_line_are_redacted",
+        "test_flags_only_scan_added_lines_not_removed"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.diff_parser",
+        "engine.risk_scanner"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/tests/test_stats.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_stats_counts_files_and_lines",
+        "test_stats_on_empty_diff"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.diff_parser",
+        "engine.stats"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/cli.py",
+      "language": "python",
+      "docstring": "Thin CLI entry point. All real logic lives in report.py and the renderers.\n\nUsage:\n    python -m engine.cli <path> [--format json|markdown|both] [--out DIR]",
+      "functions": [
+        "main"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "argparse",
+        "sys",
+        "pathlib",
+        ".render_json",
+        ".render_markdown",
+        ".report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/external_deps.py",
+      "language": "python",
+      "docstring": "Parses external (third-party) dependency manifests.\n\nStdlib-only by design: uses a small manual TOML scan instead of `tomllib`\nso the engine works on Python 3.10+ without a version-dependent import.",
+      "functions": [
+        "parse_external_dependencies",
+        "_parse_requirements_txt",
+        "_parse_pyproject_toml",
+        "_parse_package_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/generic_parser.py",
+      "language": "python",
+      "docstring": "Heuristic (regex-based) import extraction for non-Python languages.\n\nKNOWN LIMITATION (see project-memory-bank/12-known-limitations.md): this is\nnot a real parser. It pattern-matches common import syntaxes for JS/TS, Java,\nand Go. It will miss dynamic imports, re-exports, and unusual formatting.\nTreat its output as a hint, not ground truth.",
+      "functions": [
+        "parse_generic_file"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/graph.py",
+      "language": "python",
+      "docstring": "Builds the internal (repo-local) dependency graph from parsed imports.\n\nOnly imports that resolve to a file inside the scanned repo become graph\nedges. Everything else (stdlib, third-party packages) is left out of the\ngraph on purpose \u2014 external_deps.py handles third-party dependencies\nseparately, so the graph stays a clean map of internal coupling.",
+      "functions": [
+        "build_graph",
+        "_build_python_index",
+        "_resolve_python_import",
+        "_resolve_js_import",
+        "_normalize_posix"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "collections",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/models.py",
+      "language": "python",
+      "docstring": "Shared data schema for the Codebase Intelligence report.\n\nEvery other engine module produces or consumes these types. Keeping the\nschema in one file means the JSON/Markdown renderers and the evaluation\nharness all agree on the same contract without importing each other.",
+      "functions": [],
+      "classes": [
+        "FileInfo",
+        "ModuleInfo",
+        "EntryPoint",
+        "ExternalDependency",
+        "DependencyEdge",
+        "DependencyGraph",
+        "DocCoverage",
+        "CodebaseIntelligenceReport"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/python_parser.py",
+      "language": "python",
+      "docstring": "AST-based structural parsing for Python files.\n\nOnly structure is extracted (imports, def/class names, docstrings) \u2014 never\nfull file contents \u2014 so downstream consumers get a condensed context object,\nnot a repo dump (see NFR2 in project-memory-bank/02-requirements.md).",
+      "functions": [
+        "parse_python_file",
+        "_is_top_level",
+        "_has_main_guard"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "ast",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/render_json.py",
+      "language": "python",
+      "docstring": "Full-detail JSON rendering of a CodebaseIntelligenceReport.\n\nThis is the machine-readable output other skills should consume \u2014 it is\nnot truncated, unlike the Markdown renderer.",
+      "functions": [
+        "render_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "dataclasses",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/render_markdown.py",
+      "language": "python",
+      "docstring": "Condensed, human/agent-readable Markdown rendering.\n\nDeliberately summarized (top hotspots, not every file) so the output stays\n\"minimum sufficient context\" even for large repos \u2014 see NFR2 in\nproject-memory-bank/02-requirements.md. Full detail belongs in the JSON\noutput (render_json.py), not here.",
+      "functions": [
+        "render_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/report.py",
+      "language": "python",
+      "docstring": "Orchestrates scanner + parsers + graph + external_deps into one report.\n\nThis is the only module that knows the full pipeline order; every other\nmodule is independently testable in isolation.",
+      "functions": [
+        "build_report",
+        "_parse_modules",
+        "_find_entry_points",
+        "_compute_doc_coverage"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "collections",
+        "datetime",
+        "pathlib",
+        ".external_deps",
+        ".generic_parser",
+        ".graph",
+        ".python_parser",
+        ".scanner",
+        ".models",
+        "json"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/scanner.py",
+      "language": "python",
+      "docstring": "Repo walk: builds the file inventory and applies exclusion/security rules.\n\nSecurity note: this module NEVER reads the contents of a file it classifies\nas secret-shaped (see SECRET_NAME_PATTERNS). Those files are recorded only\nas a warning (filename, nothing else) so the rest of the engine can never\nleak their contents downstream.",
+      "functions": [
+        "is_secret_shaped",
+        "detect_language",
+        "scan",
+        "_count_lines"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "os",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/__init__.py",
+      "language": "python",
+      "docstring": "Codebase Intelligence engine: deterministic, stdlib-only repo structure analysis.",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_external_deps.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_parses_requirements_txt",
+        "test_parses_package_json",
+        "test_no_manifests_returns_empty",
+        "test_parses_pyproject_toml_dependencies"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_graph.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_resolves_internal_python_import",
+        "test_ignores_external_python_import",
+        "test_resolves_relative_python_import",
+        "test_resolves_relative_js_import",
+        "test_ignores_bare_js_specifier",
+        "test_hotspots_ranks_by_combined_degree"
+      ],
+      "classes": [],
+      "imports": [
+        "engine",
+        "engine.models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_integration.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_full_pipeline_produces_valid_json_and_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "pathlib",
+        "engine.render_json",
+        "engine.render_markdown",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_python_parser.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_parses_imports_defs_classes_docstring",
+        "test_handles_syntax_error_gracefully",
+        "test_relative_imports_captured",
+        "test_has_main_guard_detects_real_guard",
+        "test_has_main_guard_ignores_string_mentions"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_report.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_build_report_basic_shape",
+        "test_build_report_on_empty_dir"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_scanner.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_scan_finds_python_files",
+        "test_scan_excludes_default_dirs",
+        "test_scan_skips_secret_shaped_files_without_reading_content",
+        "test_scan_skips_oversized_files",
+        "test_detect_language"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/ci_report_loader.py",
+      "language": "python",
+      "docstring": "Loads a codebase-intelligence report.json into a lightweight local\nCiReportContext \u2014 independent of the codebase-intelligence package itself\n(no cross-package import), so this engine stays portable on its own.\n\nA missing or malformed report is a hard failure, not a degraded path: see\nproject-memory-bank/11-decisions.md ADR-010. Grounding \"affected files\" in\nreal structural data is this skill's entire value proposition \u2014 proceeding\nwithout it would let the agent fabricate plausible-looking file paths\ninstead of deriving them from real structure.",
+      "functions": [
+        "load_ci_report"
+      ],
+      "classes": [
+        "CiReportError"
+      ],
+      "imports": [
+        "__future__",
+        "json",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/cli.py",
+      "language": "python",
+      "docstring": "Thin CLI entry point. All real logic lives in report.py and the renderers.\n\nUsage:\n    python -m engine.cli <task-file-or-'-'> --ci-report <report.json>         [--format json|markdown|both] [--out DIR]\n\nReads a free-text task description from a file path or stdin, and a\n*required* codebase-intelligence report.json path \u2014 this is a hard\nprecondition, not optional context (project-memory-bank/11-decisions.md\nADR-010).",
+      "functions": [
+        "_read_task_text",
+        "main"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "argparse",
+        "sys",
+        "pathlib",
+        ".ci_report_loader",
+        ".render_json",
+        ".render_markdown",
+        ".report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/models.py",
+      "language": "python",
+      "docstring": "Shared dataclass schema for the feature-planner engine.",
+      "functions": [],
+      "classes": [
+        "CiModule",
+        "CiDependencyGraph",
+        "CiReportContext",
+        "RelevanceScore",
+        "RelevanceReport",
+        "PlanningFlag",
+        "TaskStats",
+        "FeaturePlanningReport"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/planning_patterns.py",
+      "language": "python",
+      "docstring": "Fixed table of mechanically-detectable planning anti-patterns in a\nfree-text task description.\n\nMirrors acceptance-test-engineer's testability anti-pattern table\n(project-memory-bank/11-decisions.md ADR-007, reused a third time here):\nthese flag *candidates for an under-specified task*, not verdicts \u2014 a regex\ncannot know if a plan will be good, only whether the task description\nexhibits wording shapes that correlate with vague scope. The agent's Step 3\nstructured-plan derivation (against the Plan Quality checklist in\nproject-memory-bank/05-evaluation-framework.md) is what actually defines\nthe plan.",
+      "functions": [],
+      "classes": [
+        "PlanningPattern",
+        "AbsencePattern"
+      ],
+      "imports": [
+        "__future__",
+        "re",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/planning_scanner.py",
+      "language": "python",
+      "docstring": "Applies planning_patterns.py's anti-pattern table to a free-text task\ndescription.",
+      "functions": [
+        "scan"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models",
+        ".planning_patterns"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/relevance_scorer.py",
+      "language": "python",
+      "docstring": "Deterministic keyword-overlap relevance scoring of codebase-intelligence\nmodules against a free-text task description.\n\nThis is a mechanical lead generator, not semantic understanding (see\nproject-memory-bank/12-known-limitations.md) \u2014 it can only surface modules\nwhose path/names/docstring/imports happen to share vocabulary with the task\ntext. The agent's Step 3 plan derivation is what actually decides which\nfiles are truly affected; this layer exists so that decision is grounded in\nreal repo structure instead of guessed from scratch.",
+      "functions": [
+        "_extract_keywords",
+        "score_relevance"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/render_json.py",
+      "language": "python",
+      "docstring": "Full-detail JSON rendering of a FeaturePlanningReport.",
+      "functions": [
+        "render_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "json",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/render_markdown.py",
+      "language": "python",
+      "docstring": "Condensed, human/agent-readable Markdown rendering of a\nFeaturePlanningReport.",
+      "functions": [
+        "render_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/report.py",
+      "language": "python",
+      "docstring": "Orchestrates ci-report-load -> scan -> relevance-score -> stats into the\ndeterministic feature-planning report packet.",
+      "functions": [
+        "build_report"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".ci_report_loader",
+        ".models",
+        ".planning_scanner",
+        ".relevance_scorer",
+        ".stats"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/stats.py",
+      "language": "python",
+      "docstring": "Objective, non-judgmental stats about a task description.",
+      "functions": [
+        "compute_stats"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/engine/__init__.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/tests/test_ci_report_loader.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_loads_valid_report",
+        "test_missing_report_raises_actionable_error",
+        "test_malformed_json_raises_clear_error",
+        "test_missing_required_field_raises_clear_error"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "pytest",
+        "engine.ci_report_loader"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/tests/test_integration.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_full_pipeline_produces_valid_json_and_markdown",
+        "test_report_never_fabricates_a_structured_plan"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "engine.render_json",
+        "engine.render_markdown",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/tests/test_planning_scanner.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_vague_scope_terms_flagged",
+        "test_weak_goal_modal_flagged",
+        "test_scope_boundary_absence_flagged_when_missing",
+        "test_scope_boundary_absence_not_flagged_when_present",
+        "test_verification_absence_flagged_when_missing",
+        "test_well_specified_task_has_no_flags"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.planning_scanner"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/tests/test_relevance_scorer.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "_ctx",
+        "test_scores_module_matching_task_keywords_higher",
+        "test_path_match_outweighs_incidental_text_match",
+        "test_hotspot_and_fan_signals_annotated",
+        "test_no_keyword_overlap_produces_no_scores",
+        "test_stopwords_and_short_words_excluded_from_keywords"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.models",
+        "engine.relevance_scorer"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/tests/test_report.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "_write_report",
+        "test_build_report_assembles_stats_flags_and_relevance",
+        "test_empty_task_and_no_matches_produce_warnings"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/feature-planner/tests/test_stats.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_word_count_and_flag_derived_counts",
+        "test_no_flags_produces_zero_derived_counts"
+      ],
+      "classes": [],
+      "imports": [
+        "engine.planning_scanner",
+        "engine.stats"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    }
+  ],
+  "entry_points": [
+    {
+      "path": "evaluations/acceptance-test-engineer/run_evaluation.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "evaluations/adversarial-diff-reviewer/run_evaluation.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "evaluations/codebase-intelligence/run_evaluation.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "evaluations/feature-planner/run_evaluation.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "skills/acceptance-test-engineer/engine/cli.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/cli.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "skills/feature-planner/engine/cli.py",
+      "reason": "if __name__ == '__main__'"
+    }
+  ],
+  "dependency_graph": {
+    "edges": [
+      {
+        "source": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+        "target": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js"
+      },
+      {
+        "source": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+        "target": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py"
+      },
+      {
+        "source": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+        "target": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/cli.py",
+        "target": "skills/acceptance-test-engineer/engine/render_json.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/cli.py",
+        "target": "skills/acceptance-test-engineer/engine/render_markdown.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/cli.py",
+        "target": "skills/acceptance-test-engineer/engine/report.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/render_json.py",
+        "target": "skills/acceptance-test-engineer/engine/models.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/render_markdown.py",
+        "target": "skills/acceptance-test-engineer/engine/models.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/report.py",
+        "target": "skills/acceptance-test-engineer/engine/models.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/report.py",
+        "target": "skills/acceptance-test-engineer/engine/requirement_parser.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/report.py",
+        "target": "skills/acceptance-test-engineer/engine/stats.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/report.py",
+        "target": "skills/acceptance-test-engineer/engine/testability_scanner.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/requirement_parser.py",
+        "target": "skills/acceptance-test-engineer/engine/models.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/stats.py",
+        "target": "skills/acceptance-test-engineer/engine/models.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+        "target": "skills/acceptance-test-engineer/engine/models.py"
+      },
+      {
+        "source": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+        "target": "skills/acceptance-test-engineer/engine/patterns.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/cli.py",
+        "target": "skills/adversarial-diff-reviewer/engine/render_json.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/cli.py",
+        "target": "skills/adversarial-diff-reviewer/engine/render_markdown.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/cli.py",
+        "target": "skills/adversarial-diff-reviewer/engine/report.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/diff_parser.py",
+        "target": "skills/adversarial-diff-reviewer/engine/models.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/render_json.py",
+        "target": "skills/adversarial-diff-reviewer/engine/models.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/render_markdown.py",
+        "target": "skills/adversarial-diff-reviewer/engine/models.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/report.py",
+        "target": "skills/adversarial-diff-reviewer/engine/diff_parser.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/report.py",
+        "target": "skills/adversarial-diff-reviewer/engine/models.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/report.py",
+        "target": "skills/adversarial-diff-reviewer/engine/risk_scanner.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/report.py",
+        "target": "skills/adversarial-diff-reviewer/engine/stats.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+        "target": "skills/adversarial-diff-reviewer/engine/models.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+        "target": "skills/adversarial-diff-reviewer/engine/risk_patterns.py"
+      },
+      {
+        "source": "skills/adversarial-diff-reviewer/engine/stats.py",
+        "target": "skills/adversarial-diff-reviewer/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/cli.py",
+        "target": "skills/codebase-intelligence/engine/render_json.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/cli.py",
+        "target": "skills/codebase-intelligence/engine/render_markdown.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/cli.py",
+        "target": "skills/codebase-intelligence/engine/report.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/external_deps.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/generic_parser.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/graph.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/python_parser.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/render_json.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/render_markdown.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/external_deps.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/generic_parser.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/graph.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/python_parser.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/scanner.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/scanner.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/ci_report_loader.py",
+        "target": "skills/feature-planner/engine/models.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/cli.py",
+        "target": "skills/feature-planner/engine/ci_report_loader.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/cli.py",
+        "target": "skills/feature-planner/engine/render_json.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/cli.py",
+        "target": "skills/feature-planner/engine/render_markdown.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/cli.py",
+        "target": "skills/feature-planner/engine/report.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/planning_scanner.py",
+        "target": "skills/feature-planner/engine/models.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/planning_scanner.py",
+        "target": "skills/feature-planner/engine/planning_patterns.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/relevance_scorer.py",
+        "target": "skills/feature-planner/engine/models.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/render_json.py",
+        "target": "skills/feature-planner/engine/models.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/render_markdown.py",
+        "target": "skills/feature-planner/engine/models.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/report.py",
+        "target": "skills/feature-planner/engine/ci_report_loader.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/report.py",
+        "target": "skills/feature-planner/engine/models.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/report.py",
+        "target": "skills/feature-planner/engine/planning_scanner.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/report.py",
+        "target": "skills/feature-planner/engine/relevance_scorer.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/report.py",
+        "target": "skills/feature-planner/engine/stats.py"
+      },
+      {
+        "source": "skills/feature-planner/engine/stats.py",
+        "target": "skills/feature-planner/engine/models.py"
+      }
+    ],
+    "fan_in": {
+      "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js": 1,
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py": 1,
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py": 1,
+      "skills/acceptance-test-engineer/engine/render_json.py": 1,
+      "skills/acceptance-test-engineer/engine/render_markdown.py": 1,
+      "skills/acceptance-test-engineer/engine/report.py": 1,
+      "skills/acceptance-test-engineer/engine/models.py": 6,
+      "skills/acceptance-test-engineer/engine/requirement_parser.py": 1,
+      "skills/acceptance-test-engineer/engine/stats.py": 1,
+      "skills/acceptance-test-engineer/engine/testability_scanner.py": 1,
+      "skills/acceptance-test-engineer/engine/patterns.py": 1,
+      "skills/adversarial-diff-reviewer/engine/render_json.py": 1,
+      "skills/adversarial-diff-reviewer/engine/render_markdown.py": 1,
+      "skills/adversarial-diff-reviewer/engine/report.py": 1,
+      "skills/adversarial-diff-reviewer/engine/models.py": 6,
+      "skills/adversarial-diff-reviewer/engine/diff_parser.py": 1,
+      "skills/adversarial-diff-reviewer/engine/risk_scanner.py": 1,
+      "skills/adversarial-diff-reviewer/engine/stats.py": 1,
+      "skills/adversarial-diff-reviewer/engine/risk_patterns.py": 1,
+      "skills/codebase-intelligence/engine/render_json.py": 1,
+      "skills/codebase-intelligence/engine/render_markdown.py": 1,
+      "skills/codebase-intelligence/engine/report.py": 1,
+      "skills/codebase-intelligence/engine/models.py": 8,
+      "skills/codebase-intelligence/engine/external_deps.py": 1,
+      "skills/codebase-intelligence/engine/generic_parser.py": 1,
+      "skills/codebase-intelligence/engine/graph.py": 1,
+      "skills/codebase-intelligence/engine/python_parser.py": 1,
+      "skills/codebase-intelligence/engine/scanner.py": 1,
+      "skills/feature-planner/engine/models.py": 7,
+      "skills/feature-planner/engine/ci_report_loader.py": 2,
+      "skills/feature-planner/engine/render_json.py": 1,
+      "skills/feature-planner/engine/render_markdown.py": 1,
+      "skills/feature-planner/engine/report.py": 1,
+      "skills/feature-planner/engine/planning_patterns.py": 1,
+      "skills/feature-planner/engine/planning_scanner.py": 1,
+      "skills/feature-planner/engine/relevance_scorer.py": 1,
+      "skills/feature-planner/engine/stats.py": 1
+    },
+    "fan_out": {
+      "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js": 1,
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py": 1,
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py": 1,
+      "skills/acceptance-test-engineer/engine/cli.py": 3,
+      "skills/acceptance-test-engineer/engine/render_json.py": 1,
+      "skills/acceptance-test-engineer/engine/render_markdown.py": 1,
+      "skills/acceptance-test-engineer/engine/report.py": 4,
+      "skills/acceptance-test-engineer/engine/requirement_parser.py": 1,
+      "skills/acceptance-test-engineer/engine/stats.py": 1,
+      "skills/acceptance-test-engineer/engine/testability_scanner.py": 2,
+      "skills/adversarial-diff-reviewer/engine/cli.py": 3,
+      "skills/adversarial-diff-reviewer/engine/diff_parser.py": 1,
+      "skills/adversarial-diff-reviewer/engine/render_json.py": 1,
+      "skills/adversarial-diff-reviewer/engine/render_markdown.py": 1,
+      "skills/adversarial-diff-reviewer/engine/report.py": 4,
+      "skills/adversarial-diff-reviewer/engine/risk_scanner.py": 2,
+      "skills/adversarial-diff-reviewer/engine/stats.py": 1,
+      "skills/codebase-intelligence/engine/cli.py": 3,
+      "skills/codebase-intelligence/engine/external_deps.py": 1,
+      "skills/codebase-intelligence/engine/generic_parser.py": 1,
+      "skills/codebase-intelligence/engine/graph.py": 1,
+      "skills/codebase-intelligence/engine/python_parser.py": 1,
+      "skills/codebase-intelligence/engine/render_json.py": 1,
+      "skills/codebase-intelligence/engine/render_markdown.py": 1,
+      "skills/codebase-intelligence/engine/report.py": 6,
+      "skills/codebase-intelligence/engine/scanner.py": 1,
+      "skills/feature-planner/engine/ci_report_loader.py": 1,
+      "skills/feature-planner/engine/cli.py": 4,
+      "skills/feature-planner/engine/planning_scanner.py": 2,
+      "skills/feature-planner/engine/relevance_scorer.py": 1,
+      "skills/feature-planner/engine/render_json.py": 1,
+      "skills/feature-planner/engine/render_markdown.py": 1,
+      "skills/feature-planner/engine/report.py": 5,
+      "skills/feature-planner/engine/stats.py": 1
+    },
+    "hotspots": [
+      "skills/codebase-intelligence/engine/models.py",
+      "skills/codebase-intelligence/engine/report.py",
+      "skills/feature-planner/engine/models.py",
+      "skills/acceptance-test-engineer/engine/models.py",
+      "skills/adversarial-diff-reviewer/engine/models.py",
+      "skills/feature-planner/engine/report.py",
+      "skills/acceptance-test-engineer/engine/report.py",
+      "skills/adversarial-diff-reviewer/engine/report.py",
+      "skills/feature-planner/engine/cli.py",
+      "skills/acceptance-test-engineer/engine/testability_scanner.py"
+    ]
+  },
+  "external_dependencies": [],
+  "doc_coverage": {
+    "dirs_with_readme": [
+      "",
+      "skills/acceptance-test-engineer",
+      "skills/adversarial-diff-reviewer",
+      "skills/codebase-intelligence",
+      "skills/feature-planner"
+    ],
+    "dirs_without_readme": [
+      ".claude",
+      "evaluations/acceptance-test-engineer",
+      "evaluations/acceptance-test-engineer/actual",
+      "evaluations/acceptance-test-engineer/eval_cases",
+      "evaluations/acceptance-test-engineer/expected",
+      "evaluations/acceptance-test-engineer/fixtures/case-01-vague-requirement",
+      "evaluations/acceptance-test-engineer/fixtures/case-02-well-specified-requirement",
+      "evaluations/acceptance-test-engineer/fixtures/case-03-missing-error-handling",
+      "evaluations/acceptance-test-engineer/fixtures/case-04-missing-boundary",
+      "evaluations/acceptance-test-engineer/fixtures/case-05-implicit-permission-requirement",
+      "evaluations/acceptance-test-engineer/fixtures/case-06-ambiguous-scope",
+      "evaluations/acceptance-test-engineer/fixtures/case-07-already-has-acceptance-criteria",
+      "evaluations/acceptance-test-engineer/fixtures/case-08-conflicting-requirement",
+      "evaluations/adversarial-diff-reviewer",
+      "evaluations/adversarial-diff-reviewer/actual",
+      "evaluations/adversarial-diff-reviewer/eval_cases",
+      "evaluations/adversarial-diff-reviewer/expected",
+      "evaluations/adversarial-diff-reviewer/fixtures/case-01-obvious-bug",
+      "evaluations/adversarial-diff-reviewer/fixtures/case-02-subtle-bug",
+      "evaluations/adversarial-diff-reviewer/fixtures/case-03-security-issue",
+      "evaluations/adversarial-diff-reviewer/fixtures/case-04-broad-except",
+      "evaluations/adversarial-diff-reviewer/fixtures/case-05-clean-diff",
+      "evaluations/adversarial-diff-reviewer/fixtures/case-06-large-noisy-diff",
+      "evaluations/adversarial-diff-reviewer/fixtures/case-07-missing-context",
+      "evaluations/adversarial-diff-reviewer/fixtures/case-08-concurrency-bug",
+      "evaluations/codebase-intelligence",
+      "evaluations/codebase-intelligence/eval_cases",
+      "evaluations/codebase-intelligence/expected",
+      "evaluations/codebase-intelligence/fixtures/empty-edge-case",
+      "evaluations/codebase-intelligence/fixtures/mixed-lang",
+      "evaluations/codebase-intelligence/fixtures/mixed-lang/client",
+      "evaluations/codebase-intelligence/fixtures/multi-package-python",
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg",
+      "evaluations/codebase-intelligence/fixtures/simple-python",
+      "evaluations/feature-planner",
+      "evaluations/feature-planner/actual",
+      "evaluations/feature-planner/eval_cases",
+      "evaluations/feature-planner/expected",
+      "evaluations/feature-planner/fixtures/case-01-vague-task",
+      "evaluations/feature-planner/fixtures/case-02-well-scoped-task",
+      "evaluations/feature-planner/fixtures/case-03-hotspot-task",
+      "evaluations/feature-planner/fixtures/case-04-no-verification-task",
+      "evaluations/feature-planner/fixtures/case-05-security-task",
+      "evaluations/feature-planner/fixtures/case-06-no-relevant-modules-task",
+      "evaluations/feature-planner/fixtures/case-07-dependency-blocker-task",
+      "evaluations/feature-planner/fixtures/case-08-conflicting-scope-task",
+      "examples/acceptance-test-engineer",
+      "examples/adversarial-diff-reviewer",
+      "examples/codebase-intelligence",
+      "examples/feature-planner/ci-report",
+      "project-memory-bank",
+      "project-memory-bank/sprint-history",
+      "skills/acceptance-test-engineer/engine",
+      "skills/acceptance-test-engineer/tests",
+      "skills/adversarial-diff-reviewer/engine",
+      "skills/adversarial-diff-reviewer/tests",
+      "skills/codebase-intelligence/engine",
+      "skills/codebase-intelligence/tests",
+      "skills/feature-planner/engine",
+      "skills/feature-planner/tests"
+    ]
+  },
+  "excluded_dir_count": 6,
+  "skipped_file_count": 0,
+  "warnings": []
+}

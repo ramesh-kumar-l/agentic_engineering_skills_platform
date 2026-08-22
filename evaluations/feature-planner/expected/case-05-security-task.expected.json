@@ -1,0 +1,8 @@
+{
+  "planning_pattern_ids": [],
+  "expected_categories": [
+    { "id": "p1", "category": "security-touchpoint", "keywords": ["admin", "role", "auth"] },
+    { "id": "p2", "category": "affected-files", "keywords": ["user_api", "auth"] },
+    { "id": "p3", "category": "test-hook", "keywords": ["non-admin", "reject", "test"] }
+  ]
+}

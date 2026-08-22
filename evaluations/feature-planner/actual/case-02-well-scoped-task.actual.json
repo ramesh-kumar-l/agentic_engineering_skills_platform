@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "id": "p1",
+      "category": "scope-statement",
+      "description": "Add a --dry-run flag to the export CLI only; the import CLI is explicitly excluded.",
+      "grounding": "Task states 'Only add... to the export CLI, excluding the import CLI' — no vague-scope or unstated-signal flags fired.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p2",
+      "category": "non-goal",
+      "description": "engine/import_cli.py is not modified even though it shares vocabulary with the task.",
+      "grounding": "Relevance report scored import_cli.py 8 via keyword overlap on 'cli'/'import', but the task text explicitly excludes it — a relevance score alone is not sufficient grounds to include a file.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p3",
+      "category": "affected-files",
+      "description": "engine/export_cli.py and engine/exporter.py are the files to change.",
+      "grounding": "Both scored 8 in the relevance report on real keyword overlap (export/cli/output/files).",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p4",
+      "category": "test-hook",
+      "description": "New test verifies --dry-run skips calling exporter.write_output (no output files are written).",
+      "grounding": "Task explicitly states the verification condition: 'Verify via a new test that the flag skips writing output files.'",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

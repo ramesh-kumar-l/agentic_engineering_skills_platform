@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/export_cli.py",
+      "docstring": "CLI entry point for exporting data.",
+      "functions": ["main"],
+      "classes": [],
+      "imports": ["exporter"]
+    },
+    {
+      "path": "engine/import_cli.py",
+      "docstring": "CLI entry point for importing data.",
+      "functions": ["main"],
+      "classes": [],
+      "imports": ["importer"]
+    },
+    {
+      "path": "engine/exporter.py",
+      "docstring": "Writes export output files to disk.",
+      "functions": ["write_output"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/exporter.py": 1},
+    "fan_out": {"engine/export_cli.py": 1},
+    "hotspots": []
+  }
+}

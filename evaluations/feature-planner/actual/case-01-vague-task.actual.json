@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "p1",
+      "category": "assumption-flag",
+      "description": "Task uses unquantified language ('clean up', 'as needed', 'make it better') with no concrete definition of what 'better' means.",
+      "grounding": "planning_flags vague-scope-catchall and vague-scope-cleanup both fired on this task text.",
+      "priority": "high",
+      "assumptions": "'better' is undefined — treated as an open question for the requester, not resolved by picking a specific refactor."
+    },
+    {
+      "id": "p2",
+      "category": "affected-files",
+      "description": "engine/notifications.py is the primary file to change.",
+      "grounding": "Relevance report scored engine/notifications.py 6 (path+function match on 'notification'); no other module scored above zero.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p3",
+      "category": "non-goal",
+      "description": "engine/billing.py is out of scope for this task.",
+      "grounding": "engine/billing.py scored 0 in the relevance report and shares no vocabulary with the task description.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

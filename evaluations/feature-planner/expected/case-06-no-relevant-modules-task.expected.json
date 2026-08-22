@@ -1,0 +1,7 @@
+{
+  "planning_pattern_ids": ["no-scope-boundary-signal", "no-verification-signal"],
+  "expected_categories": [
+    { "id": "p1", "category": "assumption-flag", "keywords": ["no match", "assum", "sms", "gateway"] },
+    { "id": "p2", "category": "dependency-blocker", "keywords": ["third-party", "gateway", "vendor"] }
+  ]
+}

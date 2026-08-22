@@ -11,9 +11,11 @@ Replaced/updated in place, not appended to chronologically — see
 |---|---|---|---|---|
 | codebase-intelligence | Level 2 — Evaluated | EXPERIMENTAL | 23/23 passing | 4/4 fixtures passing, see `evaluations/codebase-intelligence/RESULTS.md` |
 | adversarial-diff-reviewer | Level 2 — Evaluated | EXPERIMENTAL | 23/23 passing (was 19, +4 CLI tests added in Phase 3, see [[12-known-limitations]] L10) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored — see [[12-known-limitations]] L8); see `evaluations/adversarial-diff-reviewer/RESULTS.md` |
-| acceptance-test-engineer | Level 2 — Evaluated | EXPERIMENTAL | 20/20 passing | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, same caveat as above — see [[12-known-limitations]] L8); see `evaluations/acceptance-test-engineer/RESULTS.md` |
+| acceptance-test-engineer | Level 2 — Evaluated | EXPERIMENTAL | 24/24 passing (was 20, +4 CLI tests added in Phase 4, see [[12-known-limitations]] L13) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, same caveat as above — see [[12-known-limitations]] L8); see `evaluations/acceptance-test-engineer/RESULTS.md` |
+| feature-planner | Level 2 — Evaluated | EXPERIMENTAL | 21/21 passing | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, third time — see [[12-known-limitations]] L8); see `evaluations/feature-planner/RESULTS.md` |
 
-No other skill has any implementation yet.
+No other skill has any implementation yet. **91 total tests passing across
+all four skills.**
 
 ## codebase-intelligence — component status
 
@@ -57,27 +59,47 @@ No other skill has any implementation yet.
 | `engine/stats.py` | Done, tested |
 | `engine/report.py` | Done, tested |
 | `engine/render_json.py` / `render_markdown.py` | Done, tested — Markdown includes Gherkin-ready structure |
-| `engine/cli.py` | Done, manually verified |
+| `engine/cli.py` | Done, tested — 4 CLI tests added in Phase 4 (`tests/test_cli.py`) after dogfooding feature-planner against a real task surfaced this had zero coverage, see [[12-known-limitations]] L13 |
 | `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007), includes agent-driven Step 3/4 workflow against the new acceptance-coverage checklist |
 | Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment) |
 | Judgment-layer actual findings (`evaluations/acceptance-test-engineer/actual/`) | Done — this session's agent's real derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/acceptance-test-engineer/`) | Done — real requirement (adversarial-diff-reviewer's actual CLI behavior), surfaced and fixed L10 |
 | `project-memory-bank/17-experiment-viability-check.md` | Done — Experiment A/B viability assessment + 2 explicitly-labeled internal pilots (not the real experiments) |
 
+## feature-planner — component status
+
+| Component | Status |
+|---|---|
+| `engine/ci_report_loader.py` | Done, tested — loads a codebase-intelligence report.json into a local, independent schema; missing/malformed report is a hard failure (ADR-010) |
+| `engine/relevance_scorer.py` | Done, tested — keyword-overlap scoring of ci_report modules, annotated with fan_in/fan_out/hotspot blast-radius signal; known ranking limitation, see [[12-known-limitations]] L14 |
+| `engine/planning_patterns.py` / `planning_scanner.py` | Done, tested — vague-scope/weak-goal-modal patterns + 2 whole-text absence checks (mirrors acceptance-test-engineer's scanner) |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, tested — requires `--ci-report` (required, not optional), exits non-zero with an actionable error if missing/malformed |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) + new ADR-010 (required composition), includes agent-driven Step 3/4 workflow against the new Plan Quality checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures (each pairing a task.txt with a synthetic ci_report.json), two-layer scoring (deterministic + judgment) |
+| Judgment-layer actual findings (`evaluations/feature-planner/actual/`) | Done — this session's agent's real plan derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/feature-planner/`) | Done — fresh codebase-intelligence report regenerated against this repo's current (4-skill) state, real task, surfaced and fixed L13 (acceptance-test-engineer CLI coverage gap) and documented L14 (relevance-ranking limitation, not fixed) |
+
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 4 onward, not started.
-- Any real composition/workflow layer across skills (only a one-off manual
-  pilot exists — [[17-experiment-viability-check]] Pilot B — not reusable
-  infrastructure).
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 5 onward, not started.
+- Any reusable composed-workflow infrastructure across skills (feature-planner
+  makes composition with codebase-intelligence mandatory at the single-skill
+  level, ADR-010 — this is not the same as a multi-skill workflow engine,
+  Phase 14).
 - Any UI.
 - Multi-runtime validation (only exercised via this session's agent so far).
-- Independent-rater evaluation for either judgment-based skill (L8) — needs
-  a second, independent agent/session or real external usage.
+- Independent-rater evaluation for any of the three judgment-based skills
+  (L8, now applying three times) — needs a second, independent agent/session
+  or real external usage.
 - Experiment A and Experiment B at proper rigor (independent party, real
   task, real measurement) — only N=1 self-run pilots exist so far, see
-  [[17-experiment-viability-check]].
+  [[17-experiment-viability-check]]. Feature-planner's required-composition
+  architecture (ADR-010) is real evidence composition executes correctly and
+  is genuinely used, not evidence it outperforms the alternative.
 
 ## Last updated
 
-2026-08-23 — end of Phase 3.
+2026-08-23 — end of Phase 4.

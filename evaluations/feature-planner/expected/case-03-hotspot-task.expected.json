@@ -1,0 +1,8 @@
+{
+  "planning_pattern_ids": ["no-scope-boundary-signal", "no-verification-signal"],
+  "expected_categories": [
+    { "id": "p1", "category": "risk-blast-radius", "keywords": ["hotspot", "fan_in", "config_loader"] },
+    { "id": "p2", "category": "affected-files", "keywords": ["config_loader"] },
+    { "id": "p3", "category": "rollback", "keywords": ["rollback", "revert", "backward"] }
+  ]
+}

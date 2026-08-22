@@ -212,3 +212,71 @@ Entries below are from Phase 3 (acceptance-test-engineer).
   glue code) — not this skill absorbing that scope.
 - **Regression prevention**: Documented in `SKILL.md` under "When NOT to
   Use" and "Workflow" Step 4.
+
+---
+
+Entries below are from Phase 4 (feature-planner).
+
+## L13: `acceptance-test-engineer`'s CLI had zero test coverage (FIXED during Phase 4)
+
+- **What failed**: `skills/acceptance-test-engineer/engine/cli.py` — stdin
+  reading, `--out` directory writing, and the nonexistent-path exit-1
+  path — had no test exercising `main()` across any of its 5 existing test
+  files (20 tests, all against the engine modules directly). Same gap shape
+  as L10, in a different skill.
+- **Why**: Same root cause as L10 — the CLI wrapper was assumed thin enough
+  not to need dedicated tests and never revisited once the engine-module
+  tests were in place.
+- **Impact**: Found by dogfooding `feature-planner` against a real task
+  targeting this exact CLI — see `examples/feature-planner/example-run.md`.
+  The gap surfaced purely as a side effect of grounding "affected files" in
+  the real module list, not from deliberately auditing test coverage. This
+  is the second cross-skill dogfood finding in this project (after L10),
+  and the first time a *planning* skill (rather than a review/testability
+  skill) found one.
+- **Fix**: `skills/acceptance-test-engineer/tests/test_cli.py` added (4
+  tests, mirroring the L10 fix exactly). Suite is now 24/24.
+- **Regression prevention**: the new test file itself.
+
+## L14: Relevance scorer's path-weighting floods when task keywords collide with a shared directory name
+
+- **What failed**: N/A (documented limitation, not a bug — found via real
+  dogfooding, not fixed).
+- **Why**: `relevance_scorer.py` weights a path match at 3 points per
+  matched keyword. When a task's keywords happen to also be words in a
+  shared parent directory name (e.g. "acceptance", "test", "engineer" in
+  `skills/acceptance-test-engineer/`), *every* module under that directory
+  gets the same path-weight bonus regardless of whether it's the file
+  actually relevant to the task.
+- **Impact**: In the real dogfood run
+  (`examples/feature-planner/example-run.md`), the true target file
+  (`skills/acceptance-test-engineer/engine/cli.py`) scored 13 and ranked
+  13th of 65 — well below several test files and even an unrelated skill's
+  file that scored higher purely from shared path vocabulary. The
+  deterministic ranking alone would have pointed at the wrong file.
+- **Fix**: Not fixed — this is the documented boundary between the
+  deterministic layer (a lead generator) and the agent's Step 3 judgment
+  (ADR-007), the same role L7/L11 play for the other two judgment-based
+  skills. In the same dogfood run, the agent's judgment correctly
+  identified `engine/cli.py` as the actual target despite its rank — real
+  evidence the two-layer split does what it's designed to do, not just a
+  theoretical justification for leaving this unfixed.
+- **Regression prevention**: `SKILL.md`'s "Agent Responsibilities" section
+  states explicitly: "a nonzero relevance score is not automatically
+  in-scope either."
+
+## L15: Planning anti-pattern list is not exhaustive
+
+- **What failed**: N/A (scope boundary, not a bug).
+- **Why**: `planning_patterns.py` is a fixed regex table (vague-scope
+  terms, weak goal modals, two whole-text absence checks) — it can only
+  match wording shapes it was written to recognize, same shape as L7/L11.
+- **Impact**: Will over-flag (e.g. "improve" used with an already-precise
+  follow-up clause) and under-flag (case-08's sentence-level scope
+  contradiction is invisible to this layer — "only" alone satisfies the
+  scope-boundary absence check even though the next sentence directly
+  contradicts it — and is only caught by the agent's Step 3 reasoning).
+- **Fix**: Not applicable — documented boundary between the deterministic
+  and judgment layers (ADR-007, reused for this skill).
+- **Regression prevention**: Documented in `SKILL.md` under "Known
+  Limitations."

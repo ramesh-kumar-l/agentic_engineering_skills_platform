@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "p1",
+      "category": "risk-blast-radius",
+      "description": "engine/config_loader.py is high-risk: it is a dependency-graph hotspot with fan_in=12, meaning 12 other modules depend on it — any behavior change here has a wide blast radius.",
+      "grounding": "Relevance report marks config_loader.py is_hotspot=true, fan_in=12.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p2",
+      "category": "affected-files",
+      "description": "engine/config_loader.py is the primary file to change; engine/app.py and engine/worker.py are likely affected only if they read config values whose defaults change.",
+      "grounding": "config_loader.py scored 10 (path match); app.py and worker.py each scored 2 via docstring mentions of config_loader.",
+      "priority": "high",
+      "assumptions": "app.py/worker.py are assumed unaffected unless the new env-var override changes an existing default value they rely on."
+    },
+    {
+      "id": "p3",
+      "category": "rollback",
+      "description": "Ship the environment-variable override as an additive, backward-compatible change (falls back to the existing file-based config when the env var is unset) so it can be disabled by simply unsetting the variable, without a code rollback.",
+      "grounding": "No rollback language was stated in the task — derived from the hotspot risk flagged in p1: a hotspot module needs an explicit reversibility plan, not just a plain code revert.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

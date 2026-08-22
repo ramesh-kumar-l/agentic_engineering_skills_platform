@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/config_loader.py",
+      "docstring": "Loads shared application config from disk.",
+      "functions": ["load_config"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/app.py",
+      "docstring": "Application startup, imports config_loader.",
+      "functions": ["start"],
+      "classes": [],
+      "imports": ["config_loader"]
+    },
+    {
+      "path": "engine/worker.py",
+      "docstring": "Background worker, imports config_loader.",
+      "functions": ["run"],
+      "classes": [],
+      "imports": ["config_loader"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/config_loader.py": 12},
+    "fan_out": {"engine/app.py": 1, "engine/worker.py": 1},
+    "hotspots": ["engine/config_loader.py"]
+  }
+}

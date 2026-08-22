@@ -1,0 +1,809 @@
+{
+  "task_text": "Only add a --verbose flag to acceptance-test-engineer's CLI that prints per-sentence testability flag detail. Verify via a new test that the flag prints one line per sentence with its matched flags.\n",
+  "stats": {
+    "word_count": 35,
+    "vague_scope_count": 0,
+    "weak_modal_count": 0
+  },
+  "planning_flags": [],
+  "relevance": {
+    "keywords": [
+      "only",
+      "verbose",
+      "flag",
+      "acceptance",
+      "test",
+      "engineer",
+      "cli",
+      "prints",
+      "per",
+      "sentence",
+      "testability",
+      "detail",
+      "verify",
+      "via",
+      "new",
+      "one",
+      "line",
+      "its",
+      "matched",
+      "flags"
+    ],
+    "scores": [
+      {
+        "path": "evaluations/acceptance-test-engineer/run_evaluation.py",
+        "score": 25,
+        "matched_keywords": [
+          "only",
+          "flag",
+          "acceptance",
+          "test",
+          "engineer",
+          "per",
+          "testability",
+          "via",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_testability_scanner.py",
+        "score": 24,
+        "matched_keywords": [
+          "flag",
+          "acceptance",
+          "test",
+          "engineer",
+          "per",
+          "sentence",
+          "testability",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/models.py",
+        "score": 22,
+        "matched_keywords": [
+          "flag",
+          "acceptance",
+          "test",
+          "engineer",
+          "sentence",
+          "testability"
+        ],
+        "fan_in": 6,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/patterns.py",
+        "score": 19,
+        "matched_keywords": [
+          "only",
+          "flag",
+          "acceptance",
+          "test",
+          "engineer",
+          "testability",
+          "its"
+        ],
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_requirement_parser.py",
+        "score": 19,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer",
+          "sentence",
+          "one",
+          "line",
+          "its"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_cli.py",
+        "score": 19,
+        "matched_keywords": [
+          "only",
+          "acceptance",
+          "test",
+          "engineer",
+          "cli",
+          "one",
+          "its"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/requirement_parser.py",
+        "score": 17,
+        "matched_keywords": [
+          "only",
+          "acceptance",
+          "test",
+          "engineer",
+          "sentence",
+          "testability",
+          "via",
+          "new",
+          "line",
+          "its"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_report.py",
+        "score": 17,
+        "matched_keywords": [
+          "flag",
+          "acceptance",
+          "test",
+          "engineer",
+          "sentence",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+        "score": 15,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer",
+          "line"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_stats.py",
+        "score": 15,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer",
+          "sentence",
+          "testability"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+        "score": 15,
+        "matched_keywords": [
+          "only",
+          "flag",
+          "test",
+          "one",
+          "line",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+        "score": 14,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer",
+          "testability"
+        ],
+        "fan_in": 1,
+        "fan_out": 2,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/cli.py",
+        "score": 13,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer",
+          "cli"
+        ],
+        "fan_in": 0,
+        "fan_out": 3,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/render_json.py",
+        "score": 13,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer",
+          "testability",
+          "detail"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/feature-planner/run_evaluation.py",
+        "score": 12,
+        "matched_keywords": [
+          "only",
+          "flag",
+          "acceptance",
+          "test",
+          "engineer",
+          "per",
+          "via",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/render_markdown.py",
+        "score": 12,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer",
+          "testability"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/report.py",
+        "score": 11,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer",
+          "testability"
+        ],
+        "fan_in": 1,
+        "fan_out": 4,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/__init__.py",
+        "score": 9,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/stats.py",
+        "score": 9,
+        "matched_keywords": [
+          "acceptance",
+          "test",
+          "engineer"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_diff_parser.py",
+        "score": 9,
+        "matched_keywords": [
+          "test",
+          "new",
+          "line"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_planning_scanner.py",
+        "score": 9,
+        "matched_keywords": [
+          "flag",
+          "test",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_report.py",
+        "score": 9,
+        "matched_keywords": [
+          "flag",
+          "test",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_stats.py",
+        "score": 9,
+        "matched_keywords": [
+          "flag",
+          "test",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/adversarial-diff-reviewer/run_evaluation.py",
+        "score": 8,
+        "matched_keywords": [
+          "only",
+          "flag",
+          "per",
+          "via",
+          "flags"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+        "score": 7,
+        "matched_keywords": [
+          "test",
+          "line"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_stats.py",
+        "score": 7,
+        "matched_keywords": [
+          "test",
+          "line"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_integration.py",
+        "score": 7,
+        "matched_keywords": [
+          "test",
+          "line"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/planning_patterns.py",
+        "score": 7,
+        "matched_keywords": [
+          "only",
+          "flag",
+          "acceptance",
+          "test",
+          "engineer",
+          "testability",
+          "its"
+        ],
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_integration.py",
+        "score": 7,
+        "matched_keywords": [
+          "test",
+          "line"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_ci_report_loader.py",
+        "score": 6,
+        "matched_keywords": [
+          "test"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_report.py",
+        "score": 5,
+        "matched_keywords": [
+          "test"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_external_deps.py",
+        "score": 5,
+        "matched_keywords": [
+          "test"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_graph.py",
+        "score": 5,
+        "matched_keywords": [
+          "test"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_python_parser.py",
+        "score": 5,
+        "matched_keywords": [
+          "test"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_report.py",
+        "score": 5,
+        "matched_keywords": [
+          "test"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_scanner.py",
+        "score": 5,
+        "matched_keywords": [
+          "test"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_relevance_scorer.py",
+        "score": 5,
+        "matched_keywords": [
+          "test"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+        "score": 4,
+        "matched_keywords": [
+          "cli",
+          "line"
+        ],
+        "fan_in": 0,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/run_evaluation.py",
+        "score": 4,
+        "matched_keywords": [
+          "engineer",
+          "per",
+          "one",
+          "line"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+        "score": 4,
+        "matched_keywords": [
+          "cli"
+        ],
+        "fan_in": 0,
+        "fan_out": 3,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/models.py",
+        "score": 4,
+        "matched_keywords": [
+          "flag",
+          "line"
+        ],
+        "fan_in": 6,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/cli.py",
+        "score": 4,
+        "matched_keywords": [
+          "cli"
+        ],
+        "fan_in": 0,
+        "fan_out": 3,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/report.py",
+        "score": 4,
+        "matched_keywords": [
+          "only",
+          "test",
+          "one",
+          "line"
+        ],
+        "fan_in": 1,
+        "fan_out": 6,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/feature-planner/engine/cli.py",
+        "score": 4,
+        "matched_keywords": [
+          "cli"
+        ],
+        "fan_in": 0,
+        "fan_out": 4,
+        "is_hotspot": true
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+        "score": 3,
+        "matched_keywords": [
+          "cli"
+        ],
+        "fan_in": 0,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js",
+        "score": 3,
+        "matched_keywords": [
+          "cli"
+        ],
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/scanner.py",
+        "score": 3,
+        "matched_keywords": [
+          "only",
+          "line"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/diff_parser.py",
+        "score": 2,
+        "matched_keywords": [
+          "only",
+          "per"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/models.py",
+        "score": 2,
+        "matched_keywords": [
+          "flag"
+        ],
+        "fan_in": 7,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py",
+        "score": 1,
+        "matched_keywords": [
+          "per"
+        ],
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+        "score": 1,
+        "matched_keywords": [
+          "one"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/render_json.py",
+        "score": 1,
+        "matched_keywords": [
+          "detail"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/risk_patterns.py",
+        "score": 1,
+        "matched_keywords": [
+          "line"
+        ],
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+        "score": 1,
+        "matched_keywords": [
+          "line"
+        ],
+        "fan_in": 1,
+        "fan_out": 2,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/__init__.py",
+        "score": 1,
+        "matched_keywords": [
+          "only"
+        ],
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/external_deps.py",
+        "score": 1,
+        "matched_keywords": [
+          "only"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/generic_parser.py",
+        "score": 1,
+        "matched_keywords": [
+          "its"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/graph.py",
+        "score": 1,
+        "matched_keywords": [
+          "only"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/models.py",
+        "score": 1,
+        "matched_keywords": [
+          "one"
+        ],
+        "fan_in": 8,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/python_parser.py",
+        "score": 1,
+        "matched_keywords": [
+          "only"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/render_json.py",
+        "score": 1,
+        "matched_keywords": [
+          "detail"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/render_markdown.py",
+        "score": 1,
+        "matched_keywords": [
+          "detail"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/ci_report_loader.py",
+        "score": 1,
+        "matched_keywords": [
+          "its"
+        ],
+        "fan_in": 2,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/relevance_scorer.py",
+        "score": 1,
+        "matched_keywords": [
+          "only"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/render_json.py",
+        "score": 1,
+        "matched_keywords": [
+          "detail"
+        ],
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      }
+    ]
+  },
+  "warnings": []
+}

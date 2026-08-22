@@ -1,0 +1,13 @@
+[project]
+name = "feature-planner"
+version = "0.1.0"
+description = "Deterministic relevance-scoring + planning-anti-pattern engine backing the Feature Planner skill. Composes on top of codebase-intelligence's report.json (required precondition, ADR-010)."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

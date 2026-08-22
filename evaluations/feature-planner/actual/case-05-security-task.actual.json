@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "p1",
+      "category": "security-touchpoint",
+      "description": "The new endpoint must call engine/auth.py's role check (require_role / AuthMiddleware) to enforce the admin role before executing the password reset — this is a permission-boundary change, not just a feature addition.",
+      "grounding": "engine/auth.py scored 4 in the relevance report (admin, role) and is the repo's existing authorization mechanism.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p2",
+      "category": "affected-files",
+      "description": "engine/user_api.py (add the endpoint) and engine/auth.py (reuse or extend the role check) are the files to change.",
+      "grounding": "user_api.py scored 11 (endpoint, reset, user, password); auth.py scored 4 (admin, role).",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p3",
+      "category": "test-hook",
+      "description": "New test verifies a non-admin user's request to the reset endpoint is rejected, matching the task's explicit verification statement.",
+      "grounding": "Task states: 'Verify via a test that non-admin users are rejected.'",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

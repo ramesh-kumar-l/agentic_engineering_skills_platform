@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/cli.py",
+      "docstring": "CLI entry point.",
+      "functions": ["main"],
+      "classes": [],
+      "imports": ["formatter"]
+    },
+    {
+      "path": "engine/formatter.py",
+      "docstring": "Formats output as JSON or plain text.",
+      "functions": ["format_json", "format_text"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/formatter.py": 1},
+    "fan_out": {"engine/cli.py": 1},
+    "hotspots": []
+  }
+}

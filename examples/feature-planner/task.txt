@@ -1,0 +1,1 @@
+Only add a --verbose flag to acceptance-test-engineer's CLI that prints per-sentence testability flag detail. Verify via a new test that the flag prints one line per sentence with its matched flags.

@@ -1,0 +1,8 @@
+{
+  "planning_pattern_ids": ["no-verification-signal"],
+  "expected_categories": [
+    { "id": "p1", "category": "test-hook", "keywords": ["assum", "test", "verif"] },
+    { "id": "p2", "category": "affected-files", "keywords": ["payment_worker", "backoff"] },
+    { "id": "p3", "category": "step-sequence", "keywords": ["backoff", "retry"] }
+  ]
+}

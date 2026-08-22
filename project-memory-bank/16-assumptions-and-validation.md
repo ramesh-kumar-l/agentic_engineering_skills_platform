@@ -131,7 +131,11 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   fact) — two-for-two on judgment-based skills scoring perfectly against
   their own authors' ground truth is itself a signal that this evaluation
   design cannot discriminate a genuinely good derivation from a mediocre
-  one; that gap, not the scores, is the real finding.
+  one; that gap, not the scores, is the real finding. Phase 4 repeated the
+  pattern a third time for `feature-planner` (100% precision/recall,
+  `evaluations/feature-planner/RESULTS.md`, same caveat) — three-for-three
+  now. The inter-rater-agreement experiment still has not been run for any
+  of the three skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -212,3 +216,15 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   can be run on at least the first few individual skills, with a genuinely
   independent baseline — see ADR-009. The Phase 3 pilot shows a plausible
   signal worth re-testing at proper rigor, not proof composition works.
+  Phase 4 changed the *architecture*, not the evidence: `feature-planner`
+  makes composition with `codebase-intelligence` a hard precondition
+  (ADR-010) rather than an optional pilot, and the real dogfood run
+  (`examples/feature-planner/example-run.md`) shows composition being
+  genuinely load-bearing — grounding "affected files" in the real report
+  correctly identified the right target file and surfaced a real gap in a
+  different skill (L13/L14 in [[12-known-limitations]]). That is stronger
+  evidence composition *executes correctly and is used for real* than
+  Phase 3's pilot was, but it is still not the rigorous, independently-
+  baselined comparison Experiment B requires — one architecture existing
+  and working is not the same as composition being *shown to outperform*
+  the individual-skill alternative. Status stays UNKNOWN.

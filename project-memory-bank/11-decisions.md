@@ -243,3 +243,52 @@ generalizing the disclosure discipline already used for L8.
   governs what to do while they remain unrunnable.
 
 **Status**: Adopted.
+
+---
+
+## ADR-010: `feature-planner` requires a `codebase-intelligence` report as a hard precondition, not optional context
+
+**Decision**: Unlike every prior skill's stance toward composition
+(`adversarial-diff-reviewer` and `acceptance-test-engineer` both treat a
+`codebase-intelligence` report as optional composed context), `feature-
+planner`'s engine requires a valid `codebase-intelligence` `report.json` as
+an argument. A missing, unreadable, or schema-mismatched report is a
+**failure condition** — the CLI exits non-zero with an actionable error —
+not a degraded-but-working path. Established in Phase 4
+([[03-architecture]], `skills/feature-planner/engine/ci_report_loader.py`).
+
+- User Value: grounding "affected files" in real structural data (real
+  imports/defs/dependency-graph signal) rather than the agent guessing
+  plausible-looking paths is this skill's entire value proposition — a plan
+  with fabricated file paths is actively worse than no plan, because it
+  looks authoritative while being wrong.
+- Correctness: `ci_report_loader.py` validates the report against the real
+  `CodebaseIntelligenceReport` schema (via required-field access, raising
+  `CiReportError` on `KeyError`) rather than silently proceeding with
+  partial data.
+- Security: no new surface — the loader is read-only, reads a report the
+  agent already has read access to, and never executes or interprets its
+  contents beyond structural field access.
+- Simplicity: one clear rule (missing report -> hard failure) rather than a
+  degraded "best-effort without composition" mode that would need its own
+  testing and disclosure surface.
+- Maintainability: `ci_report_loader.py` defines its own lightweight
+  dataclasses rather than importing `codebase-intelligence`'s package
+  directly — keeps `feature-planner` independently portable, same
+  stdlib-only-per-skill discipline as ADR-006.
+- Evidence: `examples/feature-planner/example-run.md` — a real dogfood run
+  where the required report was genuinely regenerated and genuinely used;
+  grounding the affected-files decision in it correctly identified the
+  right target file despite an imperfect ranking (see L13 in
+  [[12-known-limitations]]), and surfaced a real gap in a different skill
+  (found via composition, not despite it).
+- Future Evolution: this ADR does not mandate required composition
+  universally — a future skill adopts mandatory composition only when the
+  same "ungrounded output is actively harmful" argument applies to it
+  specifically, not by default. It also does not, by itself, upgrade
+  [[16-assumptions-and-validation]] A10's status — required composition is
+  now real architecture, but Experiment B still needs an independent
+  baseline to validate whether composition *outperforms* the alternative,
+  per ADR-009.
+
+**Status**: Adopted.

@@ -25,12 +25,20 @@ cases, evaluated on 8 fixtures plus a real dogfood run that found and fixed a
 test-coverage gap in Phase 2's CLI. Also ran a first, explicitly-labeled
 viability check for the product thesis's Experiment A/B — see
 [`project-memory-bank/17-experiment-viability-check.md`](project-memory-bank/17-experiment-viability-check.md).
-See
+
+**Phase 4 — Feature Planner** (complete): fourth skill —
+`skills/feature-planner/` — reusing the same pattern a third time to turn a
+task description into a structured plan, evaluated on 8 fixtures plus a real
+dogfood run against this repo's own current state. New this phase: composing
+on `codebase-intelligence`'s output is a **required precondition**, not
+optional context (ADR-010) — the real dogfood run found and fixed a
+test-coverage gap in Phase 3's CLI, and documented (without fixing) a real
+limitation in this skill's own relevance-ranking logic. See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 4 — Feature Planner.** Not started; requires explicit
-maintainer approval and re-justification against evidence before work
-begins.
+**Proposed next: Phase 5 — Security Context Guard.** Not started; requires
+explicit maintainer approval and re-justification against evidence before
+work begins.
 
 ## How phases work here
 

@@ -1,0 +1,8 @@
+{
+  "planning_pattern_ids": ["no-verification-signal"],
+  "expected_categories": [
+    { "id": "p1", "category": "scope-statement", "keywords": ["conflict", "contradict", "assum"] },
+    { "id": "p2", "category": "affected-files", "keywords": ["cli", "formatter"] },
+    { "id": "p3", "category": "non-goal", "keywords": ["assum", "clarif"] }
+  ]
+}

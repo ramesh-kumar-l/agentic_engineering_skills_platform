@@ -1,0 +1,13 @@
+{
+  "planning_pattern_ids": [
+    "no-scope-boundary-signal",
+    "no-verification-signal",
+    "vague-scope-catchall",
+    "vague-scope-cleanup"
+  ],
+  "expected_categories": [
+    { "id": "p1", "category": "assumption-flag", "keywords": ["clean up", "vague", "assum"] },
+    { "id": "p2", "category": "affected-files", "keywords": ["notification"] },
+    { "id": "p3", "category": "non-goal", "keywords": ["billing", "non-goal", "out of scope"] }
+  ]
+}

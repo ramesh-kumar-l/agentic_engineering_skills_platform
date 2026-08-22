@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/notifications.py",
+      "docstring": "Sends notification emails to users.",
+      "functions": ["send_notification"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/billing.py",
+      "docstring": "Handles billing charges.",
+      "functions": ["charge_card"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/config_loader.py",
+      "docstring": "Loads shared application config from disk.",
+      "functions": ["load_config"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

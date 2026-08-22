@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "p1",
+      "category": "assumption-flag",
+      "description": "No existing module in the codebase-intelligence report shares any vocabulary with 'SMS gateway' or 'two-factor codes' — this is very likely new functionality with no existing file to extend, not a gap in the relevance scorer's keyword matching.",
+      "grounding": "relevance.scores is empty; report.warnings explicitly states 'No modules... matched the task description's keywords.'",
+      "priority": "high",
+      "assumptions": "Assumed this requires a new module rather than modifying an unlisted existing one; the requester should confirm no SMS/2FA code already exists elsewhere in the repo outside what codebase-intelligence scanned."
+    },
+    {
+      "id": "p2",
+      "category": "dependency-blocker",
+      "description": "Requires selecting and integrating a specific third-party SMS gateway provider (e.g. an account, API credentials) before implementation can start — this is an external blocker, not a repo-internal task.",
+      "grounding": "Task states 'Integrate with the new third-party SMS gateway' without naming the provider or confirming access exists.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

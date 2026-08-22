@@ -10,9 +10,9 @@ just because it was planned earlier. See [[16-assumptions-and-validation]].
 PHASE 0  — Foundation                        ← COMPLETE
 PHASE 1  — Codebase Intelligence             ← COMPLETE
 PHASE 2  — Adversarial Diff Reviewer         ← COMPLETE
-PHASE 3  — Acceptance Test Engineer          ← COMPLETE (this phase)
-PHASE 4  — Feature Planner                   ← proposed next, not started
-PHASE 5  — Security Context Guard
+PHASE 3  — Acceptance Test Engineer          ← COMPLETE
+PHASE 4  — Feature Planner                   ← COMPLETE (this phase)
+PHASE 5  — Security Context Guard            ← proposed next, not started
 PHASE 6  — Root Cause Analyzer
 PHASE 7  — Refactoring Safety
 PHASE 8  — Architecture Decision
@@ -109,3 +109,34 @@ missing to run either experiment for real, and runs two explicitly-labeled
 internal pilots (N=1, self-run, not the real experiments) governed by new
 ADR-009. Neither A2 nor A10 in [[16-assumptions-and-validation]] is upgraded
 beyond what a single non-blinded pilot can support.
+
+## Phase 4 scope (this phase) — complete
+
+Built `feature-planner`, reusing Pattern 2 (ADR-007) a third time: `SKILL.md`
+contract + a deterministic relevance-scoring/planning-flag engine + 21
+passing tests + an 8-fixture evaluation harness (same two-layer scoring and
+up-front self-authored/single-rater caveat as Phases 2-3, now applying a
+third time) + a real dogfood run against this repo's own current state.
+
+New this phase: ADR-010 — `feature-planner` is the first skill where
+composition with `codebase-intelligence` is a **hard precondition**, not
+optional context. The exit criteria's "first skill composing on top of
+Codebase Intelligence's output" is implemented literally: the engine refuses
+to run without a valid `report.json` (`engine/ci_report_loader.py`,
+`CiReportError`). The real dogfood run
+([[examples/feature-planner/example-run.md]]) regenerated a fresh
+`codebase-intelligence` report against the repo's current (4-skill) state
+and found two genuine things: (1) L13 — `acceptance-test-engineer`'s own CLI
+had zero test coverage, the second cross-skill dogfood finding, fixed
+same-session; (2) L14 — the relevance scorer's path-weighting floods when
+task keywords collide with a shared directory name, a real limitation left
+unfixed because the agent's Step 3 judgment is designed to (and did, in that
+same run) correct for it — the strongest evidence yet that ADR-007's
+two-layer split earns its complexity.
+
+Important honesty note, carried forward from Phase 3: required composition
+existing and working is evidence for a narrower claim ("composition
+executes correctly and is genuinely used") than Experiment B requires
+("composition measurably outperforms the individual-skill alternative,
+against an independent baseline"). [[16-assumptions-and-validation]] A10
+remains UNKNOWN — see ADR-009.

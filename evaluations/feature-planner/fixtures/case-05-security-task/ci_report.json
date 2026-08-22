@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/auth.py",
+      "docstring": "Handles authentication and admin role checks.",
+      "functions": ["require_role"],
+      "classes": ["AuthMiddleware"],
+      "imports": []
+    },
+    {
+      "path": "engine/user_api.py",
+      "docstring": "User-facing API endpoints, including password reset.",
+      "functions": ["reset_password"],
+      "classes": [],
+      "imports": ["auth"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/auth.py": 4},
+    "fan_out": {"engine/user_api.py": 1},
+    "hotspots": []
+  }
+}

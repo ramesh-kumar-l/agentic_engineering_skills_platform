@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "p1",
+      "category": "scope-statement",
+      "description": "The task's two sentences contradict each other: 'only support JSON output' vs. 'keeps supporting the legacy plain-text output format' — this cannot both be true as written. Flagging as an open question rather than silently picking one interpretation.",
+      "grounding": "No pattern-matching rule can detect this — 'only' satisfies the deterministic scope-boundary check in isolation, but the second sentence directly contradicts it. This is the kind of sentence-level contradiction the deterministic layer cannot catch (mirrors L11's acceptance-test-engineer case-08).",
+      "priority": "high",
+      "assumptions": "Assumed the intended meaning is 'JSON becomes the new default, plain-text remains available for backward compatibility' since that resolves the contradiction without discarding either sentence — but this is a guess that must be confirmed by the requester before implementation."
+    },
+    {
+      "id": "p2",
+      "category": "affected-files",
+      "description": "engine/formatter.py (keep both format_json and format_text) and engine/cli.py (wire the chosen default/flag) are the files to change.",
+      "grounding": "formatter.py scored 14 (json, output, plain, text, format); cli.py scored 5 (cli, format).",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p3",
+      "category": "non-goal",
+      "description": "Do not remove format_text from engine/formatter.py under the p1 assumption — removing it would violate the second sentence of the task.",
+      "grounding": "Derived directly from resolving the contradiction flagged in p1.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

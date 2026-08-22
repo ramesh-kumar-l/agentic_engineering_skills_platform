@@ -1,0 +1,1 @@
+Rewrite the CLI to only support JSON output. Also make sure the CLI keeps supporting the legacy plain-text output format for old scripts.

@@ -1,0 +1,1 @@
+Migrate the reporting module to the new database schema once the migration script from the data team lands.

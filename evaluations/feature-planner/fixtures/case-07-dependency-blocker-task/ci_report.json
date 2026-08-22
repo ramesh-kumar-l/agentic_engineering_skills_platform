@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/reporting.py",
+      "docstring": "Generates reports from the database.",
+      "functions": ["generate_report"],
+      "classes": [],
+      "imports": ["db"]
+    },
+    {
+      "path": "engine/db.py",
+      "docstring": "Database access layer.",
+      "functions": ["query"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/db.py": 1},
+    "fan_out": {"engine/reporting.py": 1},
+    "hotspots": []
+  }
+}

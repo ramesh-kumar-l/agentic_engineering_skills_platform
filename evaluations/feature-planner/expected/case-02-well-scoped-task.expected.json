@@ -1,0 +1,9 @@
+{
+  "planning_pattern_ids": [],
+  "expected_categories": [
+    { "id": "p1", "category": "scope-statement", "keywords": ["dry-run", "export"] },
+    { "id": "p2", "category": "non-goal", "keywords": ["import"] },
+    { "id": "p3", "category": "affected-files", "keywords": ["export_cli", "exporter"] },
+    { "id": "p4", "category": "test-hook", "keywords": ["test", "dry-run", "output"] }
+  ]
+}

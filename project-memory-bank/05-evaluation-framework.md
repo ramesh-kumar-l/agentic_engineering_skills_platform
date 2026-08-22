@@ -87,3 +87,27 @@ Phase 3). Go through each category explicitly for a given requirement:
 Category 10 is the honesty valve: when the requirement doesn't say, the agent
 must say so explicitly rather than picking a plausible interpretation and
 presenting it as derived fact.
+
+## Plan Quality checklist
+
+Third checklist, for skills whose job is *turning a vague task into a
+structured plan* (`feature-planner`, Phase 4). Go through each category
+explicitly for a given task:
+
+```
+1. Scope statement (goal/deliverable)     6. Rollback/reversibility per risky step
+2. Explicit non-goals / out-of-scope      7. Test/acceptance-criteria hook
+3. Affected files — grounded in real      8. Security/permission touchpoints
+   repo structure, not guessed            9. Dependencies & blockers
+4. Ordered step sequence, each step      10. Explicit assumption flag (context
+   independently verifiable                 silent → state it, don't guess)
+5. Risk & blast-radius assessment
+   (fan-in/fan-out/hotspot signal)
+```
+
+**Convention, now established across all three checklists**: category 10 is
+always the honesty valve. The failure-first checklist doesn't need one (its
+job is finding defects, not resolving ambiguity), but both checklists whose
+job is *defining* something ambiguous end their list the same way — state
+the assumption, don't guess silently. Keep this convention if a future skill
+adds a fourth checklist of this shape.

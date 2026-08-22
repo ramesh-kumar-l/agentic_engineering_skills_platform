@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/payment_worker.py",
+      "docstring": "Processes payment retries with backoff.",
+      "functions": ["process_retry"],
+      "classes": [],
+      "imports": ["backoff"]
+    },
+    {
+      "path": "engine/backoff.py",
+      "docstring": "Retry backoff helper utilities.",
+      "functions": ["compute_delay"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/backoff.py": 1},
+    "fan_out": {"engine/payment_worker.py": 1},
+    "hotspots": []
+  }
+}

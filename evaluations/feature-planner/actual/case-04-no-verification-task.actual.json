@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "p1",
+      "category": "test-hook",
+      "description": "No verification method was stated in the task; assume a unit test asserting the retry delay follows exponential growth (e.g. delay doubles per attempt up to a cap) is required before this ships.",
+      "grounding": "planning_flags fired no-verification-signal — the task never mentions test/verify/acceptance.",
+      "priority": "high",
+      "assumptions": "verification approach is assumed, not stated by the requester."
+    },
+    {
+      "id": "p2",
+      "category": "affected-files",
+      "description": "engine/payment_worker.py and engine/backoff.py are the files to change.",
+      "grounding": "Both scored in the relevance report (10 and 5 respectively) via real keyword overlap (retry, payment, worker, backoff).",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "p3",
+      "category": "step-sequence",
+      "description": "1) Add an exponential backoff calculation to engine/backoff.py; 2) wire engine/payment_worker.py's process_retry to use the new delay; 3) verify via the new test in p1.",
+      "grounding": "Ordered from the two affected files identified in p2, most independent module first.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

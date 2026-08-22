@@ -1,0 +1,8 @@
+{
+  "planning_pattern_ids": ["no-scope-boundary-signal", "no-verification-signal"],
+  "expected_categories": [
+    { "id": "p1", "category": "dependency-blocker", "keywords": ["migration script", "data team", "blocked"] },
+    { "id": "p2", "category": "affected-files", "keywords": ["reporting", "db"] },
+    { "id": "p3", "category": "step-sequence", "keywords": ["schema", "migrat"] }
+  ]
+}
