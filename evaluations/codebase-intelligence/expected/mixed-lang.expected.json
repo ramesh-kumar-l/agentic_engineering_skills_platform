@@ -1,0 +1,10 @@
+{
+  "file_count": 4,
+  "language_breakdown": {"python": 1, "javascript": 2, "json": 1},
+  "entry_point_paths": [],
+  "internal_edges": [
+    ["client/index.js", "client/utils.js"]
+  ],
+  "external_dependency_names": ["lodash"],
+  "excluded_dir_count": 1
+}

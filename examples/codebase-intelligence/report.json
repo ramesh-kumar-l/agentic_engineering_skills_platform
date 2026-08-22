@@ -1,0 +1,968 @@
+{
+  "root_path": "D:\\ClaudeProjects\\agentic_engineering_skills_platform",
+  "generated_at": "2026-08-22T18:23:26.120160+00:00",
+  "file_count": 58,
+  "language_breakdown": {
+    "markdown": 23,
+    "unknown": 3,
+    "python": 24,
+    "json": 5,
+    "javascript": 2,
+    "toml": 1
+  },
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "language": "markdown",
+      "size_bytes": 589,
+      "line_count": 17
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "language": "markdown",
+      "size_bytes": 1974,
+      "line_count": 43
+    },
+    {
+      "path": "LICENSE",
+      "language": "unknown",
+      "size_bytes": 11558,
+      "line_count": 201
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "size_bytes": 1589,
+      "line_count": 31
+    },
+    {
+      "path": "ROADMAP.md",
+      "language": "markdown",
+      "size_bytes": 1169,
+      "line_count": 28
+    },
+    {
+      "path": "SECURITY.md",
+      "language": "markdown",
+      "size_bytes": 1127,
+      "line_count": 27
+    },
+    {
+      "path": "evaluations/codebase-intelligence/RESULTS.md",
+      "language": "markdown",
+      "size_bytes": 1643,
+      "line_count": 48
+    },
+    {
+      "path": "evaluations/codebase-intelligence/run_evaluation.py",
+      "language": "python",
+      "size_bytes": 5246,
+      "line_count": 121
+    },
+    {
+      "path": "evaluations/codebase-intelligence/eval_cases/case-01-simple-python.md",
+      "language": "markdown",
+      "size_bytes": 842,
+      "line_count": 10
+    },
+    {
+      "path": "evaluations/codebase-intelligence/eval_cases/case-02-multi-package-python.md",
+      "language": "markdown",
+      "size_bytes": 1117,
+      "line_count": 17
+    },
+    {
+      "path": "evaluations/codebase-intelligence/eval_cases/case-03-mixed-lang.md",
+      "language": "markdown",
+      "size_bytes": 1092,
+      "line_count": 18
+    },
+    {
+      "path": "evaluations/codebase-intelligence/eval_cases/case-04-empty-edge-case.md",
+      "language": "markdown",
+      "size_bytes": 983,
+      "line_count": 16
+    },
+    {
+      "path": "evaluations/codebase-intelligence/expected/empty-edge-case.expected.json",
+      "language": "json",
+      "size_bytes": 148,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/codebase-intelligence/expected/mixed-lang.expected.json",
+      "language": "json",
+      "size_bytes": 256,
+      "line_count": 10
+    },
+    {
+      "path": "evaluations/codebase-intelligence/expected/multi-package-python.expected.json",
+      "language": "json",
+      "size_bytes": 257,
+      "line_count": 10
+    },
+    {
+      "path": "evaluations/codebase-intelligence/expected/simple-python.expected.json",
+      "language": "json",
+      "size_bytes": 155,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/empty-edge-case/notes.txt",
+      "language": "unknown",
+      "size_bytes": 213,
+      "line_count": 3
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/package.json",
+      "language": "json",
+      "size_bytes": 107,
+      "line_count": 7
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/server.py",
+      "language": "python",
+      "size_bytes": 76,
+      "line_count": 6
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+      "language": "javascript",
+      "size_bytes": 70,
+      "line_count": 3
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js",
+      "language": "javascript",
+      "size_bytes": 82,
+      "line_count": 5
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/requirements.txt",
+      "language": "unknown",
+      "size_bytes": 17,
+      "line_count": 1
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+      "language": "python",
+      "size_bytes": 102,
+      "line_count": 6
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+      "language": "python",
+      "size_bytes": 86,
+      "line_count": 6
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py",
+      "language": "python",
+      "size_bytes": 75,
+      "line_count": 5
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/__init__.py",
+      "language": "python",
+      "size_bytes": 0,
+      "line_count": 0
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+      "language": "python",
+      "size_bytes": 228,
+      "line_count": 10
+    },
+    {
+      "path": "project-memory-bank/00-project-vision.md",
+      "language": "markdown",
+      "size_bytes": 1978,
+      "line_count": 66
+    },
+    {
+      "path": "project-memory-bank/01-product-thesis.md",
+      "language": "markdown",
+      "size_bytes": 2648,
+      "line_count": 64
+    },
+    {
+      "path": "project-memory-bank/02-requirements.md",
+      "language": "markdown",
+      "size_bytes": 2014,
+      "line_count": 40
+    },
+    {
+      "path": "project-memory-bank/04-skill-contract.md",
+      "language": "markdown",
+      "size_bytes": 2169,
+      "line_count": 90
+    },
+    {
+      "path": "project-memory-bank/05-evaluation-framework.md",
+      "language": "markdown",
+      "size_bytes": 1901,
+      "line_count": 70
+    },
+    {
+      "path": "project-memory-bank/06-security-model.md",
+      "language": "markdown",
+      "size_bytes": 1619,
+      "line_count": 53
+    },
+    {
+      "path": "project-memory-bank/07-current-state.md",
+      "language": "markdown",
+      "size_bytes": 2450,
+      "line_count": 65
+    },
+    {
+      "path": "project-memory-bank/08-roadmap.md",
+      "language": "markdown",
+      "size_bytes": 2444,
+      "line_count": 62
+    },
+    {
+      "path": "project-memory-bank/11-decisions.md",
+      "language": "markdown",
+      "size_bytes": 3642,
+      "line_count": 83
+    },
+    {
+      "path": "project-memory-bank/16-assumptions-and-validation.md",
+      "language": "markdown",
+      "size_bytes": 7347,
+      "line_count": 152
+    },
+    {
+      "path": "project-memory-bank/sprint-history/SPRINT-00.md",
+      "language": "markdown",
+      "size_bytes": 3088,
+      "line_count": 100
+    },
+    {
+      "path": "skills/codebase-intelligence/pyproject.toml",
+      "language": "toml",
+      "size_bytes": 334,
+      "line_count": 13
+    },
+    {
+      "path": "skills/codebase-intelligence/README.md",
+      "language": "markdown",
+      "size_bytes": 662,
+      "line_count": 30
+    },
+    {
+      "path": "skills/codebase-intelligence/SKILL.md",
+      "language": "markdown",
+      "size_bytes": 7021,
+      "line_count": 148
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/cli.py",
+      "language": "python",
+      "size_bytes": 1643,
+      "line_count": 51
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/external_deps.py",
+      "language": "python",
+      "size_bytes": 2838,
+      "line_count": 82
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/generic_parser.py",
+      "language": "python",
+      "size_bytes": 1404,
+      "line_count": 43
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/graph.py",
+      "language": "python",
+      "size_bytes": 4014,
+      "line_count": 112
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/models.py",
+      "language": "python",
+      "size_bytes": 2260,
+      "line_count": 80
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/python_parser.py",
+      "language": "python",
+      "size_bytes": 3182,
+      "line_count": 90
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/render_json.py",
+      "language": "python",
+      "size_bytes": 464,
+      "line_count": 16
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/render_markdown.py",
+      "language": "python",
+      "size_bytes": 3170,
+      "line_count": 79
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/report.py",
+      "language": "python",
+      "size_bytes": 3457,
+      "line_count": 89
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/scanner.py",
+      "language": "python",
+      "size_bytes": 3934,
+      "line_count": 120
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/__init__.py",
+      "language": "python",
+      "size_bytes": 111,
+      "line_count": 3
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_external_deps.py",
+      "language": "python",
+      "size_bytes": 1344,
+      "line_count": 44
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_graph.py",
+      "language": "python",
+      "size_bytes": 2122,
+      "line_count": 70
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_integration.py",
+      "language": "python",
+      "size_bytes": 1164,
+      "line_count": 26
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_python_parser.py",
+      "language": "python",
+      "size_bytes": 2282,
+      "line_count": 68
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_report.py",
+      "language": "python",
+      "size_bytes": 1080,
+      "line_count": 29
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_scanner.py",
+      "language": "python",
+      "size_bytes": 1933,
+      "line_count": 57
+    }
+  ],
+  "modules": [
+    {
+      "path": "evaluations/codebase-intelligence/run_evaluation.py",
+      "language": "python",
+      "docstring": "Evaluation harness for the codebase-intelligence skill.\n\nImplements the Skill -> Evaluation Dataset -> Runtime -> Execution -> Scoring\n-> Report pipeline from project-memory-bank/05-evaluation-framework.md, scoped\nto this one skill (per that file: \"do not over-engineer this before there's\nevidence it's needed\" \u2014 no generic multi-skill harness yet).\n\nCorrectness/Completeness/Efficiency are scored automatically by diffing actual\noutput against hand-authored ground truth. Safety/Relevance/Explainability are\nNOT scored here \u2014 the framework requires those never be self-evaluated by the\nmodel alone, so they are left for human review in RESULTS.md.",
+      "functions": [
+        "summarize",
+        "score_case",
+        "run"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "sys",
+        "time",
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/server.py",
+      "language": "python",
+      "docstring": "Simple server script.",
+      "functions": [
+        "start"
+      ],
+      "classes": [],
+      "imports": [
+        "os"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+      "language": "javascript",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "./utils"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js",
+      "language": "javascript",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+      "language": "python",
+      "docstring": "Command line entry point.",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        ".core"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+      "language": "python",
+      "docstring": "Core logic.",
+      "functions": [
+        "run"
+      ],
+      "classes": [],
+      "imports": [
+        ".utils"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py",
+      "language": "python",
+      "docstring": "Small utility helpers.",
+      "functions": [
+        "double"
+      ],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/__init__.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+      "language": "python",
+      "docstring": "A simple standalone script with no internal dependencies.",
+      "functions": [
+        "greet"
+      ],
+      "classes": [],
+      "imports": [
+        "sys"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/cli.py",
+      "language": "python",
+      "docstring": "Thin CLI entry point. All real logic lives in report.py and the renderers.\n\nUsage:\n    python -m engine.cli <path> [--format json|markdown|both] [--out DIR]",
+      "functions": [
+        "main"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "argparse",
+        "sys",
+        "pathlib",
+        ".render_json",
+        ".render_markdown",
+        ".report"
+      ],
+      "has_main_guard": true,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/external_deps.py",
+      "language": "python",
+      "docstring": "Parses external (third-party) dependency manifests.\n\nStdlib-only by design: uses a small manual TOML scan instead of `tomllib`\nso the engine works on Python 3.10+ without a version-dependent import.",
+      "functions": [
+        "parse_external_dependencies",
+        "_parse_requirements_txt",
+        "_parse_pyproject_toml",
+        "_parse_package_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/generic_parser.py",
+      "language": "python",
+      "docstring": "Heuristic (regex-based) import extraction for non-Python languages.\n\nKNOWN LIMITATION (see project-memory-bank/12-known-limitations.md): this is\nnot a real parser. It pattern-matches common import syntaxes for JS/TS, Java,\nand Go. It will miss dynamic imports, re-exports, and unusual formatting.\nTreat its output as a hint, not ground truth.",
+      "functions": [
+        "parse_generic_file"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/graph.py",
+      "language": "python",
+      "docstring": "Builds the internal (repo-local) dependency graph from parsed imports.\n\nOnly imports that resolve to a file inside the scanned repo become graph\nedges. Everything else (stdlib, third-party packages) is left out of the\ngraph on purpose \u2014 external_deps.py handles third-party dependencies\nseparately, so the graph stays a clean map of internal coupling.",
+      "functions": [
+        "build_graph",
+        "_build_python_index",
+        "_resolve_python_import",
+        "_resolve_js_import",
+        "_normalize_posix"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "collections",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/models.py",
+      "language": "python",
+      "docstring": "Shared data schema for the Codebase Intelligence report.\n\nEvery other engine module produces or consumes these types. Keeping the\nschema in one file means the JSON/Markdown renderers and the evaluation\nharness all agree on the same contract without importing each other.",
+      "functions": [],
+      "classes": [
+        "FileInfo",
+        "ModuleInfo",
+        "EntryPoint",
+        "ExternalDependency",
+        "DependencyEdge",
+        "DependencyGraph",
+        "DocCoverage",
+        "CodebaseIntelligenceReport"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/python_parser.py",
+      "language": "python",
+      "docstring": "AST-based structural parsing for Python files.\n\nOnly structure is extracted (imports, def/class names, docstrings) \u2014 never\nfull file contents \u2014 so downstream consumers get a condensed context object,\nnot a repo dump (see NFR2 in project-memory-bank/02-requirements.md).",
+      "functions": [
+        "parse_python_file",
+        "_is_top_level",
+        "_has_main_guard"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "ast",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/render_json.py",
+      "language": "python",
+      "docstring": "Full-detail JSON rendering of a CodebaseIntelligenceReport.\n\nThis is the machine-readable output other skills should consume \u2014 it is\nnot truncated, unlike the Markdown renderer.",
+      "functions": [
+        "render_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "dataclasses",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/render_markdown.py",
+      "language": "python",
+      "docstring": "Condensed, human/agent-readable Markdown rendering.\n\nDeliberately summarized (top hotspots, not every file) so the output stays\n\"minimum sufficient context\" even for large repos \u2014 see NFR2 in\nproject-memory-bank/02-requirements.md. Full detail belongs in the JSON\noutput (render_json.py), not here.",
+      "functions": [
+        "render_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/report.py",
+      "language": "python",
+      "docstring": "Orchestrates scanner + parsers + graph + external_deps into one report.\n\nThis is the only module that knows the full pipeline order; every other\nmodule is independently testable in isolation.",
+      "functions": [
+        "build_report",
+        "_parse_modules",
+        "_find_entry_points",
+        "_compute_doc_coverage"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "collections",
+        "datetime",
+        "pathlib",
+        ".external_deps",
+        ".generic_parser",
+        ".graph",
+        ".python_parser",
+        ".scanner",
+        ".models",
+        "json"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/scanner.py",
+      "language": "python",
+      "docstring": "Repo walk: builds the file inventory and applies exclusion/security rules.\n\nSecurity note: this module NEVER reads the contents of a file it classifies\nas secret-shaped (see SECRET_NAME_PATTERNS). Those files are recorded only\nas a warning (filename, nothing else) so the rest of the engine can never\nleak their contents downstream.",
+      "functions": [
+        "is_secret_shaped",
+        "detect_language",
+        "scan",
+        "_count_lines"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "os",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/__init__.py",
+      "language": "python",
+      "docstring": "Codebase Intelligence engine: deterministic, stdlib-only repo structure analysis.",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_external_deps.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_parses_requirements_txt",
+        "test_parses_package_json",
+        "test_no_manifests_returns_empty",
+        "test_parses_pyproject_toml_dependencies"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_graph.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_resolves_internal_python_import",
+        "test_ignores_external_python_import",
+        "test_resolves_relative_python_import",
+        "test_resolves_relative_js_import",
+        "test_ignores_bare_js_specifier",
+        "test_hotspots_ranks_by_combined_degree"
+      ],
+      "classes": [],
+      "imports": [
+        "engine",
+        "engine.models"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_integration.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_full_pipeline_produces_valid_json_and_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "pathlib",
+        "engine.render_json",
+        "engine.render_markdown",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_python_parser.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_parses_imports_defs_classes_docstring",
+        "test_handles_syntax_error_gracefully",
+        "test_relative_imports_captured",
+        "test_has_main_guard_detects_real_guard",
+        "test_has_main_guard_ignores_string_mentions"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_report.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_build_report_basic_shape",
+        "test_build_report_on_empty_dir"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    },
+    {
+      "path": "skills/codebase-intelligence/tests/test_scanner.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_scan_finds_python_files",
+        "test_scan_excludes_default_dirs",
+        "test_scan_skips_secret_shaped_files_without_reading_content",
+        "test_scan_skips_oversized_files",
+        "test_detect_language"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "parse_error": null
+    }
+  ],
+  "entry_points": [
+    {
+      "path": "evaluations/codebase-intelligence/run_evaluation.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+      "reason": "if __name__ == '__main__'"
+    },
+    {
+      "path": "skills/codebase-intelligence/engine/cli.py",
+      "reason": "if __name__ == '__main__'"
+    }
+  ],
+  "dependency_graph": {
+    "edges": [
+      {
+        "source": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+        "target": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js"
+      },
+      {
+        "source": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+        "target": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py"
+      },
+      {
+        "source": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+        "target": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/cli.py",
+        "target": "skills/codebase-intelligence/engine/render_json.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/cli.py",
+        "target": "skills/codebase-intelligence/engine/render_markdown.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/cli.py",
+        "target": "skills/codebase-intelligence/engine/report.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/external_deps.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/generic_parser.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/graph.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/python_parser.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/render_json.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/render_markdown.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/external_deps.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/generic_parser.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/graph.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/python_parser.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/scanner.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/report.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      },
+      {
+        "source": "skills/codebase-intelligence/engine/scanner.py",
+        "target": "skills/codebase-intelligence/engine/models.py"
+      }
+    ],
+    "fan_in": {
+      "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js": 1,
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py": 1,
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py": 1,
+      "skills/codebase-intelligence/engine/render_json.py": 1,
+      "skills/codebase-intelligence/engine/render_markdown.py": 1,
+      "skills/codebase-intelligence/engine/report.py": 1,
+      "skills/codebase-intelligence/engine/models.py": 8,
+      "skills/codebase-intelligence/engine/external_deps.py": 1,
+      "skills/codebase-intelligence/engine/generic_parser.py": 1,
+      "skills/codebase-intelligence/engine/graph.py": 1,
+      "skills/codebase-intelligence/engine/python_parser.py": 1,
+      "skills/codebase-intelligence/engine/scanner.py": 1
+    },
+    "fan_out": {
+      "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js": 1,
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py": 1,
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py": 1,
+      "skills/codebase-intelligence/engine/cli.py": 3,
+      "skills/codebase-intelligence/engine/external_deps.py": 1,
+      "skills/codebase-intelligence/engine/generic_parser.py": 1,
+      "skills/codebase-intelligence/engine/graph.py": 1,
+      "skills/codebase-intelligence/engine/python_parser.py": 1,
+      "skills/codebase-intelligence/engine/render_json.py": 1,
+      "skills/codebase-intelligence/engine/render_markdown.py": 1,
+      "skills/codebase-intelligence/engine/report.py": 6,
+      "skills/codebase-intelligence/engine/scanner.py": 1
+    },
+    "hotspots": [
+      "skills/codebase-intelligence/engine/models.py",
+      "skills/codebase-intelligence/engine/report.py",
+      "skills/codebase-intelligence/engine/cli.py",
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+      "skills/codebase-intelligence/engine/render_json.py",
+      "skills/codebase-intelligence/engine/render_markdown.py",
+      "skills/codebase-intelligence/engine/external_deps.py",
+      "skills/codebase-intelligence/engine/generic_parser.py",
+      "skills/codebase-intelligence/engine/graph.py",
+      "skills/codebase-intelligence/engine/python_parser.py"
+    ]
+  },
+  "external_dependencies": [],
+  "doc_coverage": {
+    "dirs_with_readme": [
+      "",
+      "skills/codebase-intelligence"
+    ],
+    "dirs_without_readme": [
+      "evaluations/codebase-intelligence",
+      "evaluations/codebase-intelligence/eval_cases",
+      "evaluations/codebase-intelligence/expected",
+      "evaluations/codebase-intelligence/fixtures/empty-edge-case",
+      "evaluations/codebase-intelligence/fixtures/mixed-lang",
+      "evaluations/codebase-intelligence/fixtures/mixed-lang/client",
+      "evaluations/codebase-intelligence/fixtures/multi-package-python",
+      "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg",
+      "evaluations/codebase-intelligence/fixtures/simple-python",
+      "project-memory-bank",
+      "project-memory-bank/sprint-history",
+      "skills/codebase-intelligence/engine",
+      "skills/codebase-intelligence/tests"
+    ]
+  },
+  "excluded_dir_count": 5,
+  "skipped_file_count": 0,
+  "warnings": []
+}

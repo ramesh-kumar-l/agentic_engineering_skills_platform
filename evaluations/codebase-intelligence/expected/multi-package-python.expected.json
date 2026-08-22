@@ -1,0 +1,10 @@
+{
+  "file_count": 5,
+  "language_breakdown": {"python": 4, "unknown": 1},
+  "entry_point_paths": ["pkg/cli.py"],
+  "internal_edges": [
+    ["pkg/core.py", "pkg/utils.py"],
+    ["pkg/cli.py", "pkg/core.py"]
+  ],
+  "external_dependency_names": ["requests"]
+}

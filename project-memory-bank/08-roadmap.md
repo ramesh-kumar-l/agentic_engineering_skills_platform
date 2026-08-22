@@ -7,9 +7,9 @@ just because it was planned earlier. See [[16-assumptions-and-validation]].
 ## Phase list
 
 ```
-PHASE 0  — Foundation                        ← COMPLETE (this phase)
-PHASE 1  — Codebase Intelligence             ← proposed next, not started
-PHASE 2  — Adversarial Diff Reviewer
+PHASE 0  — Foundation                        ← COMPLETE
+PHASE 1  — Codebase Intelligence             ← COMPLETE (this phase)
+PHASE 2  — Adversarial Diff Reviewer         ← proposed next, not started
 PHASE 3  — Acceptance Test Engineer
 PHASE 4  — Feature Planner
 PHASE 5  — Security Context Guard
@@ -55,8 +55,21 @@ investment. Feature Planner then extends this to
 experimental foundation before memory, registry, or UI work. Logged formally in
 [[11-decisions]].
 
-## Phase 0 scope (this phase)
+## Phase 0 scope
 
 Repository structure, memory bank, skill contract, evaluation framework,
 assumptions ledger, security model, roadmap, contribution model, tracking. No
 skill implementation, no product functionality.
+
+## Phase 1 scope (this phase) — complete
+
+Built `codebase-intelligence`: `SKILL.md` contract + a stdlib-only Python
+engine (11 modules, each under 300 lines) + 23 passing tests + a 4-fixture
+evaluation harness (all passing) + a dogfood run against this repo that found
+and fixed a real bug pre-ship. See [[03-architecture]],
+[[implementation-status.md]], [[12-known-limitations]]. Established the
+"SKILL.md + deterministic engine" pattern (ADR-005/006 in [[11-decisions]])
+for reuse by later skills where the underlying task is deterministic.
+
+No real-world (non-agent) usage yet — see [[16-assumptions-and-validation]]
+for what Phase 1 did and did not validate.

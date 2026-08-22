@@ -1,0 +1,7 @@
+{
+  "file_count": 1,
+  "language_breakdown": {"python": 1},
+  "entry_point_paths": ["app.py"],
+  "internal_edges": [],
+  "external_dependency_names": []
+}

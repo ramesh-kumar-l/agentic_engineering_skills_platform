@@ -34,9 +34,15 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   engineer + skill on matched real tasks, measuring Time-to-Correct-Result.
 - **Expected evidence**: skill-assisted workflow shows lower
   Time-to-Correct-Result and fewer review findings.
-- **Actual evidence**: none yet.
+- **Actual evidence**: none yet — Experiment A (skill vs. normal prompting on
+  matched real tasks) has not been run. Phase 1 only proves the skill can be
+  built and passes its own synthetic evaluation; it does not yet compare
+  against unstructured prompting on real work.
 - **Status**: UNKNOWN.
-- **Decision**: required before claiming any skill is "Level 2 — Evaluated."
+- **Decision**: still required before claiming any skill is "Level 2 —
+  Evaluated" *in the outcome sense* — codebase-intelligence has met the
+  narrower "ships with evaluation cases" bar in [[04-skill-contract]], not
+  this assumption.
 
 ### A3: `SKILL.md` is a useful distribution format
 
@@ -48,10 +54,18 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   ([[05-evaluation-framework]]) against real `SKILL.md` files; note friction.
 - **Expected evidence**: harness can parse/execute skills without excessive
   custom parsing logic.
-- **Actual evidence**: none yet — no harness built.
-- **Status**: UNKNOWN.
+- **Actual evidence**: `evaluations/codebase-intelligence/run_evaluation.py`
+  was built against the real `skills/codebase-intelligence/SKILL.md` contract
+  with no custom SKILL.md-parsing logic needed — the harness invokes the
+  engine directly and scores its output, treating SKILL.md as human/agent-
+  readable documentation rather than something the harness itself parses.
+  That's a real gap worth naming: this doesn't yet prove SKILL.md's structure
+  is machine-actionable, only that it's a workable *human-facing* contract.
+- **Status**: PARTIALLY_VALIDATED — as documentation format, not yet as a
+  machine-parseable one.
 - **Decision**: see ADR-002 in [[11-decisions]] — format is deliberately not
-  locked in.
+  locked in. Revisit machine-parseability only if/when a registry or
+  multi-skill harness needs to introspect SKILL.md programmatically.
 
 ### A4: Skills behave consistently enough across runtimes
 
@@ -77,10 +91,20 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
 - **Validation experiment**: have two independent reviewers score the same
   skill run; measure agreement.
 - **Expected evidence**: reasonable inter-rater agreement on scored dimensions.
-- **Actual evidence**: none yet.
-- **Status**: UNKNOWN.
+- **Actual evidence**: for a deterministic, structural skill
+  (codebase-intelligence), Correctness/Completeness/Efficiency scored fully
+  automatically against hand-authored ground truth with no ambiguity (4/4
+  fixtures, see `evaluations/codebase-intelligence/RESULTS.md`). Safety/
+  Relevance/Explainability were, as designed, left unscored and flagged for
+  human review — no inter-rater agreement experiment has been run on those.
+  So the "objective" half of the rubric worked; the harder, judgment-based
+  half remains untested.
+- **Status**: PARTIALLY_VALIDATED — true for automatable dimensions on a
+  deterministic skill; still UNKNOWN for judgment-based dimensions and for
+  skills that are themselves judgment-based (e.g. a future diff reviewer).
 - **Decision**: never let the model be sole evaluator of itself for critical
-  claims, regardless of this experiment's outcome.
+  claims, regardless of this experiment's outcome. Run the inter-rater
+  agreement experiment when a judgment-based skill exists (Phase 2).
 
 ### A6: Engineers will tolerate the additional workflow
 

@@ -12,9 +12,13 @@ in its foundation phase).
 
 ## Status
 
-**Phase 0 — Foundation.** No skills exist yet. The project currently consists of
-a documented operating model: a skill contract, an evaluation framework, a
-security model, and an assumptions ledger. See
+**Phase 1 — Codebase Intelligence complete.** One skill exists:
+[`skills/codebase-intelligence/`](skills/codebase-intelligence/) — a
+structural repo-analysis skill with a tested engine and evaluation harness,
+Trust Status EXPERIMENTAL (see
+[`project-memory-bank/04-skill-contract.md`](project-memory-bank/04-skill-contract.md)
+for what that status means). It has not yet been used on real engineering
+work by anyone outside this project's own development. See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md)
 for the authoritative current state.
 

@@ -1,0 +1,3 @@
+This fixture intentionally contains no recognizable source code.
+It exists to verify the engine degrades gracefully (empty modules/edges/entry
+points) instead of erroring on a repo with no code structure to find.

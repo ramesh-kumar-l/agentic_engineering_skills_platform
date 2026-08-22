@@ -9,8 +9,14 @@ file is a short public pointer, not a duplicate.
 **Phase 0 — Foundation** (complete): repository structure, memory bank, skill
 contract, evaluation framework, security model, assumptions ledger.
 
-**Proposed next: Phase 1 — Codebase Intelligence.** Not started; requires
-explicit maintainer approval before work begins.
+**Phase 1 — Codebase Intelligence** (complete): first real skill —
+`skills/codebase-intelligence/` — with a tested engine, evaluation harness,
+and a dogfood run against this repo. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Proposed next: Phase 2 — Adversarial Diff Reviewer.** Not started; requires
+explicit maintainer approval and re-justification against evidence before
+work begins.
 
 ## How phases work here
 
