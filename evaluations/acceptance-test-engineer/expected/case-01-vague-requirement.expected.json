@@ -1,0 +1,14 @@
+{
+  "testability_pattern_ids": [
+    "no-boundary-signal",
+    "no-error-handling-signal",
+    "vague-performance-term",
+    "vague-quality-term",
+    "weak-modal-should"
+  ],
+  "expected_categories": [
+    { "id": "c1", "category": "happy-path", "keywords": ["load", "dashboard"] },
+    { "id": "c2", "category": "assumption-flag", "keywords": ["fast", "user-friendly", "assum"] },
+    { "id": "c3", "category": "non-functional-constraint", "keywords": ["performance", "load time", "threshold"] }
+  ]
+}

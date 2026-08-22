@@ -12,19 +12,25 @@ in its foundation phase).
 
 ## Status
 
-**Phase 2 — Adversarial Diff Reviewer complete.** Two skills exist:
+**Phase 3 — Acceptance Test Engineer complete.** Three skills exist:
 [`skills/codebase-intelligence/`](skills/codebase-intelligence/) — a
-structural repo-analysis skill — and
+structural repo-analysis skill;
 [`skills/adversarial-diff-reviewer/`](skills/adversarial-diff-reviewer/) — a
 diff-review skill combining a deterministic risk-flagging engine with an
-agent-driven adversarial review workflow. Both are tested and evaluated,
-Trust Status EXPERIMENTAL on both (see
+agent-driven adversarial review workflow; and
+[`skills/acceptance-test-engineer/`](skills/acceptance-test-engineer/) — a
+requirement-to-acceptance-criteria skill using the same deterministic +
+agent-driven pattern. All three are tested and evaluated, Trust Status
+EXPERIMENTAL on all three (see
 [`project-memory-bank/04-skill-contract.md`](project-memory-bank/04-skill-contract.md)
-for what that status means). Neither has yet been used on real engineering
-work by anyone outside this project's own development, and the diff
-reviewer's evaluation evidence is self-authored/single-rater (see
+for what that status means). None has yet been used on real engineering work
+by anyone outside this project's own development, and both judgment-based
+skills' evaluation evidence is self-authored/single-rater (see
 [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md)
-L8). See
+L8). Phase 3 also ran a first, explicitly-labeled viability check for the
+product thesis's Experiment A/B — see
+[`project-memory-bank/17-experiment-viability-check.md`](project-memory-bank/17-experiment-viability-check.md).
+See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md)
 for the authoritative current state.
 

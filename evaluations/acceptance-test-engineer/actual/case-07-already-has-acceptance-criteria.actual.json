@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "id": "a1",
+      "category": "happy-path",
+      "given": "a registered user submits the login form with a correct password",
+      "when": "the form is processed",
+      "then": "they are redirected to the dashboard",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a2",
+      "category": "invalid-input-error-handling",
+      "given": "a registered user submits the login form with an incorrect password",
+      "when": "the form is processed",
+      "then": "they see an error message and remain on the login page",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a3",
+      "category": "negative-case",
+      "given": "the incorrect-password scenario",
+      "when": "the form is processed",
+      "then": "the user must not be redirected to the dashboard; remaining on the login page is the required negative outcome",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

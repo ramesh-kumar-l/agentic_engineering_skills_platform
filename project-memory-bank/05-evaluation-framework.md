@@ -66,5 +66,24 @@ What failed | Why | Impact | Fix | Regression prevention
 ```
 
 Failures are first-class product artifacts — never hide or paper over them (see
-[[12-known-limitations]], not yet created; will hold the running failure catalog
-once skills exist to fail).
+[[12-known-limitations]], holds the running failure catalog).
+
+## Acceptance-coverage checklist
+
+Companion to the failure-first list above, for skills whose job is *defining*
+correctness rather than finding defects (e.g. `acceptance-test-engineer`,
+Phase 3). Go through each category explicitly for a given requirement:
+
+```
+1. Happy path / primary success        6. Duplicate / repeat / idempotency
+2. Boundary / edge values              7. Concurrent access (if applicable)
+3. Invalid input / error handling      8. Authorization boundary (if applicable)
+4. Explicit negative case (must-not)   9. Stated non-functional constraint
+5. Empty / missing / null state       10. Explicit assumption flag (requirement
+                                          silent → state the assumption, don't
+                                          guess silently)
+```
+
+Category 10 is the honesty valve: when the requirement doesn't say, the agent
+must say so explicitly rather than picking a plausible interpretation and
+presenting it as derived fact.

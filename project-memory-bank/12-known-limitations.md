@@ -155,3 +155,60 @@ Entries below are from Phase 2 (adversarial-diff-reviewer).
   this skill absorbing that scope.
 - **Regression prevention**: Documented in `SKILL.md` under "When NOT to Use"
   and "Failure Conditions."
+
+---
+
+Entries below are from Phase 3 (acceptance-test-engineer).
+
+## L10: `adversarial-diff-reviewer`'s CLI had zero test coverage (FIXED during Phase 3)
+
+- **What failed**: `skills/adversarial-diff-reviewer/engine/cli.py` — stdin
+  reading, `--out` directory writing, and the nonexistent-path exit-1 path —
+  had no test exercising `main()` at all across the skill's 5 existing test
+  files (19 tests, all against the engine modules directly).
+- **Why**: Phase 2's test suite was written module-by-module against the
+  engine internals; the CLI wrapper was assumed "thin enough not to need
+  tests" and never revisited.
+- **Impact**: Found by dogfooding `acceptance-test-engineer` against the
+  CLI's real, already-shipped behavior (not a synthetic requirement) —
+  see `examples/acceptance-test-engineer/example-run.md`. This is a gap in
+  a *previous* phase's skill, surfaced by the *new* phase's skill — the
+  first cross-skill dogfood finding in this project.
+- **Fix**: `skills/adversarial-diff-reviewer/tests/test_cli.py` added (4
+  tests) directly from the derived acceptance cases.
+- **Regression prevention**: the new test file itself; suite is now 23/23.
+
+## L11: Testability anti-pattern list is not exhaustive
+
+- **What failed**: N/A (scope boundary, not a bug).
+- **Why**: `patterns.py` is a fixed regex table (vague terms, weak modal
+  verbs, two whole-document absence checks) — it can only match wording
+  shapes it was written to recognize.
+- **Impact**: Will over-flag (e.g. "should" used in a deliberate,
+  RFC-2119-style non-mandatory clause is not actually a defect) and
+  under-flag (any ambiguity that doesn't happen to use a known vague
+  adjective or weak modal — most genuine scope ambiguity, like case-08's
+  sentence-level contradiction, is invisible to this layer and only caught
+  by the agent's Step 3 reasoning, exactly mirroring L7's role for the diff
+  reviewer).
+- **Fix**: Not applicable — documented boundary between the deterministic
+  and judgment layers (ADR-007, reused for this skill).
+- **Regression prevention**: Documented in `SKILL.md` under "Known
+  Limitations."
+
+## L12: No executable test code is generated — Gherkin text only
+
+- **What failed**: N/A (deliberate scope decision, not a bug).
+- **Why**: The skill has not read the real implementation being tested, so
+  generating pytest/step-definition code would fabricate false precision
+  about a system's actual API — it would look executable while being
+  invented.
+- **Impact**: The Acceptance Test Report's Gherkin block still requires a
+  human or a separate, implementation-aware step to wire up real step
+  definitions before it can run as an executable test suite.
+- **Fix**: Not planned unless a future skill is explicitly scoped to compose
+  this skill's output with real implementation knowledge (e.g. a future
+  skill that reads the actual API via `codebase-intelligence` and generates
+  glue code) — not this skill absorbing that scope.
+- **Regression prevention**: Documented in `SKILL.md` under "When NOT to
+  Use" and "Workflow" Step 4.

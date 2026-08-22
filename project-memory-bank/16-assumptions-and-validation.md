@@ -35,14 +35,23 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
 - **Expected evidence**: skill-assisted workflow shows lower
   Time-to-Correct-Result and fewer review findings.
 - **Actual evidence**: none yet — Experiment A (skill vs. normal prompting on
-  matched real tasks) has not been run. Phase 1 and Phase 2 only prove each
-  skill can be built and passes its own synthetic evaluation; neither
-  compares against unstructured prompting on real work.
+  matched real tasks) has not been run. Phase 1–3 only prove each skill can
+  be built and passes its own synthetic evaluation; neither compares against
+  unstructured prompting on real work. Phase 3 attempted a first viability
+  check: Experiment A is not runnable rigorously without an independent
+  party, so a single-session, N=1, un-blinded internal pilot was run instead
+  (Pilot A, [[17-experiment-viability-check]]) — it surfaced one real,
+  checkable signal (the skill's category-10 discipline surfaced an
+  assumption about `argparse` interaction that direct reasoning likely would
+  have skipped) but is explicitly not evidence for or against this
+  assumption at the required rigor.
 - **Status**: UNKNOWN.
 - **Decision**: still required before claiming any skill is "Level 2 —
-  Evaluated" *in the outcome sense* — codebase-intelligence and
-  adversarial-diff-reviewer have each met the narrower "ships with evaluation
-  cases" bar in [[04-skill-contract]], not this assumption.
+  Evaluated" *in the outcome sense* — codebase-intelligence,
+  adversarial-diff-reviewer, and acceptance-test-engineer have each met the
+  narrower "ships with evaluation cases" bar in [[04-skill-contract]], not
+  this assumption. Do not run Experiment A "for real" using only one agent
+  session — see ADR-009.
 
 ### A3: `SKILL.md` is a useful distribution format
 
@@ -115,7 +124,14 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   should be read as "the workflow is executable and internally consistent,"
   not as "this skill reviews code well" — that claim requires either an
   independent rater or real external usage. Run the actual inter-rater
-  experiment before upgrading this status further.
+  experiment before upgrading this status further. Phase 3 repeated the same
+  pattern for `acceptance-test-engineer` (100% precision/recall,
+  `evaluations/acceptance-test-engineer/RESULTS.md`, same self-authored
+  caveat, disclosed up front this time rather than discovered after the
+  fact) — two-for-two on judgment-based skills scoring perfectly against
+  their own authors' ground truth is itself a signal that this evaluation
+  design cannot discriminate a genuinely good derivation from a mediocre
+  one; that gap, not the scores, is the real finding.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -181,7 +197,18 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   composed workflow.
 - **Expected evidence**: composed workflow shows measurably better outcomes
   than the best individual skill alone, net of added time/friction.
-- **Actual evidence**: none yet — no workflow composition exists (Phase 14).
+- **Actual evidence**: none yet at the required rigor — no formal workflow
+  composition exists (Phase 14). Phase 3 ran a first viability check: with 3
+  skills now covering UNDERSTAND → VERIFY → DEFINE CORRECTNESS, composition
+  is technically possible for the first time, so a single-session, N=1,
+  un-blinded internal pilot was run (Pilot B,
+  [[17-experiment-viability-check]]) — feeding `codebase-intelligence`'s real
+  Phase 1 output into `acceptance-test-engineer` resolved a specific
+  assumption (which directories need READMEs) that the individual skill
+  alone could only flag as unresolved. One data point, one requirement
+  shape — not evidence composition wins in general.
 - **Status**: UNKNOWN.
 - **Decision**: do not build Workflow Composer (Phase 14) until Experiment B
-  can be run on at least the first few individual skills.
+  can be run on at least the first few individual skills, with a genuinely
+  independent baseline — see ADR-009. The Phase 3 pilot shows a plausible
+  signal worth re-testing at proper rigor, not proof composition works.

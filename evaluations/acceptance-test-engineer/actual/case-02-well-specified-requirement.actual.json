@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "id": "a1",
+      "category": "happy-path",
+      "given": "an upload of exactly 5 MB",
+      "when": "it is submitted",
+      "then": "the API returns HTTP 201 for the upload",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a2",
+      "category": "boundary-edge-value",
+      "given": "uploads at the boundary values of 1 byte and exactly 10 MB",
+      "when": "each is submitted",
+      "then": "both return HTTP 201, since the requirement states the accepted range is between 1 byte and 10 MB inclusive",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a3",
+      "category": "invalid-input-error-handling",
+      "given": "an upload larger than 10 MB, e.g. 10.1 MB",
+      "when": "it is submitted",
+      "then": "the API must reject it with HTTP 413",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

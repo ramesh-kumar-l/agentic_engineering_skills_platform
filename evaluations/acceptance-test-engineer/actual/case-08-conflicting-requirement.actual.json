@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "id": "a1",
+      "category": "happy-path",
+      "given": "a premium user views a page with the export feature",
+      "when": "they click the export button",
+      "then": "the export action runs successfully",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a2",
+      "category": "authorization-boundary",
+      "given": "a non-premium user views the same page",
+      "when": "they click the export button",
+      "then": "the click action must be blocked for them — this is a permission boundary between button visibility and click authorization",
+      "priority": "high",
+      "assumptions": "click gating is assumed to be enforced server-side, not just hidden client-side"
+    },
+    {
+      "id": "a3",
+      "category": "assumption-flag",
+      "given": "the two requirement sentences conflict: visible to all users vs. only premium users can click",
+      "when": "deriving acceptance criteria",
+      "then": "it is assumed the intended behavior is visible-to-all plus click-gated-to-premium, pending confirmation to resolve the conflict",
+      "priority": "high",
+      "assumptions": "the visible-vs-clickable conflict resolution is assumed, not confirmed"
+    },
+    {
+      "id": "a4",
+      "category": "negative-case",
+      "given": "a non-premium user",
+      "when": "they attempt to click the export button",
+      "then": "they cannot click it to trigger export — the button is visible but disabled for non-premium users",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

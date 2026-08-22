@@ -1,0 +1,1 @@
+The API must reject any upload larger than 10 MB with HTTP 413. The API must return HTTP 201 for uploads between 1 byte and 10 MB.

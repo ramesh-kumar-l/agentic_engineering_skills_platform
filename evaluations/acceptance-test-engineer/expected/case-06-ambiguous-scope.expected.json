@@ -1,0 +1,13 @@
+{
+  "testability_pattern_ids": [
+    "no-boundary-signal",
+    "no-error-handling-signal",
+    "vague-appropriateness-term",
+    "weak-modal-should"
+  ],
+  "expected_categories": [
+    { "id": "c1", "category": "happy-path", "keywords": ["validate", "input", "process"] },
+    { "id": "c2", "category": "invalid-input-error-handling", "keywords": ["invalid", "reject", "assum"] },
+    { "id": "c3", "category": "assumption-flag", "keywords": ["assum"] }
+  ]
+}

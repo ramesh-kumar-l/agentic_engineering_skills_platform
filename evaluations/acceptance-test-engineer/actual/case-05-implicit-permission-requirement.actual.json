@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "id": "a1",
+      "category": "happy-path",
+      "given": "an authenticated admin",
+      "when": "they delete a user's account from the admin panel",
+      "then": "the account is removed",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a2",
+      "category": "authorization-boundary",
+      "given": "a non-admin user attempts the same delete action, e.g. via a direct API call",
+      "when": "the request is made",
+      "then": "access must be denied; this is an assumed permission boundary since the requirement never states non-admin behavior explicitly",
+      "priority": "high",
+      "assumptions": "non-admin denial behavior is assumed, not stated"
+    },
+    {
+      "id": "a3",
+      "category": "assumption-flag",
+      "given": "the requirement only describes the admin path",
+      "when": "deriving acceptance criteria",
+      "then": "the non-admin denial in a2 is stated explicitly as an assumption pending confirmation",
+      "priority": "medium",
+      "assumptions": "non-admin access behavior is assumed"
+    }
+  ]
+}

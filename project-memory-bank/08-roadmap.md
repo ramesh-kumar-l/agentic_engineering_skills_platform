@@ -9,9 +9,9 @@ just because it was planned earlier. See [[16-assumptions-and-validation]].
 ```
 PHASE 0  — Foundation                        ← COMPLETE
 PHASE 1  — Codebase Intelligence             ← COMPLETE
-PHASE 2  — Adversarial Diff Reviewer         ← COMPLETE (this phase)
-PHASE 3  — Acceptance Test Engineer          ← proposed next, not started
-PHASE 4  — Feature Planner
+PHASE 2  — Adversarial Diff Reviewer         ← COMPLETE
+PHASE 3  — Acceptance Test Engineer          ← COMPLETE (this phase)
+PHASE 4  — Feature Planner                   ← proposed next, not started
 PHASE 5  — Security Context Guard
 PHASE 6  — Root Cause Analyzer
 PHASE 7  — Refactoring Safety
@@ -91,3 +91,21 @@ Important honesty note: the judgment-layer evaluation's 100% precision/recall
 is self-authored, single-rater evidence (L8) — the same agent wrote the
 fixtures, ground truth, and review. Do not read it as proof of real-world
 review quality; see [[16-assumptions-and-validation]] A5.
+
+## Phase 3 scope (this phase) — complete
+
+Built `acceptance-test-engineer`, reusing Pattern 2 as-is (no new base-pattern
+ADR) for a second judgment-based skill: `SKILL.md` contract + a deterministic
+testability-anti-pattern engine + 20 passing tests + an 8-fixture evaluation
+harness (same two-layer scoring and same up-front self-authored/single-rater
+caveat as Phase 2) + a dogfood run against a real, already-shipped
+requirement that found and fixed a real gap (L10 in [[12-known-limitations]]:
+`adversarial-diff-reviewer`'s CLI had zero test coverage — the first
+cross-skill dogfood finding).
+
+Also delivered the exit criteria's second half: a first Experiment A/B
+viability check, [[17-experiment-viability-check.md]] — assesses what's
+missing to run either experiment for real, and runs two explicitly-labeled
+internal pilots (N=1, self-run, not the real experiments) governed by new
+ADR-009. Neither A2 nor A10 in [[16-assumptions-and-validation]] is upgraded
+beyond what a single non-blinded pilot can support.

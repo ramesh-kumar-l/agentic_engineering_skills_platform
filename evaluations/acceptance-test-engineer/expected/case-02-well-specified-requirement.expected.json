@@ -1,0 +1,8 @@
+{
+  "testability_pattern_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "happy-path", "keywords": ["201", "upload"] },
+    { "id": "c2", "category": "boundary-edge-value", "keywords": ["10 mb", "boundary", "1 byte"] },
+    { "id": "c3", "category": "invalid-input-error-handling", "keywords": ["413", "reject", "larger"] }
+  ]
+}

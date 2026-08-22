@@ -1,8 +1,10 @@
 # 03 — Architecture
 
 First real architectural content, established in Phase 1
-([[08-roadmap]], ADR-005/ADR-006 in [[11-decisions]]) and extended in Phase 2
-with a second pattern for judgment-based skills (ADR-007/ADR-008).
+([[08-roadmap]], ADR-005/ADR-006 in [[11-decisions]]), extended in Phase 2
+with a second pattern for judgment-based skills (ADR-007/ADR-008), and
+reused as-is (no new base pattern) in Phase 3 (`acceptance-test-engineer`) —
+see "Pattern 2, reused for Phase 3" below.
 
 ## Pattern: SKILL.md + optional deterministic engine
 
@@ -174,3 +176,46 @@ runs an agent, rather than only diffing deterministic output. The scoring
 script itself remains deterministic and automated (category+file+keyword
 match) — what's new is that one of its two inputs (`actual/*.json`) required a
 real agent turn to produce, not just code.
+
+---
+
+## Pattern 2, reused for Phase 3: `acceptance-test-engineer`
+
+Phase 3 did not introduce a new base pattern — it reused Pattern 2 exactly
+(deterministic anti-pattern flagging + agent-driven derivation against a
+fixed checklist), swapping the domain from diff review to requirement
+testability. This is itself a small piece of evidence the pattern
+generalizes beyond its original use case:
+
+```
+skills/acceptance-test-engineer/
+  SKILL.md            <- contract: Step 1 engine, Steps 2-4 agent reasoning
+  engine/              <- deterministic, stdlib-only Python package
+    models.py            shared schema (RequirementContext, TestabilityFlag,
+                          AcceptanceTestabilityReport)
+    requirement_parser.py   free text -> structured sentences
+    patterns.py            fixed regex table: vague terms, weak modal verbs,
+                            per-sentence + whole-document absence checks
+    testability_scanner.py   applies patterns.py to a RequirementContext
+    stats.py                objective requirement stats (sentences, words,
+                             vague-term/modal counts, existing-criteria markers)
+    report.py               orchestrates the above into one pre-review packet
+    render_json.py / render_markdown.py
+    cli.py                thin entry point only
+  tests/                unit + integration tests, one file per engine module
+```
+
+The 10-category coverage checklist this skill's Step 3 uses lives in
+[[05-evaluation-framework]] (acceptance-coverage checklist), alongside the
+pre-existing failure-first checklist, since both are reusable methodology
+artifacts rather than code specific to one skill.
+
+Evaluation harness architecture is identical in shape to Phase 2's (fixtures
++ expected + actual + eval_cases + run_evaluation.py + RESULTS.md), with the
+same up-front self-authored/single-rater disclosure — see
+`evaluations/acceptance-test-engineer/RESULTS.md` and L8/A5.
+
+New this phase: [[17-experiment-viability-check]] — the first attempt at
+using more than one existing skill together (composing `codebase-
+intelligence`'s real Phase 1 output into `acceptance-test-engineer`'s input),
+run as an explicitly-labeled pilot, not the real Experiment B (ADR-009).

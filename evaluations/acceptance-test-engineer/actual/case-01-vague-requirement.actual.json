@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "id": "a1",
+      "category": "happy-path",
+      "given": "a user navigates to the dashboard",
+      "when": "the page loads",
+      "then": "the dashboard displays successfully for the user",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a2",
+      "category": "assumption-flag",
+      "given": "the requirement uses the terms fast and user-friendly with no measurable threshold",
+      "when": "deriving acceptance criteria from this requirement",
+      "then": "the concrete load-time budget and usability criteria are treated as an open assumption requiring product confirmation, not silently picked",
+      "priority": "high",
+      "assumptions": "fast and user-friendly are undefined"
+    },
+    {
+      "id": "a3",
+      "category": "non-functional-constraint",
+      "given": "the requirement implies a performance expectation via the word fast",
+      "when": "the assumption in a2 is resolved into a concrete load time threshold",
+      "then": "that threshold becomes a measurable performance acceptance case",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

@@ -7,6 +7,22 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 3: Acceptance Test Engineer — third skill
+  (`skills/acceptance-test-engineer/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) — a deterministic testability-anti-pattern engine (9 modules,
+  each under 300 lines, 20 passing tests) combined with an agent-driven
+  acceptance-case-derivation workflow against a new 10-category
+  acceptance-coverage checklist (`project-memory-bank/05-evaluation-
+  framework.md`); an 8-fixture evaluation harness scoring both layers
+  (`evaluations/acceptance-test-engineer/`); and a dogfood run against a
+  real, already-shipped requirement (`examples/acceptance-test-engineer/`)
+  that found and fixed a real gap — `adversarial-diff-reviewer`'s CLI had
+  zero test coverage (`skills/adversarial-diff-reviewer/tests/test_cli.py`,
+  4 new tests, first cross-skill dogfood finding).
+- `project-memory-bank/17-experiment-viability-check.md` — a first,
+  explicitly-labeled viability check for the product thesis's Experiment
+  A/B, including two N=1 internal pilots, governed by new ADR-009 (pilots
+  must never be presented as the validated experiment).
 - Phase 2: Adversarial Diff Reviewer — second skill
   (`skills/adversarial-diff-reviewer/`): `SKILL.md` contract combining a
   deterministic risk-flagging engine (9 modules, each under 300 lines, 19

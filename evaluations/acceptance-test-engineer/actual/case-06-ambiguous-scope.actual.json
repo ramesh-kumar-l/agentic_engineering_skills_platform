@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "id": "a1",
+      "category": "happy-path",
+      "given": "input that is validated and found valid",
+      "when": "processing runs",
+      "then": "processing proceeds normally",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a2",
+      "category": "invalid-input-error-handling",
+      "given": "the requirement does not define what 'validated properly' means or what happens on invalid input",
+      "when": "invalid input is submitted",
+      "then": "it is assumed the system must reject the invalid input with an error rather than silently proceeding to processing",
+      "priority": "high",
+      "assumptions": "validation rules and invalid-input behavior are both assumed"
+    },
+    {
+      "id": "a3",
+      "category": "assumption-flag",
+      "given": "the requirement gives no concrete validation rule",
+      "when": "deriving acceptance criteria",
+      "then": "the assumed reject-on-invalid behavior in a2 is flagged explicitly rather than presented as derived fact",
+      "priority": "medium",
+      "assumptions": "validation rule content is assumed, not specified"
+    }
+  ]
+}

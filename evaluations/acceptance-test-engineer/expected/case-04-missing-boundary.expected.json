@@ -1,0 +1,8 @@
+{
+  "testability_pattern_ids": ["no-boundary-signal", "no-error-handling-signal"],
+  "expected_categories": [
+    { "id": "c1", "category": "happy-path", "keywords": ["playlist", "song", "add"] },
+    { "id": "c2", "category": "boundary-edge-value", "keywords": ["limit", "maximum", "assum"] },
+    { "id": "c3", "category": "assumption-flag", "keywords": ["assum"] }
+  ]
+}

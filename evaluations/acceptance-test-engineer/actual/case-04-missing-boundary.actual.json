@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "id": "a1",
+      "category": "happy-path",
+      "given": "a user creates a playlist and adds a song",
+      "when": "the add action completes",
+      "then": "the song appears in the playlist",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a2",
+      "category": "boundary-edge-value",
+      "given": "the requirement states no maximum number of songs per playlist or playlists per user",
+      "when": "deriving boundary acceptance criteria",
+      "then": "a maximum limit is assumed to exist and must be confirmed with product before this case can be finalized",
+      "priority": "medium",
+      "assumptions": "no stated limit on songs per playlist"
+    },
+    {
+      "id": "a3",
+      "category": "assumption-flag",
+      "given": "the requirement never states a playlist size limit",
+      "when": "deriving acceptance criteria",
+      "then": "the missing limit in a2 is flagged explicitly as an open assumption rather than an arbitrary number being picked",
+      "priority": "medium",
+      "assumptions": "playlist/song limits are assumed, not specified"
+    }
+  ]
+}

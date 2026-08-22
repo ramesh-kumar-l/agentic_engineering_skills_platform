@@ -1,0 +1,8 @@
+{
+  "testability_pattern_ids": ["no-boundary-signal"],
+  "expected_categories": [
+    { "id": "c1", "category": "happy-path", "keywords": ["correct password", "dashboard"] },
+    { "id": "c2", "category": "invalid-input-error-handling", "keywords": ["incorrect password", "error message"] },
+    { "id": "c3", "category": "negative-case", "keywords": ["incorrect", "remain on the login page"] }
+  ]
+}

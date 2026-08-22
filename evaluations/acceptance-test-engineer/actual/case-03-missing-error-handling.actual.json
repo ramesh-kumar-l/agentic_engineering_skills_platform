@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "id": "a1",
+      "category": "happy-path",
+      "given": "a user submits a valid username and password",
+      "when": "the login form is processed",
+      "then": "a session is created and the user is logged in",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "a2",
+      "category": "invalid-input-error-handling",
+      "given": "a user submits an incorrect password or unknown username",
+      "when": "the login form is processed",
+      "then": "the system must reject the attempt with an invalid-credentials response and must not create a session",
+      "priority": "high",
+      "assumptions": "requirement never states what happens on invalid credentials"
+    },
+    {
+      "id": "a3",
+      "category": "assumption-flag",
+      "given": "the requirement is silent about incorrect credentials",
+      "when": "deriving acceptance criteria",
+      "then": "the reject-without-session behavior in a2 is stated as an explicit assumption, not a derived fact",
+      "priority": "medium",
+      "assumptions": "invalid-credential handling is assumed, not specified"
+    }
+  ]
+}

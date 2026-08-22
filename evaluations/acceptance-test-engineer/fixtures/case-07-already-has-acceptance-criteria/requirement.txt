@@ -1,0 +1,7 @@
+Given a registered user
+When they submit the login form with a correct password
+Then they are redirected to the dashboard
+
+Given a registered user
+When they submit the login form with an incorrect password
+Then they see an error message and remain on the login page

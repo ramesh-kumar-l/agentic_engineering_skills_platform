@@ -16,12 +16,21 @@ and a dogfood run against this repo.
 **Phase 2 — Adversarial Diff Reviewer** (complete): second skill —
 `skills/adversarial-diff-reviewer/` — combining a deterministic risk-flagging
 engine with an agent-driven adversarial review workflow, evaluated on 8
-seeded-defect fixtures plus a real in-session diff. See
+seeded-defect fixtures plus a real in-session diff.
+
+**Phase 3 — Acceptance Test Engineer** (complete): third skill —
+`skills/acceptance-test-engineer/` — reusing the same deterministic +
+agent-driven pattern to turn a requirement into structured acceptance test
+cases, evaluated on 8 fixtures plus a real dogfood run that found and fixed a
+test-coverage gap in Phase 2's CLI. Also ran a first, explicitly-labeled
+viability check for the product thesis's Experiment A/B — see
+[`project-memory-bank/17-experiment-viability-check.md`](project-memory-bank/17-experiment-viability-check.md).
+See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 3 — Acceptance Test Engineer.** Not started; requires
-explicit maintainer approval and re-justification against evidence before
-work begins.
+**Proposed next: Phase 4 — Feature Planner.** Not started; requires explicit
+maintainer approval and re-justification against evidence before work
+begins.
 
 ## How phases work here
 

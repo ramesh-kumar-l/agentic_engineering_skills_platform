@@ -5,7 +5,7 @@ Deterministic risk-flag layer is scored automatically. Judgment-layer Precision/
 ## case-01-obvious-bug
 ### Deterministic risk-flag layer
 - Correctness: 5/5
-- Efficiency: 5/5 (0.10ms)
+- Efficiency: 5/5 (0.04ms)
 - Mismatches: none
 ### Judgment layer (this session's actual review)
 - Precision: 1.0
@@ -19,7 +19,7 @@ Deterministic risk-flag layer is scored automatically. Judgment-layer Precision/
 ## case-02-subtle-bug
 ### Deterministic risk-flag layer
 - Correctness: 5/5
-- Efficiency: 5/5 (0.05ms)
+- Efficiency: 5/5 (0.04ms)
 - Mismatches: none
 ### Judgment layer (this session's actual review)
 - Precision: 1.0
@@ -33,7 +33,7 @@ Deterministic risk-flag layer is scored automatically. Judgment-layer Precision/
 ## case-03-security-issue
 ### Deterministic risk-flag layer
 - Correctness: 5/5
-- Efficiency: 5/5 (0.05ms)
+- Efficiency: 5/5 (0.04ms)
 - Mismatches: none
 ### Judgment layer (this session's actual review)
 - Precision: 1.0
@@ -47,7 +47,7 @@ Deterministic risk-flag layer is scored automatically. Judgment-layer Precision/
 ## case-04-broad-except
 ### Deterministic risk-flag layer
 - Correctness: 5/5
-- Efficiency: 5/5 (0.05ms)
+- Efficiency: 5/5 (0.04ms)
 - Mismatches: none
 ### Judgment layer (this session's actual review)
 - Precision: 1.0
@@ -61,7 +61,7 @@ Deterministic risk-flag layer is scored automatically. Judgment-layer Precision/
 ## case-05-clean-diff
 ### Deterministic risk-flag layer
 - Correctness: 5/5
-- Efficiency: 5/5 (0.04ms)
+- Efficiency: 5/5 (0.03ms)
 - Mismatches: none
 ### Judgment layer (this session's actual review)
 - Precision: 1.0
@@ -75,7 +75,7 @@ Deterministic risk-flag layer is scored automatically. Judgment-layer Precision/
 ## case-06-large-noisy-diff
 ### Deterministic risk-flag layer
 - Correctness: 5/5
-- Efficiency: 5/5 (0.08ms)
+- Efficiency: 5/5 (0.07ms)
 - Mismatches: none
 ### Judgment layer (this session's actual review)
 - Precision: 1.0
@@ -103,7 +103,7 @@ Deterministic risk-flag layer is scored automatically. Judgment-layer Precision/
 ## case-08-concurrency-bug
 ### Deterministic risk-flag layer
 - Correctness: 5/5
-- Efficiency: 5/5 (0.05ms)
+- Efficiency: 5/5 (0.04ms)
 - Mismatches: none
 ### Judgment layer (this session's actual review)
 - Precision: 1.0

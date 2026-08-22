@@ -1,0 +1,9 @@
+{
+  "testability_pattern_ids": ["no-boundary-signal", "no-error-handling-signal"],
+  "expected_categories": [
+    { "id": "c1", "category": "happy-path", "keywords": ["premium", "export"] },
+    { "id": "c2", "category": "authorization-boundary", "keywords": ["premium", "non-premium", "permission"] },
+    { "id": "c3", "category": "assumption-flag", "keywords": ["conflict", "assum"] },
+    { "id": "c4", "category": "negative-case", "keywords": ["non-premium", "cannot click", "visible but disabled"] }
+  ]
+}

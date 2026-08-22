@@ -210,3 +210,36 @@ and the underlying line content, before any output is produced.
   separately-authorized secure mechanism — not assumed here.
 
 **Status**: Adopted.
+
+---
+
+## ADR-009: Internal viability pilots must never be presented as the validated experiment
+
+**Decision**: When a validation experiment ([[01-product-thesis]] Experiment
+A/B/C) is not yet actually runnable (missing an independent party, a real
+task, or a real measurement), it is acceptable to run a small, explicitly-
+labeled internal pilot (single session, N=1, un-blinded, self-run) to sanity-
+check direction — but the pilot's result must never be written up, cited, or
+have the assumptions ledger status upgraded as if it were the real
+experiment. Established in Phase 3 ([[17-experiment-viability-check]]),
+generalizing the disclosure discipline already used for L8.
+
+- User Value: keeps every claim in the repo honestly scoped, so future
+  decisions (including whether to invest in Phase 14's Workflow Composer)
+  aren't built on evidence that looks stronger than it is.
+- Correctness: a pilot and an experiment answer different questions — "is
+  this executable and does it show a plausible signal" vs. "is this actually
+  better, measured against an independent baseline." Conflating them would
+  corrupt the assumptions ledger's evidentiary value.
+- Evidence: Pilot A and Pilot B in [[17-experiment-viability-check]] both
+  found plausible signal (an assumption made explicit that direct reasoning
+  skipped; a composition win on one requirement shape) — real observations,
+  explicitly bounded as N=1 and non-generalizable.
+- Simplicity: one clear rule ("pilot ≠ experiment, always label which one
+  this is") rather than a graduated confidence scale that invites rounding
+  up.
+- Future Evolution: the actual Experiment A/B still require an independent
+  party; this ADR does not change what's needed to run them for real, only
+  governs what to do while they remain unrunnable.
+
+**Status**: Adopted.
