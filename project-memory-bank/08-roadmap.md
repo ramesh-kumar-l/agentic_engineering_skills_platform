@@ -8,9 +8,9 @@ just because it was planned earlier. See [[16-assumptions-and-validation]].
 
 ```
 PHASE 0  — Foundation                        ← COMPLETE
-PHASE 1  — Codebase Intelligence             ← COMPLETE (this phase)
-PHASE 2  — Adversarial Diff Reviewer         ← proposed next, not started
-PHASE 3  — Acceptance Test Engineer
+PHASE 1  — Codebase Intelligence             ← COMPLETE
+PHASE 2  — Adversarial Diff Reviewer         ← COMPLETE (this phase)
+PHASE 3  — Acceptance Test Engineer          ← proposed next, not started
 PHASE 4  — Feature Planner
 PHASE 5  — Security Context Guard
 PHASE 6  — Root Cause Analyzer
@@ -73,3 +73,21 @@ for reuse by later skills where the underlying task is deterministic.
 
 No real-world (non-agent) usage yet — see [[16-assumptions-and-validation]]
 for what Phase 1 did and did not validate.
+
+## Phase 2 scope (this phase) — complete
+
+Built `adversarial-diff-reviewer`: a second architectural pattern
+(deterministic risk-flagging engine + agent-driven adversarial review
+workflow, ADR-007/008 in [[11-decisions]]) for judgment-based skills, the
+counterpart to Phase 1's fully-deterministic pattern. `SKILL.md` contract +
+19 passing tests + an 8-fixture evaluation harness scoring both the
+deterministic layer (automated) and the judgment layer (this session's agent
+actually performing the review, not fabricated) + a dogfood run against a
+real diff that found and fixed two real bugs in sequence (L5, L6 in
+[[12-known-limitations]]). See [[03-architecture]] Pattern 2,
+[[implementation-status.md]].
+
+Important honesty note: the judgment-layer evaluation's 100% precision/recall
+is self-authored, single-rater evidence (L8) — the same agent wrote the
+fixtures, ground truth, and review. Do not read it as proof of real-world
+review quality; see [[16-assumptions-and-validation]] A5.

@@ -10,6 +10,7 @@ Replaced/updated in place, not appended to chronologically — see
 | Skill | Maturity | Trust Status | Tests | Evaluation |
 |---|---|---|---|---|
 | codebase-intelligence | Level 2 — Evaluated | EXPERIMENTAL | 23/23 passing | 4/4 fixtures passing, see `evaluations/codebase-intelligence/RESULTS.md` |
+| adversarial-diff-reviewer | Level 2 — Evaluated | EXPERIMENTAL | 19/19 passing | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored — see [[12-known-limitations]] L8); see `evaluations/adversarial-diff-reviewer/RESULTS.md` |
 
 No other skill has any implementation yet.
 
@@ -29,13 +30,31 @@ No other skill has any implementation yet.
 | Evaluation harness (`run_evaluation.py`) | Done, 4 fixtures, all passing |
 | Dogfood example (`examples/codebase-intelligence/`) | Done — surfaced and fixed L1 |
 
+## adversarial-diff-reviewer — component status
+
+| Component | Status |
+|---|---|
+| `engine/diff_parser.py` | Done, tested — unified diff -> structured hunks/files |
+| `engine/risk_patterns.py` | Done, tested — 11 patterns (secrets, dangerous calls, broad except, SQL injection shapes, debug leftovers, TODO markers) |
+| `engine/risk_scanner.py` | Done, tested — in-place secret redaction, fixed twice during dogfooding (L5, L6) |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, manually verified |
+| `SKILL.md` contract | Done, all canonical template sections present, includes the agent-driven Step 3/4 workflow |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment) |
+| Judgment-layer actual findings (`evaluations/adversarial-diff-reviewer/actual/`) | Done — this session's agent's real review of each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/adversarial-diff-reviewer/`) | Done — real in-session diff, surfaced and fixed L6 |
+
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 2 onward, not started.
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 3 onward, not started.
 - Any composition/workflow layer across skills.
 - Any UI.
 - Multi-runtime validation (only exercised via this session's agent so far).
+- Independent-rater evaluation for the judgment-based skill (L8) — needs a
+  second, independent agent/session or real external usage.
 
 ## Last updated
 
-2026-08-22 — end of Phase 1.
+2026-08-23 — end of Phase 2.

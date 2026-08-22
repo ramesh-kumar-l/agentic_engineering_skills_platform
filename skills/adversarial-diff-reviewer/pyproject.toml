@@ -1,0 +1,13 @@
+[project]
+name = "adversarial-diff-reviewer"
+version = "0.1.0"
+description = "Deterministic diff-parsing + risk-flagging engine backing the Adversarial Diff Reviewer skill."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

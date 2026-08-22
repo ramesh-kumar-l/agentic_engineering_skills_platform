@@ -1,0 +1,8 @@
+diff --git a/orders.py b/orders.py
+--- a/orders.py
++++ b/orders.py
+@@ -1,3 +1,3 @@
+ def submit_order(order):
+-    process(order.items, order.total)
++    process(order.items, order.total, validate=False)
+     return {"status": "submitted"}

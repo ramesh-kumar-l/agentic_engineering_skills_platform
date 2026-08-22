@@ -1,0 +1,11 @@
+{
+  "risk_flag_pattern_ids": [],
+  "defects": [
+    {
+      "id": "d1",
+      "category": "concurrency-bug",
+      "file": "cache.py",
+      "keywords": ["race condition", "lock removed", "check-then-act", "TOCTOU"]
+    }
+  ]
+}

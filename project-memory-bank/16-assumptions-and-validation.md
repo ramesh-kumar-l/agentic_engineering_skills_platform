@@ -35,14 +35,14 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
 - **Expected evidence**: skill-assisted workflow shows lower
   Time-to-Correct-Result and fewer review findings.
 - **Actual evidence**: none yet — Experiment A (skill vs. normal prompting on
-  matched real tasks) has not been run. Phase 1 only proves the skill can be
-  built and passes its own synthetic evaluation; it does not yet compare
-  against unstructured prompting on real work.
+  matched real tasks) has not been run. Phase 1 and Phase 2 only prove each
+  skill can be built and passes its own synthetic evaluation; neither
+  compares against unstructured prompting on real work.
 - **Status**: UNKNOWN.
 - **Decision**: still required before claiming any skill is "Level 2 —
-  Evaluated" *in the outcome sense* — codebase-intelligence has met the
-  narrower "ships with evaluation cases" bar in [[04-skill-contract]], not
-  this assumption.
+  Evaluated" *in the outcome sense* — codebase-intelligence and
+  adversarial-diff-reviewer have each met the narrower "ships with evaluation
+  cases" bar in [[04-skill-contract]], not this assumption.
 
 ### A3: `SKILL.md` is a useful distribution format
 
@@ -99,12 +99,23 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   human review — no inter-rater agreement experiment has been run on those.
   So the "objective" half of the rubric worked; the harder, judgment-based
   half remains untested.
-- **Status**: PARTIALLY_VALIDATED — true for automatable dimensions on a
-  deterministic skill; still UNKNOWN for judgment-based dimensions and for
-  skills that are themselves judgment-based (e.g. a future diff reviewer).
+- **Status**: PARTIALLY_VALIDATED — unchanged status, but now with a sharper
+  picture of what's still missing. Phase 2 built the first judgment-based
+  skill (`adversarial-diff-reviewer`) and attempted to evaluate it: 8 seeded-
+  defect fixtures, this session's agent actually performed the adversarial
+  review (not fabricated), and scored 100% precision/recall against hand-
+  authored ground truth (`evaluations/adversarial-diff-reviewer/RESULTS.md`).
+  However, this same agent authored the fixtures, the ground truth, AND the
+  review — a stronger bias than plain single-rater variance (see L8 in
+  [[12-known-limitations]]). The inter-rater-agreement experiment itself —
+  a second, independent reviewer scoring the same fixtures blind — still has
+  not been run.
 - **Decision**: never let the model be sole evaluator of itself for critical
-  claims, regardless of this experiment's outcome. Run the inter-rater
-  agreement experiment when a judgment-based skill exists (Phase 2).
+  claims, regardless of this experiment's outcome. The Phase 2 evidence
+  should be read as "the workflow is executable and internally consistent,"
+  not as "this skill reviews code well" — that claim requires either an
+  independent rater or real external usage. Run the actual inter-rater
+  experiment before upgrading this status further.
 
 ### A6: Engineers will tolerate the additional workflow
 

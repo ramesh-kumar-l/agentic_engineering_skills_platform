@@ -1,0 +1,11 @@
+{
+  "risk_flag_pattern_ids": [],
+  "defects": [
+    {
+      "id": "d1",
+      "category": "missing-context",
+      "file": "orders.py",
+      "keywords": ["validate=False", "process(", "not shown", "cannot confirm"]
+    }
+  ]
+}

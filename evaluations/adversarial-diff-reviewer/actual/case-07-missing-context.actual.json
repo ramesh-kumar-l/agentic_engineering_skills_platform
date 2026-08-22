@@ -1,0 +1,11 @@
+{
+  "defects": [
+    {
+      "id": "a1",
+      "category": "missing-context",
+      "file": "orders.py",
+      "description": "Call to process() now passes validate=False, but process()'s definition is not included in this diff, so the actual effect/safety of disabling validation cannot be confirmed from the diff alone. Flagging as unconfirmed risk rather than a definite defect — request the process() implementation before approving.",
+      "confidence": "medium"
+    }
+  ]
+}

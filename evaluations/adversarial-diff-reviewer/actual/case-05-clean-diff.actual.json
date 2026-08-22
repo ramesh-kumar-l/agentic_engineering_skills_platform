@@ -1,0 +1,4 @@
+{
+  "defects": [],
+  "notes": "Reviewed against all 10 failure-first categories. to_title(s): return s.title() is a straightforward pure function consistent with the existing to_upper — no state, no I/O, no injection surface, no ambiguous requirement. No defects found."
+}

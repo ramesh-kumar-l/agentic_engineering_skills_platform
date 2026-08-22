@@ -1,0 +1,11 @@
+{
+  "risk_flag_pattern_ids": [],
+  "defects": [
+    {
+      "id": "d1",
+      "category": "obvious-bug",
+      "file": "billing.py",
+      "keywords": ["discount", "percentage", "subtract"]
+    }
+  ]
+}

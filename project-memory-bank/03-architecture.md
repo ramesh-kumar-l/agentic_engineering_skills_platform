@@ -1,7 +1,8 @@
 # 03 — Architecture
 
 First real architectural content, established in Phase 1
-([[08-roadmap]], ADR-005/ADR-006 in [[11-decisions]]).
+([[08-roadmap]], ADR-005/ADR-006 in [[11-decisions]]) and extended in Phase 2
+with a second pattern for judgment-based skills (ADR-007/ADR-008).
 
 ## Pattern: SKILL.md + optional deterministic engine
 
@@ -94,3 +95,82 @@ built as a generic multi-skill harness before there's evidence one is needed.
 walk into subdirectories for nested manifests (a monorepo/multi-package layout
 like this platform's own `skills/codebase-intelligence/pyproject.toml`). See
 [[12-known-limitations]].
+
+---
+
+## Pattern 2 (Phase 2): deterministic pre-processor + agent-driven adversarial workflow
+
+Established via `adversarial-diff-reviewer` (ADR-007/ADR-008). This is the
+counterpart to Pattern 1 above, for skills whose core task is a **judgment
+call** rather than structure extraction — Pattern 1 explicitly says not to
+bake judgment tasks into deterministic code, so this pattern gives them a
+different, still-disciplined shape:
+
+- A small stdlib-only engine parses the input and flags a fixed table of
+  **mechanically-detectable patterns** — but only ever as *leads*, never as a
+  verdict. It is unit-tested exactly like Pattern 1's engines.
+- The actual judgment happens in the `SKILL.md` workflow, performed by the
+  invoking agent, reasoning against a fixed checklist (the 10 failure-first
+  categories in [[05-evaluation-framework]]) — using the engine's flags as a
+  starting point, not a ceiling.
+
+## adversarial-diff-reviewer: reference implementation of Pattern 2
+
+```
+skills/adversarial-diff-reviewer/
+  SKILL.md            <- contract: Step 1 engine, Steps 2-4 agent reasoning
+  engine/              <- deterministic, stdlib-only Python package
+    models.py            shared schema (DiffContext, RiskFlag, DiffIntelligenceReport)
+    diff_parser.py        unified diff text -> structured hunks/files/line changes
+    risk_patterns.py     fixed regex table (secrets, dangerous calls, broad
+                          except, SQL injection shapes, debug leftovers)
+    risk_scanner.py       applies risk_patterns to added lines; redacts secrets
+                          in place (both flag and raw line content)
+    stats.py              objective diff stats (files/lines/hunks touched)
+    report.py             orchestrates the above into one pre-review packet
+    render_json.py / render_markdown.py
+    cli.py                thin entry point only
+  tests/                unit + integration tests, one file per engine module
+```
+
+Same modularity discipline as Pattern 1: every engine module under 300 lines,
+single-responsibility, independently testable.
+
+## Security-relevant design choice specific to Pattern 2
+
+A diff reviewer cannot skip secret-shaped content the way `codebase-
+intelligence` skips secret-shaped *files* — the diff itself is exactly what
+must be reviewed, and a newly-added hardcoded secret is one of the defects
+this skill exists to catch. Instead, `risk_scanner.py` redacts the matched
+secret span in place (`pattern.regex.sub()`, covering every occurrence per
+line, not just the first) in **both** the `RiskFlag` and the underlying
+`LineChange.content`, before either reaches JSON/Markdown output. Two real
+redaction gaps were found and fixed during this phase's own dogfooding — see
+L5/L6 in [[12-known-limitations]] and
+`examples/adversarial-diff-reviewer/example-run.md`.
+
+## Evaluation harness architecture — filling in "Agent Runtime" for real
+
+Phase 1's harness never needed to run an agent — it diffed deterministic
+engine output against ground truth directly. A judgment-based skill's harness
+must score two layers separately:
+
+```
+evaluations/adversarial-diff-reviewer/
+  fixtures/        8 seeded-defect diffs (+ 1 clean/negative case)
+  expected/        hand-authored ground truth: risk_flag_pattern_ids + defects
+  actual/          this session's agent's REAL findings from actually
+                   performing the SKILL.md workflow against each fixture
+                   (not fabricated to match expected — see [[12-known-limitations]] L8)
+  eval_cases/      Input/Context/Expected Behavior/Acceptance Criteria docs
+  run_evaluation.py   scores the deterministic layer automatically (like Phase 1)
+                      AND scores actual/ vs expected/ for Precision/Recall/FP/FN
+  RESULTS.md       both layers' scores, explicitly labeled single-rater/self-authored
+```
+
+This is the first time the "Skill → Evaluation Dataset → **Agent Runtime** →
+Execution → Scoring → Report" pipeline in [[05-evaluation-framework]] actually
+runs an agent, rather than only diffing deterministic output. The scoring
+script itself remains deterministic and automated (category+file+keyword
+match) — what's new is that one of its two inputs (`actual/*.json`) required a
+real agent turn to produce, not just code.

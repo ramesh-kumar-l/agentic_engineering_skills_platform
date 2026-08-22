@@ -1,0 +1,11 @@
+{
+  "risk_flag_pattern_ids": ["sql-string-concat"],
+  "defects": [
+    {
+      "id": "d1",
+      "category": "security-issue",
+      "file": "users_repo.py",
+      "keywords": ["sql injection", "concatenation", "parameteriz"]
+    }
+  ]
+}

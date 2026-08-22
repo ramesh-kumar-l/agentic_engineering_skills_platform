@@ -12,13 +12,19 @@ in its foundation phase).
 
 ## Status
 
-**Phase 1 — Codebase Intelligence complete.** One skill exists:
+**Phase 2 — Adversarial Diff Reviewer complete.** Two skills exist:
 [`skills/codebase-intelligence/`](skills/codebase-intelligence/) — a
-structural repo-analysis skill with a tested engine and evaluation harness,
-Trust Status EXPERIMENTAL (see
+structural repo-analysis skill — and
+[`skills/adversarial-diff-reviewer/`](skills/adversarial-diff-reviewer/) — a
+diff-review skill combining a deterministic risk-flagging engine with an
+agent-driven adversarial review workflow. Both are tested and evaluated,
+Trust Status EXPERIMENTAL on both (see
 [`project-memory-bank/04-skill-contract.md`](project-memory-bank/04-skill-contract.md)
-for what that status means). It has not yet been used on real engineering
-work by anyone outside this project's own development. See
+for what that status means). Neither has yet been used on real engineering
+work by anyone outside this project's own development, and the diff
+reviewer's evaluation evidence is self-authored/single-rater (see
+[`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md)
+L8). See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md)
 for the authoritative current state.
 

@@ -1,0 +1,11 @@
+{
+  "defects": [
+    {
+      "id": "a1",
+      "category": "concurrency-bug",
+      "file": "cache.py",
+      "description": "The `with lock:` wrapping the check-then-act pattern (`if key not in cache: cache[key] = compute()`) was removed; two threads can now both observe the key missing and both call compute() concurrently — a check-then-act race condition (the prior presence of a lock implies this code is used concurrently).",
+      "confidence": "high"
+    }
+  ]
+}

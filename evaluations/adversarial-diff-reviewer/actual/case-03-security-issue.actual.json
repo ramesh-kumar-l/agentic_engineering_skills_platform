@@ -1,0 +1,11 @@
+{
+  "defects": [
+    {
+      "id": "a1",
+      "category": "security-issue",
+      "file": "users_repo.py",
+      "description": "SQL query built via string concatenation of user-controlled `username` instead of the previously-used parameterized query (%s) — classic SQL injection vulnerability.",
+      "confidence": "high"
+    }
+  ]
+}

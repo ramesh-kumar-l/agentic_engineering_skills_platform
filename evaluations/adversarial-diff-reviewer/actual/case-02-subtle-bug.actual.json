@@ -1,0 +1,11 @@
+{
+  "defects": [
+    {
+      "id": "a1",
+      "category": "subtle-bug",
+      "file": "cart.py",
+      "description": "items=[] is a mutable default argument; the same list object is shared and mutated across every call that omits `items`, leaking state between unrelated calls despite looking correct in isolated testing.",
+      "confidence": "high"
+    }
+  ]
+}

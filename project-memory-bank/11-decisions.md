@@ -133,3 +133,80 @@ Established via `codebase-intelligence` ([[03-architecture]]).
   not pre-adopted here.
 
 **Status**: Adopted.
+
+---
+
+## ADR-007: Deterministic pre-processor + agent-driven adversarial workflow for judgment-based skills
+
+**Decision**: For skills where the core task is a judgment call (defect
+detection, review, risk assessment — not structure extraction), split the
+work into two layers: a small stdlib-only deterministic engine that parses
+input and flags mechanically-detectable patterns as *leads*, and an
+agent-driven workflow (defined in `SKILL.md`) that performs the actual
+adversarial reasoning against a fixed failure-first checklist. Established via
+`adversarial-diff-reviewer` ([[03-architecture]]).
+
+- User Value: catches both the mechanical cases cheaply (regex) and the
+  judgment cases the engine cannot honestly claim to catch (subtle/
+  concurrency/logic bugs) — see the dogfood example where the deterministic
+  layer stayed silent but the agent found a real defect
+  (`examples/adversarial-diff-reviewer/example-run.md`).
+- Correctness: the deterministic layer is unit-tested (19 tests); the
+  judgment layer is evaluated via 8 seeded-defect fixtures with the agent's
+  actual findings scored against ground truth
+  (`evaluations/adversarial-diff-reviewer/RESULTS.md`) — but see L8 in
+  [[12-known-limitations]]: this evidence is single-rater and self-authored,
+  not independently verified.
+- Security: risk-flag patterns matched in added lines are never echoed
+  unredacted into engine output (ADR-008); verified by test, and a real
+  redaction gap was found and fixed twice during this phase (L5, L6 in
+  [[12-known-limitations]]).
+- Simplicity: this pattern is explicitly the counterpart to ADR-005, not a
+  replacement — deterministic-only (ADR-005) stays the right choice for
+  genuinely deterministic tasks; this pattern is for tasks where that would
+  be dishonest.
+- Maintainability: engine modules remain single-responsibility, <300 lines,
+  independently testable from the workflow logic in `SKILL.md`.
+- Portability: stdlib-only engine (same rationale as ADR-006).
+- Evidence: proven buildable via the adversarial-diff-reviewer reference
+  implementation; the real, in-session dogfood catch (L6) is the strongest
+  evidence so far that the two-layer split adds value over either layer
+  alone.
+- Future Evolution: later judgment-based skills (feature planner, root-cause
+  analyzer, etc.) can adopt this pattern; the specific failure-first checklist
+  and risk-pattern table are per-skill, not generalized here ahead of
+  evidence they should be shared.
+
+**Status**: Adopted.
+
+---
+
+## ADR-008: Redact, not exclude, secrets found in diff content
+
+**Decision**: Unlike `codebase-intelligence` (ADR-005), which never reads
+secret-shaped *files* at all, `adversarial-diff-reviewer` must read diff
+content that may contain a newly-added hardcoded secret — that is exactly one
+of the defects it needs to catch. Instead of excluding such lines, the engine
+redacts the matched secret span (`<redacted>`) in place, in both the risk flag
+and the underlying line content, before any output is produced.
+
+- User Value: the agent still sees that a secret-shaped literal was added
+  (file/line/pattern-type) and can flag it as a finding, without the actual
+  secret value propagating into a report artifact that might be logged,
+  displayed, or pasted into a PR comment.
+- Correctness: `pattern.regex.sub()` (not `search()` + slice) redacts every
+  occurrence per line, not just the first (L6 in [[12-known-limitations]]).
+- Security: directly implements [[06-security-model]]'s "never expose
+  credentials/tokens/secrets" for a case Phase 1's "skip the whole file"
+  approach cannot handle, since the file here (the diff) is the thing being
+  reviewed, not incidental.
+- Simplicity: one redaction mechanism, applied consistently to both output
+  surfaces (flag and raw content) rather than two separate rules.
+- Evidence: verified by
+  `tests/test_integration.py::test_secret_value_never_leaks_into_json_or_markdown`
+  and `tests/test_risk_scanner.py::test_all_occurrences_of_a_secret_pattern_on_one_line_are_redacted`.
+- Future Evolution: if a future skill needs to reason about the *actual*
+  secret value (not just its presence), that would need an explicit,
+  separately-authorized secure mechanism — not assumed here.
+
+**Status**: Adopted.

@@ -1,0 +1,11 @@
+{
+  "risk_flag_pattern_ids": [],
+  "defects": [
+    {
+      "id": "d1",
+      "category": "subtle-bug",
+      "file": "cart.py",
+      "keywords": ["mutable default", "shared", "items=[]"]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "risk_flag_pattern_ids": [],
+  "defects": [
+    {
+      "id": "d1",
+      "category": "subtle-bug",
+      "file": "inventory.py",
+      "keywords": ["off-by-one", "threshold", "<= to <", "boundary"]
+    }
+  ]
+}

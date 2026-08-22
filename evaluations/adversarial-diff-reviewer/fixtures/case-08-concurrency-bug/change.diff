@@ -1,0 +1,12 @@
+diff --git a/cache.py b/cache.py
+--- a/cache.py
++++ b/cache.py
+@@ -1,5 +1,4 @@
+ def get_or_compute(cache, key, compute):
+-    with lock:
+-        if key not in cache:
+-            cache[key] = compute()
+-        return cache[key]
++    if key not in cache:
++        cache[key] = compute()
++    return cache[key]

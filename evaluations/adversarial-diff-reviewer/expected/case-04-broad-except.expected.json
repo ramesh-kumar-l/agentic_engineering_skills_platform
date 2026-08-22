@@ -1,0 +1,11 @@
+{
+  "risk_flag_pattern_ids": ["broad-except-exception"],
+  "defects": [
+    {
+      "id": "d1",
+      "category": "obvious-bug",
+      "file": "payments.py",
+      "keywords": ["swallow", "silently", "logs success", "charge failure"]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+diff --git a/inventory.py b/inventory.py
+--- a/inventory.py
++++ b/inventory.py
+@@ -1,12 +1,12 @@
+-def needs_restock(qty, threshold):
+-    if qty <= 0:
++def needs_restock(quantity, threshold):
++    if quantity <= 0:
+         return True
+-    if qty <= threshold:
++    if quantity < threshold:
+         return True
+     return False
+
+
+-def restock_message(qty, threshold):
+-    if needs_restock(qty, threshold):
+-        return f"Restock needed: qty={qty}, threshold={threshold}"
++def restock_message(quantity, threshold):
++    if needs_restock(quantity, threshold):
++        return f"Restock needed: quantity={quantity}, threshold={threshold}"
+     return "OK"

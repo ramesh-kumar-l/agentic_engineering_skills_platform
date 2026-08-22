@@ -1,0 +1,11 @@
+{
+  "defects": [
+    {
+      "id": "a1",
+      "category": "obvious-bug",
+      "file": "payments.py",
+      "description": "except Exception: pass silently swallows a failed gateway.charge() call, and the unconditional log.info(\"charged %s\", amount) that follows reports success regardless of whether the charge actually happened.",
+      "confidence": "high"
+    }
+  ]
+}

@@ -11,10 +11,15 @@ contract, evaluation framework, security model, assumptions ledger.
 
 **Phase 1 — Codebase Intelligence** (complete): first real skill —
 `skills/codebase-intelligence/` — with a tested engine, evaluation harness,
-and a dogfood run against this repo. See
+and a dogfood run against this repo.
+
+**Phase 2 — Adversarial Diff Reviewer** (complete): second skill —
+`skills/adversarial-diff-reviewer/` — combining a deterministic risk-flagging
+engine with an agent-driven adversarial review workflow, evaluated on 8
+seeded-defect fixtures plus a real in-session diff. See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 2 — Adversarial Diff Reviewer.** Not started; requires
+**Proposed next: Phase 3 — Acceptance Test Engineer.** Not started; requires
 explicit maintainer approval and re-justification against evidence before
 work begins.
 

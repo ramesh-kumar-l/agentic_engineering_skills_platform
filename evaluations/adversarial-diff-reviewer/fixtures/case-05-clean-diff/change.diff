@@ -1,0 +1,9 @@
+diff --git a/strings_util.py b/strings_util.py
+--- a/strings_util.py
++++ b/strings_util.py
+@@ -1,2 +1,5 @@
+ def to_upper(s):
+     return s.upper()
++
++def to_title(s):
++    return s.title()

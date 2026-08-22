@@ -1,0 +1,11 @@
+{
+  "defects": [
+    {
+      "id": "a1",
+      "category": "obvious-bug",
+      "file": "billing.py",
+      "description": "discount is treated as an absolute amount (price - discount) instead of a percentage (price * (1 - discount)); for discount=0.2, price=100 this returns 99.8 instead of 80.",
+      "confidence": "high"
+    }
+  ]
+}

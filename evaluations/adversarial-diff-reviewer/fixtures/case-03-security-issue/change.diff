@@ -1,0 +1,9 @@
+diff --git a/users_repo.py b/users_repo.py
+--- a/users_repo.py
++++ b/users_repo.py
+@@ -1,4 +1,4 @@
+ def find_user(conn, username):
+     cursor = conn.cursor()
+-    cursor.execute("SELECT * FROM users WHERE name = %s", (username,))
++    cursor.execute('SELECT * FROM users WHERE name = ' + username)
+     return cursor.fetchone()

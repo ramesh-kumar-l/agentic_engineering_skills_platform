@@ -1,0 +1,11 @@
+{
+  "defects": [
+    {
+      "id": "a1",
+      "category": "subtle-bug",
+      "file": "inventory.py",
+      "description": "Buried inside a qty->quantity rename, the threshold comparison changed from `<=` to `<` (`if quantity < threshold`); at quantity == threshold the function now returns False (no restock) where it previously returned True — an off-by-one boundary regression hidden by the surrounding rename noise.",
+      "confidence": "high"
+    }
+  ]
+}
