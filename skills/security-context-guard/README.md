@@ -6,6 +6,19 @@ Security Decision Checklist workflow. Composition with
 useful standalone. See `SKILL.md` for the full skill contract (when to use
 it, security constraints, outputs).
 
+**Status**: Level 2 — Evaluated · Trust Status: `EXPERIMENTAL` · 58/58 tests
+passing (CLI test file written from the start) · 8/8 fixtures: deterministic
+layer 100%, judgment layer 100% precision/recall (self-authored/single-rater,
+fourth skill scored this way — see
+[`L8`](../../project-memory-bank/12-known-limitations.md)) · zero runtime
+dependencies · architecture pattern: [ADR-007](../../project-memory-bank/11-decisions.md)
++ [ADR-011](../../project-memory-bank/11-decisions.md) (the engine's
+`suggested_verdict` is always advisory — it never authorizes an action
+itself). A real dogfood run found and fixed a genuine bug in this skill's
+own action classifier:
+[`L16`](../../project-memory-bank/12-known-limitations.md). Full narrative:
+[Building an AI Agent That Can't Authorize Its Own Actions](../../blogs/05-building-an-ai-agent-that-cant-authorize-its-own-actions.md).
+
 ## Run the engine
 
 ```bash

@@ -4,6 +4,15 @@ Deterministic requirement-parsing + testability-flagging engine, wrapped by
 an agent-driven acceptance-case-derivation workflow. See `SKILL.md` for the
 full skill contract (when to use it, security constraints, outputs).
 
+**Status**: Level 2 — Evaluated · Trust Status: `EXPERIMENTAL` · 24/24 tests
+passing (includes CLI coverage added after
+[`L13`](../../project-memory-bank/12-known-limitations.md)) · 8/8 fixtures:
+deterministic layer 100%, judgment layer 100% precision/recall
+(self-authored/single-rater — see
+[`L8`](../../project-memory-bank/12-known-limitations.md)) · zero runtime
+dependencies · architecture pattern: [ADR-007](../../project-memory-bank/11-decisions.md),
+reused as-is from `adversarial-diff-reviewer`.
+
 ## Run the engine
 
 ```bash

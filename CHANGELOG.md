@@ -7,6 +7,18 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Documentation & developer-experience pass (post-Phase-5, not a phase):
+  root `requirements.txt` and `DEPENDENCIES.md` making the project's
+  zero-runtime-dependency footprint explicit; `QuickStarterGuide.md`, a
+  full first-run walkthrough; a fully rewritten, production-grade root
+  `README.md` (architecture diagrams, an explicit evaluation-honesty
+  section, a table of real bugs found via dogfooding); a 5-post public
+  blog series under `blogs/` (contract model, the two architecture
+  patterns, the five real dogfooding bugs, the self-graded-evaluation
+  trap, and the security model's advisory-only design), each verified
+  against real code/data before writing; and a `**Status**` line added to
+  each of the five skills' own `README.md`. No code, tests, `SKILL.md`
+  contracts, or evaluation results changed — documentation only.
 - Phase 5: Security Context Guard — fifth skill
   (`skills/security-context-guard/`): `SKILL.md` contract reusing Pattern 2
   (ADR-007) a fourth time — a deterministic classify/minimize/sanitize

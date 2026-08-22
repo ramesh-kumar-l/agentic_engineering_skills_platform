@@ -5,17 +5,22 @@ what currently exists — it is replaced/updated each phase, not appended to. Re
 this before any other memory file when starting new work. For finer-grained
 "what's in flight" detail, see [[active-context.md]] and [[implementation-status.md]].
 
-_Last updated: 2026-08-23 — end of Phase 5._
+_Last updated: 2026-08-23 — end of Phase 5, plus a post-Phase-5
+documentation/developer-experience pass (see below)._
 
 ## Repository contents
 
 ```
 LICENSE                    Apache-2.0 (pre-existing, unmodified)
-README.md                  Project overview, points to memory bank
+README.md                  Full production-grade project overview (rewritten post-Phase-5)
+QuickStarterGuide.md       First-run walkthrough for a new reader/contributor
+DEPENDENCIES.md            Full dependency footprint explanation (it's ~empty, on purpose)
+requirements.txt           The one real dependency: pytest>=7.0
 CONTRIBUTING.md            How to propose a skill
 SECURITY.md                Vulnerability reporting policy
 ROADMAP.md                 Public pointer to 08-roadmap.md
 CHANGELOG.md                Keep-a-Changelog format
+blogs/                     5-post public technical blog series + index README
 project-memory-bank/       This memory bank (see below)
 skills/codebase-intelligence/       Skill 1 — SKILL.md + Python engine
 skills/adversarial-diff-reviewer/   Skill 2 — SKILL.md + Python engine + agent workflow
@@ -167,6 +172,20 @@ PII, and high-risk actions. Produced the third "real dogfood run on real
 phrasing found a gap a synthetic fixture didn't" finding (L16) — the first
 one found in the very skill being dogfooded — and ran Pilot C, the first
 internal pilot toward A7.
+
+## Documentation & developer-experience pass (after Phase 5, not a phase)
+
+At the user's explicit request, a non-phase documentation pass added:
+`requirements.txt` and `DEPENDENCIES.md` (dependency footprint, made
+explicit rather than implicit), `QuickStarterGuide.md` (first-run
+walkthrough), a fully rewritten root `README.md` (production-grade, with
+architecture diagrams and an explicit evaluation-honesty section), a
+5-post public blog series under `blogs/` written for external
+publication (Medium + GitHub visibility), and a `**Status**` line added to
+each of the five skills' own `README.md`. See [[active-context.md]] and
+[[implementation-status.md]] for full detail. No code, tests, contracts,
+or evaluation results changed — this is documentation only, and does not
+count as or replace Phase 6.
 
 ## Immediate next decision point
 

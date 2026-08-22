@@ -102,6 +102,21 @@ all five skills.**
 | Judgment-layer actual findings (`evaluations/security-context-guard/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/security-context-guard/`) | Done — real source file + a real pending git-push decision this session actually faced; surfaced and fixed L16; doubles as Pilot C toward A7 |
 
+## Documentation & public-facing artifacts (added after Phase 5, not a phase)
+
+| Artifact | Status |
+|---|---|
+| `requirements.txt` (root) | Done — the one real dependency (`pytest>=7.0`), documented as intentional |
+| `DEPENDENCIES.md` (root) | Done — explains the zero-runtime-dependency choice, ties to ADR-006 |
+| `QuickStarterGuide.md` (root) | Done — first-run walkthrough, test/eval instructions, composition example, FAQ |
+| `README.md` (root) | Rewritten — full production-grade rewrite (was a short pointer file); includes architecture diagrams, evaluation-honesty section, real-bug table |
+| `blogs/` (5 posts + index) | Done — technical deep-dive series for external publication, verified against real code/data, not reconstructed from memory |
+| `skills/*/README.md` (all five) | Updated — added a `**Status**` line (test counts, trust status, ADR references, relevant blog link) to each |
+
+No code, tests, `SKILL.md` contracts, or evaluation harnesses changed in
+this pass — test count and evaluation results are unchanged from the Phase
+5 completion state (149/149 passing).
+
 ## Not yet built
 
 - Every other skill in the portfolio ([[08-roadmap]]) — Phase 6 onward, not started.

@@ -6,6 +6,17 @@ agent-driven structured-plan-derivation workflow. Requires a
 `project-memory-bank/11-decisions.md`). See `SKILL.md` for the full skill
 contract (when to use it, security constraints, outputs).
 
+**Status**: Level 2 — Evaluated · Trust Status: `EXPERIMENTAL` · 21/21 tests
+passing · 8/8 fixtures: deterministic layer 100%, judgment layer 100%
+precision/recall (self-authored/single-rater — see
+[`L8`](../../project-memory-bank/12-known-limitations.md)) · zero runtime
+dependencies · architecture pattern: [ADR-007](../../project-memory-bank/11-decisions.md)
++ [ADR-010](../../project-memory-bank/11-decisions.md) (the only skill in
+the platform where composition with `codebase-intelligence` is mandatory,
+not optional). Known relevance-ranking limitation, found via real
+dogfooding and deliberately left unfixed:
+[`L14`](../../project-memory-bank/12-known-limitations.md).
+
 ## Run the engine
 
 ```bash

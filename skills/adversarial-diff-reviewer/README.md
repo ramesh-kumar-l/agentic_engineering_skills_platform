@@ -4,6 +4,16 @@ Deterministic diff-parsing + risk-flagging engine, wrapped by an agent-driven
 adversarial review workflow. See `SKILL.md` for the full skill contract (when
 to use it, security constraints, outputs).
 
+**Status**: Level 2 — Evaluated · Trust Status: `EXPERIMENTAL` · 23/23 tests
+passing (includes CLI coverage added after
+[`L10`](../../project-memory-bank/12-known-limitations.md)) · 8/8 fixtures:
+deterministic layer 100%, judgment layer 100% precision/recall
+(self-authored/single-rater — see
+[`L8`](../../project-memory-bank/12-known-limitations.md), and read
+[why that caveat matters](../../blogs/04-your-ai-eval-says-100-percent.md)
+before trusting the number) · zero runtime dependencies · architecture
+pattern: [ADR-007/ADR-008](../../project-memory-bank/11-decisions.md).
+
 ## Run the engine
 
 ```bash
