@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "minimization",
+      "description": ".env should not be copied into a deployment package at all — the minimization question is whether the deployment genuinely needs the raw file or only specific, already-vetted values from it.",
+      "grounding": "engine report: sensitive_paths=[{'path': '.env', 'pattern_id': 'dotenv-file'}]; the action text itself describes copying the whole file.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "data-classification",
+      "description": "Sensitivity is medium — a conventionally sensitive path (.env) is involved, even though its contents were not scanned directly.",
+      "grounding": "classification.sensitivity='medium', evidence includes '1 sensitive path match(es).' Also note: engine's optional --ci-report flagged skills/example-service/engine/core.py as a touched hotspot module.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "recommendation",
+      "description": "REQUIRES_HUMAN_APPROVAL — packaging a .env file into a deployment artifact needs a human to confirm it doesn't leak local secrets into the shipped bundle.",
+      "grounding": "classification.suggested_verdict='REQUIRES_HUMAN_APPROVAL'.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "secret_pattern_ids": [],
+  "pii_pattern_ids": [],
+  "sensitive_path_pattern_ids": [],
+  "action_pattern_ids": [],
+  "expected_sensitivity": "low",
+  "expected_suggested_verdict": "AUTHORIZE",
+  "expected_categories": [
+    { "id": "c1", "category": "data-classification", "keywords": ["low", "no secret", "no pii", "clean"] },
+    { "id": "c2", "category": "recommendation", "keywords": ["authorize"] }
+  ]
+}

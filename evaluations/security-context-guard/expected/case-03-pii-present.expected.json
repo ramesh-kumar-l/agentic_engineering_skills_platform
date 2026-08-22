@@ -1,0 +1,13 @@
+{
+  "secret_pattern_ids": [],
+  "pii_pattern_ids": ["email-address", "phone-number"],
+  "sensitive_path_pattern_ids": [],
+  "action_pattern_ids": [],
+  "expected_sensitivity": "medium",
+  "expected_suggested_verdict": "REQUIRES_HUMAN_APPROVAL",
+  "expected_categories": [
+    { "id": "c1", "category": "sanitization", "keywords": ["redact", "pii", "email", "phone"] },
+    { "id": "c2", "category": "minimization", "keywords": ["minimiz", "less", "necessary"] },
+    { "id": "c3", "category": "data-classification", "keywords": ["medium", "pii"] }
+  ]
+}

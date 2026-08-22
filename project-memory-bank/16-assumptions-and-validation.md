@@ -134,8 +134,10 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   one; that gap, not the scores, is the real finding. Phase 4 repeated the
   pattern a third time for `feature-planner` (100% precision/recall,
   `evaluations/feature-planner/RESULTS.md`, same caveat) — three-for-three
-  now. The inter-rater-agreement experiment still has not been run for any
-  of the three skills.
+  then, and Phase 5 repeated it a fourth time for `security-context-guard`
+  (100% precision/recall, `evaluations/security-context-guard/RESULTS.md`,
+  same caveat) — four-for-four now. The inter-rater-agreement experiment
+  still has not been run for any of the four skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -159,9 +161,27 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   (Phase 5) users on whether it changed their willingness to grant permissions.
 - **Expected evidence**: users cite the security model as a reason for trusting
   a skill.
-- **Actual evidence**: none yet — Security Context Guard not built.
+- **Actual evidence**: `security-context-guard` is now built
+  ([[03-architecture]], ADR-011). Phase 5 ran a first internal pilot toward
+  this assumption — Pilot C in [[17-experiment-viability-check]] — a real
+  dogfood run against this session's own real pending git-push decision. The
+  structured report's bottom-line recommendation (`REQUIRES_HUMAN_APPROVAL`
+  for a `Publishing`-category action) matched what this session's existing
+  bounded-autonomy behavior would already do without the skill, so on this
+  one case the report didn't change the actual decision a human would see.
+  What it did add: an explicit, auditable evidence trail (exact match
+  counts, named category) an unstructured pass wouldn't spontaneously
+  produce, and the dogfood process itself caught a real false-negative bug
+  (L16 in [[12-known-limitations]]) before it could ever mislead a real
+  decision. This is a real observation, but it is one N=1, self-rated data
+  point about this session's own agent, not qualitative feedback from an
+  actual human user deciding whether to grant more permissions — which is
+  what this assumption's validation experiment actually requires.
 - **Status**: UNKNOWN.
-- **Decision**: pending Phase 5.
+- **Decision**: still requires a real user (not this session's agent)
+  reporting whether the structured classification changed their own
+  willingness to grant permissions. Pilot C is a floor, not a substitute —
+  same discipline ADR-009 applies to Pilot A/B.
 
 ### A8: Engineering memory improves future agent performance
 

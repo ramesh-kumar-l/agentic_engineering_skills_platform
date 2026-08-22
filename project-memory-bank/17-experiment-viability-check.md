@@ -1,11 +1,13 @@
-# 17 — Experiment A/B Viability Check (Phase 3)
+# 17 — Experiment A/B Viability Check (Phase 3), plus Pilot C (Phase 5, toward A7)
 
 Phase 3's exit criteria explicitly asks for a first check of whether
 Experiment A and Experiment B ([[01-product-thesis]]) are viable to run, now
 that 3 skills exist. This file is that check — an honest viability
-assessment plus two clearly-labeled, non-rigorous internal pilots. It is
-**not** Experiment A or B themselves. Do not cite this file anywhere as
-evidence those experiments have been "run" — see ADR-009 in
+assessment plus three clearly-labeled, non-rigorous internal pilots (A, B,
+and — added in Phase 5, toward [[16-assumptions-and-validation]] A7 — C).
+It is **not** Experiment A or B themselves, and Pilot C is **not** the real
+qualitative-user-feedback experiment A7 calls for. Do not cite this file
+anywhere as evidence those experiments have been "run" — see ADR-009 in
 [[11-decisions]] for why pilots and experiments must never be conflated.
 
 ## What Experiment A and B actually require
@@ -91,7 +93,7 @@ output (`examples/codebase-intelligence/report.md`).
   in a case shaped like this one. **N=1. Not generalizable. Not a substitute
   for Experiment B.**
 
-## Decision
+## Decision (Phase 3)
 
 Neither experiment has been run. [[16-assumptions-and-validation]] A2 and A10
 are updated to reference this file and these two pilot findings; their
@@ -103,3 +105,65 @@ visibility into the other. Do not run either experiment "for real" using
 only this session — that would repeat the exact self-authored-evidence
 pattern already flagged as L8 in [[12-known-limitations]], now generalized
 across both skills and both experiments.
+
+---
+
+## A7 viability check (Phase 5): NOT YET VIABLE to run rigorously
+
+A7's actual validation experiment ([[16-assumptions-and-validation]]) is
+"qualitative feedback from Security Context Guard (Phase 5) users on
+whether it changed their willingness to grant permissions." That requires a
+real user granting or withholding real permissions based on this skill's
+output — something this session cannot supply any more than it could
+supply Experiment A's independent engineer or Experiment B's independent
+baseline. What Phase 5 *can* supply, honestly labeled as a pilot, is a real
+run against a real decision this session itself faced.
+
+### Pilot C (not the A7 experiment) — N=1, self-run, un-blinded
+
+Task: decide whether to commit and push Phase 5's new files to the shared
+origin repository — a real, pending, in-session decision — once via
+`security-context-guard`, once via this session's own unstructured judgment.
+
+- **Via the skill**: `python -m engine.cli engine/scanner.py --action
+  "Commit and push the new Security Context Guard skill files ... to the
+  shared origin repository." --paths ...` — see
+  `examples/security-context-guard/example-run.md`. First run: missed the
+  action entirely (a real bug, L16 in [[12-known-limitations]], fixed
+  same-session). After the fix: `sensitivity=low`,
+  `suggested_verdict=REQUIRES_HUMAN_APPROVAL`, evidence naming the
+  `Publishing` category match.
+- **Via direct, unstructured reasoning (no skill)**: "these are new, clean
+  files — nothing in the diff looks sensitive; I'd still ask before
+  pushing, since pushing to the shared repo is something I always confirm
+  first regardless of content" (this session's actual bounded-autonomy
+  behavior, independent of this skill).
+- **What actually happened when compared**: the two conclusions matched —
+  on this specific, low-complexity case, the structured report did not
+  change the bottom-line decision a human would see, because this session
+  already treats a git push as needing confirmation for reasons unrelated
+  to this skill.
+- **Pilot finding**: no evidence yet that the structured classification
+  changes a real decision outcome — the one case tested didn't have room to
+  show that, since the unstructured baseline already reached the same
+  answer for independent reasons. What the pilot **did** show: the
+  structured report produced a concrete, auditable evidence trail (exact
+  match counts, named category) that the unstructured pass did not
+  spontaneously produce, and the act of dogfooding against real phrasing
+  caught a real false-negative (L16) before it could reach a real decision
+  — a safeguard the unstructured judgment call has no equivalent of.
+  **N=1. Not generalizable. Not a substitute for A7's real experiment**,
+  which needs an actual human user's willingness to grant permissions to
+  change, not this session's own agent comparing two of its own reasoning
+  paths on one case.
+
+## Decision (Phase 5 addendum)
+
+A7 remains UNKNOWN. Pilot C is a floor — it shows the workflow is
+executable and produces a real, checkable evidence trail, and that
+dogfooding against real phrasing (not just synthetic fixtures) has concrete
+value even for a skill whose entire job is safety judgment. It does not
+show, and is not evidence toward, "security handling materially increases
+trust" — that requires a real user, not this session's own agent judging
+its own two outputs. Same discipline as Pilot A/B: never cite this section
+as if it were the real experiment.

@@ -33,10 +33,20 @@ dogfood run against this repo's own current state. New this phase: composing
 on `codebase-intelligence`'s output is a **required precondition**, not
 optional context (ADR-010) — the real dogfood run found and fixed a
 test-coverage gap in Phase 3's CLI, and documented (without fixing) a real
-limitation in this skill's own relevance-ranking logic. See
+limitation in this skill's own relevance-ranking logic.
+
+**Phase 5 — Security Context Guard** (complete): fifth skill —
+`skills/security-context-guard/` — reusing the same pattern a fourth time to
+classify content/actions and recommend (never self-authorize) whether an
+action needs human approval, evaluated on 8 fixtures plus a real dogfood run
+against this phase's own real source and a real pending git-push decision.
+New this phase: the engine's recommendation is a hard-rule **advisory
+only** (ADR-011) — the real dogfood run found and fixed a real bug in the
+skill's own action classifier, and doubled as the first internal pilot
+toward Assumption A7 (does security handling increase trust). See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 5 — Security Context Guard.** Not started; requires
+**Proposed next: Phase 6 — Root Cause Analyzer.** Not started; requires
 explicit maintainer approval and re-justification against evidence before
 work begins.
 

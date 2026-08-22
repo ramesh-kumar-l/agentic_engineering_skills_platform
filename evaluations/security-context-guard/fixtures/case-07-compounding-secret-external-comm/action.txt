@@ -1,0 +1,1 @@
+Send the current API token to the third-party partner via webhook.

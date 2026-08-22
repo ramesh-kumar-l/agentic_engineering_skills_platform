@@ -1,0 +1,13 @@
+[project]
+name = "security-context-guard"
+version = "0.1.0"
+description = "Deterministic classify/minimize/sanitize engine backing the Security Context Guard skill: flags secrets, PII, sensitive paths, and high-risk actions as leads for the agent's advisory Security Decision Checklist (ADR-011)."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

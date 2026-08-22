@@ -292,3 +292,65 @@ not a degraded-but-working path. Established in Phase 4
   per ADR-009.
 
 **Status**: Adopted.
+
+---
+
+## ADR-011: `security-context-guard`'s engine classifies and recommends; it never authorizes
+
+**Decision**: Extend ADR-008's redact-not-exclude discipline from
+diff-content secrets specifically to a general classify/minimize/sanitize
+engine covering secrets *and* PII *and* high-risk actions
+(`skills/security-context-guard/`). Establish, as a hard rule rather than an
+implicit convention, that this engine's `classification.suggested_verdict`
+is always advisory — the deterministic engine never authorizes anything
+itself; only the agent's Step 3 workflow, and ultimately a human, makes the
+real authorization decision. On inconclusive input (no action description
+given), the rollup defaults toward `REQUIRES_HUMAN_APPROVAL`, not
+`AUTHORIZE` — fail closed, not fail open.
+
+- User Value: a consistent, auditable classify/sanitize pass reduces the
+  chance that a secret or PII value is accidentally echoed into a log, a
+  tool call, or an external message, and gives every REQUIRES_HUMAN_APPROVAL
+  recommendation a concrete evidence trail instead of an unexplained
+  judgment call.
+- Correctness: every secret/PII match is redacted (`pattern.regex.sub()`,
+  every occurrence) before it reaches any model field, JSON, or Markdown
+  output — verified by
+  `tests/test_integration.py::test_secret_value_never_leaks_into_json_or_markdown`
+  and its PII/action-text counterparts.
+- Security: directly implements [[06-security-model]]'s Human Approval
+  principle for a case no prior skill covered explicitly — a skill whose
+  entire purpose is security classification must not become the thing that
+  quietly authorizes a high-risk action. The engine's output type is a
+  *recommendation*, never an executed gate; SKILL.md's Security Constraints
+  and Human Checkpoints sections state this explicitly.
+- Simplicity: one clear rule (advisory only, fail closed on uncertainty)
+  rather than a graduated confidence/auto-approval scale that would invite
+  the skill to creep into making real authorization decisions on its own.
+- Maintainability: `classification.py` is a single ~55-line module
+  containing the entire rollup rule, independently unit-tested
+  (`tests/test_classification.py`) separately from the pattern-matching
+  modules that feed it.
+- Portability: composition with `codebase-intelligence` is deliberately kept
+  **optional** here (unlike ADR-010) — this skill's engine covers content
+  and actions generically, not something that becomes actively harmful
+  without a structural map; ADR-010's own Future Evolution clause reserves
+  mandatory composition for cases where ungrounded output is actively
+  harmful, which doesn't apply here.
+- Evidence: `examples/security-context-guard/example-run.md` — a real
+  dogfood run against this phase's own source and a real pending
+  `Publishing`-category decision (committing/pushing these files). The first
+  run missed the action entirely due to a too-narrow proximity window in
+  `action_patterns.py`; fixed same-session by switching to same-sentence
+  co-occurrence matching (L16 in [[12-known-limitations]]), and re-verified
+  correctly producing `REQUIRES_HUMAN_APPROVAL` afterward. This dogfood run
+  also served as Pilot C toward [[16-assumptions-and-validation]] A7 — see
+  [[17-experiment-viability-check]].
+- Future Evolution: this ADR does not change what counts as a real
+  authorization — a human (or an explicitly-authorized separate mechanism)
+  still makes that call outside this skill entirely, exactly as before this
+  skill existed. A future skill that also produces a recommendation-shaped
+  output should follow the same "advisory only, fail closed" rule rather
+  than reinventing it.
+
+**Status**: Adopted.

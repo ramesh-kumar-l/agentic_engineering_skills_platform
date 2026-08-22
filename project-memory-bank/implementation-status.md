@@ -13,9 +13,10 @@ Replaced/updated in place, not appended to chronologically — see
 | adversarial-diff-reviewer | Level 2 — Evaluated | EXPERIMENTAL | 23/23 passing (was 19, +4 CLI tests added in Phase 3, see [[12-known-limitations]] L10) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored — see [[12-known-limitations]] L8); see `evaluations/adversarial-diff-reviewer/RESULTS.md` |
 | acceptance-test-engineer | Level 2 — Evaluated | EXPERIMENTAL | 24/24 passing (was 20, +4 CLI tests added in Phase 4, see [[12-known-limitations]] L13) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, same caveat as above — see [[12-known-limitations]] L8); see `evaluations/acceptance-test-engineer/RESULTS.md` |
 | feature-planner | Level 2 — Evaluated | EXPERIMENTAL | 21/21 passing | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, third time — see [[12-known-limitations]] L8); see `evaluations/feature-planner/RESULTS.md` |
+| security-context-guard | Level 2 — Evaluated | EXPERIMENTAL | 58/58 passing (CLI test file written from the start, not discovered missing later) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, fourth time — see [[12-known-limitations]] L8); see `evaluations/security-context-guard/RESULTS.md` |
 
-No other skill has any implementation yet. **91 total tests passing across
-all four skills.**
+No other skill has any implementation yet. **149 total tests passing across
+all five skills.**
 
 ## codebase-intelligence — component status
 
@@ -82,24 +83,45 @@ all four skills.**
 | Judgment-layer actual findings (`evaluations/feature-planner/actual/`) | Done — this session's agent's real plan derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/feature-planner/`) | Done — fresh codebase-intelligence report regenerated against this repo's current (4-skill) state, real task, surfaced and fixed L13 (acceptance-test-engineer CLI coverage gap) and documented L14 (relevance-ranking limitation, not fixed) |
 
+## security-context-guard — component status
+
+| Component | Status |
+|---|---|
+| `engine/secret_patterns.py` | Done, tested — 4 patterns (generic credential assignment, private key header, AWS access key ID, bearer token) |
+| `engine/pii_patterns.py` | Done, tested — 4 patterns (email, phone, SSN-shaped, credit-card-shaped) |
+| `engine/sensitive_paths.py` | Done, tested — filename/path convention table (.env, *.pem, id_rsa*, credentials.json, .aws/credentials, secrets.*) |
+| `engine/action_patterns.py` | Done, tested — keyword table for the six high-risk action categories; verb+object categories matched by same-sentence co-occurrence, fixed after a real dogfood run found a fixed-window bug (L16) |
+| `engine/scanner.py` | Done, tested — orchestrates matching + in-place redaction (every occurrence, not just the first) |
+| `engine/classification.py` | Done, tested — deterministic sensitivity/suggested_verdict rollup, fails closed on inconclusive input |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested — optional `--ci-report` hotspot enrichment; a missing/unreadable report is a warning, never a failure (unlike feature-planner's ADR-010) |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, tested — CLI test file (`tests/test_cli.py`) written from the start this phase, not discovered missing via a later dogfood run |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) a fourth time + new ADR-011 (engine classifies/recommends, never authorizes), includes agent-driven Step 3/4 workflow against the new Security Decision Checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment) |
+| Judgment-layer actual findings (`evaluations/security-context-guard/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/security-context-guard/`) | Done — real source file + a real pending git-push decision this session actually faced; surfaced and fixed L16; doubles as Pilot C toward A7 |
+
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 5 onward, not started.
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 6 onward, not started.
 - Any reusable composed-workflow infrastructure across skills (feature-planner
   makes composition with codebase-intelligence mandatory at the single-skill
   level, ADR-010 — this is not the same as a multi-skill workflow engine,
   Phase 14).
 - Any UI.
 - Multi-runtime validation (only exercised via this session's agent so far).
-- Independent-rater evaluation for any of the three judgment-based skills
-  (L8, now applying three times) — needs a second, independent agent/session
+- Independent-rater evaluation for any of the four judgment-based skills
+  (L8, now applying four times) — needs a second, independent agent/session
   or real external usage.
 - Experiment A and Experiment B at proper rigor (independent party, real
   task, real measurement) — only N=1 self-run pilots exist so far, see
   [[17-experiment-viability-check]]. Feature-planner's required-composition
   architecture (ADR-010) is real evidence composition executes correctly and
-  is genuinely used, not evidence it outperforms the alternative.
+  is genuinely used, not evidence it outperforms the alternative. A7's real
+  qualitative-user-feedback experiment also remains unrun — Pilot C (Phase
+  5) is a floor, not a substitute.
 
 ## Last updated
 
-2026-08-23 — end of Phase 4.
+2026-08-23 — end of Phase 5.

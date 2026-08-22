@@ -1,0 +1,13 @@
+{
+  "secret_pattern_ids": [],
+  "pii_pattern_ids": [],
+  "sensitive_path_pattern_ids": ["dotenv-file"],
+  "action_pattern_ids": [],
+  "expected_sensitivity": "medium",
+  "expected_suggested_verdict": "REQUIRES_HUMAN_APPROVAL",
+  "expected_categories": [
+    { "id": "c1", "category": "minimization", "keywords": [".env", "exclude", "should not", "minimiz"] },
+    { "id": "c2", "category": "data-classification", "keywords": ["medium", ".env", "sensitive path"] },
+    { "id": "c3", "category": "recommendation", "keywords": ["requires_human_approval", "human approval"] }
+  ]
+}

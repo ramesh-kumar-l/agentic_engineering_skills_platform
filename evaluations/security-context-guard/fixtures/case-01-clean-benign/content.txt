@@ -1,0 +1,1 @@
+This function computes a running total from a list of integers and returns it.

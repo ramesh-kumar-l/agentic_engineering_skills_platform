@@ -1,0 +1,1 @@
+Copy the local .env file into the deployment package.

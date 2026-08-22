@@ -1,0 +1,5 @@
+{
+  "dependency_graph": {
+    "hotspots": ["skills/example-service/engine/core.py"]
+  }
+}

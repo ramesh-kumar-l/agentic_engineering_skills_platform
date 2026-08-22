@@ -1,0 +1,3 @@
+token = "abcd1234efgh5678"
+
+This holds the partner integration token.

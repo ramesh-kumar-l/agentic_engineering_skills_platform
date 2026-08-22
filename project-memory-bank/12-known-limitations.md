@@ -280,3 +280,74 @@ Entries below are from Phase 4 (feature-planner).
   and judgment layers (ADR-007, reused for this skill).
 - **Regression prevention**: Documented in `SKILL.md` under "Known
   Limitations."
+
+## L16: Action-classifier used a fixed-distance proximity window, which real phrasing exceeded (FIXED during Phase 5)
+
+- **What failed**: `action_patterns.py`'s verb+object categories (e.g.
+  "push ... origin" for Publishing) originally required both terms to
+  appear within a fixed character-distance window of each other in a single
+  regex. The window was tuned against short synthetic phrasing.
+- **Why**: A real dogfood run's action description ("Commit and push the
+  new Security Context Guard skill files (skills/security-context-guard/,
+  evaluations/security-context-guard/, project-memory-bank updates) to the
+  shared origin repository.") put a parenthetical object list between the
+  verb and its target — over 150 characters apart. Widening the window from
+  20 to 80 characters (the first fix attempt) still wasn't enough, and no
+  fixed window is well-justified for free-text phrasing in general.
+- **Impact**: Found via dogfooding `security-context-guard` against its own
+  real source and a real pending git-push decision this session actually
+  faced — see `examples/security-context-guard/example-run.md`. The first
+  run produced `AUTHORIZE` with zero action-category matches for an action
+  that should have been flagged `Publishing` — a real false negative on
+  exactly the kind of decision this skill exists to catch, caught before it
+  could mislead anyone only because the dogfood run was against real
+  phrasing, not a synthetic fixture. This is the third instance of "a real
+  dogfood run on real phrasing found a gap a synthetic fixture didn't"
+  (after L1 and L13), and the first where the gap was in the very skill
+  being dogfooded rather than a different one.
+- **Fix**: Replaced the fixed-distance window with same-sentence
+  co-occurrence matching — `ActionPattern.matches()` in `action_patterns.py`
+  splits the action text into sentences and checks whether the verb pattern
+  and the object pattern each appear somewhere in the same sentence,
+  regardless of distance. A better-justified design (matches how the
+  ambiguity in real phrasing actually works), not just a bigger magic
+  number.
+- **Regression prevention**:
+  `tests/test_action_patterns.py::test_publishing_matches_with_an_object_list_between_verb_and_target`
+  (the exact real sentence that exposed the gap) plus a paired negative
+  test, `test_publishing_does_not_match_push_in_an_unrelated_later_sentence`,
+  confirming same-sentence matching doesn't just degrade into "matches
+  anywhere in the whole text."
+
+## L17: Secret/PII/action pattern tables are heuristic, leads-not-verdicts, and not exhaustive
+
+- **What failed**: N/A (scope boundary, not a bug — same shape as
+  L3/L7/L11/L15).
+- **Why**: `secret_patterns.py`, `pii_patterns.py`, and `action_patterns.py`
+  are fixed regex tables. They can only match shapes they were written to
+  recognize (e.g. a handful of common secret/PII/action-verb shapes), will
+  miss secrets/PII in formats not covered (e.g. a cloud provider's specific
+  key format not in the table), and can false-positive (e.g. a
+  13-16-digit run that isn't actually a credit card number).
+- **Impact**: `SKILL.md`'s "When NOT to Use" section states this explicitly
+  — this skill's output is never proof content contains no sensitive data,
+  only a lead-generating pass. The agent's Step 3 judgment and, ultimately,
+  a human's own review remain necessary for anything genuinely
+  high-stakes.
+- **Fix**: Not applicable — documented boundary between the deterministic
+  layer (a lead generator, same role as every other Pattern 2 skill's
+  fixed table) and human judgment, which for a *security* classification
+  skill sits partly with the agent's Step 3 reasoning and partly with the
+  human approver (ADR-011).
+- **Regression prevention**: Documented in `SKILL.md` under "When NOT to
+  Use" and "Known Limitations."
+
+## L8 update: now applying a fourth time
+
+`security-context-guard`'s judgment-layer evaluation also scored 100%
+precision/recall against self-authored ground truth
+(`evaluations/security-context-guard/RESULTS.md`) — four-for-four across
+every judgment-based skill built so far. Same standing caveat as Phases
+2-4: this continues to show the evaluation design cannot yet discriminate a
+genuinely good derivation from a mediocre one, not that any of the four
+skills performs well in the world. See [[16-assumptions-and-validation]] A5.

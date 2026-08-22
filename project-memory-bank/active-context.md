@@ -7,75 +7,90 @@ appended to. Complements [[implementation-status.md]] (what's built) and
 
 ## Current phase
 
-Phase 4 (feature-planner) — COMPLETE, at a hard STOP per [[08-roadmap]]'s
-phase protocol. Waiting for explicit user instruction before starting
-Phase 5.
+Phase 5 (security-context-guard) — COMPLETE, at a hard STOP per
+[[08-roadmap]]'s phase protocol. Waiting for explicit user instruction
+before starting Phase 6.
 
 ## What just happened
 
-Built the feature-planner skill end-to-end, reusing Pattern 2 (ADR-007) a
-third time rather than inventing a new base pattern: a deterministic
-relevance-scoring engine (keyword-overlap against a codebase-intelligence
-report, annotated with fan-in/fan-out/hotspot blast-radius signal) +
-planning-anti-pattern flags (vague scope, weak goal modals, scope-boundary/
-verification absence checks, mirroring acceptance-test-engineer's scanner)
-+ an agent-driven structured-plan-derivation workflow against a new
-10-category Plan Quality checklist (added to [[05-evaluation-framework]]) +
-SKILL.md contract + 21 unit/integration tests (all passing) + an 8-fixture
-evaluation harness scoring two layers separately (same self-authored/
-single-rater caveat as Phases 2-3, now applying a third time).
+Built the security-context-guard skill end-to-end, reusing Pattern 2
+(ADR-007) a fourth time rather than inventing a new base pattern: a
+deterministic classify/minimize/sanitize engine (secret/PII/sensitive-path/
+action-category pattern tables, in-place redaction — every occurrence, not
+just the first) + a deterministic sensitivity/`suggested_verdict` rollup
+that fails closed on inconclusive input + an agent-driven Security Decision
+Checklist workflow (7 categories, added to [[05-evaluation-framework]] as a
+fourth checklist — shaped differently from the other three, a decision-gate
+workflow rather than a coverage-enumeration list) + SKILL.md contract + 58
+unit/integration tests (all passing, including a CLI test file written from
+the start rather than discovered missing later) + an 8-fixture evaluation
+harness scoring two layers separately (same self-authored/single-rater
+caveat as Phases 2-4, now applying a fourth time).
 
-The exit criteria's core new requirement — "first skill composing on top of
-Codebase Intelligence's output" — was implemented as a genuine architectural
-decision, not just documentation: **ADR-010**, logged in
-[[11-decisions]]. Unlike every prior skill's optional composition,
-feature-planner's engine requires a valid `codebase-intelligence`
-`report.json` and refuses to run without one (`CiReportError`, actionable
-exit-1 message).
+The exit criteria's core new requirement — "first real test of A7" — was
+addressed as honestly as currently possible without a real external user:
+**Pilot C**, logged in [[17-experiment-viability-check.md]] under the same
+ADR-009 governance as Pilot A/B. The real, in-session pending decision
+("commit and push these Phase 5 files to the shared origin repository") was
+run through the skill for real, and compared against an honest unstructured
+baseline written before re-reading the structured output. The two
+conclusions matched (this session already treats a git push as needing
+confirmation, independent of this skill), so the pilot did not demonstrate
+a changed decision — but it did produce a concrete, auditable evidence
+trail an unstructured pass wouldn't spontaneously produce, and the dogfood
+process itself caught a real bug. A7 stays UNKNOWN in
+[[16-assumptions-and-validation]] — real qualitative feedback from an
+actual user remains the missing ingredient, same shape as A2/A10's gap.
 
-Dogfooded against this platform's own current (4-skill) repository state —
-regenerated a *fresh* `codebase-intelligence` report (the Phase-1-era one
-predates 3 of the 4 skills now in the repo) and ran a real task against it.
-Two genuine findings came out of that one real run:
-- **L13** (fixed): `acceptance-test-engineer`'s own CLI had zero test
-  coverage — the second cross-skill dogfood finding in this project (after
-  L10), found purely as a side effect of grounding "affected files" in real
-  structure, not from deliberately auditing coverage. Fixed same-session
-  (`tests/test_cli.py`, 4 new tests; suite now 24/24).
-- **L14** (documented, not fixed): the relevance scorer's path-weighting
-  floods when a task's keywords collide with a shared directory name — the
-  real target file ranked 13th of 65, not 1st. Left unfixed deliberately:
-  this is the documented boundary between the deterministic lead-generator
-  and the agent's Step 3 judgment (ADR-007), and in this same real run the
-  agent's judgment correctly identified the right file anyway — the
-  strongest concrete evidence yet that the two-layer split earns its
-  complexity, not just a theoretical justification.
+**New architectural decision — ADR-011**, logged in [[11-decisions]]:
+extends ADR-008's redact-not-exclude discipline from diff-content secrets
+specifically to a general classify/minimize/sanitize engine covering
+secrets, PII, and high-risk actions, and establishes as a hard rule that
+`classification.suggested_verdict` is always advisory — the engine never
+authorizes anything itself, per [[06-security-model]]'s Human Approval
+principle. Unlike `feature-planner`'s ADR-010, composition with
+`codebase-intelligence` stays **optional** here (a `--ci-report` only adds a
+hotspot-touch note).
+
+Dogfooded against this phase's own real source file and a real pending
+decision this session actually faced (not a synthetic fixture). One genuine
+finding came out of that real run:
+- **L16** (found and fixed same-session): the action classifier's
+  `publishing` pattern used a fixed-distance proximity window between a
+  verb ("push") and its target ("origin") — real phrasing put a
+  parenthetical file list between them, 150+ characters apart. Widening the
+  window (the first attempted fix) still wasn't enough at any reasonable
+  size. **Real fix**: replaced the fixed window with same-sentence
+  co-occurrence matching (`ActionPattern.matches()` in
+  `action_patterns.py`) — a better-justified design, not a bigger magic
+  number. This is the third "real dogfood run on real phrasing found a gap"
+  finding (after L1, L13), and the first one found in the very skill being
+  dogfooded rather than a different one.
 
 ## Open threads / not yet decided
 
-- Phase 5 (Security Context Guard) is proposed next per [[08-roadmap]] but
+- Phase 6 (Root Cause Analyzer) is proposed next per [[08-roadmap]] but
   not started and not re-justified against evidence yet — that
-  re-justification happens at the start of Phase 5, not now.
-- **L8 remains the most important open thread, now applying three times**:
-  all three judgment-based skills (adversarial-diff-reviewer,
-  acceptance-test-engineer, feature-planner) score 100% precision/recall
-  against self-authored ground truth. Three-for-three is the established
-  pattern now, not a new surprise — it continues to show this evaluation
-  design can't discriminate good derivation from mediocre. The real
-  inter-rater-agreement experiment still has not been run for any of the
-  three.
-- **Experiment A/B are still not viable to run for real** —
-  [[17-experiment-viability-check.md]]'s pilots (Phase 3) found plausible
-  signal on N=1; feature-planner's ADR-010 (Phase 4) is stronger evidence
-  that required composition *executes correctly and is genuinely used*, but
-  that is a narrower claim than Experiment B requires (composition
-  *outperforms* the alternative, against an independent baseline). A10
-  remains UNKNOWN per ADR-009's discipline.
-- L2/L3/L4 (Phase 1), L7/L9 (Phase 2), L11/L12 (Phase 3), L14/L15 (Phase 4)
-  scope boundaries remain deliberately deferred — revisit only if real
-  usage shows they matter.
-- No real (non-agent) engineer has used any of the four skills yet — Trust
-  Status stays EXPERIMENTAL on all four, and assumptions A2/A3/A5/A10 in
+  re-justification happens at the start of Phase 6, not now.
+- **L8 remains the most important open thread, now applying four times**:
+  all four judgment-based skills (adversarial-diff-reviewer,
+  acceptance-test-engineer, feature-planner, security-context-guard) score
+  100% precision/recall against self-authored ground truth. Four-for-four
+  is the established pattern now, not a new surprise — it continues to show
+  this evaluation design can't discriminate good derivation from mediocre.
+  The real inter-rater-agreement experiment still has not been run for any
+  of the four.
+- **Experiment A/B and now A7's real experiment are all still not viable
+  to run for real** — [[17-experiment-viability-check.md]]'s pilots (A, B,
+  and now C) found plausible-but-narrow signal on N=1 each. None upgrades
+  its assumption's status beyond UNKNOWN — the missing ingredient in every
+  case is the same: a real second party (external engineer, independent
+  rater, or real user) that this session cannot supply for itself.
+- L2/L3/L4 (Phase 1), L7/L9 (Phase 2), L11/L12 (Phase 3), L14/L15 (Phase 4),
+  L17 (Phase 5) scope boundaries remain deliberately deferred — revisit
+  only if real usage shows they matter.
+- No real (non-agent) engineer has used any of the five skills yet — Trust
+  Status stays EXPERIMENTAL on all five, and assumptions A2/A3/A5/A7/A10 in
   [[16-assumptions-and-validation]] remain only partially evidenced.
 
 ## If resuming this session cold, read in this order
@@ -83,11 +98,12 @@ Two genuine findings came out of that one real run:
 1. This file
 2. [[implementation-status.md]]
 3. [[07-current-state]]
-4. `skills/feature-planner/SKILL.md`, `skills/acceptance-test-engineer/SKILL.md`,
+4. `skills/security-context-guard/SKILL.md`, `skills/feature-planner/SKILL.md`,
+   `skills/acceptance-test-engineer/SKILL.md`,
    `skills/adversarial-diff-reviewer/SKILL.md`, `skills/codebase-intelligence/SKILL.md`
-5. `examples/feature-planner/example-run.md` (the L13/L14 findings)
+5. `examples/security-context-guard/example-run.md` (the L16 finding + Pilot C)
 6. [[17-experiment-viability-check.md]]
 
 ## Last updated
 
-2026-08-23 — end of Phase 4.
+2026-08-23 — end of Phase 5.

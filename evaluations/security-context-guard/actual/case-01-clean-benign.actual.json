@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "data-classification",
+      "description": "Sensitivity is low — content is a plain description of an integer-summing function, no secret, PII, or sensitive-path signal was detected.",
+      "grounding": "engine report: secrets=[], pii=[], sensitive_paths=[], classification.sensitivity='low'.",
+      "priority": "low",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "recommendation",
+      "description": "AUTHORIZE — reading a README to understand project layout matches none of the six high-risk action categories, and no data-sensitivity signal was found.",
+      "grounding": "classification.suggested_verdict='AUTHORIZE', action_flags=[].",
+      "priority": "low",
+      "assumptions": null
+    }
+  ]
+}

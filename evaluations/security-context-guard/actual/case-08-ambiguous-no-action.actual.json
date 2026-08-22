@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "uncertainty-flag",
+      "description": "No action description was provided at all, so there's no basis to assess what will actually happen with this content — this must be stated explicitly, not silently treated as safe.",
+      "grounding": "engine report: classification.uncertain=True, evidence includes 'No action description provided — cannot assess authorization requirement.'",
+      "priority": "high",
+      "assumptions": "Assuming the caller simply omitted the action rather than intending a truly no-op action; either way, the missing information is disclosed, not guessed."
+    },
+    {
+      "id": "c2",
+      "category": "recommendation",
+      "description": "REQUIRES_HUMAN_APPROVAL — this is the fail-closed default for inconclusive input; the content itself is otherwise low-sensitivity, but the missing action description is the deciding factor.",
+      "grounding": "classification.suggested_verdict='REQUIRES_HUMAN_APPROVAL' despite classification.sensitivity='low' and zero secret/PII/path matches.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

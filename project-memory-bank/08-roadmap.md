@@ -11,9 +11,9 @@ PHASE 0  — Foundation                        ← COMPLETE
 PHASE 1  — Codebase Intelligence             ← COMPLETE
 PHASE 2  — Adversarial Diff Reviewer         ← COMPLETE
 PHASE 3  — Acceptance Test Engineer          ← COMPLETE
-PHASE 4  — Feature Planner                   ← COMPLETE (this phase)
-PHASE 5  — Security Context Guard            ← proposed next, not started
-PHASE 6  — Root Cause Analyzer
+PHASE 4  — Feature Planner                   ← COMPLETE
+PHASE 5  — Security Context Guard            ← COMPLETE (this phase)
+PHASE 6  — Root Cause Analyzer               ← proposed next, not started
 PHASE 7  — Refactoring Safety
 PHASE 8  — Architecture Decision
 PHASE 9  — Regression Hunter
@@ -140,3 +140,30 @@ executes correctly and is genuinely used") than Experiment B requires
 ("composition measurably outperforms the individual-skill alternative,
 against an independent baseline"). [[16-assumptions-and-validation]] A10
 remains UNKNOWN — see ADR-009.
+
+## Phase 5 scope (this phase) — complete
+
+Built `security-context-guard`, reusing Pattern 2 (ADR-007) a fourth time:
+`SKILL.md` contract + a deterministic classify/minimize/sanitize engine
+(secret/PII/sensitive-path/action-category matching, in-place redaction) +
+58 passing tests (including a CLI test file written from the start, not
+discovered missing later) + an 8-fixture evaluation harness (same two-layer
+scoring and up-front self-authored/single-rater caveat as Phases 2-4, now
+applying a fourth time) + a real dogfood run against this phase's own real
+source and a real pending git-push decision this session actually faced.
+
+New this phase: ADR-011 — the engine's `suggested_verdict` is always
+advisory; it classifies and recommends, never authorizes, per
+[[06-security-model]]'s Human Approval principle. Unlike ADR-010,
+composition with `codebase-intelligence` stays optional here. The real
+dogfood run found and fixed a genuine bug in the skill's own action
+classifier (L16 — a fixed-distance proximity window that real phrasing
+exceeded, replaced with same-sentence co-occurrence matching) and doubled
+as **Pilot C**, a first internal pilot toward
+[[16-assumptions-and-validation]] A7 (does security handling increase
+trust) — see [[17-experiment-viability-check]]. A7 stays UNKNOWN: the
+pilot's one data point showed the structured report matched what this
+session's existing bounded-autonomy behavior already produced on this case,
+so it didn't yet demonstrate a changed decision — real qualitative feedback
+from an actual user remains the missing ingredient, same shape as A2/A10's
+gap.

@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "sanitization",
+      "description": "The customer's email and phone number must be redacted before this record leaves this context.",
+      "grounding": "engine report: pii=['email-address', 'phone-number']; content_redacted replaces both with '<redacted>'.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "minimization",
+      "description": "If the downstream action doesn't actually need the customer's contact details, only the minimal necessary fields (e.g. name) should be carried forward — not the full record.",
+      "grounding": "content contains name + email + phone; the stated action ('read a file to check its current contents') gives no indication all three fields are needed.",
+      "priority": "medium",
+      "assumptions": "Assuming the downstream use doesn't require contacting the customer directly — not stated either way."
+    },
+    {
+      "id": "c3",
+      "category": "data-classification",
+      "description": "Sensitivity is medium — PII (email, phone) was found in the content, with no secret-shaped match.",
+      "grounding": "classification.sensitivity='medium', evidence includes '2 PII-shaped match(es).'",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

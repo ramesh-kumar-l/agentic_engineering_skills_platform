@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "authorization-requirement",
+      "description": "The action explicitly describes a production deploy, matching the 'Production modifications' high-risk category named in project-memory-bank/06-security-model.md.",
+      "grounding": "engine report: action_flags=[{'category': 'Production modifications', 'pattern_id': 'production-modification'}].",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "recommendation",
+      "description": "REQUIRES_HUMAN_APPROVAL — production modifications are on the security model's always-require-approval list; this skill cannot self-authorize the deploy.",
+      "grounding": "classification.suggested_verdict='REQUIRES_HUMAN_APPROVAL'.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "audit-entry",
+      "description": "Log: 'production deploy requested (caching layer, checkout service) — flagged for human approval, not auto-executed' with a timestamp.",
+      "grounding": "audit entries should record what/why/when for every REQUIRES_HUMAN_APPROVAL recommendation, per the Security Decision Checklist.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

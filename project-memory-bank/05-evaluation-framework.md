@@ -105,9 +105,35 @@ explicitly for a given task:
    (fan-in/fan-out/hotspot signal)
 ```
 
-**Convention, now established across all three checklists**: category 10 is
+**Convention, established across the first three checklists**: category 10 is
 always the honesty valve. The failure-first checklist doesn't need one (its
 job is finding defects, not resolving ambiguity), but both checklists whose
 job is *defining* something ambiguous end their list the same way — state
-the assumption, don't guess silently. Keep this convention if a future skill
-adds a fourth checklist of this shape.
+the assumption, don't guess silently.
+
+## Security Decision Checklist
+
+Fourth checklist, for skills whose job is *deciding whether an action needs
+human authorization* (`security-context-guard`, Phase 5). Unlike the three
+checklists above, this one is not a coverage-enumeration list — it's a
+decision-gate/verdict workflow, so it's shaped differently on purpose:
+
+```
+1. Data classification (none/low/medium/high, with evidence)
+2. Minimization opportunity (can less be exposed and still work?)
+3. Sanitization applied (secrets/PII redacted, never raw, in every output)
+4. Authorization requirement (does this match a project-memory-bank/
+   06-security-model.md high-risk action category?)
+5. Recommendation (AUTHORIZE / REQUIRES_HUMAN_APPROVAL) + rationale —
+   framed as advice to a human, never a self-executed gate
+6. Audit entry (what/why/when, durable-log-shaped)
+7. Explicit uncertainty flag — if evidence is inconclusive, say so and
+   default toward REQUIRES_HUMAN_APPROVAL; never silently AUTHORIZE
+```
+
+Category 7 is this checklist's version of the honesty-valve convention,
+adapted from "state the assumption" to **"fail closed under uncertainty"**
+— appropriate for a checklist whose job is a safety decision, not defining
+ambiguous scope. Keep this convention (an honesty-valve final category,
+adapted to the checklist's actual job) if a future skill adds a fifth
+checklist of this shape.

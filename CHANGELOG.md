@@ -7,6 +7,31 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 5: Security Context Guard — fifth skill
+  (`skills/security-context-guard/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) a fourth time — a deterministic classify/minimize/sanitize
+  engine (12 modules, each under 300 lines, 58 passing tests including a
+  CLI test file written from the start) covering secret/PII/sensitive-path/
+  high-risk-action pattern matching with in-place redaction, combined with
+  an agent-driven Security Decision Checklist workflow (7 categories, a
+  fourth checklist in `project-memory-bank/05-evaluation-framework.md`,
+  shaped as a decision-gate rather than a coverage-enumeration list); an
+  8-fixture evaluation harness scoring both layers
+  (`evaluations/security-context-guard/`); and a dogfood run
+  (`examples/security-context-guard/`) against this phase's own real source
+  and a real pending git-push decision this session actually faced. New
+  architectural decision — **ADR-011**: the engine's recommendation is
+  always advisory — it classifies and recommends, never authorizes an
+  action itself, extending ADR-008's redact-not-exclude discipline from
+  diff-content secrets to a general classify/minimize/sanitize surface.
+  Composition with `codebase-intelligence` stays optional here, unlike
+  ADR-010. The dogfood run found and fixed a real bug in the skill's own
+  action classifier (a fixed-distance proximity window that real phrasing
+  exceeded by 150+ characters, replaced with same-sentence co-occurrence
+  matching — `project-memory-bank/12-known-limitations.md` L16), and
+  doubled as Pilot C, the first internal pilot toward Assumption A7 (does
+  security handling increase trust) in
+  `project-memory-bank/17-experiment-viability-check.md`.
 - Phase 4: Feature Planner — fourth skill (`skills/feature-planner/`):
   `SKILL.md` contract reusing Pattern 2 (ADR-007) a third time — a
   deterministic relevance-scoring/planning-flag engine (11 modules, each

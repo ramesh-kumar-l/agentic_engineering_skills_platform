@@ -3,10 +3,14 @@
 First real architectural content, established in Phase 1
 ([[08-roadmap]], ADR-005/ADR-006 in [[11-decisions]]), extended in Phase 2
 with a second pattern for judgment-based skills (ADR-007/ADR-008), reused
-as-is (no new base pattern) in Phase 3 (`acceptance-test-engineer`), and
-reused a third time in Phase 4 (`feature-planner`) alongside a new
-architectural decision making composition mandatory rather than optional —
-see "Pattern 2, reused for Phase 4" and ADR-010 below.
+as-is (no new base pattern) in Phase 3 (`acceptance-test-engineer`), reused
+a third time in Phase 4 (`feature-planner`) alongside a new architectural
+decision making composition mandatory rather than optional, and reused a
+**fourth** time in Phase 5 (`security-context-guard`) — see "Pattern 2,
+reused for Phase 5" and ADR-011 below. At four consecutive reuses without a
+new base-pattern ADR, Pattern 2 is now this project's default architecture
+for judgment-based skills, not a fresh per-skill choice each time — worth
+stating plainly rather than re-justifying from scratch every phase.
 
 ## Pattern: SKILL.md + optional deterministic engine
 
@@ -290,3 +294,84 @@ RESULTS.md), except every fixture now pairs a `task.txt` with a synthetic
 every fixture, not just the real dogfood run — see
 `evaluations/feature-planner/RESULTS.md` and L8/A5 (now applying a third
 time).
+
+---
+
+## Pattern 2, reused for Phase 5: `security-context-guard` — plus ADR-011
+
+Phase 5 reused Pattern 2 a **fourth** time (deterministic pre-processing +
+agent-driven derivation against a fixed checklist), swapping the domain to
+classifying content/actions for security purposes. The new architectural
+element this phase is that the deterministic engine's output
+(`suggested_verdict`) must never be treated as a final decision — Pattern 2
+has always kept judgment in the agent's workflow, but this is the first
+skill where the *thing being judged* is itself an authorization decision,
+so the "leads, not verdicts" discipline gets an explicit, stronger
+statement: the engine classifies and recommends, it never authorizes
+(ADR-011 in [[11-decisions]]), per [[06-security-model]]'s Human Approval
+principle.
+
+```
+skills/security-context-guard/
+  SKILL.md            <- contract: Step 1 gather inputs, Step 2 engine, Steps 3-4 agent reasoning
+  engine/              <- deterministic, stdlib-only Python package
+    models.py            shared schema (SecretMatch, PiiMatch, SensitivePathMatch,
+                          ActionFlag, Classification, SecurityGuardReport) — no
+                          field anywhere on this schema ever holds a raw
+                          secret/PII value
+    secret_patterns.py / pii_patterns.py   fixed regex tables (leads, not
+                          verdicts), every match redacted before output
+    sensitive_paths.py   filename/path convention table (.env, *.pem, id_rsa*, ...)
+    action_patterns.py   keyword table for the six high-risk action categories
+                          named in project-memory-bank/06-security-model.md;
+                          verb+object categories matched by SAME-SENTENCE
+                          co-occurrence, not a fixed character-distance window
+                          (see L16 in [[12-known-limitations]] for why)
+    scanner.py            orchestrates matching + redaction
+    classification.py     deterministic sensitivity/suggested_verdict rollup —
+                          fails closed (REQUIRES_HUMAN_APPROVAL) on inconclusive input
+    stats.py, report.py, render_json.py / render_markdown.py, cli.py
+  tests/                unit + integration tests, one file per engine module,
+                        including a CLI test file written from the start
+                        (not discovered missing via a later dogfood run, unlike
+                        L10/L13)
+```
+
+Unlike `feature-planner`'s ADR-010, composition with `codebase-intelligence`
+stays **optional** here — `--ci-report` only adds a hotspot-touch note, and
+a missing/unreadable report is a warning, never a failure. This skill is a
+general-purpose classify/sanitize/authorize gate, useful standalone; ADR-010's
+own Future Evolution clause says mandatory composition is adopted only when
+ungrounded output is actively harmful, which doesn't apply to a
+classify/redact/flag skill the way it did to affected-files grounding.
+
+**Real evidence found via dogfooding, not claimed in the abstract**:
+`examples/security-context-guard/example-run.md` runs the engine against
+this phase's own real source file and a real pending decision this session
+actually faced ("commit and push these Phase 5 files to the shared origin
+repository"). The first run missed the action entirely — the `publishing`
+pattern's fixed-width proximity window (`push ... .{0,N} ... origin`)
+couldn't span the 150+ character parenthetical file list real phrasing put
+between the verb and its target, no matter how far the window was widened.
+The real fix replaced the fixed window with same-sentence co-occurrence
+matching (`ActionPattern.matches()` in `action_patterns.py`) — a
+better-justified design, not a bigger magic number. Logged as **L16** in
+[[12-known-limitations]], fixed same-session (the third "real dogfood run on
+real phrasing found a gap" finding, after L1 and L13, but the first one
+found in the very skill being dogfooded rather than a different one).
+
+This dogfood run doubles as **Pilot C**, the first internal pilot toward
+[[16-assumptions-and-validation]] A7 — see [[17-experiment-viability-check]].
+
+The 7-category Security Decision Checklist this skill's Step 3 uses lives in
+[[05-evaluation-framework]], a **fourth** checklist alongside the
+failure-first, acceptance-coverage, and Plan Quality ones — but shaped
+differently: a decision-gate/verdict workflow, not a coverage-enumeration
+list, since this skill's job is deciding whether to proceed, not
+enumerating coverage. Its honesty-valve category (7) is adapted accordingly:
+fail closed under uncertainty, rather than "state the assumption."
+
+Evaluation harness architecture is identical in shape to Phases 2-4
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md) — see `evaluations/security-context-guard/RESULTS.md` and
+L8/A5 (now applying a fourth time).

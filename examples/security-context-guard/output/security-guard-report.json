@@ -1,0 +1,36 @@
+{
+  "content_redacted": "\"\"\"Orchestrates secret/PII/path/action scanning and redaction.\n\n`scan_content()` is the single place raw text is ever touched \u2014 it returns\nan already-redacted string plus match records that carry only a fixed\n\"<redacted>\" placeholder, never the matched span. Callers (report.py) must\nnever hold onto the pre-redaction text after calling this.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom . import action_patterns, pii_patterns, secret_patterns, sensitive_paths\nfrom .models import ActionFlag, PiiMatch, SecretMatch, SensitivePathMatch\n\n_REDACTED = \"<redacted>\"\n\n\ndef scan_content(text: str) -> tuple[str, list[SecretMatch], list[PiiMatch]]:\n    redacted = text\n    secrets: list[SecretMatch] = []\n    for pattern in secret_patterns.PATTERNS:\n        count = len(pattern.regex.findall(redacted))\n        if count:\n            secrets.extend(\n                SecretMatch(pattern_id=pattern.pattern_id, severity=pattern.severity,\n                            description=pattern.description)\n                for _ in range(count)\n            )\n            # sub() (not search()+slice) so every occurrence on this text is\n            # redacted, not just the first \u2014 see ADR-008's precedent.\n            redacted = pattern.regex.sub(_REDACTED, redacted)\n\n    pii: list[PiiMatch] = []\n    for pattern in pii_patterns.PATTERNS:\n        count = len(pattern.regex.findall(redacted))\n        if count:\n            pii.extend(\n                PiiMatch(pattern_id=pattern.pattern_id, category=pattern.category,\n                         description=pattern.description)\n                for _ in range(count)\n            )\n            redacted = pattern.regex.sub(_REDACTED, redacted)\n\n    return redacted, secrets, pii\n\n\ndef scan_paths(paths: list[str]) -> list[SensitivePathMatch]:\n    return [\n        SensitivePathMatch(path=path, pattern_id=pattern.pattern_id, description=pattern.description)\n        for path, pattern in sensitive_paths.match_sensitive_paths(paths)\n    ]\n\n\ndef scan_action(action_text: str) -> list[ActionFlag]:\n    flags: list[ActionFlag] = []\n    for pattern in action_patterns.PATTERNS:\n        match = pattern.matches(action_text)\n        if match:\n            flags.append(\n                ActionFlag(pattern_id=pattern.pattern_id, category=pattern.category,\n                           description=pattern.description, matched_text=match.group(0))\n            )\n    return flags\n",
+  "action_text_redacted": "Commit and push the new Security Context Guard skill files (skills/security-context-guard/, evaluations/security-context-guard/, project-memory-bank updates) to the shared origin repository.",
+  "paths": [
+    "engine/scanner.py",
+    "engine/classification.py",
+    "engine/secret_patterns.py"
+  ],
+  "stats": {
+    "content_word_count": 198,
+    "secret_count": 0,
+    "pii_count": 0,
+    "sensitive_path_count": 0,
+    "action_flag_count": 1
+  },
+  "secrets": [],
+  "pii": [],
+  "sensitive_paths": [],
+  "action_flags": [
+    {
+      "pattern_id": "publishing-push",
+      "category": "Publishing",
+      "description": "Mentions pushing to a shared remote destination.",
+      "matched_text": "push"
+    }
+  ],
+  "classification": {
+    "sensitivity": "low",
+    "suggested_verdict": "REQUIRES_HUMAN_APPROVAL",
+    "evidence": [
+      "1 high-risk action category match(es): Publishing."
+    ],
+    "uncertain": false
+  },
+  "warnings": []
+}
