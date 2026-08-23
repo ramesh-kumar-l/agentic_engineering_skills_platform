@@ -1,0 +1,38 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/auth.py",
+      "docstring": "Authentication and session token handling.",
+      "functions": ["login", "logout", "verify_token"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/api.py",
+      "docstring": "Public API routes.",
+      "functions": ["handle_request"],
+      "classes": [],
+      "imports": ["engine.auth"]
+    },
+    {
+      "path": "engine/admin.py",
+      "docstring": "Admin routes.",
+      "functions": ["handle_admin_request"],
+      "classes": [],
+      "imports": ["engine.auth"]
+    },
+    {
+      "path": "engine/billing.py",
+      "docstring": "Billing routes.",
+      "functions": ["handle_billing_request"],
+      "classes": [],
+      "imports": ["engine.auth"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/auth.py": 7},
+    "fan_out": {},
+    "hotspots": ["engine/auth.py"]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "flag_ids": [],
+  "file_risk_tiers": { "engine/util.py": "low" },
+  "expected_categories": [
+    { "id": "c1", "category": "diff-pattern-flags-reviewed", "keywords": ["no flags", "none detected", "no diff-pattern"] },
+    { "id": "c2", "category": "test-coverage-distinction", "keywords": ["tests/test_util.py", "covered", "low"] }
+  ]
+}

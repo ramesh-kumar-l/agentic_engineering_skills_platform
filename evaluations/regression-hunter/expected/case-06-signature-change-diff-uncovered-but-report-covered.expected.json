@@ -1,0 +1,8 @@
+{
+  "flag_ids": ["modified-signature-no-test-change"],
+  "file_risk_tiers": { "engine/api.py": "medium" },
+  "expected_categories": [
+    { "id": "c1", "category": "diff-pattern-flags-reviewed", "keywords": ["modified-signature-no-test-change", "def handle"] },
+    { "id": "c2", "category": "test-coverage-distinction", "keywords": ["tests/test_api.py", "covered", "diff", "diverge"] }
+  ]
+}

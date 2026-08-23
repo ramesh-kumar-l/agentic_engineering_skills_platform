@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-pattern-flags-reviewed",
+      "description": "removed-exception-handling fired correctly: the try/except around gateway.submit was deleted with no replacement handler, so a GatewayTimeout that used to return None will now propagate unhandled.",
+      "grounding": "regression_scanner.py's line-pattern check found a removed 'except GatewayTimeout:' line with no equivalent except/catch line added in the same hunk.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "structural-blast-radius",
+      "description": "engine/payment.py is a real hotspot with three real callers in the composed report: engine/checkout.py, engine/refund.py, and engine/admin.py -- an unhandled exception here would surface in all three call paths, not just one.",
+      "grounding": "target_resolver.py resolved engine/payment.py by exact path match, fan_in=6, is_hotspot=True; caller_modules lists all three callers.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "missing-coverage-named",
+      "description": "No test module in the composed report imports engine.payment -- this change is genuinely uncovered, not just untested-in-this-diff.",
+      "grounding": "test_coverage_scanner.py found zero test-shaped modules importing engine.payment in the fixture's ci_report.json.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

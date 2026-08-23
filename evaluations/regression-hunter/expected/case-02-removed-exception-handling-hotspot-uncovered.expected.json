@@ -1,0 +1,9 @@
+{
+  "flag_ids": ["removed-exception-handling"],
+  "file_risk_tiers": { "engine/payment.py": "high" },
+  "expected_categories": [
+    { "id": "c1", "category": "diff-pattern-flags-reviewed", "keywords": ["removed-exception-handling", "except", "gatewaytimeout"] },
+    { "id": "c2", "category": "structural-blast-radius", "keywords": ["hotspot", "fan_in", "engine/checkout.py", "engine/refund.py", "engine/admin.py"] },
+    { "id": "c3", "category": "missing-coverage-named", "keywords": ["no test", "uncovered", "not covered"] }
+  ]
+}

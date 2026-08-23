@@ -1,0 +1,14 @@
+{
+  "flag_ids": ["removed-exception-handling", "removed-conditional-guard"],
+  "file_risk_tiers": {
+    "engine/core.py": "high",
+    "engine/util2.py": "low",
+    "engine/helper.py": "high"
+  },
+  "expected_categories": [
+    { "id": "c1", "category": "diff-pattern-flags-reviewed", "keywords": ["removed-exception-handling", "engine/core.py"] },
+    { "id": "c2", "category": "diff-pattern-flags-reviewed", "keywords": ["removed-conditional-guard", "engine/helper.py"] },
+    { "id": "c3", "category": "existing-behavior-at-risk-stated", "keywords": ["engine/util2.py", "low", "no flags"] },
+    { "id": "c4", "category": "overall-risk-tier-explained", "keywords": ["two files", "high", "one file", "low"] }
+  ]
+}

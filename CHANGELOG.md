@@ -7,6 +7,72 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 9: Regression Hunter — ninth skill
+  (`skills/regression-hunter/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) an eighth time — a deterministic engine (11 modules, each under
+  300 lines, max 181, 64 passing tests including a CLI test file written
+  from the start) that parses a unified git diff into structured per-file
+  hunks (an independent copy of `adversarial-diff-reviewer`'s parsing
+  conventions), scans those hunks for mechanically-detectable regression
+  patterns (removed exception handling, removed conditional guards,
+  decreased test assertions, large deletions, modified signatures with no
+  matching test-file change), resolves each changed file against
+  `codebase-intelligence`'s real modules for structural blast radius, and
+  checks an independently-computed test-coverage signal — combined into an
+  overall per-file risk tier via an agent-driven Regression Risk Checklist
+  workflow (an eighth checklist in
+  `project-memory-bank/05-evaluation-framework.md`); an 8-fixture
+  evaluation harness (`evaluations/regression-hunter/`, all 8 scored
+  perfect on both layers); and a dogfood run
+  (`examples/regression-hunter/`) that regenerated a fresh
+  `codebase-intelligence` report against this repo's current 9-skill state
+  and assessed a real, already-tested `codebase-intelligence` fix this
+  phase's own build produced (excluding `*.egg-info` directories from repo
+  scans), disclosing — without fixing — a new limitation (L23):
+  `target_resolver.py`'s substring-based caller matching produces a wildly
+  inflated caller list for short, common module stems, the same limitation
+  class as L14/L19/L21 now shown to affect two skills' independent copies
+  of the same heuristic simultaneously. New architectural decision —
+  **ADR-015**: regression risk is scored from three explicit, non-blended
+  signals per changed file (diff-pattern flags, structural blast radius,
+  test-coverage status) combined via a documented rule table into an
+  overall tier, with all three axes still visible separately. Reuses
+  `feature-planner`'s, `root-cause-analyzer`'s, `architecture-decision`'s,
+  and `refactoring-safety`'s mandatory-composition rule (ADR-010) a fifth
+  time, stated explicitly as a reuse.
+
+- Phase 8: Refactoring Safety — eighth skill
+  (`skills/refactoring-safety/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) a seventh time — a deterministic engine (12 modules, each under
+  300 lines, 62 passing tests including a CLI test file written from the
+  start) that parses a refactoring description into an operation type
+  (rename/delete/move/change-signature/split/merge/extract/inline, or a
+  generic "refactor" fallback) and target identifiers (quoted/backticked
+  first, bare-identifier fallback second), resolves each target against
+  `codebase-intelligence`'s real modules, finds its real callers via an
+  independent import scan, checks an independently-computed test-coverage
+  signal, and scores a per-target risk tier from operation type and real
+  fan-in/hotspot data — combined with an agent-driven Refactoring Safety
+  Checklist workflow (10 categories, a seventh checklist in
+  `project-memory-bank/05-evaluation-framework.md`); an 8-fixture
+  evaluation harness (`evaluations/refactoring-safety/`, all 8 scored
+  perfect on both layers); and a dogfood run
+  (`examples/refactoring-safety/`) that regenerated a fresh
+  `codebase-intelligence` report against this repo's current 8-skill state
+  and assessed a real refactor this phase's own build actually produced (a
+  duplicated path-stem helper across two of this skill's own modules),
+  disclosing — without fixing — a new cross-skill limitation: `codebase-
+  intelligence`'s own `fan_in` metric undercounted a real caller that this
+  skill's own independent caller scan found correctly. New architectural
+  decision — **ADR-014**: each target's risk tier is kept as a field
+  distinct from an independently-computed test-coverage signal, rather than
+  blended into one score. Reuses `feature-planner`'s, `root-cause-
+  analyzer`'s, and `architecture-decision`'s mandatory-composition rule
+  (ADR-010) a fourth time, stated explicitly as a reuse. Also clarifies an
+  instruction discrepancy: the initial Phase 8 instruction named
+  "Architecture Decision," already built as Phase 7 the prior session —
+  confirmed with the user before work began that the actual intent was the
+  roadmap's next proposed skill, Refactoring Safety.
 - Phase 7: Architecture Decision — seventh skill
   (`skills/architecture-decision/`): `SKILL.md` contract reusing Pattern 2
   (ADR-007) a sixth time — a deterministic engine (11 modules, each under

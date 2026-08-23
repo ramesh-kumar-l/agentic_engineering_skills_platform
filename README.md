@@ -1,8 +1,8 @@
 # Agentic Engineering Skills Platform
 
-![Status](https://img.shields.io/badge/status-Phase%207%20complete-blue)
-![Skills](https://img.shields.io/badge/skills-7-informational)
-![Tests](https://img.shields.io/badge/tests-215%20passing-brightgreen)
+![Status](https://img.shields.io/badge/status-Phase%208%20complete-blue)
+![Skills](https://img.shields.io/badge/skills-9-informational)
+![Tests](https://img.shields.io/badge/tests-342%20passing-brightgreen)
 ![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero-brightgreen)
 ![Trust status](https://img.shields.io/badge/trust%20status-EXPERIMENTAL-yellow)
 ![License](https://img.shields.io/badge/license-Apache%202.0-lightgrey)
@@ -46,7 +46,7 @@ flowchart LR
     style D fill:#d9edf7,stroke:#31708e
 ```
 
-This repo currently sits at step **C — Evaluated Skill** for all seven
+This repo currently sits at step **C — Evaluated Skill** for all eight
 skills it ships. None has been promoted to Trusted, none is composed into a
 registry, and that's stated plainly rather than implied otherwise anywhere
 in this repo.
@@ -68,9 +68,9 @@ understanding before the skill list below makes full sense:
    Where a task is genuinely a judgment call (is this diff safe, does this
    action need approval), that judgment stays in the agent's workflow
    against a fixed checklist — never faked as deterministic. See the
-   [architecture pattern](#architecture-two-patterns-reused-across-seven-skills)
+   [architecture pattern](#architecture-two-patterns-reused-across-nine-skills)
    below.
-3. **Every honesty valve is left open, on purpose.** Five of the six
+3. **Every honesty valve is left open, on purpose.** Six of the seven
    judgment-based skills' evaluation harnesses report 100% precision/recall
    on their judgment layer; one (`root-cause-analyzer`) doesn't, and that's
    reported just as plainly — a perfect score elsewhere is never read as
@@ -82,19 +82,21 @@ understanding before the skill list below makes full sense:
    the evaluation framework from the start (see
    [Evaluation & Honesty](#evaluation--honesty-this-is-the-part-most-repos-skip)).
 
-## The seven skills
+## The nine skills
 
 | # | Skill | What it does | Pattern | Tests | Status |
 |---|---|---|---|---|---|
-| 1 | [`codebase-intelligence`](skills/codebase-intelligence/) | Deterministic structural map of a repo — imports, defs, dependency graph, hotspots | Pattern 1 (fully deterministic) | 23/23 | EXPERIMENTAL |
+| 1 | [`codebase-intelligence`](skills/codebase-intelligence/) | Deterministic structural map of a repo — imports, defs, dependency graph, hotspots | Pattern 1 (fully deterministic) | 24/24 | EXPERIMENTAL |
 | 2 | [`adversarial-diff-reviewer`](skills/adversarial-diff-reviewer/) | Flags mechanical risk patterns in a diff, then an agent performs an adversarial review against a 10-category failure-first checklist | Pattern 2 | 23/23 | EXPERIMENTAL |
 | 3 | [`acceptance-test-engineer`](skills/acceptance-test-engineer/) | Turns a vague requirement into structured, testable acceptance cases via a 10-category coverage checklist | Pattern 2 | 24/24 | EXPERIMENTAL |
 | 4 | [`feature-planner`](skills/feature-planner/) | Turns a task description into a grounded, structured plan — **requires** a `codebase-intelligence` report as a hard precondition | Pattern 2 + mandatory composition | 21/21 | EXPERIMENTAL |
 | 5 | [`security-context-guard`](skills/security-context-guard/) | Classifies content/actions for secrets, PII, sensitive paths, and high-risk actions; recommends — never self-authorizes — human approval | Pattern 2 + advisory-only by hard rule | 58/58 | EXPERIMENTAL |
 | 6 | [`root-cause-analyzer`](skills/root-cause-analyzer/) | Turns a bug report (with or without a stack trace) into ranked, evidence-tiered candidate root-cause locations — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + tiered evidence | 32/32 | EXPERIMENTAL |
 | 7 | [`architecture-decision`](skills/architecture-decision/) | Turns a decision description into per-option, blast-radius-scored impact against a real dependency graph — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + blast-radius tiering | 34/34 | EXPERIMENTAL |
+| 8 | [`refactoring-safety`](skills/refactoring-safety/) | Turns a refactoring description into per-target risk assessment (real callers + hotspot status) plus an independent test-coverage signal — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + risk/coverage split | 62/62 | EXPERIMENTAL |
+| 9 | [`regression-hunter`](skills/regression-hunter/) | Turns a unified git diff into per-file regression risk from three non-blended signals (diff-pattern flags, structural blast radius, test-coverage status) — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + three-axis risk scoring | 64/64 | EXPERIMENTAL |
 
-**215 tests passing across the platform.** Every skill also ships an
+**342 tests passing across the platform.** Every skill also ships an
 evaluation harness against hand-authored fixtures
 (`evaluations/<skill>/RESULTS.md`) and a real "dogfood" run against actual
 work, not a synthetic demo (`examples/<skill>/example-run.md`).
@@ -119,7 +121,7 @@ that composes with another: [`QuickStarterGuide.md`](QuickStarterGuide.md).
 Dependency details (there are almost none — that's deliberate):
 [`DEPENDENCIES.md`](DEPENDENCIES.md).
 
-## Architecture: two patterns, reused across seven skills
+## Architecture: two patterns, reused across nine skills
 
 Every skill in this repo is built from one of two architectural patterns —
 no third pattern has been needed yet, and neither has changed shape since it
@@ -131,8 +133,8 @@ used when the task is genuinely mechanical. No judgment layer needed because
 there's no judgment being made.
 
 **Pattern 2 — deterministic pre-processor + agent-driven judgment** (the
-other six skills, reused six consecutive times without needing a new base
-pattern):
+other eight skills, reused eight consecutive times without needing a new
+base pattern):
 
 ```mermaid
 flowchart TD
@@ -194,6 +196,36 @@ deterministic layer same-session, plus disclosed (without fixing) a sharper
 version of the coincidental-keyword-match limitation at full-repository
 scale — see [Real bugs found by using this on real work](#real-bugs-found-by-using-this-on-real-work).
 
+`refactoring-safety` (skill 8) takes the same "don't blend distinct
+signals" discipline one step further: [ADR-014](project-memory-bank/11-decisions.md)
+keeps a target's structural risk tier (from real fan-in/hotspot data,
+operation-type aware) and its test-coverage status (an independently-
+computed static-import check) as two separate fields, so a risky-but-
+covered refactor target is never confused with one that's risky and
+genuinely unverified. It reuses the mandatory-composition rule a fourth
+time — and its own real dogfood run disclosed (without fixing) a new kind
+of finding: `codebase-intelligence`'s own `fan_in` metric undercounted a
+real caller that this skill's own independent caller scan found correctly
+— see [Real bugs found by using this on real work](#real-bugs-found-by-using-this-on-real-work).
+
+`regression-hunter` (skill 9) moves the same "don't blend distinct signals"
+discipline from a description-driven skill to a **diff-driven** one:
+[ADR-015](project-memory-bank/11-decisions.md) scores each changed file's
+regression risk from three explicit, non-blended axes — diff-pattern flags
+(removed exception handling, removed conditional guards, decreased test
+assertions, large deletions, a modified signature with no matching
+test-file change), structural blast radius (ADR-013-style, from real
+fan-in/hotspot data), and test-coverage status (ADR-014-style) — combined
+into an overall tier via a documented rule table, with all three axes still
+visible separately in the report. It reuses the mandatory-composition rule
+a fifth time — and its own real dogfood run, run against a genuine
+`codebase-intelligence` fix this phase's own build produced, disclosed
+(without fixing) a new instance of the L14/L19/L21 limitation class:
+`target_resolver.py`'s substring-based caller matching (an independent copy
+of `refactoring-safety`'s identical pattern) produces a wildly inflated
+caller list for short, common module stems — see
+[Real bugs found by using this on real work](#real-bugs-found-by-using-this-on-real-work).
+
 ## Evaluation & honesty (this is the part most repos skip)
 
 Every judgment-based skill's evaluation harness scores two layers
@@ -205,16 +237,17 @@ separately:
   computed by comparing an AI agent's *actual* derivation for each fixture
   against hand-authored expected output.
 
-Five of the six judgment-based skills score **100% precision/recall** on
+Seven of the eight judgment-based skills score **100% precision/recall** on
 their judgment layer; one, `root-cause-analyzer`, scored 7/8 fixtures
 perfect and 1/8 at **0.67/0.67** — left exactly as computed, not adjusted
 to preserve the streak ([`L19`](project-memory-bank/12-known-limitations.md)).
-`architecture-decision` returned to a perfect 8/8 score, and that's not
-read as evidence it reasons better than `root-cause-analyzer` — a single
-self-authored evaluation can't support that comparison in either
-direction. Read every one of these numbers in context, not in isolation:
-the same agent session authored the fixtures, the expected ground truth,
-*and* the actual derivation, for all six skills. There was no independent
+`architecture-decision`, `refactoring-safety`, and `regression-hunter` all
+returned to a perfect 8/8 score, and that's not read as evidence any of
+them reasons better than `root-cause-analyzer` — a single self-authored
+evaluation can't support that comparison in either direction. Read every
+one of these numbers in context, not in isolation: the same agent session
+authored the fixtures, the expected ground truth, *and* the actual
+derivation, for all eight skills. There was no independent
 party anywhere in that loop. A perfect score under those conditions
 demonstrates
 the workflow is **executable and internally consistent** — it does not, and
@@ -225,9 +258,11 @@ and tracked as an explicit open item
 ([`L8`](project-memory-bank/12-known-limitations.md)) rather than left for
 someone else to discover:
 
-> "Four-for-four perfect self-graded scores is now the established pattern,
-> not a new finding — it continues to show this evaluation design cannot
-> yet discriminate good derivation from mediocre." — [`07-current-state.md`](project-memory-bank/07-current-state.md)
+Perfect self-graded scores (with `root-cause-analyzer`'s one honest
+exception) are now the established pattern across eight attempts, not a
+new finding each time — it continues to show this evaluation design cannot
+yet discriminate good derivation from mediocre, per
+[`07-current-state.md`](project-memory-bank/07-current-state.md).
 
 The project also runs small, explicitly-labeled internal pilots (N=1,
 self-run, un-blinded) toward its bigger open questions — whether skills beat
@@ -273,14 +308,32 @@ dogfood run (Phase 7) also surfaced a real limitation it deliberately did
 architecture produced a blast-radius score touching all 10 of the report's
 hotspots for every option, because the decision's own vocabulary overlaps
 this repo's recurring vocabulary almost everywhere ([`L21`](project-memory-bank/12-known-limitations.md)) — disclosed, not
-patched over, same discipline as every entry above.
+patched over, same discipline as every entry above. `refactoring-safety`'s
+own dogfood run (Phase 8) surfaced a different kind of finding: not a bug
+in its own logic, but a real inconsistency in the *composed upstream data*
+— `codebase-intelligence`'s own `fan_in` metric undercounted a real caller
+(a test module using an absolute-style cross-package import) that this
+skill's own independent caller scan found correctly
+([`L22`](project-memory-bank/12-known-limitations.md)) — disclosed, not
+patched over, since the gap lives in a different skill's own code.
+`regression-hunter`'s own dogfood run (Phase 9) dogfooded a real,
+already-tested `codebase-intelligence` fix this phase's own build produced
+(excluding `*.egg-info` directories from repo scans), and disclosed a new
+instance of the same limitation class as L14/L19/L21: its
+`target_resolver.py` (an independent copy of `refactoring-safety`'s
+identical caller-matching pattern) resolves callers by bare substring
+match, producing a wildly inflated caller list for short, common module
+stems like `scanner` — the first time this limitation class has been shown
+to affect two skills' independent copies of the same heuristic at once
+([`L23`](project-memory-bank/12-known-limitations.md)).
 
 The full narrative for each of the five original findings, including exact
 code diffs, is in the blog post
 [I Dogfooded Every Skill I Built.](blogs/03-i-dogfooded-every-skill-i-built.md)
-(written before Phase 6; `examples/root-cause-analyzer/example-run.md` and
-`examples/architecture-decision/example-run.md` have the Phase 6 and Phase
-7 write-ups.)
+(written before Phase 6; `examples/root-cause-analyzer/example-run.md`,
+`examples/architecture-decision/example-run.md`, and
+`examples/refactoring-safety/example-run.md` have the Phase 6, 7, and 8
+write-ups.)
 
 ## Project structure
 
@@ -313,8 +366,8 @@ copy. Start anywhere; each stands alone.
 
 ## Status and roadmap
 
-**Phase 7 complete.** Seven skills, 215 tests, seven evaluation harnesses,
-seven real dogfood runs, zero real-world usage by anyone outside this
+**Phase 9 complete.** Nine skills, 342 tests, nine evaluation harnesses,
+nine real dogfood runs, zero real-world usage by anyone outside this
 project yet. Full current snapshot:
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it

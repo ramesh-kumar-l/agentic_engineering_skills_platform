@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-pattern-flags-reviewed",
+      "description": "No diff-pattern flags fired for this hunk -- the only change is a comment edit, no exception handling, conditional guards, large deletions, or signature lines were touched, so none detected by the deterministic scanner is the correct outcome here, not a gap.",
+      "grounding": "engine/regression_scanner.py's four checks all returned empty for this hunk; only a comment line changed.",
+      "priority": "low",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinction",
+      "description": "engine/util.py is genuinely covered: tests/test_util.py imports engine.util directly, and structural risk is low (fan_in=0, not a hotspot), so this is a verified, low-risk change.",
+      "grounding": "target_resolver.py resolved engine/util.py by exact path match with fan_in=0; test_coverage_scanner.py found tests/test_util.py importing engine.util.",
+      "priority": "low",
+      "assumptions": null
+    }
+  ]
+}

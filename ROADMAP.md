@@ -76,7 +76,43 @@ Safety for Phase 7 — the actual Phase 7 instruction named Architecture
 Decision instead, so Refactoring Safety now sits at Phase 8. See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 8 — Refactoring Safety.** Not started; requires
+**Phase 8 — Refactoring Safety** (complete): eighth skill —
+`skills/refactoring-safety/` — reusing the same pattern a seventh time to
+turn a refactoring description into a per-target risk assessment against a
+real dependency graph plus an independently-computed test-coverage signal,
+evaluated on 8 fixtures (all 8 scored perfect on both layers) plus a real
+dogfood run against a genuine refactor this phase's own build produced
+(extracting a duplicated helper). New this phase: **ADR-014** — a target's
+structural risk tier is kept as a field distinct from its test-coverage
+status, rather than blended into one score — and this skill reuses Phase
+4's mandatory-composition rule (ADR-010) a fourth time. The real dogfood
+run disclosed — without fixing — a new cross-skill limitation: `codebase-
+intelligence`'s own `fan_in` metric undercounted a real caller that this
+skill's own independent caller scan found correctly. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Phase 9 — Regression Hunter** (complete): ninth skill —
+`skills/regression-hunter/` — reusing the same pattern an eighth time to
+turn a unified git diff into a per-file regression-risk assessment,
+evaluated on 8 fixtures (all 8 scored perfect on both layers) plus a real
+dogfood run against a genuine diff this phase's own build produced. New
+this phase: **ADR-015** — regression risk is scored from three explicit,
+non-blended signals per changed file (diff-pattern flags like removed
+exception handling or a removed conditional guard; structural blast radius
+from real fan-in/hotspot data, ADR-013-style; and an independently-computed
+test-coverage signal, ADR-014-style) combined into an overall tier via a
+documented rule table, with all three axes still visible separately in the
+report — and this skill reuses Phase 4's mandatory-composition rule
+(ADR-010) a fifth time. The real diff dogfooded was a genuine `codebase-intelligence` fix from this
+phase's own build (excluding `*.egg-info` directories from repo scans), and
+running it through the skill disclosed — without fixing — a new limitation
+(L23): `target_resolver.py`'s substring-based caller matching produces a
+wildly inflated caller list for short, common module stems like `scanner`,
+the same limitation class as L14/L19/L21 now shown to affect two skills'
+independent copies of the same heuristic at once. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Proposed next: Phase 10 — Release Readiness.** Not started; requires
 explicit maintainer approval and re-justification against evidence before
 work begins.
 

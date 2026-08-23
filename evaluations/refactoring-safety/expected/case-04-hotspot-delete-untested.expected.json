@@ -1,0 +1,7 @@
+{
+  "decision_flag_ids": ["no-test-plan-signal", "untested-blast-radius"],
+  "expected_categories": [
+    { "id": "c1", "category": "blast-radius-grounding", "keywords": ["legacy_router.py", "hotspot", "fan_in=6"] },
+    { "id": "c2", "category": "test-coverage-distinction", "keywords": ["no test module", "untested", "unverified"] }
+  ]
+}

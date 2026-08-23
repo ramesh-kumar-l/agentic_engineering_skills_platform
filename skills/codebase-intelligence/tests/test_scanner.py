@@ -28,6 +28,17 @@ def test_scan_excludes_default_dirs(tmp_path: Path):
     assert excluded_dirs == 1
 
 
+def test_scan_excludes_egg_info_dirs(tmp_path: Path):
+    (tmp_path / "mypkg.egg-info").mkdir()
+    (tmp_path / "mypkg.egg-info" / "PKG-INFO").write_text("Name: mypkg\n", encoding="utf-8")
+    (tmp_path / "app.py").write_text("x = 1\n", encoding="utf-8")
+
+    files, excluded_dirs, _, _ = scanner.scan(tmp_path)
+
+    assert {f.path for f in files} == {"app.py"}
+    assert excluded_dirs == 1
+
+
 def test_scan_skips_secret_shaped_files_without_reading_content(tmp_path: Path):
     (tmp_path / ".env").write_text("SECRET_KEY=super-secret-value\n", encoding="utf-8")
     (tmp_path / "app.py").write_text("x = 1\n", encoding="utf-8")

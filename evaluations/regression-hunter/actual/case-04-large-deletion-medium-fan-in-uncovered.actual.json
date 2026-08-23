@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-pattern-flags-reviewed",
+      "description": "large-deletion-no-addition fired: 14 lines of real aggregation logic were removed from build_summary with no addition in the same hunk, replaced by nothing -- the function's body is now effectively empty.",
+      "grounding": "regression_scanner.py's large-deletion check found a hunk with 14 removed lines and zero added lines, past the 10-line threshold.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "missing-coverage-named",
+      "description": "No test module in the composed report imports engine.report_builder -- engine/dashboard.py and engine/exporter.py both depend on build_summary's real output shape and neither is a test.",
+      "grounding": "test_coverage_scanner.py found zero test-shaped modules importing engine.report_builder in the fixture's ci_report.json.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "overall-risk-tier-explained",
+      "description": "The medium structural tier (fan_in=2) combined with a real diff-pattern flag and zero coverage escalates to HIGH per the documented rule table -- a medium-tier file that is both flagged and uncovered is never left at medium.",
+      "grounding": "risk_scorer.py's overall_risk_tier: tier='medium', has_flags=True, has_coverage=False -> 'high'.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

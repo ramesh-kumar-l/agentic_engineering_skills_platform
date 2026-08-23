@@ -1,0 +1,19 @@
+diff --git a/engine/report_builder.py b/engine/report_builder.py
+--- a/engine/report_builder.py
++++ b/engine/report_builder.py
+@@ -1,15 +1,1 @@
+ def build_summary(rows):
+-    totals = {}
+-    for row in rows:
+-        key = row.category
+-        totals[key] = totals.get(key, 0) + row.amount
+-    breakdown = []
+-    for key, value in totals.items():
+-        breakdown.append({"category": key, "total": value})
+-    breakdown.sort(key=lambda b: b["category"])
+-    summary = {
+-        "breakdown": breakdown,
+-        "grand_total": sum(totals.values()),
+-        "row_count": len(rows),
+-    }
+-    return summary

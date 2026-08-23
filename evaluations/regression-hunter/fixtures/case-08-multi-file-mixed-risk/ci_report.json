@@ -1,0 +1,101 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/core.py",
+      "docstring": "Core request handling.",
+      "functions": ["handle_request"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/core_a.py",
+      "docstring": "Core caller A.",
+      "functions": ["a"],
+      "classes": [],
+      "imports": ["engine.core"]
+    },
+    {
+      "path": "engine/core_b.py",
+      "docstring": "Core caller B.",
+      "functions": ["b"],
+      "classes": [],
+      "imports": ["engine.core"]
+    },
+    {
+      "path": "engine/core_c.py",
+      "docstring": "Core caller C.",
+      "functions": ["c"],
+      "classes": [],
+      "imports": ["engine.core"]
+    },
+    {
+      "path": "engine/core_d.py",
+      "docstring": "Core caller D.",
+      "functions": ["d"],
+      "classes": [],
+      "imports": ["engine.core"]
+    },
+    {
+      "path": "engine/core_e.py",
+      "docstring": "Core caller E.",
+      "functions": ["e"],
+      "classes": [],
+      "imports": ["engine.core"]
+    },
+    {
+      "path": "engine/core_f.py",
+      "docstring": "Core caller F.",
+      "functions": ["f"],
+      "classes": [],
+      "imports": ["engine.core"]
+    },
+    {
+      "path": "engine/core_g.py",
+      "docstring": "Core caller G.",
+      "functions": ["g"],
+      "classes": [],
+      "imports": ["engine.core"]
+    },
+    {
+      "path": "engine/core_h.py",
+      "docstring": "Core caller H.",
+      "functions": ["h"],
+      "classes": [],
+      "imports": ["engine.core"]
+    },
+    {
+      "path": "engine/util2.py",
+      "docstring": "A small, independent utility.",
+      "functions": ["identity"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "tests/test_util2.py",
+      "docstring": "",
+      "functions": ["test_identity"],
+      "classes": [],
+      "imports": ["engine.util2"]
+    },
+    {
+      "path": "engine/helper.py",
+      "docstring": "Helper used by one other module.",
+      "functions": ["assist"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/helper_caller.py",
+      "docstring": "Calls helper.",
+      "functions": ["do_thing"],
+      "classes": [],
+      "imports": ["engine.helper"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/core.py": 8, "engine/util2.py": 0, "engine/helper.py": 1},
+    "fan_out": {},
+    "hotspots": ["engine/core.py"]
+  }
+}

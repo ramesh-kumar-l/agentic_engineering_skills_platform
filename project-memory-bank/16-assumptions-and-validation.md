@@ -161,7 +161,35 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   skill's real-world behavior are answering different questions, exactly
   the point this assumption's status has tracked since Phase 2.
   The inter-rater-agreement experiment still has not been run for any of
-  the six skills.
+  the six skills. Phase 8 (`refactoring-safety`) is the seventh
+  judgment-based skill evaluated this way, and also scored perfect
+  precision/recall on all 8 fixtures
+  (`evaluations/refactoring-safety/RESULTS.md`) — same caveat as Phase 7:
+  this is not evidence this skill's judgment quality exceeds
+  `root-cause-analyzer`'s Phase 6 score, since a single self-authored
+  evaluation cannot support that comparison either way. Once again, the
+  real dogfood run was the more informative evidence: it surfaced a genuine
+  cross-skill limitation (L22 in [[12-known-limitations]] —
+  `codebase-intelligence`'s own `fan_in` count undercounting a real caller)
+  that no synthetic fixture, authored by the same session that would have
+  to notice the gap to test for it, could have found. The inter-rater-
+  agreement experiment still has not been run for any of the seven skills.
+  Phase 9 (`regression-hunter`) is the eighth judgment-based skill evaluated
+  this way, and also scored perfect precision/recall on all 8 fixtures
+  (`evaluations/regression-hunter/RESULTS.md`) — same caveat as Phases 7-8:
+  this is not evidence this skill's judgment quality exceeds
+  `root-cause-analyzer`'s Phase 6 score, since a single self-authored
+  evaluation cannot support that comparison either way. The real dogfood
+  run was again the more informative evidence: it correctly scored a real,
+  already-tested `codebase-intelligence` fix as low-risk on both axes that
+  mattered, and surfaced a new cross-skill limitation (L23 in
+  [[12-known-limitations]] — `target_resolver.py`'s substring-based caller
+  identification, shared as an independent copy between `refactoring-
+  safety` and `regression-hunter`, inflates the caller list for any module
+  with a short, common stem name) that, like L22 before it, no
+  self-authored synthetic fixture could plausibly have surfaced. The
+  inter-rater-agreement experiment still has not been run for any of the
+  eight skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -293,5 +321,39 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   session faced (L21 in [[12-known-limitations]]) — a case where required
   composition executed correctly but did not clearly demonstrate its value
   on this particular real use. That is an honest, disclosed data point
-  against overclaiming composition's benefit, not for it. Status stays
-  UNKNOWN.
+  against overclaiming composition's benefit, not for it. Phase 8
+  (`refactoring-safety`, ADR-014) reuses the same required-composition rule
+  a fourth time — required composition is now a pattern applied by four
+  different skills. The Phase 8 dogfood run
+  (`examples/refactoring-safety/example-run.md`) is closer in shape to
+  Phase 4's and Phase 6's than Phase 7's: composition was genuinely
+  required and used, every risk-tier and caller claim in the output traced
+  to real structural data, and the run correctly grounded a real refactor
+  target's blast radius — but it also surfaced a real limitation in the
+  *composed* data itself (L22): `codebase-intelligence`'s own `fan_in`
+  metric can silently undercount a real caller that this skill's own
+  independent caller scan still finds. This is a new, more precise
+  category of evidence than any prior phase produced: composition can
+  execute correctly and be genuinely used, while still depending on an
+  upstream report whose own internal consistency has not been fully
+  verified — a reason for measured caution about composition's reliability
+  guarantees, not its execution. Phase 9 (`regression-hunter`, ADR-015)
+  reuses the same required-composition rule a fifth time — required
+  composition is now a pattern applied by five different skills. The
+  Phase 9 dogfood run (`examples/regression-hunter/example-run.md`) is
+  closest in shape to Phase 8's: composition was genuinely required and
+  used, every structural-tier and caller claim traced to real data from the
+  composed report, and the run correctly scored a real, already-tested
+  change as low-risk — but it also surfaced a limitation shared across TWO
+  skills' independent copies of the same composition-consuming logic (L23):
+  `target_resolver.py`'s substring-based caller-identification heuristic,
+  present in both `refactoring-safety` and `regression-hunter` as
+  independent copies (not a shared import, per this project's portability
+  discipline), inflates the caller list for any composed-report module
+  whose stem is a short, common word. This sharpens Phase 8's finding: it
+  is not just that composition depends on an upstream report whose internal
+  consistency has gaps (L22), but that two skills consuming that same
+  report through the same resolution pattern can inherit the identical gap
+  independently — a reason for even more measured caution about treating
+  every consumer of a composed report as independently verified just
+  because each one is independently tested. Status stays UNKNOWN.

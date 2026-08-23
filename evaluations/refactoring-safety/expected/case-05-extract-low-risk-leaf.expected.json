@@ -1,0 +1,7 @@
+{
+  "decision_flag_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "blast-radius-grounding", "keywords": ["formatter.py", "fan_in=0", "leaf", "low"] },
+    { "id": "c2", "category": "test-coverage-distinction", "keywords": ["tests/test_formatter.py", "covered"] }
+  ]
+}

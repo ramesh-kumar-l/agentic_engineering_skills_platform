@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "targets-identified",
+      "description": "No target was written with backticks or quotes, so the parser fell back to bare-identifier extraction, correctly picking out `build_report` (a real function name) and `report_builder.py` (a real module path), while excluding ordinary words like 'move' and 'new' that aren't identifiers.",
+      "grounding": "operation_parser.py's _extract_bare_targets found no quoted targets, so it extracted identifier-shaped tokens (underscore or dotted-extension) from the sentence; both resolved to engine/report_builder.py via function-name and module-stem matching respectively.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "blast-radius-grounding",
+      "description": "engine/report_builder.py has one real caller (engine/cli.py, which imports it) and is covered by tests/test_report_builder.py. Moving `build_report` out of this module means engine/cli.py's import will need updating.",
+      "grounding": "target_resolver.py found engine/cli.py in caller_modules via its imports list; fan_in=1 from the codebase-intelligence report drives risk_tier=medium for this move operation.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

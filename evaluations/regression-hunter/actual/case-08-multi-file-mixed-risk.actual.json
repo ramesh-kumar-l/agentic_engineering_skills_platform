@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-pattern-flags-reviewed",
+      "description": "removed-exception-handling fired on engine/core.py: the try/except around dispatch(req) was removed with no replacement, and this module is a real hotspot with fan_in=8.",
+      "grounding": "regression_scanner.py flagged the removed except line in engine/core.py's hunk; target_resolver.py confirmed fan_in=8, is_hotspot=True.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "diff-pattern-flags-reviewed",
+      "description": "removed-conditional-guard fired on engine/helper.py: the 'if item is None: continue' guard was removed along with the rest of assist()'s body, with no equivalent guard added.",
+      "grounding": "regression_scanner.py flagged the removed if line in engine/helper.py's hunk; no added if line in the same hunk cancelled it.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "existing-behavior-at-risk-stated",
+      "description": "engine/util2.py's change is genuinely low risk: only a trailing comment was added, no diff-pattern flags fired, structural fan_in=0, and it is covered by tests/test_util2.py -- this file should not be lumped in with the diff's two high-risk files.",
+      "grounding": "regression_scanner.py found zero flags for engine/util2.py's hunk; risk_scorer.py returned overall_risk_tier='low'.",
+      "priority": "low",
+      "assumptions": null
+    },
+    {
+      "id": "c4",
+      "category": "overall-risk-tier-explained",
+      "description": "Of the three changed files, two (engine/core.py, engine/helper.py) land at HIGH overall risk and one (engine/util2.py) stays LOW -- the diff as a whole should not be reviewed as uniformly risky or uniformly safe; each file's tier traces to its own combination of flags, structural tier, and coverage.",
+      "grounding": "report.stats.high_risk_file_count == 2 of 3 changed files; each file's overall_risk_tier differs per risk_scorer.py's per-file rule-table application.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

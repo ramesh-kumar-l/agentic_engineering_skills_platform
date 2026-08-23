@@ -1,0 +1,38 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/api.py",
+      "docstring": "Public API handler.",
+      "functions": ["handle"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/router.py",
+      "docstring": "Routes requests to handlers.",
+      "functions": ["route"],
+      "classes": [],
+      "imports": ["engine.api"]
+    },
+    {
+      "path": "engine/gateway.py",
+      "docstring": "External gateway adapter.",
+      "functions": ["forward"],
+      "classes": [],
+      "imports": ["engine.api"]
+    },
+    {
+      "path": "tests/test_api.py",
+      "docstring": "",
+      "functions": ["test_handle"],
+      "classes": [],
+      "imports": ["engine.api"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/api.py": 2},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

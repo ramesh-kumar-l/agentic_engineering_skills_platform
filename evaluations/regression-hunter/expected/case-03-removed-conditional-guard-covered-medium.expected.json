@@ -1,0 +1,8 @@
+{
+  "flag_ids": ["removed-conditional-guard"],
+  "file_risk_tiers": { "engine/session.py": "medium" },
+  "expected_categories": [
+    { "id": "c1", "category": "diff-pattern-flags-reviewed", "keywords": ["removed-conditional-guard", "if user is none"] },
+    { "id": "c2", "category": "test-coverage-distinction", "keywords": ["tests/test_session.py", "covered", "medium"] }
+  ]
+}

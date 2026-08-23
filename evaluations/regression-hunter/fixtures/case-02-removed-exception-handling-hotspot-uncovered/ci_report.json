@@ -1,0 +1,38 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/payment.py",
+      "docstring": "Payment processing entry point.",
+      "functions": ["charge"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/checkout.py",
+      "docstring": "Checkout flow.",
+      "functions": ["complete_order"],
+      "classes": [],
+      "imports": ["engine.payment"]
+    },
+    {
+      "path": "engine/refund.py",
+      "docstring": "Refund flow.",
+      "functions": ["issue_refund"],
+      "classes": [],
+      "imports": ["engine.payment"]
+    },
+    {
+      "path": "engine/admin.py",
+      "docstring": "Admin tools.",
+      "functions": ["force_charge"],
+      "classes": [],
+      "imports": ["engine.payment"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/payment.py": 6},
+    "fan_out": {},
+    "hotspots": ["engine/payment.py"]
+  }
+}

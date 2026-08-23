@@ -1,7 +1,7 @@
 # Dependencies
 
 This document explains exactly what this project depends on, why the list is
-so short, and how installation works across the seven skills. If you're
+so short, and how installation works across the nine skills. If you're
 looking for step-by-step setup instructions instead, see
 [`QuickStarterGuide.md`](QuickStarterGuide.md).
 
@@ -20,7 +20,7 @@ looking for step-by-step setup instructions instead, see
 ## Why zero runtime dependencies is a deliberate choice, not an accident
 
 This is documented formally as [ADR-006](project-memory-bank/11-decisions.md)
-in the architectural decisions log, and it applies to all seven skills, not
+in the architectural decisions log, and it applies to all nine skills, not
 just the first one:
 
 - **Portability.** An agent runtime invoking a skill only needs a Python 3.10+
@@ -34,7 +34,7 @@ just the first one:
   attack surface. A `pip-audit` on this repo's *runtime* code will always
   return nothing to audit, by construction.
 - **Simplicity over premature optimization.** `ast`, `re`, `json`, `pathlib`,
-  `dataclasses`, and `argparse` cover everything all five engines need
+  `dataclasses`, and `argparse` cover everything all nine engines need
   (structural parsing, regex pattern matching, report rendering, CLI
   wiring). Reaching for a third-party parser or framework before there's
   concrete evidence the stdlib approach is insufficient would be exactly the
@@ -50,7 +50,7 @@ just the first one:
 
 ## What's actually in each skill's `pyproject.toml`
 
-All seven skills follow the identical shape:
+All nine skills follow the identical shape:
 
 ```toml
 [project]
@@ -80,7 +80,7 @@ list for every skill:
 
 ## How to install
 
-This repo is a collection of five **independent** Python packages under
+This repo is a collection of nine **independent** Python packages under
 `skills/`, not one installable package at the root — there is no root
 `pyproject.toml` and none is planned until there's real evidence a unified
 package boundary is needed (avoid premature packaging, same discipline as
@@ -107,7 +107,7 @@ pip install -e ".[dev]"
 ```
 
 Repeat per skill you want installed. There is intentionally no single command
-that installs all five at once — see
+that installs all nine at once — see
 [`QuickStarterGuide.md`](QuickStarterGuide.md) for a loop that does it if you
 want every skill available at once.
 

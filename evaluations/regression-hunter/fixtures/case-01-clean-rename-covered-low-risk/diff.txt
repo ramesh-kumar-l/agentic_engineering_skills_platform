@@ -1,0 +1,8 @@
+diff --git a/engine/util.py b/engine/util.py
+--- a/engine/util.py
++++ b/engine/util.py
+@@ -1,4 +1,4 @@
+ def format_name(first, last):
+-    # combine names
++    # combine first and last names, trimming whitespace
+     return f"{first} {last}".strip()

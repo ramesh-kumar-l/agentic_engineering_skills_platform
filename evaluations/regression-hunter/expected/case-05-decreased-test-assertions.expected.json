@@ -1,0 +1,8 @@
+{
+  "flag_ids": ["decreased-test-assertions"],
+  "file_risk_tiers": { "tests/test_mathlib.py": "medium" },
+  "expected_categories": [
+    { "id": "c1", "category": "diff-pattern-flags-reviewed", "keywords": ["decreased-test-assertions", "2 assertion", "removed"] },
+    { "id": "c2", "category": "structural-blast-radius", "keywords": ["fan_in=0", "low", "not a hotspot"] }
+  ]
+}

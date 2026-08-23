@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/session.py",
+      "docstring": "Session handling.",
+      "functions": ["touch_session"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/router.py",
+      "docstring": "Request router.",
+      "functions": ["dispatch"],
+      "classes": [],
+      "imports": ["engine.session"]
+    },
+    {
+      "path": "tests/test_session.py",
+      "docstring": "",
+      "functions": ["test_touch_session"],
+      "classes": [],
+      "imports": ["engine.session"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/session.py": 1},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

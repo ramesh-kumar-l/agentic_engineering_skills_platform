@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/cache.py",
+      "docstring": "Redis-backed cache layer.",
+      "functions": ["get", "set"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/session.py",
+      "docstring": "Session handling.",
+      "functions": ["load_session"],
+      "classes": [],
+      "imports": ["engine.cache"]
+    },
+    {
+      "path": "tests/test_cache.py",
+      "docstring": "",
+      "functions": ["test_get_set"],
+      "classes": [],
+      "imports": ["engine.cache"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/cache.py": 1},
+    "fan_out": {"engine/session.py": 1},
+    "hotspots": []
+  }
+}

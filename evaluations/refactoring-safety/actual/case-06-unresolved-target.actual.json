@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "targets-identified",
+      "description": "Neither `phantom_module.py` nor `ghost_module.py` matched any module, function, or class in the codebase-intelligence report. Unlike case-01's rename-destination (where the new name is expected to be absent), BOTH sides of this rename are unresolved -- the source name doesn't exist either, which is a materially different, more suspicious situation. This is not a real target this checklist can ground a blast-radius assessment against.",
+      "grounding": "target_resolver.py's resolve_target returned resolved_module_path=None for both targets; report.py's warning fired because none of the parsed targets resolved to anything real.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "explicit-assumption-flag",
+      "description": "Because neither target exists in the report, this checklist cannot confirm the refactor is even naming a real module in this repository -- it may be a typo, a file in an untracked directory, or a different repository entirely. This must be stated as an open assumption, not treated as a zero-risk finding.",
+      "grounding": "report.py's warnings list explicitly states blast radius could not be derived from real structural data for this refactor -- the engine's silence here is a data gap, not a safety signal.",
+      "priority": "high",
+      "assumptions": "Assuming `phantom_module.py` is meant to reference a real file not yet reflected in this codebase-intelligence report, rather than a typo or a nonexistent target -- unconfirmed."
+    }
+  ]
+}

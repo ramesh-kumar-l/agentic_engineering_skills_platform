@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-pattern-flags-reviewed",
+      "description": "removed-conditional-guard fired: the 'if user is None: return' guard was deleted with no equivalent guard added, so touch_session(None) would now raise instead of returning silently.",
+      "grounding": "regression_scanner.py found a removed 'if' line with no added 'if' line in the same hunk.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinction",
+      "description": "engine/session.py has real but moderate structural risk (fan_in=1, medium tier) and is genuinely covered by tests/test_session.py, so this is a verified-but-real risk, not a silent one.",
+      "grounding": "target_resolver.py found engine/router.py as the one caller (fan_in=1); test_coverage_scanner.py found tests/test_session.py importing engine.session.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

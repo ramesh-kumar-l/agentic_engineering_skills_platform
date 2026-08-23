@@ -1,0 +1,3 @@
+Extract a small helper from `formatter.py` into a private function. Update
+the internal call site. Run the unit tests to verify. Reversible via git
+revert if needed.

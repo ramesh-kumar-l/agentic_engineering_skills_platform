@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "operation-type-precision",
+      "description": "The operation is correctly detected as change-signature, not a generic 'refactor' -- this matters because a signature change breaks every caller passing positional arguments, unlike an internal-only operation like extract/inline.",
+      "grounding": "operation_parser.py's _OPERATION_KEYWORDS matched 'Change the signature of' against the change-signature pattern before any other keyword.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "blast-radius-grounding",
+      "description": "engine/notify.py has 2 real callers (engine/orders.py, engine/alerts.py), both of which call send_notification with positional arguments per their imports -- both will need updating to the new structured-event signature. Not a hotspot, so risk_tier=medium rather than high, but still a real, non-trivial blast radius.",
+      "grounding": "target_resolver.py found both callers via their imports lists; fan_in=2 from the codebase-intelligence report, is_hotspot=False, driving risk_tier=medium for this boundary-changing operation.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

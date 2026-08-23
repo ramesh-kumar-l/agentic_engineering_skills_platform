@@ -492,3 +492,115 @@ evaluated this way; still self-authored, single-rater evidence, so this
 should not be read as evidence this skill's judgment quality is higher than
 `root-cause-analyzer`'s — a single self-authored evaluation cannot support
 that comparison either way. See [[16-assumptions-and-validation]] A5.
+
+## L22: `codebase-intelligence`'s `fan_in` can undercount a real caller relative to `refactoring-safety`'s own caller scan
+
+- **What**: `refactoring-safety`'s real dogfood run
+  (`examples/refactoring-safety/example-run.md`) assessed a genuine refactor
+  target (`skills/refactoring-safety/engine/target_resolver.py`) whose
+  Markdown output listed **two** real callers via the engine's own
+  `caller_modules` scan (`engine/report.py`, a relative-import caller, and
+  `tests/test_target_resolver.py`, an absolute-style-import caller) — but
+  `codebase-intelligence`'s own `dependency_graph.fan_in` for that same
+  module reported **1**, not 2.
+- **Why**: `codebase-intelligence`'s dependency-graph builder only
+  constructed a `DependencyEdge` for the relative import
+  (`.target_resolver`); the test file's absolute-style import
+  (`engine.target_resolver`) was a real caller but was not recognized as an
+  edge into that same graph. `refactoring-safety`'s `target_resolver.py`
+  does not trust `fan_in` for caller *identity* — its `_find_callers`
+  independently scans every module's raw `imports` list by substring, so it
+  found both callers correctly — but `safety_scorer.py`'s risk-tier
+  calculation scores against the authoritative `fan_in` number (1), not the
+  length of `caller_modules` (2), for consistency with `codebase-
+  intelligence`'s own reported metric.
+- **Impact**: in the dogfood case this did not change the outcome (an
+  `extract` operation on a non-hotspot module stays `low` risk either way),
+  but on a **boundary-changing** operation (rename/delete/move/change-
+  signature) where the fan-in threshold sits at the boundary between tiers,
+  this gap could under-score a target's real risk by one real caller.
+- **Fix**: Not applied. This gap originates in `codebase-intelligence`'s
+  own dependency-graph construction, not in `refactoring-safety`'s code —
+  fixing it here would mean either trusting `caller_modules`' length over
+  `codebase-intelligence`'s own `fan_in` field (a real design tradeoff not
+  evaluated against other evidence yet) or fixing the upstream graph
+  builder to recognize absolute-style cross-package imports as edges (a
+  different skill's concern). See ADR-014's Future Evolution clause.
+- **Regression prevention**: `examples/refactoring-safety/example-run.md`
+  documents this explicitly as a limitation observed on real use;
+  `SKILL.md`'s "When NOT to Use" and Agent Responsibilities sections
+  instruct the agent to check `caller_modules` directly rather than
+  trusting `fan_in` alone as the complete caller picture.
+
+## L8 update: now applying a seventh time, still perfect scores
+
+`refactoring-safety`'s judgment-layer evaluation scored perfect precision/
+recall on all 8 fixtures, same as five of the six prior judgment-based
+skills — `root-cause-analyzer` remains the one exception (L19 above). This
+is the seventh judgment-based skill evaluated this way; still self-authored,
+single-rater evidence, so this should not be read as evidence this skill's
+judgment quality is higher than `root-cause-analyzer`'s — a single
+self-authored evaluation cannot support that comparison either way. See
+[[16-assumptions-and-validation]] A5.
+
+---
+
+Entries below are from Phase 9 (regression-hunter).
+
+## L23: `target_resolver.py`'s substring-based caller identification produces a wildly inflated caller list for short, common module stems
+
+- **What failed**: N/A (disclosed limitation, not fixed — same mechanism
+  class as L14/L19/L21, demonstrated in a new location: structural caller
+  identification, not keyword-relevance ranking).
+- **Why**: `regression-hunter`'s `target_resolver.py::_find_callers` (an
+  independent copy of `refactoring-safety`'s identical
+  `target_resolver.py::_find_callers` pattern) resolves a changed file's
+  module stem, then checks whether that stem appears as a bare **substring**
+  anywhere in each candidate module's joined `imports` text
+  (`target_stem in imports_text`). For `codebase-intelligence/engine/
+  scanner.py`, the stem `"scanner"` is a substring of `"testability_
+  scanner"`, `"decision_scanner"`, `"safety_scanner"`, `"regression_
+  scanner"`, `"symptom_scanner"`, and `"risk_scanner"` — every other skill
+  in this platform that reuses Pattern 2's "scanner" naming convention for
+  its own anti-pattern-flag module.
+- **Impact**: found via the real dogfood run
+  (`examples/regression-hunter/example-run.md`) — a genuine, already-tested
+  `codebase-intelligence` scanner fix (excluding `*.egg-info` directories
+  from repo scans). The Markdown output listed **22 "caller" modules** for
+  `scanner.py`, most of them false positives — modules like
+  `skills/architecture-decision/engine/report.py` that import their own
+  skill's `decision_scanner.py` and have never heard of `codebase-
+  intelligence/engine/scanner.py` at all. In this specific run the false
+  positives did not change `overall_risk_tier` (which is driven by the
+  composed report's real `fan_in`/hotspot data, not by the length of
+  `caller_modules`), but the `caller_modules` list itself — which
+  `SKILL.md`'s Agent Responsibilities explicitly instructs the agent to
+  check alongside `fan_in` — is materially misleading for any module whose
+  stem is a short, common word. This is also the first time this class of
+  limitation is shown to affect **two** skills' independent copies of the
+  same heuristic simultaneously (`refactoring-safety`'s and
+  `regression-hunter`'s `target_resolver.py` share the identical
+  vulnerability, since the second is a portability-discipline-driven
+  independent copy of the first's resolution pattern, not a shared import).
+- **Fix**: Not applied. A real fix (e.g. requiring a word-boundary or
+  dotted-segment match instead of a bare substring check, or a minimum stem
+  length before matching) is a real design tradeoff against a
+  currently-understood, now-twice-disclosed limitation class (L14, L19,
+  L21 before this), not evaluated here against other evidence of need
+  across every skill that uses this pattern.
+- **Regression prevention**: `examples/regression-hunter/example-run.md`
+  documents this explicitly as a limitation observed on real use;
+  `SKILL.md`'s Agent Responsibilities and Known Limitations sections
+  instruct the agent not to trust `caller_modules`'s length at face value
+  for a module with a short, generic stem name.
+
+## L8 update: now applying an eighth time, still perfect scores
+
+`regression-hunter`'s judgment-layer evaluation scored perfect precision/
+recall on all 8 fixtures, same as six of the seven prior judgment-based
+skills — `root-cause-analyzer` remains the one exception (L19 above). This
+is the eighth judgment-based skill evaluated this way; still self-authored,
+single-rater evidence, so this should not be read as evidence this skill's
+judgment quality is higher than `root-cause-analyzer`'s — a single
+self-authored evaluation cannot support that comparison either way. See
+[[16-assumptions-and-validation]] A5.

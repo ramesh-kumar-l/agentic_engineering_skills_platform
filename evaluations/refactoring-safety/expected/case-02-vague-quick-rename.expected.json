@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": ["vague-refactor-language", "no-test-plan-signal", "no-rollback-signal", "no-caller-update-signal", "no-verification-signal", "untested-blast-radius"],
+  "expected_categories": [
+    { "id": "c1", "category": "blast-radius-grounding", "keywords": ["auth.py", "hotspot", "fan_in=7"] },
+    { "id": "c2", "category": "test-coverage-distinction", "keywords": ["untested", "no test module", "unverified"] },
+    { "id": "c3", "category": "explicit-assumption-flag", "keywords": ["vague", "just", "trivial", "assumption"] }
+  ]
+}

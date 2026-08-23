@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "blast-radius-grounding",
+      "description": "`legacy_router.py` resolves to engine/legacy_router.py, a real hotspot with fan_in=6 and two real callers (engine/api.py, engine/admin.py). A delete is the most boundary-changing operation possible -- every caller breaks unless migrated first, and the report confirms this module is far from unused.",
+      "grounding": "target_resolver.py resolved the module by stem match; codebase-intelligence's dependency_graph confirms hotspot status and 6 fan_in, driving risk_tier=high for a delete operation.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinction",
+      "description": "No test module in the report imports engine.legacy_router.py -- this HIGH-risk deletion target has zero verification coverage, and the refactor text never mentions tests either. Both signals agree: this is unverified.",
+      "grounding": "test_coverage_scanner.py found no covering test module; safety_scorer.py raised untested-blast-radius (severity high).",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

@@ -9,7 +9,7 @@ If you only read one document besides the README, read this one.
 This repo is a portfolio of **AI coding-agent "skills"** — not prompts.
 Each skill is a `SKILL.md` contract (intent, inputs, workflow, security
 constraints, evaluation, known limitations) backed by a small, tested,
-stdlib-only Python engine. Seven exist today, all `Trust Status:
+stdlib-only Python engine. Nine exist today, all `Trust Status:
 EXPERIMENTAL`, all tested, all evaluated, all honestly documented — see
 [`README.md`](README.md) for the full picture and
 [`project-memory-bank/`](project-memory-bank/) for the complete project
@@ -56,7 +56,7 @@ CONTRIBUTING.md               How to propose a skill
 SECURITY.md                   How to report a vulnerability
 LICENSE                       Apache 2.0
 
-skills/                       The seven skills — the actual product
+skills/                       The nine skills — the actual product
   codebase-intelligence/
   adversarial-diff-reviewer/
   acceptance-test-engineer/
@@ -64,6 +64,8 @@ skills/                       The seven skills — the actual product
   security-context-guard/
   root-cause-analyzer/
   architecture-decision/
+  refactoring-safety/
+  regression-hunter/
 
 evaluations/                  Per-skill evaluation harnesses + fixtures + RESULTS.md
 examples/                     Real "dogfood" runs — each skill used on real work, not synthetic demos
@@ -141,7 +143,7 @@ for d in skills/*/; do
 done
 ```
 
-Expect **215 passing tests** across all seven skills (23 + 23 + 24 + 21 + 58 + 32 + 34)
+Expect **342 passing tests** across all nine skills (24 + 23 + 24 + 21 + 58 + 32 + 34 + 62 + 64)
 as of the most recent phase. See
 [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md)
 for the current authoritative count.
@@ -201,7 +203,7 @@ itself documented (ADR-010 vs ADR-011 in
 | See exactly what's built vs. what's planned | [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md) |
 | Understand one specific skill deeply | `skills/<name>/SKILL.md` |
 | See a skill run against a real (not synthetic) problem | `examples/<name>/example-run.md` |
-| Understand the two architecture patterns used across all seven skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
+| Understand the two architecture patterns used across all nine skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
 | See every real bug found and fixed via dogfooding | [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md), or the [blog version](blogs/03-i-dogfooded-every-skill-i-built.md) |
 | Understand what's actually validated vs. still assumed | [`project-memory-bank/16-assumptions-and-validation.md`](project-memory-bank/16-assumptions-and-validation.md) |
 | Propose a new skill | [`CONTRIBUTING.md`](CONTRIBUTING.md) |

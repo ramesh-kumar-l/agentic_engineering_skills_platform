@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "targets-identified", "keywords": ["cache.py", "cache_layer.py", "engine/cache.py"] },
+    { "id": "c2", "category": "test-coverage-distinction", "keywords": ["tests/test_cache.py", "covered", "medium"] },
+    { "id": "c3", "category": "rollback-plan", "keywords": ["git revert", "reversible"] }
+  ]
+}

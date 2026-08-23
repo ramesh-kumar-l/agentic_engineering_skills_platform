@@ -1,0 +1,201 @@
+{
+  "stats": {
+    "files_changed": 2,
+    "files_added": 0,
+    "files_deleted": 0,
+    "lines_added": 15,
+    "lines_removed": 1,
+    "flag_count": 0,
+    "high_risk_file_count": 0
+  },
+  "files": [
+    {
+      "file": "skills/codebase-intelligence/engine/scanner.py",
+      "is_new_file": false,
+      "is_deleted_file": false,
+      "lines_added": 4,
+      "lines_removed": 1,
+      "diff_pattern_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/codebase-intelligence/engine/scanner.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/acceptance-test-engineer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_testability_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_decision_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/feature-planner/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 5,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_planning_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_safety_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_test_coverage_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_regression_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_test_coverage_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_symptom_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/tests/test_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/acceptance-test-engineer/tests/test_stats.py",
+          "skills/acceptance-test-engineer/tests/test_testability_scanner.py",
+          "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+          "skills/architecture-decision/tests/test_decision_scanner.py",
+          "skills/feature-planner/tests/test_planning_scanner.py",
+          "skills/feature-planner/tests/test_stats.py",
+          "skills/refactoring-safety/tests/test_safety_scanner.py",
+          "skills/refactoring-safety/tests/test_test_coverage_scanner.py",
+          "skills/regression-hunter/tests/test_regression_scanner.py",
+          "skills/regression-hunter/tests/test_test_coverage_scanner.py",
+          "skills/root-cause-analyzer/tests/test_stats.py",
+          "skills/root-cause-analyzer/tests/test_symptom_scanner.py",
+          "skills/security-context-guard/tests/test_scanner.py"
+        ]
+      },
+      "overall_risk_tier": "low"
+    },
+    {
+      "file": "skills/codebase-intelligence/tests/test_scanner.py",
+      "is_new_file": false,
+      "is_deleted_file": false,
+      "lines_added": 11,
+      "lines_removed": 0,
+      "diff_pattern_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/codebase-intelligence/tests/test_scanner.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "overall_risk_tier": "low"
+    }
+  ],
+  "warnings": []
+}

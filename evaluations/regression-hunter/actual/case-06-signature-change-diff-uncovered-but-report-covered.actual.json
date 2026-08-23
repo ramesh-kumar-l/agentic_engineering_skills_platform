@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-pattern-flags-reviewed",
+      "description": "modified-signature-no-test-change fired: 'def handle(request):' changed to 'def handle(request, ctx):' but no other file in THIS diff looks like engine/api.py's test file by naming convention.",
+      "grounding": "regression_scanner.py's signature check found a touched def line in engine/api.py and no test-shaped file among the diff's other changed files.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinction",
+      "description": "This is a real, deliberate divergence between axes: the diff-level flag (no test file changed in THIS diff) fired, but the composed codebase-intelligence report shows tests/test_api.py genuinely imports engine.api -- real coverage exists, it just wasn't touched in this particular diff. Both facts are true at once and should be reported separately, not collapsed into one verdict.",
+      "grounding": "test_coverage_scanner.py found tests/test_api.py importing engine.api in the fixture's ci_report.json, independent of what changed in diff.txt.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

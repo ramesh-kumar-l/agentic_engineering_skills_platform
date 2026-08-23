@@ -1,0 +1,7 @@
+{
+  "decision_flag_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "targets-identified", "keywords": ["build_report", "report_builder.py", "bare identifier"] },
+    { "id": "c2", "category": "blast-radius-grounding", "keywords": ["fan_in=1", "engine/cli.py", "caller"] }
+  ]
+}

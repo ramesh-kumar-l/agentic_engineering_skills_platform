@@ -1,0 +1,2 @@
+Just rename `auth.py` to `authentication.py`, it's a trivial change and
+shouldn't break anything.

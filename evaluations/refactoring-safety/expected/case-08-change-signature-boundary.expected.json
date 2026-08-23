@@ -1,0 +1,7 @@
+{
+  "decision_flag_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "operation-type-precision", "keywords": ["change-signature", "signature", "boundary"] },
+    { "id": "c2", "category": "blast-radius-grounding", "keywords": ["fan_in=2", "engine/orders.py", "engine/alerts.py"] }
+  ]
+}
