@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "blast-radius",
+      "description": "engine/config_loader.py is a codebase-intelligence-flagged hotspot with fan_in=6 — six other modules depend on it, so whatever is wrong here (likely a stale in-memory cache not being invalidated on reload) has a wide blast radius.",
+      "grounding": "candidates.candidates[0] = {path: engine/config_loader.py, score: 12, fan_in: 6, is_hotspot: true}.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "candidate-locations",
+      "description": "engine/config_loader.py's get_flag/load_config is the primary suspected location — 'caching something' in the symptom text directly matches this module's docstring ('Loads and caches app config').",
+      "grounding": "Keyword overlap on 'config', 'loader', 'flag' plus docstring text 'caches'.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "fix-risk",
+      "description": "Because config_loader.py is depended on by both app.py and worker.py (and is a hotspot), any fix to its caching behavior should be tested against both call sites, not just the flag lookup path that surfaced the symptom — a narrow fix here risks a regression in the worker's config reads.",
+      "grounding": "dependency_graph.fan_in['engine/config_loader.py'] == 6, and both app.py and worker.py list it in their imports in the ci_report.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

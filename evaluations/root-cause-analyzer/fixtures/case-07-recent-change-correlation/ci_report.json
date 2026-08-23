@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/webhook_handler.py",
+      "docstring": "Handles incoming payment webhook events, verifies signature.",
+      "functions": ["handle_webhook", "verify_signature"],
+      "classes": [],
+      "imports": ["payments"]
+    },
+    {
+      "path": "engine/payments.py",
+      "docstring": "Payment processing core.",
+      "functions": ["process_payment"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/payments.py": 1},
+    "fan_out": {"engine/webhook_handler.py": 1},
+    "hotspots": []
+  }
+}

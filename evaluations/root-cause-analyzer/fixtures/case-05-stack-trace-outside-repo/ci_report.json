@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/export.py",
+      "docstring": "CSV export of reports, uses a connection pool.",
+      "functions": ["export_csv"],
+      "classes": [],
+      "imports": ["somelib"]
+    },
+    {
+      "path": "engine/reports.py",
+      "docstring": "Report generation.",
+      "functions": ["build_report"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {},
+    "fan_out": {"engine/export.py": 1},
+    "hotspots": []
+  }
+}

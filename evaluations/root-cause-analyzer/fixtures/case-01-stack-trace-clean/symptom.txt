@@ -1,0 +1,6 @@
+Expected the cart total to include tax but it shows the pre-tax amount instead. Steps to reproduce: add one $10 item to the cart, then open the cart summary. Error observed in the server logs:
+
+Traceback (most recent call last):
+  File "engine/cart.py", line 44, in total
+    return subtotal
+TypeError: total() ignores tax_rate

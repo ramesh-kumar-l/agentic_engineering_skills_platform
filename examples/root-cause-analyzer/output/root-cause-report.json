@@ -1,0 +1,2263 @@
+{
+  "symptom_text": "Expected security-context-guard to classify this action as REQUIRES_HUMAN_APPROVAL, but it returned AUTHORIZE instead. Steps to reproduce: run the engine CLI with --action \"Commit and push the new Security Context Guard skill files (skills/security-context-guard/, evaluations/security-context-guard/, project-memory-bank updates) to the shared origin repository.\" Error: no exception is raised, but classification.suggested_verdict comes back AUTHORIZE when this is clearly a Publishing-category action that should require approval. The action-pattern matcher in the security guard's engine seems to require the verb and its object keyword to appear close together in the action text, and this action's parenthetical file list pushes \"push\" and \"origin\" far apart \u2014 well over a hundred characters.\n",
+  "stats": {
+    "word_count": 119,
+    "vague_symptom_count": 0,
+    "stack_frame_count": 0
+  },
+  "symptom_flags": [],
+  "candidates": {
+    "keywords": [
+      "expected",
+      "security",
+      "context",
+      "guard",
+      "classify",
+      "action",
+      "requires_human_approval",
+      "but",
+      "returned",
+      "authorize",
+      "instead",
+      "steps",
+      "reproduce",
+      "run",
+      "engine",
+      "cli",
+      "commit",
+      "push",
+      "new",
+      "skill",
+      "files",
+      "skills",
+      "evaluations",
+      "project",
+      "memory",
+      "bank",
+      "updates",
+      "shared",
+      "origin",
+      "repository",
+      "error",
+      "exception",
+      "raised",
+      "classification",
+      "suggested_verdict",
+      "comes",
+      "back",
+      "clearly",
+      "publishing",
+      "category",
+      "should",
+      "require",
+      "approval",
+      "pattern",
+      "matcher",
+      "seems",
+      "verb",
+      "its",
+      "object",
+      "keyword",
+      "appear",
+      "close",
+      "together",
+      "text",
+      "parenthetical",
+      "file",
+      "list",
+      "pushes",
+      "far",
+      "apart",
+      "well",
+      "over",
+      "hundred",
+      "characters"
+    ],
+    "stack_frames": [],
+    "candidates": [
+      {
+        "path": "skills/security-context-guard/engine/action_patterns.py",
+        "score": 56,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "run",
+          "engine",
+          "push",
+          "new",
+          "skill",
+          "files",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "shared",
+          "origin",
+          "repository",
+          "pattern",
+          "verb",
+          "its",
+          "object",
+          "keyword",
+          "text",
+          "parenthetical",
+          "file",
+          "list",
+          "apart",
+          "characters"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_action_patterns.py",
+        "score": 41,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "engine",
+          "push",
+          "skill",
+          "skills",
+          "publishing",
+          "pattern",
+          "verb",
+          "object",
+          "text",
+          "list"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/models.py",
+        "score": 40,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "shared",
+          "classification",
+          "its",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 6,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "evaluations/security-context-guard/run_evaluation.py",
+        "score": 38,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "expected",
+          "security",
+          "context",
+          "guard",
+          "action",
+          "run",
+          "engine",
+          "skill",
+          "evaluations",
+          "project",
+          "memory",
+          "bank",
+          "suggested_verdict",
+          "category",
+          "keyword",
+          "text",
+          "list"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/classification.py",
+        "score": 38,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "classify",
+          "action",
+          "requires_human_approval",
+          "authorize",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "classification",
+          "suggested_verdict",
+          "require",
+          "approval",
+          "its",
+          "close",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/cli.py",
+        "score": 36,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "engine",
+          "cli",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 3,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_cli.py",
+        "score": 34,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "cli",
+          "skill",
+          "files",
+          "skills",
+          "error",
+          "its",
+          "text",
+          "file",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_classification.py",
+        "score": 31,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "authorize",
+          "engine",
+          "skill",
+          "skills",
+          "classification",
+          "approval",
+          "close",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/pii_patterns.py",
+        "score": 30,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/secret_patterns.py",
+        "score": 30,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_cli.py",
+        "score": 27,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "run",
+          "engine",
+          "cli",
+          "skill",
+          "files",
+          "skills",
+          "error",
+          "require",
+          "its",
+          "file",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/report.py",
+        "score": 27,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "classify",
+          "authorize",
+          "engine",
+          "skill",
+          "skills",
+          "classification",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 4,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_integration.py",
+        "score": 27,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "engine",
+          "skill",
+          "skills",
+          "approval",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_pii_patterns.py",
+        "score": 27,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_scanner.py",
+        "score": 27,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "engine",
+          "skill",
+          "skills",
+          "category",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_secret_patterns.py",
+        "score": 27,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/root-cause-analyzer/run_evaluation.py",
+        "score": 26,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "expected",
+          "security",
+          "context",
+          "guard",
+          "run",
+          "engine",
+          "skill",
+          "evaluations",
+          "project",
+          "memory",
+          "bank",
+          "category",
+          "require",
+          "pattern",
+          "keyword",
+          "text",
+          "list"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/scanner.py",
+        "score": 26,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "engine",
+          "skill",
+          "skills",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 5,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/patterns.py",
+        "score": 25,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "error",
+          "require",
+          "pattern",
+          "verb",
+          "its",
+          "list",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/cli.py",
+        "score": 25,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "cli",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "back",
+          "require",
+          "pattern",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 4,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/render_json.py",
+        "score": 25,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "action",
+          "engine",
+          "skill",
+          "skills",
+          "its",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_sensitive_paths.py",
+        "score": 25,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "require",
+          "text",
+          "file",
+          "list"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/acceptance-test-engineer/run_evaluation.py",
+        "score": 24,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "expected",
+          "run",
+          "engine",
+          "skill",
+          "evaluations",
+          "project",
+          "memory",
+          "bank",
+          "category",
+          "keyword",
+          "text",
+          "list",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/requirement_parser.py",
+        "score": 24,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "new",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "require",
+          "its",
+          "text",
+          "list",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/sensitive_paths.py",
+        "score": 24,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "pattern",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/cli.py",
+        "score": 23,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "cli",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "require",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 4,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/ci_report_loader.py",
+        "score": 23,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "instead",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "error",
+          "require",
+          "pattern",
+          "its",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 2,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/render_markdown.py",
+        "score": 23,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/tests/test_report.py",
+        "score": 23,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "but",
+          "authorize",
+          "engine",
+          "skill",
+          "skills",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/feature-planner/run_evaluation.py",
+        "score": 22,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "expected",
+          "run",
+          "engine",
+          "skill",
+          "evaluations",
+          "project",
+          "memory",
+          "bank",
+          "category",
+          "require",
+          "pattern",
+          "keyword",
+          "text",
+          "list"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_cli.py",
+        "score": 22,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "run",
+          "engine",
+          "cli",
+          "skill",
+          "files",
+          "skills",
+          "error",
+          "its",
+          "file",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/python_parser.py",
+        "score": 22,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "files",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "require",
+          "object",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/ci_report_loader.py",
+        "score": 22,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "instead",
+          "engine",
+          "skill",
+          "files",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "error",
+          "its",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 2,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/planning_patterns.py",
+        "score": 22,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "pattern",
+          "its",
+          "text",
+          "list"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/candidate_scorer.py",
+        "score": 22,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "run",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "its",
+          "keyword",
+          "text",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/cli.py",
+        "score": 21,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "cli",
+          "skill",
+          "skills",
+          "require",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 3,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/symptom_patterns.py",
+        "score": 21,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "pattern",
+          "its",
+          "text",
+          "list"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/__init__.py",
+        "score": 21,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/security-context-guard/engine/stats.py",
+        "score": 21,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "context",
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_requirement_parser.py",
+        "score": 20,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "require",
+          "its",
+          "text",
+          "list"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/relevance_scorer.py",
+        "score": 20,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "instead",
+          "engine",
+          "skill",
+          "files",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "keyword",
+          "text",
+          "file",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/stack_trace_parser.py",
+        "score": 20,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "run",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "error",
+          "back",
+          "pattern",
+          "text",
+          "file",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_testability_scanner.py",
+        "score": 19,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "error",
+          "should",
+          "require",
+          "well"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/adversarial-diff-reviewer/run_evaluation.py",
+        "score": 18,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "expected",
+          "run",
+          "engine",
+          "skill",
+          "evaluations",
+          "project",
+          "memory",
+          "bank",
+          "category",
+          "keyword",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/run_evaluation.py",
+        "score": 17,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "run",
+          "engine",
+          "skill",
+          "evaluations",
+          "project",
+          "memory",
+          "bank",
+          "require",
+          "file",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/models.py",
+        "score": 17,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "shared",
+          "require",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 6,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+        "score": 17,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "cli",
+          "skill",
+          "skills",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 3,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/models.py",
+        "score": 17,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "shared",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 6,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/generic_parser.py",
+        "score": 17,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "action",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "pattern",
+          "its",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/tests/test_cli.py",
+        "score": 17,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "run",
+          "cli",
+          "skill",
+          "skills",
+          "error",
+          "require"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/risk_patterns.py",
+        "score": 16,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "pattern"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/models.py",
+        "score": 16,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "shared",
+          "file",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 8,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/render_markdown.py",
+        "score": 16,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "memory",
+          "bank",
+          "require",
+          "text",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/external_deps.py",
+        "score": 15,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "instead",
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "require"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/models.py",
+        "score": 15,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "shared",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 7,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/models.py",
+        "score": 15,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "shared",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 8,
+        "fan_out": 0,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/cli.py",
+        "score": 14,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "cli",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 3,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/scanner.py",
+        "score": 14,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "security",
+          "engine",
+          "skill",
+          "files",
+          "skills",
+          "pattern",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+        "score": 13,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "require",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 2,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_diff_parser.py",
+        "score": 13,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "new",
+          "skill",
+          "files",
+          "skills",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/render_json.py",
+        "score": 13,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "run",
+          "engine",
+          "skill",
+          "skills",
+          "should"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_scanner.py",
+        "score": 13,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "files",
+          "skills",
+          "file",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_ci_report_loader.py",
+        "score": 13,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "action",
+          "engine",
+          "skill",
+          "skills",
+          "error",
+          "require"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_relevance_scorer.py",
+        "score": 13,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "keyword",
+          "text",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/tests/test_ci_report_loader.py",
+        "score": 13,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "action",
+          "engine",
+          "skill",
+          "skills",
+          "error",
+          "require"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/tests/test_symptom_scanner.py",
+        "score": 13,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "expected",
+          "engine",
+          "skill",
+          "skills",
+          "error",
+          "well"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_report.py",
+        "score": 12,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "require"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/diff_parser.py",
+        "score": 12,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+        "score": 12,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 2,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/stats.py",
+        "score": 12,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "context",
+          "engine",
+          "skill",
+          "skills",
+          "object",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/stats.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "require",
+          "object"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_stats.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "require"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_stats.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "files",
+          "skills",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/report.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 6,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_external_deps.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "project",
+          "require"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_python_parser.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "guard",
+          "engine",
+          "skill",
+          "skills",
+          "error"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/planning_scanner.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 2,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/symptom_scanner.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "pattern",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 2,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/tests/test_candidate_scorer.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "keyword",
+          "over"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/tests/test_stack_trace_parser.py",
+        "score": 11,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "back",
+          "text"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/report.py",
+        "score": 10,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "require"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 4,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+        "score": 10,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/__init__.py",
+        "score": 10,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/engine/graph.py",
+        "score": 10,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "file"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/stats.py",
+        "score": 10,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "object"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/stats.py",
+        "score": 10,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "object"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/__init__.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/render_json.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/acceptance-test-engineer/engine/render_markdown.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/__init__.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/render_json.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/render_markdown.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/engine/report.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 4,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "pattern"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/__init__.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/render_json.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/render_markdown.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/engine/report.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 5,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/feature-planner/tests/test_planning_scanner.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills",
+          "well"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/__init__.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/render_json.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/render_markdown.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/engine/report.py",
+        "score": 9,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 6,
+        "is_hotspot": true
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/adversarial-diff-reviewer/tests/test_report.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_graph.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_integration.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/codebase-intelligence/tests/test_report.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_integration.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_report.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/feature-planner/tests/test_stats.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/tests/test_integration.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/tests/test_report.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "skills/root-cause-analyzer/tests/test_stats.py",
+        "score": 7,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "engine",
+          "skill",
+          "skills"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+        "score": 6,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "cli",
+          "evaluations"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js",
+        "score": 6,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "cli",
+          "evaluations"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+        "score": 6,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "cli",
+          "evaluations"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+        "score": 5,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "run",
+          "evaluations"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/server.py",
+        "score": 3,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "evaluations"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/__init__.py",
+        "score": 3,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "evaluations"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py",
+        "score": 3,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "evaluations"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false
+      },
+      {
+        "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+        "score": 3,
+        "evidence_tier": "keyword",
+        "matched_keywords": [
+          "evaluations"
+        ],
+        "stack_trace_hit": false,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false
+      }
+    ]
+  },
+  "warnings": []
+}

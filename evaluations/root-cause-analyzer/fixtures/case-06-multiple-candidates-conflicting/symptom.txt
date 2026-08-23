@@ -1,0 +1,1 @@
+Expected the report export to include the user's name but it shows blank instead. Steps to reproduce: export a report for a user, open the file, check the name column. Error: no exception, the name field is just empty in the output.

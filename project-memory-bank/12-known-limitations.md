@@ -351,3 +351,66 @@ every judgment-based skill built so far. Same standing caveat as Phases
 2-4: this continues to show the evaluation design cannot yet discriminate a
 genuinely good derivation from a mediocre one, not that any of the four
 skills performs well in the world. See [[16-assumptions-and-validation]] A5.
+
+## L18: Symptom anti-pattern list and stack-trace parser are not exhaustive
+
+- **What failed**: N/A (scope boundary, not a bug — same shape as
+  L3/L7/L11/L15/L17).
+- **Why**: `symptom_patterns.py` is a small fixed regex table (2 wording
+  patterns + 3 absence checks); `stack_trace_parser.py` covers exactly two
+  shapes (Python tracebacks, generic `path:line`). A symptom written in
+  other phrasing, or a stack trace from a language/runtime whose format
+  differs (e.g. JavaScript's `at func (file:line:col)`, Java's
+  `at pkg.Class.method(File.java:42)`), will not be recognized.
+- **Impact**: `SKILL.md`'s Known Limitations section states this
+  explicitly. A missed stack-trace shape silently falls back to
+  keyword-tier scoring only — not a hard failure, but a real, disclosed
+  precision loss for non-Python stack traces specifically.
+- **Fix**: Not applicable — documented boundary between the deterministic
+  layer (a lead generator, same role as every other Pattern 2 skill's fixed
+  table) and the agent's own judgment, which can recognize an unfamiliar
+  trace shape by reading it directly even when the regex table can't.
+- **Regression prevention**: Documented in `SKILL.md` under "Known
+  Limitations."
+
+## L19: Keyword-tier candidate scoring shares feature-planner's coincidental-substring limitation, and produced this project's first non-perfect judgment-layer score
+
+- **What failed**: N/A (inherited limitation, not a new bug — same
+  mechanism as L14).
+- **Why**: `candidate_scorer.py`'s keyword-tier matching is substring-based,
+  same as `feature-planner/engine/relevance_scorer.py` (ADR-010's
+  precedent). Evaluation case-03 (`evaluations/root-cause-analyzer/fixtures/
+  case-03-vague-report/`) demonstrated this directly: the word "work" in
+  "doesn't work" matched `engine/worker.py` purely as a substring, and
+  "app" in "The app is just broken" matched `engine/app.py` — both
+  coincidental, not real evidence of involvement.
+- **Impact**: this is the first evaluation case, across five judgment-based
+  skills, where the agent's actual derivation scored below perfect
+  precision/recall against hand-authored expected categories (0.67/0.67 —
+  `evaluations/root-cause-analyzer/RESULTS.md`, case-03). This was not
+  adjusted to look better; the expected-category keywords for that case
+  were written before the actual derivation and left as originally
+  authored. It breaks the "four-for-four perfect scores" pattern noted in
+  the L8 updates above — read as a data point that this evaluation design
+  *can* produce imperfect scores when the expected/actual wording
+  genuinely diverges, not as evidence this skill's judgment quality is
+  lower than the other four's (a single self-authored case cannot support
+  either claim). See [[16-assumptions-and-validation]] A5.
+- **Fix**: Not applicable — the deterministic layer working as designed
+  (surfacing a lead, not a verdict) is exactly why case-03's actual
+  derivation explicitly states both matches are coincidental rather than
+  presenting them as real candidates (see `evaluations/root-cause-analyzer/
+  actual/case-03-vague-report.actual.json`).
+- **Regression prevention**: `evaluations/root-cause-analyzer/eval_cases/
+  case-03-vague-report.md` documents the expected failure mode explicitly
+  (false confidence on a coincidental match) as the thing being tested for.
+
+## L8 update: now applying a fifth time, first non-perfect score
+
+`root-cause-analyzer`'s judgment-layer evaluation scored perfect
+precision/recall on 7 of 8 fixtures and 0.67/0.67 on the 8th (case-03) —
+see L19 above and `evaluations/root-cause-analyzer/RESULTS.md`. This is the
+fifth judgment-based skill evaluated this way, and the first whose score is
+not a clean 100% — still self-authored, single-rater evidence either way,
+so neither outcome should be read as proof of real-world diagnostic
+quality. See [[16-assumptions-and-validation]] A5.

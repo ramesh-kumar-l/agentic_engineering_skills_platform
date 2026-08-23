@@ -5,12 +5,16 @@ First real architectural content, established in Phase 1
 with a second pattern for judgment-based skills (ADR-007/ADR-008), reused
 as-is (no new base pattern) in Phase 3 (`acceptance-test-engineer`), reused
 a third time in Phase 4 (`feature-planner`) alongside a new architectural
-decision making composition mandatory rather than optional, and reused a
-**fourth** time in Phase 5 (`security-context-guard`) — see "Pattern 2,
-reused for Phase 5" and ADR-011 below. At four consecutive reuses without a
-new base-pattern ADR, Pattern 2 is now this project's default architecture
-for judgment-based skills, not a fresh per-skill choice each time — worth
-stating plainly rather than re-justifying from scratch every phase.
+decision making composition mandatory rather than optional, reused a
+fourth time in Phase 5 (`security-context-guard`) — see "Pattern 2, reused
+for Phase 5" and ADR-011 — and reused a **fifth** time in Phase 6
+(`root-cause-analyzer`), which also reuses Phase 4's mandatory-composition
+rule a second time and adds a new tiered-evidence-scoring decision (ADR-012)
+— see "Pattern 2, reused for Phase 6" below. At five consecutive reuses
+without a new base-pattern ADR, Pattern 2 is now this project's default
+architecture for judgment-based skills, not a fresh per-skill choice each
+time — worth stating plainly rather than re-justifying from scratch every
+phase.
 
 ## Pattern: SKILL.md + optional deterministic engine
 
@@ -375,3 +379,86 @@ Evaluation harness architecture is identical in shape to Phases 2-4
 (fixtures + expected + actual + eval_cases + run_evaluation.py +
 RESULTS.md) — see `evaluations/security-context-guard/RESULTS.md` and
 L8/A5 (now applying a fourth time).
+
+---
+
+## Pattern 2, reused for Phase 6: `root-cause-analyzer` — plus ADR-012 (tiered evidence) and ADR-010 reused
+
+Phase 6 reused Pattern 2 a **fifth** time (deterministic pre-processing +
+agent-driven derivation against a fixed checklist), swapping the domain to
+diagnosing why a failure happened. Two architectural elements carry over
+from prior phases rather than being invented fresh: `feature-planner`'s
+mandatory-composition rule (ADR-010) applies here too — a missing/malformed
+`codebase-intelligence` report is a hard failure, not a degraded path — and
+this is stated explicitly as a **reuse**, not a new decision on that point
+(see ADR-012 in [[11-decisions]]). What is new this phase: candidate
+locations are scored in two explicit, non-blended **evidence tiers**, not a
+single blended score.
+
+```
+skills/root-cause-analyzer/
+  SKILL.md            <- contract: Step 1 precondition, Step 2 engine, Steps 3-4 agent reasoning
+  engine/              <- deterministic, stdlib-only Python package
+    models.py            shared schema (CiReportContext, StackFrame,
+                          SymptomFlag, CandidateLocation, CandidateReport,
+                          RootCauseReport)
+    ci_report_loader.py  same required-precondition pattern as
+                          feature-planner's loader (ADR-010, reused, own
+                          independent copy — no cross-package import)
+    stack_trace_parser.py   extracts stack-trace-shaped frames from the
+                          symptom text: Python tracebacks
+                          (`File "path", line N, in symbol`) and a generic
+                          `path:line` shape
+    candidate_scorer.py   scores ci_report modules against the symptom in
+                          two tiers — a dominant flat bonus for a
+                          stack-trace path match (evidence_tier=
+                          "stack-trace"), reusing relevance_scorer.py's
+                          keyword-overlap weighting as the fallback tier
+                          (evidence_tier="keyword") — see ADR-012
+    symptom_patterns.py / symptom_scanner.py   fixed regex table: vague
+                          symptom language, missing expected/actual,
+                          missing repro, missing error signal (mirrors
+                          Phase 4's planning_patterns.py/planning_scanner.py)
+    stats.py, report.py, render_json.py / render_markdown.py, cli.py
+  tests/                unit + integration + CLI tests, one file per engine
+                        module, CLI test file written from the start (same
+                        discipline Phase 5 established, not discovered
+                        missing via a later dogfood run — see L10/L13)
+```
+
+`candidate_scorer.py` deliberately keeps `evidence_tier` as its own field on
+`CandidateLocation`, separate from the numeric `score` — so the agent's
+Step 3 investigation can always tell "the traceback literally names this
+file" apart from "this file happens to share vocabulary with the bug
+report," even after both are sorted into one ranked list.
+
+The 10-category Root Cause Investigation checklist this skill's Step 3 uses
+lives in [[05-evaluation-framework]], a **fifth** checklist alongside the
+failure-first, acceptance-coverage, Plan Quality, and Security Decision
+ones — shaped like the coverage-enumeration checklists (not the
+decision-gate shape), since this skill's job is enumerating what a complete
+investigation covers, not issuing a binary verdict. Its honesty-valve
+category (10) follows the same "state the assumption" convention as the
+other three coverage-shaped checklists.
+
+**Real evidence found via dogfooding, not claimed in the abstract**:
+`examples/root-cause-analyzer/example-run.md` regenerates a fresh
+`codebase-intelligence` report against this repo's current (6-skill) state
+and runs a real, retrospective symptom against it — a natural-language bug
+report describing Phase 5's own L16 defect, written without naming the file
+or the fix. The candidate scorer — using keyword-tier evidence only, since
+this was a silent misclassification with no stack trace to parse — ranked
+`action_patterns.py` (the file that actually contained L16's bug) first out
+of 122 scored modules. This is explicitly disclosed as a *retrospective
+validation*, not a new bug find (L16 was already fixed in Phase 5) — the
+real, still-open test is whether this ranks a **genuinely new, not-yet-
+diagnosed** symptom's true root cause well, which this project has not yet
+observed.
+
+Evaluation harness architecture is identical in shape to Phases 2-5
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md), except every fixture now pairs a `symptom.txt` with a
+synthetic `ci_report.json` — see `evaluations/root-cause-analyzer/
+RESULTS.md` and L8/A5 (now applying a fifth time, and the first of the
+five where the judgment layer did not score perfectly on every fixture —
+see L19 in [[12-known-limitations]]).

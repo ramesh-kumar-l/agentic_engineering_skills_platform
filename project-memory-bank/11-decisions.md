@@ -354,3 +354,66 @@ given), the rollup defaults toward `REQUIRES_HUMAN_APPROVAL`, not
   than reinventing it.
 
 **Status**: Adopted.
+
+---
+
+## ADR-012: `root-cause-analyzer` reuses ADR-010's required-composition pattern a second time, plus a new tiered-evidence scoring rule
+
+**Decision**: `root-cause-analyzer` (Phase 6) requires a `codebase-
+intelligence` `report.json` as a hard precondition, the same way
+`feature-planner` does (ADR-010) — a missing/malformed report is a failure
+condition, not a degraded path. This is a **reuse** of ADR-010's rule, not a
+new architectural decision on that point: two skills now share it, and a
+future skill should default to reusing it too when the same "ungrounded
+output is actively harmful" test applies, rather than re-deriving it.
+What genuinely is new this phase: candidate locations are scored in two
+explicit, non-blended **evidence tiers** —
+`stack-trace` (a path parsed directly out of a real traceback/stack frame in
+the symptom text) always outranks `keyword` (vocabulary overlap with a
+module's path/names/docstring/imports), via a dominant flat score bonus
+rather than a weighted blend. `evidence_tier` is carried as its own field
+into every candidate, not collapsed into the score alone, so the agent's
+Step 3 investigation can distinguish "the traceback literally names this
+file" from "this file happens to share vocabulary with the bug report."
+
+- User Value: a stack-trace-confirmed candidate is categorically better
+  evidence than a keyword guess — blending them into one undifferentiated
+  score (as a naive extension of `relevance_scorer.py` would) would let a
+  few extra keyword hits outrank real evidence a runtime already handed the
+  investigator for free.
+- Correctness: `candidate_scorer.py`'s `_stack_trace_hits` does an exact/
+  suffix path match against `stack_trace_parser.py`'s parsed frames, so a
+  frame from a different repo or a vendored path (case-05 in
+  `evaluations/root-cause-analyzer/`) correctly produces zero stack-trace
+  hits rather than a false match — verified by
+  `tests/test_candidate_scorer.py` and `tests/test_report.py`.
+- Security: no new surface — both parsers are read-only pattern matching
+  over already-provided text; same posture as every prior skill's
+  deterministic layer.
+- Simplicity: one dominant bonus constant (`_STACK_TRACE_BONUS = 100`)
+  rather than a tunable weighting scheme between tiers — avoids inventing a
+  confidence-calibration system this project has no evidence it needs yet.
+- Maintainability: `stack_trace_parser.py` and `candidate_scorer.py` are
+  separate, independently-tested modules (each <300 lines) — the trace-shape
+  patterns can be extended later (e.g. a third language's traceback format)
+  without touching the scoring logic.
+- Portability: stdlib-only (same rationale as ADR-006); no cross-package
+  import of `codebase-intelligence` (own `ci_report_loader.py` copy, same as
+  ADR-010's `feature-planner` precedent).
+- Evidence: `evaluations/root-cause-analyzer/` — 8 fixtures including one
+  with a clean in-repo stack trace (case-01), one with a trace pointing
+  outside the repo entirely (case-05), and one where a stack-trace hit
+  competes against a high-fan-in hotspot module (case-08); all 8
+  deterministic-layer cases score correctly. This is the **fifth**
+  judgment-based skill evaluated this way, and the first whose judgment
+  layer did **not** score perfect precision/recall on every fixture (case-03
+  scored 0.67/0.67, not fabricated to look better — see
+  `evaluations/root-cause-analyzer/RESULTS.md` and L8 in
+  [[12-known-limitations]]).
+- Future Evolution: this ADR does not generalize evidence tiering beyond
+  stack-trace-vs-keyword; a future skill with its own strong, mechanically-
+  verifiable evidence source (e.g. a real test-failure log, a CI run ID)
+  should evaluate on its own merits whether a similar dominant-tier bonus
+  is warranted, not assume this exact constant or shape.
+
+**Status**: Adopted.

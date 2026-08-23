@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/config_loader.py",
+      "docstring": "Loads and caches app config.",
+      "functions": ["load_config", "get_flag"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/app.py",
+      "docstring": "Application entry point, imports config_loader.",
+      "functions": ["main"],
+      "classes": [],
+      "imports": ["config_loader"]
+    },
+    {
+      "path": "engine/worker.py",
+      "docstring": "Background worker, imports config_loader.",
+      "functions": ["run_job"],
+      "classes": [],
+      "imports": ["config_loader"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/config_loader.py": 6},
+    "fan_out": {"engine/app.py": 1, "engine/worker.py": 1},
+    "hotspots": ["engine/config_loader.py"]
+  }
+}

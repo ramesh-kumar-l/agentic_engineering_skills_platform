@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "evidence-tier",
+      "description": "engine/response_builder.py is stack-trace-confirmed (score 118, tier stack-trace) — the traceback names build_response directly, the highest-confidence tier, well above the two keyword-only endpoint candidates.",
+      "grounding": "candidates.candidates[0] = {path: engine/response_builder.py, score: 118, evidence_tier: stack-trace}.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "fix-risk",
+      "description": "response_builder.py has fan_in=14 and is a flagged hotspot — every API endpoint depends on it, so a fix to build_response (e.g. always populating request_id) must be tested against multiple endpoints, not just the one that surfaced the bug report, and should ideally add a regression test asserting the field is always present.",
+      "grounding": "dependency_graph.fan_in['engine/response_builder.py'] == 14; dependency_graph.hotspots includes it.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "blast-radius",
+      "description": "Because request_id is 'missing on some responses' (intermittent, not every response), the bug is likely conditional inside build_response (e.g. only populated on one code path) rather than a total omission — worth checking all call sites/branches within this one hotspot module before assuming a caller-side issue.",
+      "grounding": "Symptom text says 'missing on some responses', combined with fan_in=14 meaning many callers funnel through this single shared function.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+Expected the API response to include a request_id field on every call but it is missing on some responses instead. Steps to reproduce: call any API endpoint many times and inspect the response body. Error:
+
+Traceback (most recent call last):
+  File "engine/response_builder.py", line 30, in build_response
+    return {"data": data}
+KeyError: request_id missing from response envelope

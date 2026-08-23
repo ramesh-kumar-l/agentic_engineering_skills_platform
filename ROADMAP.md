@@ -46,7 +46,20 @@ skill's own action classifier, and doubled as the first internal pilot
 toward Assumption A7 (does security handling increase trust). See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 6 — Root Cause Analyzer.** Not started; requires
+**Phase 6 — Root Cause Analyzer** (complete): sixth skill —
+`skills/root-cause-analyzer/` — reusing the same pattern a fifth time to
+turn a bug report (with or without a stack trace) into ranked, evidence-
+tiered candidate root-cause locations, evaluated on 8 fixtures plus a real
+dogfood run that regenerated a fresh `codebase-intelligence` report and
+retrospectively diagnosed a natural-language description of Phase 5's own
+L16 defect. New this phase: candidate locations are scored in two explicit,
+non-blended evidence tiers — stack-trace-confirmed vs. keyword-inferred
+(ADR-012) — and this skill reuses Phase 4's mandatory-composition rule
+(ADR-010) a second time. This phase also produced the project's first
+non-perfect judgment-layer evaluation score, disclosed as-is. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Proposed next: Phase 7 — Refactoring Safety.** Not started; requires
 explicit maintainer approval and re-justification against evidence before
 work begins.
 

@@ -136,8 +136,17 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   `evaluations/feature-planner/RESULTS.md`, same caveat) — three-for-three
   then, and Phase 5 repeated it a fourth time for `security-context-guard`
   (100% precision/recall, `evaluations/security-context-guard/RESULTS.md`,
-  same caveat) — four-for-four now. The inter-rater-agreement experiment
-  still has not been run for any of the four skills.
+  same caveat) — four-for-four then. Phase 6 (`root-cause-analyzer`) is the
+  fifth judgment-based skill evaluated this way, and the first that did
+  **not** score perfectly on every fixture: 7/8 fixtures perfect, one
+  (case-03) at 0.67/0.67 precision and recall
+  (`evaluations/root-cause-analyzer/RESULTS.md`, L19 in
+  [[12-known-limitations]]). This is disclosed as-is, not adjusted — and it
+  does not resolve the underlying question either way: a single
+  self-authored, single-rater case scoring below 100% is exactly as
+  inconclusive about real-world quality as four cases scoring 100% were.
+  The inter-rater-agreement experiment still has not been run for any of
+  the five skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -247,4 +256,14 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   Phase 3's pilot was, but it is still not the rigorous, independently-
   baselined comparison Experiment B requires — one architecture existing
   and working is not the same as composition being *shown to outperform*
-  the individual-skill alternative. Status stays UNKNOWN.
+  the individual-skill alternative. Phase 6 (`root-cause-analyzer`, ADR-012)
+  reuses `feature-planner`'s required-composition rule (ADR-010) a second
+  time — required composition is now a pattern applied twice, by two
+  different skills, not a one-off. The Phase 6 dogfood run
+  (`examples/root-cause-analyzer/example-run.md`) is additional real-usage
+  evidence in the same shape as Phase 4's: a fresh `codebase-intelligence`
+  report was genuinely required and genuinely used, and correctly ranked a
+  real historical root-cause file first out of 122 scored modules from a
+  natural-language description alone. That is still retrospective-
+  validation evidence on N=1, not the independently-baselined comparison
+  Experiment B requires. Status stays UNKNOWN.

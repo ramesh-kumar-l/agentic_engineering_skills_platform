@@ -56,7 +56,7 @@ CONTRIBUTING.md               How to propose a skill
 SECURITY.md                   How to report a vulnerability
 LICENSE                       Apache 2.0
 
-skills/                       The five skills — the actual product
+skills/                       The six skills — the actual product
   codebase-intelligence/
   adversarial-diff-reviewer/
   acceptance-test-engineer/
@@ -139,7 +139,7 @@ for d in skills/*/; do
 done
 ```
 
-Expect **149 passing tests** across all five skills (23 + 23 + 24 + 21 + 58)
+Expect **181 passing tests** across all six skills (23 + 23 + 24 + 21 + 58 + 32)
 as of the most recent phase. See
 [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md)
 for the current authoritative count.
@@ -199,7 +199,7 @@ itself documented (ADR-010 vs ADR-011 in
 | See exactly what's built vs. what's planned | [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md) |
 | Understand one specific skill deeply | `skills/<name>/SKILL.md` |
 | See a skill run against a real (not synthetic) problem | `examples/<name>/example-run.md` |
-| Understand the two architecture patterns used across all five skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
+| Understand the two architecture patterns used across all six skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
 | See every real bug found and fixed via dogfooding | [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md), or the [blog version](blogs/03-i-dogfooded-every-skill-i-built.md) |
 | Understand what's actually validated vs. still assumed | [`project-memory-bank/16-assumptions-and-validation.md`](project-memory-bank/16-assumptions-and-validation.md) |
 | Propose a new skill | [`CONTRIBUTING.md`](CONTRIBUTING.md) |

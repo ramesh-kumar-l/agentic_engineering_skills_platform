@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/app.py",
+      "docstring": "Application entry point.",
+      "functions": ["main"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/worker.py",
+      "docstring": "Background job worker.",
+      "functions": ["run_job"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

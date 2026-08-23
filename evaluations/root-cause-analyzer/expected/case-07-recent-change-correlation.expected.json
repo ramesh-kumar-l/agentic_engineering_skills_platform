@@ -1,0 +1,8 @@
+{
+  "symptom_pattern_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "recent-change", "keywords": ["deploy", "release notes", "signature"] },
+    { "id": "c2", "category": "candidate-locations", "keywords": ["webhook_handler", "verify_signature"] },
+    { "id": "c3", "category": "confirmation-step", "keywords": ["diff", "signature", "compare"] }
+  ]
+}

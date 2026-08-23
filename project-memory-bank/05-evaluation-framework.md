@@ -137,3 +137,35 @@ adapted from "state the assumption" to **"fail closed under uncertainty"**
 ambiguous scope. Keep this convention (an honesty-valve final category,
 adapted to the checklist's actual job) if a future skill adds a fifth
 checklist of this shape.
+
+## Root Cause Investigation Checklist
+
+Fifth checklist, for skills whose job is *diagnosing why a failure happened*
+(`root-cause-analyzer`, Phase 6). Shaped like the acceptance-coverage and
+Plan Quality checklists (a coverage-enumeration list, not a decision-gate
+like the Security Decision Checklist) because the job here is enumerating
+what a complete investigation covers, not issuing a binary verdict:
+
+```
+1. Symptom restated precisely (observed vs. expected behavior)
+2. Reproduction context (steps/trigger/frequency, if stated)
+3. Candidate locations — grounded in the candidate report, not guessed
+4. Evidence tier distinguished (stack-trace-confirmed vs. keyword-inferred)
+5. Blast-radius / hotspot context for each candidate (fan-in/fan-out signal)
+6. Recent-change correlation (deploy/release timing, if mentioned)
+7. Ruled-out candidates and why (negative evidence, not just positive leads)
+8. Confirmation step to prove the root cause before proposing a fix
+9. Fix-risk note (does the suspected fix touch a hotspot/high fan-in module?)
+10. Explicit assumption flag (evidence silent → state it, don't guess which
+    location is truly the root cause)
+```
+
+**Convention, established across all five checklists now**: category 10 is
+always the honesty valve when the checklist's job is *defining* or
+*diagnosing* something ambiguous (this one and the three coverage-shaped
+checklists before it); the Security Decision Checklist's category 7 adapts
+the same convention to "fail closed" because its job is a gate, not an
+enumeration. Category 4 here is specific to this skill: distinguishing
+evidence tiers is what stops a coincidental keyword match from being
+presented with the same confidence as a real stack-trace hit (see ADR-012
+in [[11-decisions]]).

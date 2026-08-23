@@ -1,0 +1,1 @@
+Expected the config loader to pick up the new feature flag but it still reports the old value instead. Steps to reproduce: change the flag in config.yaml, restart the app, check the loaded config. Error: no exception, but config values are stale — the config loader module seems to be caching something.

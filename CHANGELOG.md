@@ -7,6 +7,31 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 6: Root Cause Analyzer — sixth skill
+  (`skills/root-cause-analyzer/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) a fifth time — a deterministic engine (11 modules, each under
+  300 lines, 32 passing tests including a CLI test file written from the
+  start) that parses a symptom description, optionally extracts stack-trace
+  frames (Python tracebacks + generic `path:line`), and scores
+  `codebase-intelligence` modules as candidate root-cause locations in two
+  explicit, non-blended evidence tiers (`stack-trace` vs. `keyword`) —
+  combined with an agent-driven Root Cause Investigation Checklist workflow
+  (10 categories, a fifth checklist in
+  `project-memory-bank/05-evaluation-framework.md`); an 8-fixture
+  evaluation harness (`evaluations/root-cause-analyzer/`); and a dogfood
+  run (`examples/root-cause-analyzer/`) that regenerated a fresh
+  `codebase-intelligence` report against this repo's current 6-skill state
+  and retrospectively diagnosed a natural-language description of Phase
+  5's own L16 defect, ranking the true root-cause file first out of 122
+  scored modules. New architectural decision — **ADR-012**: candidate
+  locations are scored in two explicit evidence tiers rather than one
+  blended score, so a stack-trace-confirmed location is never presented
+  with the same confidence as a coincidental keyword match. Reuses
+  `feature-planner`'s mandatory-composition rule (ADR-010) a second time,
+  stated explicitly as a reuse rather than a new decision. This phase also
+  produced this project's first non-perfect judgment-layer evaluation score
+  (case-03: 0.67/0.67 precision/recall, `project-memory-bank/
+  12-known-limitations.md` L19), disclosed as-is rather than adjusted.
 - Documentation & developer-experience pass (post-Phase-5, not a phase):
   root `requirements.txt` and `DEPENDENCIES.md` making the project's
   zero-runtime-dependency footprint explicit; `QuickStarterGuide.md`, a

@@ -5,8 +5,7 @@ what currently exists — it is replaced/updated each phase, not appended to. Re
 this before any other memory file when starting new work. For finer-grained
 "what's in flight" detail, see [[active-context.md]] and [[implementation-status.md]].
 
-_Last updated: 2026-08-23 — end of Phase 5, plus a post-Phase-5
-documentation/developer-experience pass (see below)._
+_Last updated: 2026-08-23 — end of Phase 6._
 
 ## Repository contents
 
@@ -20,23 +19,26 @@ CONTRIBUTING.md            How to propose a skill
 SECURITY.md                Vulnerability reporting policy
 ROADMAP.md                 Public pointer to 08-roadmap.md
 CHANGELOG.md                Keep-a-Changelog format
-blogs/                     5-post public technical blog series + index README
+blogs/                     5-post public technical blog series + index README (pre-Phase-6)
 project-memory-bank/       This memory bank (see below)
 skills/codebase-intelligence/       Skill 1 — SKILL.md + Python engine
 skills/adversarial-diff-reviewer/   Skill 2 — SKILL.md + Python engine + agent workflow
 skills/acceptance-test-engineer/    Skill 3 — SKILL.md + Python engine + agent workflow
 skills/feature-planner/             Skill 4 — SKILL.md + Python engine + agent workflow, required composition (ADR-010)
 skills/security-context-guard/      Skill 5 — SKILL.md + Python engine + agent workflow, optional composition, advisory-only verdict (ADR-011)
+skills/root-cause-analyzer/         Skill 6 — SKILL.md + Python engine + agent workflow, required composition (ADR-010, reused), tiered evidence scoring (ADR-012)
 evaluations/codebase-intelligence/       Evaluation harness + 4 fixtures + RESULTS.md
 evaluations/adversarial-diff-reviewer/   Evaluation harness + 8 fixtures + RESULTS.md
 evaluations/acceptance-test-engineer/    Evaluation harness + 8 fixtures + RESULTS.md
 evaluations/feature-planner/             Evaluation harness + 8 fixtures + RESULTS.md
 evaluations/security-context-guard/      Evaluation harness + 8 fixtures + RESULTS.md
+evaluations/root-cause-analyzer/         Evaluation harness + 8 fixtures + RESULTS.md
 examples/codebase-intelligence/          Dogfood run against this repo itself
 examples/adversarial-diff-reviewer/      Dogfood run against a real in-session diff
 examples/acceptance-test-engineer/       Dogfood run against a real, already-shipped CLI's behavior
 examples/feature-planner/                Dogfood run: fresh codebase-intelligence report + a real task
 examples/security-context-guard/         Dogfood run: real source + a real pending git-push decision; also Pilot C
+examples/root-cause-analyzer/            Dogfood run: fresh codebase-intelligence report + a real retrospective symptom (Phase 5's L16)
 ```
 
 `workflows/` and `docs/` still do not exist — no reusable multi-skill
@@ -50,16 +52,16 @@ required composition, ADR-010, and manual, N=1 pilots — see
 00-project-vision.md
 01-product-thesis.md
 02-requirements.md
-03-architecture.md              updated this phase (Pattern 2 reused a fourth time, ADR-011 note)
+03-architecture.md              updated this phase (Pattern 2 reused a fifth time, ADR-012 note)
 04-skill-contract.md
-05-evaluation-framework.md      updated this phase (Security Decision Checklist added)
+05-evaluation-framework.md      updated this phase (Root Cause Investigation Checklist added)
 06-security-model.md
 07-current-state.md             (this file)
-08-roadmap.md                   updated this phase (Phase 5 complete, Phase 6 proposed next)
-11-decisions.md                 updated this phase (ADR-011)
-12-known-limitations.md         updated this phase (L16-L17)
-16-assumptions-and-validation.md   updated this phase (A5, A7)
-17-experiment-viability-check.md   updated this phase (Pilot C)
+08-roadmap.md                   updated this phase (Phase 6 complete, Phase 7 proposed next)
+11-decisions.md                 updated this phase (ADR-012)
+12-known-limitations.md         updated this phase (L18-L19)
+16-assumptions-and-validation.md   updated this phase (A5, A10)
+17-experiment-viability-check.md
 implementation-status.md        updated this phase
 active-context.md               updated this phase
 sprint-history/SPRINT-00.md
@@ -67,7 +69,8 @@ sprint-history/SPRINT-01.md
 sprint-history/SPRINT-02.md
 sprint-history/SPRINT-03.md
 sprint-history/SPRINT-04.md
-sprint-history/SPRINT-05.md     NEW this phase
+sprint-history/SPRINT-05.md
+sprint-history/SPRINT-06.md     NEW this phase
 ```
 
 Still not created (deliberately): `09-workflow-catalog.md` (no reusable
@@ -77,7 +80,7 @@ external usage yet).
 
 ## What exists in practice
 
-- **Five skills implemented**, all Level 2 (Evaluated) per
+- **Six skills implemented**, all Level 2 (Evaluated) per
   [[04-skill-contract]]'s maturity model, all Trust Status EXPERIMENTAL:
   - `codebase-intelligence` — fully deterministic (Pattern 1, ADR-005/006).
   - `adversarial-diff-reviewer` — deterministic risk-flagging engine +
@@ -97,16 +100,24 @@ external usage yet).
     `suggested_verdict` is always advisory — it classifies and
     recommends, never authorizes. Composition with `codebase-intelligence`
     stays optional here, unlike ADR-010.
+  - `root-cause-analyzer` — deterministic stack-trace/keyword tiered
+    candidate-location engine + agent-driven Root Cause Investigation
+    Checklist workflow (Pattern 2, reused a fifth time), plus ADR-012:
+    stack-trace-confirmed evidence always outranks keyword overlap via a
+    dominant, non-blended score tier. Reuses `feature-planner`'s
+    mandatory-composition rule (ADR-010) a second time.
   Full detail in [[implementation-status.md]].
-- **Five evaluation harnesses**: codebase-intelligence (4 fixtures, all
+- **Six evaluation harnesses**: codebase-intelligence (4 fixtures, all
   passing), adversarial-diff-reviewer (8 fixtures, deterministic 100%,
   judgment 100% precision/recall), acceptance-test-engineer (8 fixtures,
   same pattern, same result), feature-planner (8 fixtures, same pattern,
   same result), security-context-guard (8 fixtures, same pattern, same
-  result). All four judgment-layer scores carry the L8 self-authored/
-  single-rater caveat — now applying a fourth time.
-- **149 total unit/integration tests** across five skills (23 + 23 + 24 +
-  21 + 58), all passing.
+  result), root-cause-analyzer (8 fixtures, deterministic 100%, judgment
+  layer 7/8 perfect + 1/8 at 0.67/0.67 — the first non-perfect judgment
+  score). All five judgment-layer evaluations carry the L8 self-authored/
+  single-rater caveat — now applying a fifth time.
+- **181 total unit/integration tests** across six skills (23 + 23 + 24 +
+  21 + 58 + 32), all passing.
 - **Six real bugs/gaps found and fixed via dogfooding**, not hypothetical:
   L1 (Phase 1, false-positive entry-point detection), L5/L6 (Phase 2, two
   successive secret-redaction gaps), L10 (Phase 3, `adversarial-diff-
@@ -117,27 +128,36 @@ external usage yet).
   proximity window that real phrasing exceeded by 150+ characters — fixed
   by switching to same-sentence co-occurrence matching; the first dogfood
   finding located in the very skill being dogfooded, not a different one).
+  Phase 6's dogfood run found no new bug — it retrospectively validated
+  that this skill's candidate scorer would have correctly ranked L16's
+  true root-cause file first, given only a natural-language description.
   See [[12-known-limitations]].
 - **One real limitation found via dogfooding and deliberately left
   unfixed, with the two-layer architecture shown correcting for it in the
   same run**: L14 — `feature-planner`'s relevance scorer ranked the true
   target file 13th (not 1st) in a real dogfood run; the agent's Step 3
   judgment correctly identified the right file anyway.
-- **A fourth judgment-based skill evaluated the same way as the first
-  three**: security-context-guard also scored 100% precision/recall
-  against self-authored ground truth. Four-for-four perfect self-graded
-  scores is now the established pattern, not a new finding — it continues
-  to show this evaluation design cannot yet discriminate good derivation
-  from mediocre, not that any of the four skills performs well in the
-  world. Disclosed explicitly in all four skills' `RESULTS.md` and
-  `SKILL.md`.
+- **A fifth judgment-based skill evaluated the same way as the first
+  four — and the first to break the perfect-score pattern**:
+  root-cause-analyzer scored 7/8 fixtures perfect and 1/8 (case-03) at
+  0.67/0.67 precision/recall against self-authored ground truth (L19 in
+  [[12-known-limitations]]), disclosed as-is rather than adjusted. Neither
+  a perfect score nor an imperfect one, on self-authored single-rater
+  fixtures, is evidence of real-world quality — the imperfect score is
+  simply a different, equally inconclusive data point. Disclosed
+  explicitly in all five skills' `RESULTS.md` and `SKILL.md`.
 - **First skill with mandatory (not optional) composition**: `feature-
-  planner` (ADR-010, Phase 4) — unchanged this phase.
+  planner` (ADR-010, Phase 4) — now joined by `root-cause-analyzer` (Phase
+  6), the second skill to adopt the same rule.
 - **First skill whose engine output is explicitly advisory-only by
   design, not just by convention**: `security-context-guard` (ADR-011) —
   `classification.suggested_verdict` is never treated as an executed gate
   anywhere in the codebase; the actual authorization decision stays with
   the agent's Step 3 workflow and, ultimately, a human.
+- **First skill with explicit, non-blended evidence tiers**:
+  `root-cause-analyzer` (ADR-012) — a stack-trace-confirmed candidate
+  location is never scored or presented with the same confidence as a
+  keyword-overlap-only one.
 - **A first internal pilot toward A7** (does security handling increase
   trust): Pilot C, in [[17-experiment-viability-check.md]] — a real
   dogfood run against this session's own real pending git-push decision.
@@ -148,11 +168,11 @@ external usage yet).
   could mislead a real decision. A7 stays UNKNOWN — real qualitative
   feedback from an actual user remains the missing ingredient.
 - **Zero real-world usage by anyone other than this session's agent**, for
-  any of the five skills. Assumptions A2/A3/A5/A7/A10 have partial
+  any of the six skills. Assumptions A2/A3/A5/A7/A10 have partial
   (synthetic, self-authored, or single-pilot/single-architecture) evidence
   only — not real-world validation, not independent-rater validation.
 - **Zero reusable multi-skill composed-workflow infrastructure, zero UI,
-  zero product code beyond these five skills.**
+  zero product code beyond these six skills.**
 
 ## What Phase 5 established
 
@@ -182,15 +202,35 @@ walkthrough), a fully rewritten root `README.md` (production-grade, with
 architecture diagrams and an explicit evaluation-honesty section), a
 5-post public blog series under `blogs/` written for external
 publication (Medium + GitHub visibility), and a `**Status**` line added to
-each of the five skills' own `README.md`. See [[active-context.md]] and
-[[implementation-status.md]] for full detail. No code, tests, contracts,
-or evaluation results changed — this is documentation only, and does not
-count as or replace Phase 6.
+each of the five skills' own `README.md` (a sixth was added directly with
+its own Status line when Phase 6 built it). See [[active-context.md]] and
+[[implementation-status.md]] for full detail. No code, tests, contracts, or
+evaluation results changed at the time — this was documentation only, and
+did not count as or replace Phase 6.
+
+## What Phase 6 established
+
+Reused Pattern 2 (ADR-007) for a fifth judgment-based skill and
+`feature-planner`'s mandatory-composition rule (ADR-010) for a second
+skill — both stated explicitly as *reuses*, not new decisions, keeping the
+"first skill composing on `codebase-intelligence`'s output" claim correctly
+attributed to Phase 4, not re-claimed here. Added a reusable Root Cause
+Investigation Checklist (10 categories) to [[05-evaluation-framework]], a
+fifth checklist, coverage-shaped like the acceptance-coverage and Plan
+Quality checklists. Established a new architectural decision (ADR-012):
+candidate locations are scored in two explicit, non-blended evidence tiers
+(stack-trace-confirmed vs. keyword-inferred) rather than one blended
+score. Ran a real, explicitly-labeled *retrospective validation* dogfood —
+not a new bug find — that correctly ranked a real historical root-cause
+file (`action_patterns.py`, the source of Phase 5's L16) first out of 122
+scored modules from a natural-language description alone. Produced this
+project's first non-perfect judgment-layer evaluation score (L19),
+disclosed as-is rather than adjusted to preserve the prior four-for-four
+pattern.
 
 ## Immediate next decision point
 
-Phase 6 (`Root Cause Analyzer`) is next per [[08-roadmap]], but has
+Phase 7 (`Refactoring Safety`) is next per [[08-roadmap]], but has
 **not** been started and requires explicit user go-ahead — per the
 adaptive-roadmap rule, it must be re-justified against evidence at that
-time, not assumed. See the Phase 5 completion report for the
-recommendation.
+time, not assumed.

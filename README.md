@@ -1,8 +1,8 @@
 # Agentic Engineering Skills Platform
 
-![Status](https://img.shields.io/badge/status-Phase%205%20complete-blue)
-![Skills](https://img.shields.io/badge/skills-5-informational)
-![Tests](https://img.shields.io/badge/tests-149%20passing-brightgreen)
+![Status](https://img.shields.io/badge/status-Phase%206%20complete-blue)
+![Skills](https://img.shields.io/badge/skills-6-informational)
+![Tests](https://img.shields.io/badge/tests-181%20passing-brightgreen)
 ![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero-brightgreen)
 ![Trust status](https://img.shields.io/badge/trust%20status-EXPERIMENTAL-yellow)
 ![License](https://img.shields.io/badge/license-Apache%202.0-lightgrey)
@@ -46,7 +46,7 @@ flowchart LR
     style D fill:#d9edf7,stroke:#31708e
 ```
 
-This repo currently sits at step **C — Evaluated Skill** for all five skills
+This repo currently sits at step **C — Evaluated Skill** for all six skills
 it ships. None has been promoted to Trusted, none is composed into a
 registry, and that's stated plainly rather than implied otherwise anywhere
 in this repo.
@@ -68,17 +68,19 @@ understanding before the skill list below makes full sense:
    Where a task is genuinely a judgment call (is this diff safe, does this
    action need approval), that judgment stays in the agent's workflow
    against a fixed checklist — never faked as deterministic. See the
-   [architecture pattern](#architecture-two-patterns-reused-five-times)
+   [architecture pattern](#architecture-two-patterns-reused-across-six-skills)
    below.
-3. **Every honesty valve is left open, on purpose.** Four of five skills'
-   evaluation harnesses currently report 100% precision/recall — and every
-   one of them says, in the same breath, that this is self-authored,
-   single-rater evidence and should not be trusted as proof of real-world
-   quality. That's not a caveat added under pressure; it's designed into
-   the evaluation framework from the start (see
+3. **Every honesty valve is left open, on purpose.** Four of the five
+   judgment-based skills' evaluation harnesses report 100% precision/recall
+   on their judgment layer; the fifth (`root-cause-analyzer`) doesn't, and
+   that's reported just as plainly. Every one of them says, in the same
+   breath, that this is self-authored, single-rater evidence and should not
+   be trusted as proof of real-world quality. That's not a caveat added
+   under pressure; it's designed into the evaluation framework from the
+   start (see
    [Evaluation & Honesty](#evaluation--honesty-this-is-the-part-most-repos-skip)).
 
-## The five skills
+## The six skills
 
 | # | Skill | What it does | Pattern | Tests | Status |
 |---|---|---|---|---|---|
@@ -87,8 +89,9 @@ understanding before the skill list below makes full sense:
 | 3 | [`acceptance-test-engineer`](skills/acceptance-test-engineer/) | Turns a vague requirement into structured, testable acceptance cases via a 10-category coverage checklist | Pattern 2 | 24/24 | EXPERIMENTAL |
 | 4 | [`feature-planner`](skills/feature-planner/) | Turns a task description into a grounded, structured plan — **requires** a `codebase-intelligence` report as a hard precondition | Pattern 2 + mandatory composition | 21/21 | EXPERIMENTAL |
 | 5 | [`security-context-guard`](skills/security-context-guard/) | Classifies content/actions for secrets, PII, sensitive paths, and high-risk actions; recommends — never self-authorizes — human approval | Pattern 2 + advisory-only by hard rule | 58/58 | EXPERIMENTAL |
+| 6 | [`root-cause-analyzer`](skills/root-cause-analyzer/) | Turns a bug report (with or without a stack trace) into ranked, evidence-tiered candidate root-cause locations — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + tiered evidence | 32/32 | EXPERIMENTAL |
 
-**149 tests passing across the platform.** Every skill also ships an
+**181 tests passing across the platform.** Every skill also ships an
 evaluation harness against hand-authored fixtures
 (`evaluations/<skill>/RESULTS.md`) and a real "dogfood" run against actual
 work, not a synthetic demo (`examples/<skill>/example-run.md`).
@@ -113,10 +116,10 @@ that composes with another: [`QuickStarterGuide.md`](QuickStarterGuide.md).
 Dependency details (there are almost none — that's deliberate):
 [`DEPENDENCIES.md`](DEPENDENCIES.md).
 
-## Architecture: two patterns, reused five times
+## Architecture: two patterns, reused across six skills
 
 Every skill in this repo is built from one of two architectural patterns —
-no sixth pattern has been needed yet, and neither has changed shape since it
+no third pattern has been needed yet, and neither has changed shape since it
 was first established. Full detail, including the reference implementation
 for each: [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md).
 
@@ -125,7 +128,7 @@ used when the task is genuinely mechanical. No judgment layer needed because
 there's no judgment being made.
 
 **Pattern 2 — deterministic pre-processor + agent-driven judgment** (the
-other four skills, reused four consecutive times without needing a new base
+other five skills, reused five consecutive times without needing a new base
 pattern):
 
 ```mermaid
@@ -166,6 +169,17 @@ advisory — the deterministic layer classifies and recommends, it never
 authorizes a high-risk action itself. Only the agent's workflow, and
 ultimately a human, makes that call.
 
+`root-cause-analyzer` (skill 6) adds a second dimension to "leads, not
+verdicts": when a real stack trace is present, its parsed file path is
+categorically stronger evidence than a keyword-overlap guess.
+[ADR-012](project-memory-bank/11-decisions.md) encodes that as an explicit,
+non-blended evidence tier (`stack-trace` vs. `keyword`) rather than folding
+both into one score — so the agent's judgment layer always knows whether a
+candidate location is confirmed or merely plausible. It also reuses
+`feature-planner`'s mandatory-composition rule
+([ADR-010](project-memory-bank/11-decisions.md)) a second time: no
+`codebase-intelligence` report, no candidate list.
+
 ## Evaluation & honesty (this is the part most repos skip)
 
 Every judgment-based skill's evaluation harness scores two layers
@@ -177,15 +191,19 @@ separately:
   computed by comparing an AI agent's *actual* derivation for each fixture
   against hand-authored expected output.
 
-All four judgment-based skills currently score **100% precision/recall** on
-their judgment layer. Read that number in context, not in isolation: the
-same agent session authored the fixtures, the expected ground truth, *and*
-the actual derivation, for all four skills. There was no independent party
+Four of the five judgment-based skills score **100% precision/recall** on
+their judgment layer; the fifth, `root-cause-analyzer`, scored 7/8 fixtures
+perfect and 1/8 at **0.67/0.67** — left exactly as computed, not adjusted
+to preserve the streak ([`L19`](project-memory-bank/12-known-limitations.md)).
+Read every one of these numbers in context, not in isolation: the same
+agent session authored the fixtures, the expected ground truth, *and* the
+actual derivation, for all five skills. There was no independent party
 anywhere in that loop. A perfect score under those conditions demonstrates
 the workflow is **executable and internally consistent** — it does not, and
-cannot, demonstrate real-world review/planning/classification quality. This
-is disclosed at the top of every `RESULTS.md`, in every `SKILL.md`'s
-Evaluation section, and tracked as an explicit open item
+cannot, demonstrate real-world review/planning/classification quality, and
+neither does an imperfect one demonstrate the opposite. This is disclosed
+at the top of every `RESULTS.md`, in every `SKILL.md`'s Evaluation section,
+and tracked as an explicit open item
 ([`L8`](project-memory-bank/12-known-limitations.md)) rather than left for
 someone else to discover:
 
@@ -225,8 +243,18 @@ rather than quietly patched and forgotten:
 | L13 | feature-planner | `acceptance-test-engineer`'s CLI had zero test coverage — the second cross-skill finding |
 | L16 | security-context-guard | Its own action-classifier's fixed-distance regex window missed a real sentence where 150+ characters separated a verb from its target |
 
-The full narrative for each, including exact code diffs, is in the blog
-post [I Dogfooded Every Skill I Built.](blogs/03-i-dogfooded-every-skill-i-built.md)
+`root-cause-analyzer`'s own dogfood run (Phase 6) found no *new* bug — it's
+disclosed as a **retrospective validation** instead: fed only a
+natural-language description of L16 above (no file name, no fix hint), it
+ranked the file that actually contained that bug first out of 122 scored
+modules. That's a real, honestly-scoped result, not a sixth entry in this
+table, since the bug itself was already known and fixed.
+
+The full narrative for each of the five original findings, including exact
+code diffs, is in the blog post
+[I Dogfooded Every Skill I Built.](blogs/03-i-dogfooded-every-skill-i-built.md)
+(written before Phase 6; `examples/root-cause-analyzer/example-run.md` has
+the Phase 6 write-up.)
 
 ## Project structure
 
@@ -259,8 +287,8 @@ copy. Start anywhere; each stands alone.
 
 ## Status and roadmap
 
-**Phase 5 complete.** Five skills, 149 tests, five evaluation harnesses,
-five real dogfood runs, zero real-world usage by anyone outside this
+**Phase 6 complete.** Six skills, 181 tests, six evaluation harnesses,
+six real dogfood runs, zero real-world usage by anyone outside this
 project yet. Full current snapshot:
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it

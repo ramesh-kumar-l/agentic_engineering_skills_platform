@@ -12,9 +12,9 @@ PHASE 1  — Codebase Intelligence             ← COMPLETE
 PHASE 2  — Adversarial Diff Reviewer         ← COMPLETE
 PHASE 3  — Acceptance Test Engineer          ← COMPLETE
 PHASE 4  — Feature Planner                   ← COMPLETE
-PHASE 5  — Security Context Guard            ← COMPLETE (this phase)
-PHASE 6  — Root Cause Analyzer               ← proposed next, not started
-PHASE 7  — Refactoring Safety
+PHASE 5  — Security Context Guard            ← COMPLETE
+PHASE 6  — Root Cause Analyzer               ← COMPLETE (this phase)
+PHASE 7  — Refactoring Safety                 ← proposed next, not started
 PHASE 8  — Architecture Decision
 PHASE 9  — Regression Hunter
 PHASE 10 — Release Readiness
@@ -167,3 +167,45 @@ session's existing bounded-autonomy behavior already produced on this case,
 so it didn't yet demonstrate a changed decision — real qualitative feedback
 from an actual user remains the missing ingredient, same shape as A2/A10's
 gap.
+
+## Phase 6 scope (this phase) — complete
+
+Built `root-cause-analyzer`, reusing Pattern 2 (ADR-007) a fifth time and
+`feature-planner`'s required-composition rule (ADR-010) a second time:
+`SKILL.md` contract + a deterministic stack-trace/keyword tiered
+candidate-location engine + 32 passing tests (CLI test file written from
+the start, same discipline Phase 5 established) + an 8-fixture evaluation
+harness (same two-layer scoring as Phases 2-5) + a real dogfood run
+regenerating a fresh `codebase-intelligence` report against this repo's
+current (6-skill) state and diagnosing a real, retrospective symptom.
+
+New this phase: ADR-012 — candidate locations are scored in two explicit,
+non-blended evidence tiers (`stack-trace`, a dominant flat bonus when a
+parsed stack frame's path matches a real module, vs. `keyword`, the
+fallback keyword-overlap tier) rather than one blended score, so the
+agent's Step 3 investigation can always tell a runtime-confirmed location
+apart from a vocabulary-coincidence lead. The exit criteria's "same bar" is
+met: full engine/test/evaluation/dogfood/memory-bank cycle, same as every
+prior phase; "first skill composing on top of Codebase Intelligence's
+output" was already true of `feature-planner` (Phase 4, ADR-010) — this
+phase reuses that same required-composition rule rather than re-claiming
+the "first," and states that explicitly rather than overclaiming a novelty
+that isn't there.
+
+The real dogfood run (`examples/root-cause-analyzer/example-run.md`) fed a
+natural-language description of Phase 5's own L16 defect — written without
+naming the file or the fix — into the freshly-composed engine, which ranked
+the module that actually contained that bug (`action_patterns.py`) first
+out of 122 scored modules, using keyword-tier evidence alone (no stack
+trace existed for that defect, since it was a silent misclassification).
+Disclosed explicitly as retrospective validation, not a new bug find — a
+prospective run against a genuinely new, not-yet-diagnosed symptom remains
+unrun.
+
+Important honesty note, carried forward from Phases 3-5: this is the
+**fifth** judgment-based skill evaluated with self-authored, single-rater
+fixtures — and the **first** whose judgment layer did not score perfect
+precision/recall on every fixture (case-03 scored 0.67/0.67, disclosed
+as-is — see L19 in [[12-known-limitations]]). [[16-assumptions-and-
+validation]] A5 and A10 remain UNKNOWN; the inter-rater-agreement
+experiment and Experiment B still have not been run.

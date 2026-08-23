@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "repro-context",
+      "description": "The report has no reproduction steps, no expected-vs-actual statement, and no error message — all three of the report's own honesty-valve signals fired. Before investigating further, the reporter should be asked what exactly they observed and how to trigger it.",
+      "grounding": "symptom_flags includes no-expected-actual-signal, no-repro-signal, no-error-signal, plus both vague-symptom flags.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "assumption-flag",
+      "description": "There is not enough evidence in this report to name a real root-cause candidate — the two surfaced matches are coincidental word overlap, not evidence of involvement, and this is stated explicitly rather than presented as a finding.",
+      "grounding": "candidates.candidates has 2 entries (engine/app.py score 4, engine/worker.py score 4) but candidates.keywords shows only generic words ('app', 'work') driving the match, not domain-specific vocabulary.",
+      "priority": "high",
+      "assumptions": "Assuming neither app.py nor worker.py is actually implicated — the match is on the word 'work' inside 'worker' and 'app' inside 'app is broken', which is the same coincidental-substring limitation feature-planner's relevance scorer has (see project-memory-bank/12-known-limitations.md L14)."
+    },
+    {
+      "id": "c3",
+      "category": "ruled-out",
+      "description": "Neither engine/app.py nor engine/worker.py is ruled in or out — both are explicitly marked as unreliable, coincidental keyword matches, not real candidates, pending a better report.",
+      "grounding": "Same as c2 — score 4 for both, generic single-word overlap, no stack-trace evidence exists.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "symptom_pattern_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "evidence-tier", "keywords": ["stack-trace", "cart.py", "highest"] },
+    { "id": "c2", "category": "candidate-locations", "keywords": ["cart.py", "total"] },
+    { "id": "c3", "category": "confirmation-step", "keywords": ["tax_rate", "confirm", "verify"] }
+  ]
+}
