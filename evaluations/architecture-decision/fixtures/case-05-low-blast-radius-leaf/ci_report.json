@@ -1,0 +1,17 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/cli_helpers.py",
+      "docstring": "Small CLI argument-parsing helpers.",
+      "functions": ["parse_args"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

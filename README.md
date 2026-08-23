@@ -1,8 +1,8 @@
 # Agentic Engineering Skills Platform
 
-![Status](https://img.shields.io/badge/status-Phase%206%20complete-blue)
-![Skills](https://img.shields.io/badge/skills-6-informational)
-![Tests](https://img.shields.io/badge/tests-181%20passing-brightgreen)
+![Status](https://img.shields.io/badge/status-Phase%207%20complete-blue)
+![Skills](https://img.shields.io/badge/skills-7-informational)
+![Tests](https://img.shields.io/badge/tests-215%20passing-brightgreen)
 ![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero-brightgreen)
 ![Trust status](https://img.shields.io/badge/trust%20status-EXPERIMENTAL-yellow)
 ![License](https://img.shields.io/badge/license-Apache%202.0-lightgrey)
@@ -46,8 +46,8 @@ flowchart LR
     style D fill:#d9edf7,stroke:#31708e
 ```
 
-This repo currently sits at step **C — Evaluated Skill** for all six skills
-it ships. None has been promoted to Trusted, none is composed into a
+This repo currently sits at step **C — Evaluated Skill** for all seven
+skills it ships. None has been promoted to Trusted, none is composed into a
 registry, and that's stated plainly rather than implied otherwise anywhere
 in this repo.
 
@@ -68,19 +68,21 @@ understanding before the skill list below makes full sense:
    Where a task is genuinely a judgment call (is this diff safe, does this
    action need approval), that judgment stays in the agent's workflow
    against a fixed checklist — never faked as deterministic. See the
-   [architecture pattern](#architecture-two-patterns-reused-across-six-skills)
+   [architecture pattern](#architecture-two-patterns-reused-across-seven-skills)
    below.
-3. **Every honesty valve is left open, on purpose.** Four of the five
+3. **Every honesty valve is left open, on purpose.** Five of the six
    judgment-based skills' evaluation harnesses report 100% precision/recall
-   on their judgment layer; the fifth (`root-cause-analyzer`) doesn't, and
-   that's reported just as plainly. Every one of them says, in the same
-   breath, that this is self-authored, single-rater evidence and should not
-   be trusted as proof of real-world quality. That's not a caveat added
-   under pressure; it's designed into the evaluation framework from the
-   start (see
+   on their judgment layer; one (`root-cause-analyzer`) doesn't, and that's
+   reported just as plainly — a perfect score elsewhere is never read as
+   evidence of *higher* judgment quality than that one, since a single
+   self-authored evaluation can't support that comparison either way. Every
+   one of them says, in the same breath, that this is self-authored,
+   single-rater evidence and should not be trusted as proof of real-world
+   quality. That's not a caveat added under pressure; it's designed into
+   the evaluation framework from the start (see
    [Evaluation & Honesty](#evaluation--honesty-this-is-the-part-most-repos-skip)).
 
-## The six skills
+## The seven skills
 
 | # | Skill | What it does | Pattern | Tests | Status |
 |---|---|---|---|---|---|
@@ -90,8 +92,9 @@ understanding before the skill list below makes full sense:
 | 4 | [`feature-planner`](skills/feature-planner/) | Turns a task description into a grounded, structured plan — **requires** a `codebase-intelligence` report as a hard precondition | Pattern 2 + mandatory composition | 21/21 | EXPERIMENTAL |
 | 5 | [`security-context-guard`](skills/security-context-guard/) | Classifies content/actions for secrets, PII, sensitive paths, and high-risk actions; recommends — never self-authorizes — human approval | Pattern 2 + advisory-only by hard rule | 58/58 | EXPERIMENTAL |
 | 6 | [`root-cause-analyzer`](skills/root-cause-analyzer/) | Turns a bug report (with or without a stack trace) into ranked, evidence-tiered candidate root-cause locations — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + tiered evidence | 32/32 | EXPERIMENTAL |
+| 7 | [`architecture-decision`](skills/architecture-decision/) | Turns a decision description into per-option, blast-radius-scored impact against a real dependency graph — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + blast-radius tiering | 34/34 | EXPERIMENTAL |
 
-**181 tests passing across the platform.** Every skill also ships an
+**215 tests passing across the platform.** Every skill also ships an
 evaluation harness against hand-authored fixtures
 (`evaluations/<skill>/RESULTS.md`) and a real "dogfood" run against actual
 work, not a synthetic demo (`examples/<skill>/example-run.md`).
@@ -116,7 +119,7 @@ that composes with another: [`QuickStarterGuide.md`](QuickStarterGuide.md).
 Dependency details (there are almost none — that's deliberate):
 [`DEPENDENCIES.md`](DEPENDENCIES.md).
 
-## Architecture: two patterns, reused across six skills
+## Architecture: two patterns, reused across seven skills
 
 Every skill in this repo is built from one of two architectural patterns —
 no third pattern has been needed yet, and neither has changed shape since it
@@ -128,7 +131,7 @@ used when the task is genuinely mechanical. No judgment layer needed because
 there's no judgment being made.
 
 **Pattern 2 — deterministic pre-processor + agent-driven judgment** (the
-other five skills, reused five consecutive times without needing a new base
+other six skills, reused six consecutive times without needing a new base
 pattern):
 
 ```mermaid
@@ -180,6 +183,17 @@ candidate location is confirmed or merely plausible. It also reuses
 ([ADR-010](project-memory-bank/11-decisions.md)) a second time: no
 `codebase-intelligence` report, no candidate list.
 
+`architecture-decision` (skill 7) does the same thing for structural risk
+instead of evidence confidence: [ADR-013](project-memory-bank/11-decisions.md)
+rolls each parsed option's keyword relevance up into a `low`/`medium`/`high`
+**blast-radius tier** driven by real fan-in/hotspot data, so an option that
+would touch a real hotspot is never presented with the same confidence as
+one that touches nothing real. It reuses the mandatory-composition rule a
+third time — and its own real dogfood run found and fixed a real gap in the
+deterministic layer same-session, plus disclosed (without fixing) a sharper
+version of the coincidental-keyword-match limitation at full-repository
+scale — see [Real bugs found by using this on real work](#real-bugs-found-by-using-this-on-real-work).
+
 ## Evaluation & honesty (this is the part most repos skip)
 
 Every judgment-based skill's evaluation harness scores two layers
@@ -191,14 +205,18 @@ separately:
   computed by comparing an AI agent's *actual* derivation for each fixture
   against hand-authored expected output.
 
-Four of the five judgment-based skills score **100% precision/recall** on
-their judgment layer; the fifth, `root-cause-analyzer`, scored 7/8 fixtures
+Five of the six judgment-based skills score **100% precision/recall** on
+their judgment layer; one, `root-cause-analyzer`, scored 7/8 fixtures
 perfect and 1/8 at **0.67/0.67** — left exactly as computed, not adjusted
 to preserve the streak ([`L19`](project-memory-bank/12-known-limitations.md)).
-Read every one of these numbers in context, not in isolation: the same
-agent session authored the fixtures, the expected ground truth, *and* the
-actual derivation, for all five skills. There was no independent party
-anywhere in that loop. A perfect score under those conditions demonstrates
+`architecture-decision` returned to a perfect 8/8 score, and that's not
+read as evidence it reasons better than `root-cause-analyzer` — a single
+self-authored evaluation can't support that comparison in either
+direction. Read every one of these numbers in context, not in isolation:
+the same agent session authored the fixtures, the expected ground truth,
+*and* the actual derivation, for all six skills. There was no independent
+party anywhere in that loop. A perfect score under those conditions
+demonstrates
 the workflow is **executable and internally consistent** — it does not, and
 cannot, demonstrate real-world review/planning/classification quality, and
 neither does an imperfect one demonstrate the opposite. This is disclosed
@@ -230,8 +248,8 @@ in the blog series.
 
 Every skill has been "dogfooded" — run against real material (this repo's
 own source, this project's own real pending decisions) rather than only
-synthetic fixtures. That practice has found and fixed five real defects
-across five phases, cataloged transparently in
+synthetic fixtures. That practice has found and fixed six real defects
+across six phases, cataloged transparently in
 [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md)
 rather than quietly patched and forgotten:
 
@@ -242,19 +260,27 @@ rather than quietly patched and forgotten:
 | L10 | adversarial-diff-reviewer | Its own CLI had zero test coverage — found by a *different* skill dogfooding against it |
 | L13 | feature-planner | `acceptance-test-engineer`'s CLI had zero test coverage — the second cross-skill finding |
 | L16 | security-context-guard | Its own action-classifier's fixed-distance regex window missed a real sentence where 150+ characters separated a verb from its target |
+| L20 | architecture-decision | Its own tradeoff-detection regex matched the noun form ("tradeoff") but missed the verb form ("trades X for Y") — used twice in the real decision this skill was dogfooded against |
 
 `root-cause-analyzer`'s own dogfood run (Phase 6) found no *new* bug — it's
 disclosed as a **retrospective validation** instead: fed only a
 natural-language description of L16 above (no file name, no fix hint), it
 ranked the file that actually contained that bug first out of 122 scored
-modules. That's a real, honestly-scoped result, not a sixth entry in this
-table, since the bug itself was already known and fixed.
+modules. That's a real, honestly-scoped result, not a table entry, since
+the bug itself was already known and fixed. `architecture-decision`'s own
+dogfood run (Phase 7) also surfaced a real limitation it deliberately did
+**not** fix: at full-repository scale, a decision about the platform's own
+architecture produced a blast-radius score touching all 10 of the report's
+hotspots for every option, because the decision's own vocabulary overlaps
+this repo's recurring vocabulary almost everywhere ([`L21`](project-memory-bank/12-known-limitations.md)) — disclosed, not
+patched over, same discipline as every entry above.
 
 The full narrative for each of the five original findings, including exact
 code diffs, is in the blog post
 [I Dogfooded Every Skill I Built.](blogs/03-i-dogfooded-every-skill-i-built.md)
-(written before Phase 6; `examples/root-cause-analyzer/example-run.md` has
-the Phase 6 write-up.)
+(written before Phase 6; `examples/root-cause-analyzer/example-run.md` and
+`examples/architecture-decision/example-run.md` have the Phase 6 and Phase
+7 write-ups.)
 
 ## Project structure
 
@@ -287,8 +313,8 @@ copy. Start anywhere; each stands alone.
 
 ## Status and roadmap
 
-**Phase 6 complete.** Six skills, 181 tests, six evaluation harnesses,
-six real dogfood runs, zero real-world usage by anyone outside this
+**Phase 7 complete.** Seven skills, 215 tests, seven evaluation harnesses,
+seven real dogfood runs, zero real-world usage by anyone outside this
 project yet. Full current snapshot:
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it

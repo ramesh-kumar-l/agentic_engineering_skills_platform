@@ -414,3 +414,81 @@ fifth judgment-based skill evaluated this way, and the first whose score is
 not a clean 100% — still self-authored, single-rater evidence either way,
 so neither outcome should be read as proof of real-world diagnostic
 quality. See [[16-assumptions-and-validation]] A5.
+
+## L20: Tradeoff-detection regex missed the verb form "trades X for Y" (FIXED same-session, found via real dogfooding)
+
+- **What failed**: `decision_patterns.py`'s `no-tradeoff-signal` absence
+  pattern matched only the noun forms `tradeoff`/`trade-off` (plus
+  cost/downside/risk/however/but/at-the-expense-of), not the verb phrasing
+  "Option A trades X for Y" — a natural, common way to state a tradeoff in
+  English that the initial pattern table did not anticipate.
+- **Why**: found via the real dogfood run
+  (`examples/architecture-decision/example-run.md`), not a synthetic
+  fixture — the dogfood decision text used "trades flexibility ... for
+  correctness" and "trades correctness for reach" to state two real
+  tradeoffs, and the first engine run still flagged `no-tradeoff-signal` as
+  if neither had been stated. Same pattern as L16 (`security-context-guard`):
+  a regex table validated only against hand-authored synthetic fixtures
+  missed a real phrasing the first genuine, real-text use of the tool hit
+  immediately.
+- **Impact**: a false absence-flag on a decision that actually did state
+  its tradeoffs — the kind of false-negative-on-the-flag-itself error that
+  erodes trust in the anti-pattern table if left uncorrected, since the
+  whole point of the flag is to catch decisions that genuinely omit this.
+- **Fix**: added `trades?\b` to the tradeoff regex alternation in
+  `engine/decision_patterns.py`. Re-verified: all 34 unit/integration/CLI
+  tests still pass, all 8 evaluation fixtures still score correctly (none
+  of the synthetic fixtures relied on the verb form being *absent* to
+  trigger the flag), and the dogfood decision's `no-tradeoff-signal` flag
+  no longer fires after the fix.
+- **Regression prevention**: `tests/test_decision_scanner.py` covers the
+  noun-form and absence cases; the dogfood write-up in
+  `examples/architecture-decision/example-run.md` documents the verb-form
+  gap explicitly as the thing that was found and fixed, so a future
+  regression is at least documented context even though no fixture
+  currently pins the verb-form case directly (a gap worth closing if this
+  skill sees more real use).
+
+## L21: Blast-radius keyword scoring degrades sharply at full-repository scale when a decision is about the platform's own architecture
+
+- **What failed**: N/A (disclosed limitation, not fixed — same mechanism
+  class as L14 and L19, demonstrated more sharply here).
+- **Why**: `impact_scorer.py`'s keyword matching is substring-based and has
+  no stopword for common path-prefix tokens (e.g. `engine`, which every
+  module in this repo's `skills/*/engine/` layout shares). Evaluation
+  case-01 and case-05 already demonstrated this at small scale (2-3 module
+  fixtures). The real dogfood run
+  (`examples/architecture-decision/example-run.md`) demonstrated it far
+  more sharply: a decision *about the architecture-decision skill's own
+  required-composition choice* — necessarily written using this project's
+  own recurring vocabulary ("codebase", "intelligence", "report", "adr",
+  "composition", "decision") — produced a blast-radius score of 241–256 and
+  matched all 10 of the report's hotspots for *both* options, against a
+  143-module, 7-skill repository whose own documentation constantly reuses
+  exactly that vocabulary.
+- **Impact**: at this scale, the blast-radius signal is real (every listed
+  module genuinely contains the matched words) but not useful — it cannot
+  distinguish "this decision is about the whole platform" from "this
+  decision's wording happens to overlap this repo's own vocabulary
+  everywhere." A keyword-only scorer cannot fix this on its own.
+- **Fix**: Not applied. A real fix would need either TF-IDF-style
+  down-weighting of corpus-common terms or a minimum keyword-specificity
+  threshold, neither implemented — this tradeoff (added complexity vs. a
+  disclosed, understood limitation, ADR-013's Future Evolution clause) has
+  not been evaluated against real evidence of need beyond this single
+  dogfood run.
+- **Regression prevention**: `examples/architecture-decision/example-run.md`
+  documents this explicitly as a limitation observed on real use, not
+  papered over; `SKILL.md`'s "When NOT to Use" section warns against
+  trusting this skill's blast-radius signal for a decision about the
+  platform's own architecture at large.
+
+## L8 update: now applying a sixth time, back to perfect scores
+
+`architecture-decision`'s judgment-layer evaluation scored perfect
+precision/recall on all 8 fixtures — unlike `root-cause-analyzer`'s Phase 6
+(one non-perfect case, L19 above). This is the sixth judgment-based skill
+evaluated this way; still self-authored, single-rater evidence, so this
+should not be read as evidence this skill's judgment quality is higher than
+`root-cause-analyzer`'s — a single self-authored evaluation cannot support
+that comparison either way. See [[16-assumptions-and-validation]] A5.

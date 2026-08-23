@@ -7,6 +7,36 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 7: Architecture Decision — seventh skill
+  (`skills/architecture-decision/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) a sixth time — a deterministic engine (11 modules, each under
+  300 lines, 34 passing tests including a CLI test file written from the
+  start) that parses a decision description into distinct options
+  (explicit `Option A:` markers, numbered/lettered lists, or a
+  `vs`/`versus` fallback split), then scores each option's structural
+  blast radius against `codebase-intelligence`'s real dependency graph,
+  rolling keyword relevance up into a `low`/`medium`/`high` tier driven by
+  real fan-in and hotspot data — combined with an agent-driven
+  Architecture Decision Record checklist workflow (10 categories, a sixth
+  checklist in `project-memory-bank/05-evaluation-framework.md`); an
+  8-fixture evaluation harness (`evaluations/architecture-decision/`, all
+  8 scored perfect on both layers); and a dogfood run
+  (`examples/architecture-decision/`) that regenerated a fresh
+  `codebase-intelligence` report against this repo's current 7-skill state
+  and assessed a real decision this phase's own build actually faced
+  (required vs. optional composition), finding and fixing a real gap in
+  the tradeoff-detection regex same-session (a verb-phrasing miss) and
+  separately disclosing — without fixing — a sharper version of the
+  coincidental-keyword-match limitation at full-repository scale. New
+  architectural decision — **ADR-013**: each option's blast radius is
+  scored in a three-tier structural-risk band from real fan-in/hotspot
+  data rather than a bare relevance number. Reuses `feature-planner`'s and
+  `root-cause-analyzer`'s mandatory-composition rule (ADR-010) a third
+  time, stated explicitly as a reuse. Also corrects a phase-ordering
+  discrepancy: the roadmap had proposed Refactoring Safety for Phase 7;
+  this phase's actual instruction named Architecture Decision instead, so
+  Refactoring Safety now sits at Phase 8 (`project-memory-bank/
+  08-roadmap.md`).
 - Phase 6: Root Cause Analyzer — sixth skill
   (`skills/root-cause-analyzer/`): `SKILL.md` contract reusing Pattern 2
   (ADR-007) a fifth time — a deterministic engine (11 modules, each under

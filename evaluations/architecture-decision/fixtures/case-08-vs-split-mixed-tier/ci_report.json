@@ -1,0 +1,17 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/search.py",
+      "docstring": "Postgres full-text search for the product catalog.",
+      "functions": ["search_products"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/search.py": 9},
+    "fan_out": {},
+    "hotspots": ["engine/search.py"]
+  }
+}

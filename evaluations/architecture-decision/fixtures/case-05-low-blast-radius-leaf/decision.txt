@@ -1,0 +1,4 @@
+Option A: add a new optional debug-logging flag to engine/cli_helpers.py.
+Option B: don't add the flag and instead document the existing verbose environment variable.
+
+This is easily reversible either way, and there is no meaningful cost difference between the two options. No security-sensitive data is logged by this flag.

@@ -1,0 +1,4 @@
+Option A: rewrite the reporting module in Go for better performance.
+Option B: keep the current Python implementation and add caching.
+
+This decision is reversible if performance targets aren't met -- we can migrate back to Python.

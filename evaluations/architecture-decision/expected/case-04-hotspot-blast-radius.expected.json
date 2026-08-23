@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "blast-radius-high", "keywords": ["hotspot", "fan_in", "auth.py", "wider review"] },
+    { "id": "c2", "category": "ungrounded-option", "keywords": ["zero modules", "ungrounded", "explicit assumption"] },
+    { "id": "c3", "category": "consequences", "keywords": ["one-way door", "migration cost", "rollback"] }
+  ]
+}

@@ -59,7 +59,24 @@ non-blended evidence tiers — stack-trace-confirmed vs. keyword-inferred
 non-perfect judgment-layer evaluation score, disclosed as-is. See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 7 — Refactoring Safety.** Not started; requires
+**Phase 7 — Architecture Decision** (complete): seventh skill —
+`skills/architecture-decision/` — reusing the same pattern a sixth time to
+turn a decision description into per-option, blast-radius-scored impact
+against a real dependency graph, evaluated on 8 fixtures (all 8 scored
+perfect on both layers) plus a real dogfood run against a genuine in-flight
+decision this phase's own build faced. New this phase: **ADR-013** — each
+option's structural blast radius is scored as an explicit `low`/`medium`/
+`high` tier from real fan-in/hotspot data, not a bare relevance number —
+and this skill reuses Phase 4's mandatory-composition rule (ADR-010) a
+third time. The real dogfood run found and fixed a real gap in the
+tradeoff-detection regex, and separately disclosed (without fixing) a
+sharper version of the coincidental-keyword-match limitation at
+full-repository scale. Note: this roadmap previously proposed Refactoring
+Safety for Phase 7 — the actual Phase 7 instruction named Architecture
+Decision instead, so Refactoring Safety now sits at Phase 8. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Proposed next: Phase 8 — Refactoring Safety.** Not started; requires
 explicit maintainer approval and re-justification against evidence before
 work begins.
 

@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "alternatives-identified",
+      "description": "Two genuine alternatives are on the table: Option A (Redis cache in front of pricing.py) and Option B (Postgres index on the pricing table) -- both concrete, not a strawman.",
+      "grounding": "engine/report.py parsed 2 options labeled 'Option A' and 'Option B' from explicit 'Option X:' markers.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "blast-radius-grounding",
+      "description": "Both options score blast_radius_score=14 and impact all three modules in the report, including engine/checkout.py, which neither option text actually mentions. This is a real path-prefix keyword collision, not evidence both options touch checkout.py: every module path here starts with 'engine/', and 'engine' itself is extracted as a keyword from both option texts, so it path-matches every module and inflates the blast-radius score regardless of relevance. The number should not be trusted at face value for this fixture -- only engine/pricing.py and engine/database.py are plausible real targets.",
+      "grounding": "impact_scorer.py's _extract_keywords has no stopword for 'engine'; every module here shares that path prefix, matching the same coincidental-substring class of limitation already documented for feature-planner (L14) and root-cause-analyzer (L19).",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "consequences",
+      "description": "Option A: lower latency, higher operational cost (new Redis cluster), fully reversible. Option B: lower operational cost, smaller latency gain, effectively one-way (schema index). Neither changes authentication or access control.",
+      "grounding": "Decision text's third paragraph states both tradeoffs and reversibility explicitly for each option.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

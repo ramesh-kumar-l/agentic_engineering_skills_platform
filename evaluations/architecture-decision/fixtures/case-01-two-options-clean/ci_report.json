@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/pricing.py",
+      "docstring": "Pricing lookup and computation.",
+      "functions": ["get_price", "compute_total"],
+      "classes": [],
+      "imports": ["database"]
+    },
+    {
+      "path": "engine/database.py",
+      "docstring": "Postgres database access layer.",
+      "functions": ["query", "execute"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/checkout.py",
+      "docstring": "Checkout flow, unrelated to pricing storage.",
+      "functions": ["checkout"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/pricing.py": 4, "engine/database.py": 6, "engine/checkout.py": 1},
+    "fan_out": {"engine/pricing.py": 1, "engine/checkout.py": 1},
+    "hotspots": []
+  }
+}

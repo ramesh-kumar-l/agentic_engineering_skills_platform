@@ -417,3 +417,81 @@ file" from "this file happens to share vocabulary with the bug report."
   is warranted, not assume this exact constant or shape.
 
 **Status**: Adopted.
+
+---
+
+## ADR-013: `architecture-decision` reuses ADR-010's required-composition pattern a third time, plus a new per-option blast-radius scoring rule
+
+**Decision**: `architecture-decision` (Phase 7) requires a `codebase-
+intelligence` `report.json` as a hard precondition, the same way
+`feature-planner` (ADR-010) and `root-cause-analyzer` (ADR-012) do — a
+missing/malformed report is a failure condition, not a degraded path. This
+is a **reuse** of ADR-010's rule for the third time, not a new
+architectural decision on that point. What genuinely is new this phase:
+each option parsed out of the decision text (`option_parser.py`) is scored
+against `codebase-intelligence`'s real dependency graph via
+`impact_scorer.py`, rolling keyword relevance up into a **blast-radius
+tier** (`low`/`medium`/`high`) driven by real fan-in and hotspot data —
+`hotspot_count > 0` or `blast_radius_score >= 10` forces `high`, regardless
+of how many keywords matched. `blast_radius_tier` is carried as its own
+field on every option's impact, not collapsed into a relevance number
+alone, so the agent's Step 3 decision-record walk can distinguish "this
+option touches code 15 other modules depend on" from "this option merely
+shares some vocabulary with a module."
+
+- User Value: a decision that would touch a real hotspot deserves wider
+  review before it's finalized; a keyword-relevance number alone (as a
+  naive extension of `feature-planner`'s or `root-cause-analyzer`'s
+  scorers would produce) cannot express that distinction on its own —
+  blast radius needs the dependency graph, not just text overlap.
+- Correctness: `impact_scorer.py`'s `_blast_radius_tier` is a single, small,
+  independently-tested function (`tests/test_impact_scorer.py`); an option
+  with zero keyword matches produces zero impacted modules and a `low` tier
+  with a `blast_radius_score` of 0, not a fabricated one (verified by
+  `tests/test_report.py` and evaluation case-04/case-05's contrast between
+  a real zero-impact leaf module and an ungrounded option).
+- Security: no new surface — the scorer is read-only pattern matching over
+  already-provided text and an already-loaded report; same posture as every
+  prior skill's deterministic layer.
+- Simplicity: one small tier function with two fixed thresholds
+  (`_HIGH_BLAST_RADIUS = 10`, `_MEDIUM_BLAST_RADIUS = 3`) rather than a
+  tunable weighting/calibration system this project has no evidence it
+  needs yet — same "no invented confidence-calibration scheme" discipline
+  ADR-012 already established for evidence tiering.
+- Maintainability: `option_parser.py` and `impact_scorer.py` are separate,
+  independently-tested modules (each under 300 lines) — the option-shape
+  patterns (explicit markers, numbered lists, vs-split) can be extended
+  later without touching the scoring logic.
+- Portability: stdlib-only (same rationale as ADR-006); no cross-package
+  import of `codebase-intelligence` (own `ci_report_loader.py` copy, same
+  as ADR-010's and ADR-012's precedent).
+- Evidence: `evaluations/architecture-decision/` — 8 fixtures, including
+  one with a decision touching a real hotspot (case-04), one with a
+  decision touching only a genuinely low-impact leaf module (case-05), and
+  one with an ungrounded option that scores zero matched modules despite
+  being the higher-risk path in the text (case-04's Option B); all 8
+  deterministic-layer cases score correctly, and all 8 judgment-layer
+  cases scored perfect precision/recall (unlike `root-cause-analyzer`'s
+  Phase 6, which had one non-perfect case — stated here rather than implied
+  away). The real dogfood run
+  (`examples/architecture-decision/example-run.md`) found and fixed a real
+  gap in the decision-quality scanner (the tradeoff pattern matched the
+  noun form "tradeoff"/"trade-off" but not the verb form "trades X for Y",
+  which the dogfood decision's own text used twice) same-session, and
+  separately disclosed — without fixing — a sharper version of the
+  shared-path-prefix keyword-collision limitation already logged as L14
+  and L19: at full-repository scale, a decision *about the platform's own
+  architecture* produces a nearly-uninformative blast-radius signal because
+  its vocabulary overlaps the whole repo's vocabulary almost everywhere.
+- Future Evolution: this ADR does not generalize blast-radius tiering
+  beyond fan-in/hotspot signal; a future skill with a different real risk
+  signal (e.g. test coverage percentage, deployment frequency) should
+  evaluate on its own merits whether a similar tiering approach is
+  warranted, not assume this exact threshold or shape. It also does not
+  resolve the keyword-collision-at-scale limitation surfaced by the real
+  dogfood run — a future revision could explore TF-IDF-style down-weighting
+  of corpus-common terms, but that tradeoff (added complexity vs. a
+  currently-disclosed, understood limitation) has not been evaluated
+  against real evidence of need.
+
+**Status**: Adopted.

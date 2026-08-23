@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/storage.py",
+      "docstring": "Local disk file storage for user uploads.",
+      "functions": ["save_file", "delete_file"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/cron_cleanup.py",
+      "docstring": "Scheduled cleanup of orphaned files.",
+      "functions": ["cleanup_orphans"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/storage.py": 3, "engine/cron_cleanup.py": 0},
+    "fan_out": {"engine/cron_cleanup.py": 1},
+    "hotspots": []
+  }
+}

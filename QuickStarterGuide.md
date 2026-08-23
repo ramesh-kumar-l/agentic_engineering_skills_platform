@@ -9,7 +9,7 @@ If you only read one document besides the README, read this one.
 This repo is a portfolio of **AI coding-agent "skills"** — not prompts.
 Each skill is a `SKILL.md` contract (intent, inputs, workflow, security
 constraints, evaluation, known limitations) backed by a small, tested,
-stdlib-only Python engine. Five exist today, all `Trust Status:
+stdlib-only Python engine. Seven exist today, all `Trust Status:
 EXPERIMENTAL`, all tested, all evaluated, all honestly documented — see
 [`README.md`](README.md) for the full picture and
 [`project-memory-bank/`](project-memory-bank/) for the complete project
@@ -56,12 +56,14 @@ CONTRIBUTING.md               How to propose a skill
 SECURITY.md                   How to report a vulnerability
 LICENSE                       Apache 2.0
 
-skills/                       The six skills — the actual product
+skills/                       The seven skills — the actual product
   codebase-intelligence/
   adversarial-diff-reviewer/
   acceptance-test-engineer/
   feature-planner/
   security-context-guard/
+  root-cause-analyzer/
+  architecture-decision/
 
 evaluations/                  Per-skill evaluation harnesses + fixtures + RESULTS.md
 examples/                     Real "dogfood" runs — each skill used on real work, not synthetic demos
@@ -139,7 +141,7 @@ for d in skills/*/; do
 done
 ```
 
-Expect **181 passing tests** across all six skills (23 + 23 + 24 + 21 + 58 + 32)
+Expect **215 passing tests** across all seven skills (23 + 23 + 24 + 21 + 58 + 32 + 34)
 as of the most recent phase. See
 [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md)
 for the current authoritative count.
@@ -199,7 +201,7 @@ itself documented (ADR-010 vs ADR-011 in
 | See exactly what's built vs. what's planned | [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md) |
 | Understand one specific skill deeply | `skills/<name>/SKILL.md` |
 | See a skill run against a real (not synthetic) problem | `examples/<name>/example-run.md` |
-| Understand the two architecture patterns used across all six skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
+| Understand the two architecture patterns used across all seven skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
 | See every real bug found and fixed via dogfooding | [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md), or the [blog version](blogs/03-i-dogfooded-every-skill-i-built.md) |
 | Understand what's actually validated vs. still assumed | [`project-memory-bank/16-assumptions-and-validation.md`](project-memory-bank/16-assumptions-and-validation.md) |
 | Propose a new skill | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
@@ -230,12 +232,15 @@ claims (NFR4 in
 **Why does every evaluation say "100% precision/recall" but also say not to
 trust it?**
 Because the same agent session wrote the fixtures, the expected answers,
-*and* the actual derivation for all four judgment-based skills. A perfect
-score under those conditions shows the workflow runs and is internally
+*and* the actual derivation for each judgment-based skill. A perfect score
+under those conditions shows the workflow runs and is internally
 consistent — it cannot show real-world quality, because there was no
-independent party involved anywhere in the loop. This is disclosed
-explicitly everywhere the number appears, not discovered by a critic later.
-See [known limitation L8](project-memory-bank/12-known-limitations.md) and
+independent party involved anywhere in the loop. Not every skill actually
+scores 100%, either — `root-cause-analyzer` scored 7/8 fixtures perfect and
+1/8 at 0.67/0.67, left exactly as computed rather than adjusted to look
+better. This is disclosed explicitly everywhere the number appears, not
+discovered by a critic later. See
+[known limitation L8](project-memory-bank/12-known-limitations.md) and
 the [dedicated blog post](blogs/04-your-ai-eval-says-100-percent.md).
 
 **Can a skill's engine deploy to production / delete something / push to

@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": ["no-tradeoff-signal", "no-security-signal"],
+  "expected_categories": [
+    { "id": "c1", "category": "reversibility-assessed", "keywords": ["migrate back", "reversible", "performance targets"] },
+    { "id": "c2", "category": "missing-tradeoff", "keywords": ["no downside", "one-sided", "cost of rewriting"] },
+    { "id": "c3", "category": "missing-security", "keywords": ["N/A", "not mentioned", "no security"] }
+  ]
+}

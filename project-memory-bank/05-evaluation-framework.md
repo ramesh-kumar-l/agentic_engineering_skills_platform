@@ -169,3 +169,40 @@ enumeration. Category 4 here is specific to this skill: distinguishing
 evidence tiers is what stops a coincidental keyword match from being
 presented with the same confidence as a real stack-trace hit (see ADR-012
 in [[11-decisions]]).
+
+## Architecture Decision Record Checklist
+
+Sixth checklist, for skills whose job is *weighing a decision between
+alternatives* (`architecture-decision`, Phase 7). Shaped like the
+acceptance-coverage, Plan Quality, and Root Cause Investigation checklists
+(a coverage-enumeration list, not a decision-gate like the Security
+Decision Checklist) — the job here is enumerating what a complete decision
+record covers, not issuing a binary approve/deny verdict:
+
+```
+1. Context stated precisely
+2. Alternatives identified — real, grounded in what was parsed from the
+   decision text, not invented by the agent
+3. Decision explicitly stated
+4. Consequences / tradeoffs stated, per option, not one-sided
+5. Reversibility assessed per option
+6. Blast radius grounded in real structural data, not assumed (a
+   zero-match option means "ungrounded," not "safe" — see ADR-013)
+7. Security implications considered (or explicit N/A)
+8. Evidence cited, not opinion
+9. Future evolution / revisit trigger stated
+10. Explicit assumption flag (evidence silent → state it, don't guess)
+```
+
+**Convention, established across all six checklists now**: category 10 is
+always the honesty valve when the checklist's job is *defining*,
+*diagnosing*, or *deciding* something ambiguous (this one and the four
+coverage-shaped checklists before it); the Security Decision Checklist's
+category 7 adapts the same convention to "fail closed" because its job is a
+gate, not an enumeration. Category 6 here is specific to this skill:
+distinguishing "the engine found nothing because the option is genuinely
+low-impact" from "the engine found nothing because the decision text never
+named a real target" is what stops an ungrounded option from being read as
+a safe one (see ADR-013 in [[11-decisions]] and evaluation case-04's Option
+B, where a real, high-risk option scored zero matched modules because its
+target went unnamed).

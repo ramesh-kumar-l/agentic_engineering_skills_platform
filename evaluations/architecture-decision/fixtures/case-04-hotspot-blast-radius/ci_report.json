@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/auth.py",
+      "docstring": "Session authentication and token issuance.",
+      "functions": ["create_session", "validate_token"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/checkout.py",
+      "docstring": "Checkout flow, unrelated to auth.",
+      "functions": ["checkout"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/auth.py": 15, "engine/checkout.py": 1},
+    "fan_out": {"engine/auth.py": 2},
+    "hotspots": ["engine/auth.py"]
+  }
+}

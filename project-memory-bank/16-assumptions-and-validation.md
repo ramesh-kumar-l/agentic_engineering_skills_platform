@@ -146,7 +146,22 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   self-authored, single-rater case scoring below 100% is exactly as
   inconclusive about real-world quality as four cases scoring 100% were.
   The inter-rater-agreement experiment still has not been run for any of
-  the five skills.
+  the five skills. Phase 7 (`architecture-decision`) is the sixth
+  judgment-based skill evaluated this way, and returned to perfect
+  precision/recall on all 8 fixtures
+  (`evaluations/architecture-decision/RESULTS.md`) — this should not be
+  read as evidence this skill's judgment quality is higher than
+  `root-cause-analyzer`'s Phase 6 score; a single self-authored evaluation
+  cannot support that comparison in either direction. The more interesting
+  Phase 7 evidence on this question came from the real dogfood run, not the
+  synthetic fixtures: it found and fixed one real gap in the deterministic
+  layer (L20 in [[12-known-limitations]]) and surfaced, undisclosed by any
+  fixture, a real limitation that only shows up at full-repository scale
+  (L21) — a reminder that a clean self-authored fixture score and a
+  skill's real-world behavior are answering different questions, exactly
+  the point this assumption's status has tracked since Phase 2.
+  The inter-rater-agreement experiment still has not been run for any of
+  the six skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -266,4 +281,17 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   real historical root-cause file first out of 122 scored modules from a
   natural-language description alone. That is still retrospective-
   validation evidence on N=1, not the independently-baselined comparison
-  Experiment B requires. Status stays UNKNOWN.
+  Experiment B requires. Phase 7 (`architecture-decision`, ADR-013) reuses
+  the same required-composition rule a third time — required composition
+  is now a pattern applied by three different skills, strengthening the
+  case that this is a real, repeatable architectural choice rather than a
+  one-off. The Phase 7 dogfood run
+  (`examples/architecture-decision/example-run.md`) is a different shape of
+  evidence than Phase 4's or Phase 6's, though: composition was genuinely
+  required and used, but the blast-radius signal it produced was too noisy
+  at full-repo scale to be decisive either way for the real decision this
+  session faced (L21 in [[12-known-limitations]]) — a case where required
+  composition executed correctly but did not clearly demonstrate its value
+  on this particular real use. That is an honest, disclosed data point
+  against overclaiming composition's benefit, not for it. Status stays
+  UNKNOWN.

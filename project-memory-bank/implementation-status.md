@@ -15,9 +15,10 @@ Replaced/updated in place, not appended to chronologically — see
 | feature-planner | Level 2 — Evaluated | EXPERIMENTAL | 21/21 passing | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, third time — see [[12-known-limitations]] L8); see `evaluations/feature-planner/RESULTS.md` |
 | security-context-guard | Level 2 — Evaluated | EXPERIMENTAL | 58/58 passing (CLI test file written from the start, not discovered missing later) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, fourth time — see [[12-known-limitations]] L8); see `evaluations/security-context-guard/RESULTS.md` |
 | root-cause-analyzer | Level 2 — Evaluated | EXPERIMENTAL | 32/32 passing (CLI test file written from the start, same discipline as Phase 5) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 7/8 fixtures perfect precision/recall, 1/8 (case-03) at 0.67/0.67 — first non-perfect score across five judgment-based skills, disclosed as-is (see [[12-known-limitations]] L8/L19); see `evaluations/root-cause-analyzer/RESULTS.md` |
+| architecture-decision | Level 2 — Evaluated | EXPERIMENTAL | 34/34 passing (CLI test file written from the start, same discipline as Phases 5-6) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, sixth time — see [[12-known-limitations]] L8); see `evaluations/architecture-decision/RESULTS.md` |
 
-No other skill has any implementation yet. **181 total tests passing across
-all six skills.**
+No other skill has any implementation yet. **215 total tests passing across
+all seven skills.**
 
 ## codebase-intelligence — component status
 
@@ -120,6 +121,23 @@ all six skills.**
 | Judgment-layer actual findings (`evaluations/root-cause-analyzer/actual/`) | Done — this session's agent's real investigation derivation for each fixture, not fabricated to match ground truth; one fixture (case-03) scored imperfectly, left as-is |
 | Dogfood example (`examples/root-cause-analyzer/`) | Done — fresh codebase-intelligence report against this repo's current (6-skill) state + a real, retrospective symptom (Phase 5's own L16 defect, described without naming the file); correctly ranked the true root-cause file first out of 122 scored modules |
 
+## architecture-decision — component status
+
+| Component | Status |
+|---|---|
+| `engine/ci_report_loader.py` | Done, tested — same required-precondition pattern as feature-planner's/root-cause-analyzer's loader (ADR-010, reused a third time); own independent copy, no cross-package import |
+| `engine/option_parser.py` | Done, tested — three shapes: explicit `Option A:` markers, numbered/lettered lists, `vs`/`versus` single-line fallback; falls back to a single "proposed" option if none match |
+| `engine/decision_patterns.py` / `decision_scanner.py` | Done, tested — vague-decision-language pattern + missing-alternatives/reversibility/tradeoff/security absence checks (mirrors root-cause-analyzer's symptom_patterns.py); tradeoff pattern extended post-dogfood to also catch the verb form "trades X for Y" (L20) |
+| `engine/impact_scorer.py` | Done, tested — per-option blast-radius scoring: keyword-relevance rollup into a low/medium/high tier driven by real fan-in/hotspot data (ADR-013); shares feature-planner's/root-cause-analyzer's coincidental-substring limitation, sharpened at full-repo scale (L21, not fixed) |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested — `--ci-report` is required (ADR-010/ADR-013); missing/malformed report is a hard failure |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, tested — CLI test file (`tests/test_cli.py`) written from the start this phase, same discipline Phases 5-6 established |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) a sixth time + reuses ADR-010 a third time + new ADR-013 (per-option blast-radius tiering), includes agent-driven Step 3/4 workflow against the new Architecture Decision Record checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment), all 8 perfect on both layers |
+| Judgment-layer actual findings (`evaluations/architecture-decision/actual/`) | Done — this session's agent's real decision-record derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/architecture-decision/`) | Done — fresh codebase-intelligence report against this repo's current (7-skill) state + a real decision this phase's own build faced (required vs. optional composition); found and fixed L20, disclosed and left L21 |
+
 ## Documentation & public-facing artifacts (added after Phase 5, not a phase)
 
 | Artifact | Status |
@@ -137,25 +155,33 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 7 onward, not started.
-- Any reusable composed-workflow infrastructure across skills (feature-planner
-  and root-cause-analyzer both make composition with codebase-intelligence
-  mandatory at the single-skill level, ADR-010/ADR-012 — this is not the
-  same as a multi-skill workflow engine, Phase 14).
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 8 onward, not
+  started (Phase 8 is now Refactoring Safety — see [[08-roadmap]]'s Phase 7
+  reordering note).
+- Any reusable composed-workflow infrastructure across skills
+  (feature-planner, root-cause-analyzer, and architecture-decision all make
+  composition with codebase-intelligence mandatory at the single-skill
+  level, ADR-010/ADR-012/ADR-013 — this is not the same as a multi-skill
+  workflow engine, Phase 14).
 - Any UI.
 - Multi-runtime validation (only exercised via this session's agent so far).
-- Independent-rater evaluation for any of the five judgment-based skills
-  (L8, now applying five times) — needs a second, independent agent/session
+- Independent-rater evaluation for any of the six judgment-based skills
+  (L8, now applying six times) — needs a second, independent agent/session
   or real external usage.
 - Experiment A and Experiment B at proper rigor (independent party, real
   task, real measurement) — only N=1 self-run pilots exist so far, see
-  [[17-experiment-viability-check]]. Feature-planner's and root-cause-
-  analyzer's required-composition architecture (ADR-010, ADR-012) is real
-  evidence composition executes correctly and is genuinely used, not
-  evidence it outperforms the alternative. A7's real qualitative-user-
-  feedback experiment also remains unrun — Pilot C (Phase 5) is a floor,
-  not a substitute.
+  [[17-experiment-viability-check]]. Feature-planner's, root-cause-
+  analyzer's, and architecture-decision's required-composition architecture
+  (ADR-010, ADR-012, ADR-013) is real evidence composition executes
+  correctly and is genuinely used, not evidence it outperforms the
+  alternative — architecture-decision's own dogfood run is, if anything,
+  evidence composition can execute correctly without being decisive on a
+  real case (L21). A7's real qualitative-user-feedback experiment also
+  remains unrun — Pilot C (Phase 5) is a floor, not a substitute.
+- A keyword-collision-at-scale fix for the blast-radius/relevance scorers
+  (L21) — disclosed, not scheduled; would need real evidence of need before
+  investing in TF-IDF-style down-weighting or similar.
 
 ## Last updated
 
-2026-08-23 — end of Phase 6.
+2026-08-23 — end of Phase 7.

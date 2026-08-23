@@ -1,0 +1,1 @@
+Should we route search queries through a new Elasticsearch cluster vs continue using Postgres full-text search for the product catalog?

@@ -1,0 +1,3654 @@
+{
+  "decision_text": "Option A: architecture-decision requires a codebase-intelligence report.json as a hard precondition -- the CLI refuses to run without one, reusing feature-planner's and root-cause-analyzer's ADR-010 required-composition pattern a third time.\n\nOption B: architecture-decision treats a codebase-intelligence report as optional composed context, like security-context-guard does -- the engine still runs and produces decision flags without one, just without blast-radius grounding, reusing ADR-011's optional-composition stance instead.\n\nOption A trades flexibility (you cannot run this skill on an ungrounded decision at all) for correctness -- an architecture decision's blast-radius claim without real fan-in/fan-out data would be a guess dressed up as evidence, which is actively worse than no blast-radius claim at all. This mirrors feature-planner's reasoning exactly: \"ungrounded output is actively harmful.\" Option B trades correctness for reach -- a decision about pure business logic or a brand-new module with no dependency graph yet could still get anti-pattern flagging (vague language, missing alternatives, missing tradeoffs) even without a report, which is real value security-context-guard already proved out. This choice is fully reversible either way -- the ci_report_loader.py module is a small, isolated wrapper, and switching from required to optional later is a one-file change with no data migration. No new credentials, secrets, or authentication surface is introduced by either option.\n",
+  "stats": {
+    "word_count": 233,
+    "option_count": 2,
+    "flag_count": 1,
+    "high_severity_flag_count": 0
+  },
+  "flags": [
+    {
+      "pattern_id": "vague-decision-language",
+      "category": "vague-decision",
+      "severity": "medium",
+      "description": "Confidence language with no supporting evidence \u2014 state the actual reasoning or data behind the claim instead of asserting it's easy/obvious.",
+      "matched_text": "just"
+    }
+  ],
+  "options": [
+    {
+      "label": "Option A",
+      "raw_text": "architecture-decision requires a codebase-intelligence report.json as a hard precondition -- the CLI refuses to run without one, reusing feature-planner's and root-cause-analyzer's ADR-010 required-composition pattern a third time."
+    },
+    {
+      "label": "Option B",
+      "raw_text": "architecture-decision treats a codebase-intelligence report as optional composed context, like security-context-guard does -- the engine still runs and produces decision flags without one, just without blast-radius grounding, reusing ADR-011's optional-composition stance instead."
+    }
+  ],
+  "option_impacts": [
+    {
+      "option_label": "Option A",
+      "option_text": "architecture-decision requires a codebase-intelligence report.json as a hard precondition -- the CLI refuses to run without one, reusing feature-planner's and root-cause-analyzer's ADR-010 required-composition pattern a third time.",
+      "impacted_modules": [
+        {
+          "path": "evaluations/architecture-decision/run_evaluation.py",
+          "relevance_score": 33,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "precondition",
+            "run",
+            "reusing",
+            "feature",
+            "planner",
+            "root",
+            "cause",
+            "analyzer",
+            "adr",
+            "required",
+            "composition",
+            "pattern",
+            "third",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/root-cause-analyzer/run_evaluation.py",
+          "relevance_score": 32,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "precondition",
+            "run",
+            "reusing",
+            "feature",
+            "planner",
+            "root",
+            "cause",
+            "analyzer",
+            "adr",
+            "required",
+            "composition",
+            "pattern",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/cli.py",
+          "relevance_score": 27,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "hard",
+            "precondition",
+            "cli",
+            "reusing",
+            "adr",
+            "required",
+            "composition",
+            "pattern",
+            "third",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/ci_report_loader.py",
+          "relevance_score": 26,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "hard",
+            "without",
+            "root",
+            "cause",
+            "analyzer",
+            "adr",
+            "required",
+            "composition",
+            "pattern",
+            "time"
+          ],
+          "fan_in": 2,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/cli.py",
+          "relevance_score": 26,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "hard",
+            "precondition",
+            "cli",
+            "reusing",
+            "root",
+            "cause",
+            "analyzer",
+            "adr",
+            "required",
+            "composition",
+            "pattern",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/feature-planner/run_evaluation.py",
+          "relevance_score": 25,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "precondition",
+            "run",
+            "feature",
+            "planner",
+            "adr",
+            "required",
+            "composition",
+            "pattern",
+            "third",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/ci_report_loader.py",
+          "relevance_score": 23,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "hard",
+            "adr",
+            "required",
+            "composition",
+            "pattern",
+            "third",
+            "time"
+          ],
+          "fan_in": 2,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/symptom_patterns.py",
+          "relevance_score": 23,
+          "matched_keywords": [
+            "decision",
+            "report",
+            "feature",
+            "planner",
+            "root",
+            "cause",
+            "analyzer",
+            "adr",
+            "pattern",
+            "time"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_cli.py",
+          "relevance_score": 23,
+          "matched_keywords": [
+            "requires",
+            "report",
+            "json",
+            "cli",
+            "run",
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/decision_patterns.py",
+          "relevance_score": 22,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "without",
+            "root",
+            "cause",
+            "analyzer",
+            "adr",
+            "pattern",
+            "time"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_cli.py",
+          "relevance_score": 22,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "requires",
+            "report",
+            "json",
+            "cli",
+            "run"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_ci_report_loader.py",
+          "relevance_score": 20,
+          "matched_keywords": [
+            "report",
+            "json",
+            "root",
+            "cause",
+            "analyzer",
+            "required"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/run_evaluation.py",
+          "relevance_score": 19,
+          "matched_keywords": [
+            "requires",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "run",
+            "one",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/ci_report_loader.py",
+          "relevance_score": 19,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "hard",
+            "without",
+            "feature",
+            "planner",
+            "adr"
+          ],
+          "fan_in": 2,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/cli.py",
+          "relevance_score": 19,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "hard",
+            "precondition",
+            "cli",
+            "feature",
+            "planner",
+            "adr",
+            "required"
+          ],
+          "fan_in": 0,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/models.py",
+          "relevance_score": 18,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "without",
+            "one"
+          ],
+          "fan_in": 8,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/models.py",
+          "relevance_score": 18,
+          "matched_keywords": [
+            "report",
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 8,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/render_json.py",
+          "relevance_score": 18,
+          "matched_keywords": [
+            "report",
+            "json",
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/impact_scorer.py",
+          "relevance_score": 17,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "codebase",
+            "intelligence",
+            "without",
+            "one",
+            "feature",
+            "planner",
+            "root",
+            "cause",
+            "analyzer",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_ci_report_loader.py",
+          "relevance_score": 17,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "json",
+            "required"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_ci_report_loader.py",
+          "relevance_score": 17,
+          "matched_keywords": [
+            "report",
+            "json",
+            "feature",
+            "planner",
+            "required"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/candidate_scorer.py",
+          "relevance_score": 17,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "run",
+            "feature",
+            "planner",
+            "root",
+            "cause",
+            "analyzer",
+            "adr",
+            "time"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/report.py",
+          "relevance_score": 17,
+          "matched_keywords": [
+            "report",
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 1,
+          "fan_out": 6,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/render_json.py",
+          "relevance_score": 16,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "run"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/planning_patterns.py",
+          "relevance_score": 16,
+          "matched_keywords": [
+            "decision",
+            "feature",
+            "planner",
+            "adr",
+            "pattern",
+            "third",
+            "time"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_report.py",
+          "relevance_score": 16,
+          "matched_keywords": [
+            "report",
+            "json",
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/security-context-guard/run_evaluation.py",
+          "relevance_score": 15,
+          "matched_keywords": [
+            "decision",
+            "report",
+            "json",
+            "run",
+            "one",
+            "feature",
+            "planner",
+            "adr",
+            "composition",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/render_json.py",
+          "relevance_score": 15,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "json"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_report.py",
+          "relevance_score": 15,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "json"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/report.py",
+          "relevance_score": 15,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "one",
+            "time"
+          ],
+          "fan_in": 1,
+          "fan_out": 6,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_integration.py",
+          "relevance_score": 15,
+          "matched_keywords": [
+            "report",
+            "json",
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_cli.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "report",
+            "json",
+            "cli",
+            "run",
+            "one",
+            "feature",
+            "planner"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/models.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report"
+          ],
+          "fan_in": 8,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/architecture-decision/engine/report.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report"
+          ],
+          "fan_in": 1,
+          "fan_out": 6,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/feature-planner/engine/render_json.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "report",
+            "json",
+            "feature",
+            "planner"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/stack_trace_parser.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "run",
+            "root",
+            "cause",
+            "analyzer",
+            "pattern",
+            "time"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/report.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "one",
+            "feature",
+            "planner",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 1,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/report.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "report",
+            "feature",
+            "planner"
+          ],
+          "fan_in": 1,
+          "fan_out": 5,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/feature-planner/tests/test_report.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "report",
+            "json",
+            "feature",
+            "planner"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_cli.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "report",
+            "json",
+            "cli",
+            "run",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_integration.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "json"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/cli.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "json",
+            "cli"
+          ],
+          "fan_in": 0,
+          "fan_out": 3,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_report.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/models.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "report",
+            "feature",
+            "planner"
+          ],
+          "fan_in": 7,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/feature-planner/tests/test_integration.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "report",
+            "json",
+            "feature",
+            "planner"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/render_markdown.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "report",
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/external_deps.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "json",
+            "without",
+            "third"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_candidate_scorer.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "without",
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_cli.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "report",
+            "json",
+            "cli",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/option_parser.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "one",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_impact_scorer.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_integration.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "json"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/symptom_scanner.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "root",
+            "cause",
+            "analyzer",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/acceptance-test-engineer/run_evaluation.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "report",
+            "json",
+            "run",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/adversarial-diff-reviewer/run_evaluation.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "report",
+            "json",
+            "run",
+            "time"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "cli"
+          ],
+          "fan_in": 0,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "cli"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "cli"
+          ],
+          "fan_in": 0,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/decision_scanner.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/render_markdown.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_decision_scanner.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "architecture",
+            "decision"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_external_deps.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "json"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/relevance_scorer.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "feature",
+            "planner"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/__init__.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/stats.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_stack_trace_parser.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_stats.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_symptom_scanner.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "root",
+            "cause",
+            "analyzer"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/secret_patterns.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "decision",
+            "json",
+            "adr",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "run"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/render_json.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "intelligence",
+            "report",
+            "json"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/__init__.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_scanner.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "without"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/render_markdown.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "report",
+            "feature",
+            "planner"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/action_patterns.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "run",
+            "without",
+            "one",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/render_json.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "report",
+            "json",
+            "time"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_pii_patterns.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "one",
+            "pattern"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/cli.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "report",
+            "json",
+            "cli",
+            "feature"
+          ],
+          "fan_in": 0,
+          "fan_out": 3,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/render_json.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "report",
+            "json"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/report.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "intelligence",
+            "report"
+          ],
+          "fan_in": 1,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/stats.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "architecture",
+            "decision"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/generic_parser.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/graph.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "third"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/render_markdown.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "json"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/scanner.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/planning_scanner.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "feature",
+            "planner",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_report.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "report",
+            "json"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/server.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/__init__.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/patterns.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/report.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report"
+          ],
+          "fan_in": 1,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report",
+            "json"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_report.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report",
+            "json",
+            "cli"
+          ],
+          "fan_in": 0,
+          "fan_out": 3,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/risk_patterns.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_report.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "hard",
+            "one",
+            "pattern"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/__init__.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "architecture",
+            "decision"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_option_parser.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "architecture",
+            "decision"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_stats.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "architecture",
+            "decision"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/python_parser.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_graph.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_python_parser.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/__init__.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "feature",
+            "planner"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/stats.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "feature",
+            "planner"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_planning_scanner.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "feature",
+            "planner"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_relevance_scorer.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "feature",
+            "planner"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_stats.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "feature",
+            "planner"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/cli.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report",
+            "json",
+            "cli"
+          ],
+          "fan_in": 0,
+          "fan_out": 3,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/models.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "decision",
+            "report",
+            "adr",
+            "time"
+          ],
+          "fan_in": 6,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/pii_patterns.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_secret_patterns.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_requirement_parser.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "without",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/models.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "intelligence",
+            "report"
+          ],
+          "fan_in": 6,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "json"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_action_patterns.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_integration.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "json"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/models.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "report"
+          ],
+          "fan_in": 6,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/render_markdown.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "intelligence",
+            "report"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/classification.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "requires",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/scanner.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "report",
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 5,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/sensitive_paths.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_classification.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_scanner.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_sensitive_paths.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "requires"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/render_markdown.py",
+          "relevance_score": 1,
+          "matched_keywords": [
+            "report"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/requirement_parser.py",
+          "relevance_score": 1,
+          "matched_keywords": [
+            "without"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+          "relevance_score": 1,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+          "relevance_score": 1,
+          "matched_keywords": [
+            "pattern"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/render_markdown.py",
+          "relevance_score": 1,
+          "matched_keywords": [
+            "report"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        }
+      ],
+      "blast_radius_score": 241,
+      "hotspot_count": 10,
+      "blast_radius_tier": "high"
+    },
+    {
+      "option_label": "Option B",
+      "option_text": "architecture-decision treats a codebase-intelligence report as optional composed context, like security-context-guard does -- the engine still runs and produces decision flags without one, just without blast-radius grounding, reusing ADR-011's optional-composition stance instead.",
+      "impacted_modules": [
+        {
+          "path": "skills/security-context-guard/engine/report.py",
+          "relevance_score": 27,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "optional",
+            "context",
+            "like",
+            "security",
+            "guard",
+            "engine",
+            "one",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 1,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/architecture-decision/run_evaluation.py",
+          "relevance_score": 25,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "flags",
+            "blast",
+            "radius",
+            "reusing",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/ci_report_loader.py",
+          "relevance_score": 25,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "context",
+            "engine",
+            "blast",
+            "radius",
+            "grounding",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 2,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/models.py",
+          "relevance_score": 25,
+          "matched_keywords": [
+            "decision",
+            "report",
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "adr"
+          ],
+          "fan_in": 6,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/impact_scorer.py",
+          "relevance_score": 23,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "codebase",
+            "intelligence",
+            "does",
+            "engine",
+            "still",
+            "without",
+            "one",
+            "blast",
+            "radius",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_report.py",
+          "relevance_score": 23,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "engine",
+            "produces",
+            "flags",
+            "blast",
+            "radius"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/cli.py",
+          "relevance_score": 22,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "optional",
+            "context",
+            "engine",
+            "reusing",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 0,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/models.py",
+          "relevance_score": 22,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "engine",
+            "produces",
+            "without",
+            "one"
+          ],
+          "fan_in": 8,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_report.py",
+          "relevance_score": 22,
+          "matched_keywords": [
+            "report",
+            "context",
+            "security",
+            "guard",
+            "does",
+            "engine",
+            "produces",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/security-context-guard/run_evaluation.py",
+          "relevance_score": 20,
+          "matched_keywords": [
+            "decision",
+            "report",
+            "optional",
+            "context",
+            "like",
+            "security",
+            "guard",
+            "engine",
+            "one",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/models.py",
+          "relevance_score": 20,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "context",
+            "engine"
+          ],
+          "fan_in": 8,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/security-context-guard/engine/action_patterns.py",
+          "relevance_score": 19,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "does",
+            "engine",
+            "without",
+            "one",
+            "stance"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/ci_report_loader.py",
+          "relevance_score": 18,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "context",
+            "engine",
+            "without",
+            "grounding",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 2,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/report.py",
+          "relevance_score": 17,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 6,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_impact_scorer.py",
+          "relevance_score": 17,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "engine",
+            "produces",
+            "one",
+            "blast",
+            "radius"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/ci_report_loader.py",
+          "relevance_score": 17,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "context",
+            "engine",
+            "without",
+            "grounding",
+            "adr"
+          ],
+          "fan_in": 2,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/report.py",
+          "relevance_score": 16,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "engine",
+            "one"
+          ],
+          "fan_in": 1,
+          "fan_out": 6,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/security-context-guard/engine/cli.py",
+          "relevance_score": 16,
+          "matched_keywords": [
+            "report",
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 3,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/render_json.py",
+          "relevance_score": 16,
+          "matched_keywords": [
+            "report",
+            "context",
+            "security",
+            "guard",
+            "does",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/secret_patterns.py",
+          "relevance_score": 16,
+          "matched_keywords": [
+            "decision",
+            "context",
+            "security",
+            "guard",
+            "does",
+            "engine",
+            "just",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/decision_patterns.py",
+          "relevance_score": 15,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "engine",
+            "without",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/render_markdown.py",
+          "relevance_score": 15,
+          "matched_keywords": [
+            "report",
+            "context",
+            "security",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_cli.py",
+          "relevance_score": 15,
+          "matched_keywords": [
+            "report",
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/root-cause-analyzer/run_evaluation.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "flags",
+            "reusing",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_report.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "produces",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_decision_scanner.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "security",
+            "engine",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/classification.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_action_patterns.py",
+          "relevance_score": 14,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "does",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_ci_report_loader.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/render_json.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "like",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_report.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/cli.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "optional",
+            "context",
+            "engine",
+            "reusing",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 0,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/scanner.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "report",
+            "context",
+            "security",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 5,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/sensitive_paths.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "does",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_integration.py",
+          "relevance_score": 13,
+          "matched_keywords": [
+            "report",
+            "context",
+            "security",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/option_parser.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "engine",
+            "one"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/render_json.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/render_markdown.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_integration.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report",
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/__init__.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/python_parser.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "context",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/__init__.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/pii_patterns.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/engine/stats.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_classification.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_pii_patterns.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_scanner.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "engine",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_sensitive_paths.py",
+          "relevance_score": 12,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "does",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/run_evaluation.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "engine",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/decision_scanner.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/cli.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 3,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/external_deps.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "engine",
+            "without"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/scanner.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "security",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/cli.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "report",
+            "optional",
+            "context",
+            "engine",
+            "adr"
+          ],
+          "fan_in": 0,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_report.py",
+          "relevance_score": 11,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "produces",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_requirement_parser.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "engine",
+            "produces",
+            "without",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/models.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "intelligence",
+            "report",
+            "context",
+            "engine"
+          ],
+          "fan_in": 6,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/report.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "intelligence",
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/stats.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_cli.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "report"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/render_markdown.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "context",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_integration.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/security-context-guard/tests/test_secret_patterns.py",
+          "relevance_score": 10,
+          "matched_keywords": [
+            "context",
+            "security",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/feature-planner/run_evaluation.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "report",
+            "engine",
+            "flags",
+            "adr",
+            "composition"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/report.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 4,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_cli.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/engine/__init__.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_option_parser.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/architecture-decision/tests/test_stats.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "architecture",
+            "decision",
+            "engine",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/generic_parser.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/engine/graph.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_python_parser.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "guard",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_scanner.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "engine",
+            "without"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/report.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 5,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/feature-planner/tests/test_report.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/report.py",
+          "relevance_score": 9,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 6,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/models.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "report",
+            "context",
+            "engine"
+          ],
+          "fan_in": 6,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_testability_scanner.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "engine",
+            "produces",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/models.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "report",
+            "context",
+            "engine"
+          ],
+          "fan_in": 7,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/candidate_scorer.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "engine",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/models.py",
+          "relevance_score": 8,
+          "matched_keywords": [
+            "report",
+            "context",
+            "engine"
+          ],
+          "fan_in": 8,
+          "fan_out": 0,
+          "is_hotspot": true
+        },
+        {
+          "path": "evaluations/acceptance-test-engineer/run_evaluation.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/simple-python/app.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_report.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "engine",
+            "produces",
+            "flags",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_external_deps.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/codebase-intelligence/tests/test_graph.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "codebase",
+            "intelligence",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_ci_report_loader.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_ci_report_loader.py",
+          "relevance_score": 7,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/index.js",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/client/utils.js",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/mixed-lang/server.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/__init__.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/cli.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 0,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/core.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/codebase-intelligence/fixtures/multi-package-python/pkg/utils.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "codebase",
+            "intelligence"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/requirement_parser.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "context",
+            "like",
+            "engine",
+            "without"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_cli.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "one"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/planning_patterns.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "decision",
+            "engine",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/relevance_scorer.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "decision",
+            "codebase",
+            "intelligence",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_integration.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/symptom_patterns.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "decision",
+            "report",
+            "engine",
+            "adr"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_integration.py",
+          "relevance_score": 6,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/cli.py",
+          "relevance_score": 5,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 3,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+          "relevance_score": 5,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 3,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/diff_parser.py",
+          "relevance_score": 5,
+          "matched_keywords": [
+            "context",
+            "does",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/render_json.py",
+          "relevance_score": 5,
+          "matched_keywords": [
+            "intelligence",
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/render_markdown.py",
+          "relevance_score": 5,
+          "matched_keywords": [
+            "intelligence",
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_stats.py",
+          "relevance_score": 5,
+          "matched_keywords": [
+            "engine",
+            "produces",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/stack_trace_parser.py",
+          "relevance_score": 5,
+          "matched_keywords": [
+            "engine",
+            "still",
+            "just"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_candidate_scorer.py",
+          "relevance_score": 5,
+          "matched_keywords": [
+            "engine",
+            "produces",
+            "without"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "evaluations/adversarial-diff-reviewer/run_evaluation.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/render_json.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/render_markdown.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "context",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/tests/test_stats.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/risk_patterns.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "does",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "context",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/stats.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "context",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/render_json.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/render_markdown.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/render_json.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/render_markdown.py",
+          "relevance_score": 4,
+          "matched_keywords": [
+            "report",
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/__init__.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/patterns.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/acceptance-test-engineer/engine/stats.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/engine/__init__.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_diff_parser.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/__init__.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/planning_scanner.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/engine/stats.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_planning_scanner.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/feature-planner/tests/test_relevance_scorer.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine",
+            "produces"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/__init__.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/stats.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 1,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/engine/symptom_scanner.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 1,
+          "fan_out": 2,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_symptom_scanner.py",
+          "relevance_score": 3,
+          "matched_keywords": [
+            "engine",
+            "flags"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_cli.py",
+          "relevance_score": 2,
+          "matched_keywords": [
+            "report"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/adversarial-diff-reviewer/tests/test_stats.py",
+          "relevance_score": 1,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_stack_trace_parser.py",
+          "relevance_score": 1,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        },
+        {
+          "path": "skills/root-cause-analyzer/tests/test_stats.py",
+          "relevance_score": 1,
+          "matched_keywords": [
+            "engine"
+          ],
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        }
+      ],
+      "blast_radius_score": 256,
+      "hotspot_count": 10,
+      "blast_radius_tier": "high"
+    }
+  ],
+  "warnings": [
+    "At least one option's blast radius is HIGH (touches a hotspot or high fan-in module) \u2014 this decision likely warrants wider review before proceeding."
+  ]
+}

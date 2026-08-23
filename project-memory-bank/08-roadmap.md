@@ -13,9 +13,9 @@ PHASE 2  — Adversarial Diff Reviewer         ← COMPLETE
 PHASE 3  — Acceptance Test Engineer          ← COMPLETE
 PHASE 4  — Feature Planner                   ← COMPLETE
 PHASE 5  — Security Context Guard            ← COMPLETE
-PHASE 6  — Root Cause Analyzer               ← COMPLETE (this phase)
-PHASE 7  — Refactoring Safety                 ← proposed next, not started
-PHASE 8  — Architecture Decision
+PHASE 6  — Root Cause Analyzer               ← COMPLETE
+PHASE 7  — Architecture Decision             ← COMPLETE (this phase, reordered — see note below)
+PHASE 8  — Refactoring Safety                 ← proposed next, not started
 PHASE 9  — Regression Hunter
 PHASE 10 — Release Readiness
 PHASE 11 — Dependency / Supply Chain
@@ -209,3 +209,61 @@ precision/recall on every fixture (case-03 scored 0.67/0.67, disclosed
 as-is — see L19 in [[12-known-limitations]]). [[16-assumptions-and-
 validation]] A5 and A10 remain UNKNOWN; the inter-rater-agreement
 experiment and Experiment B still have not been run.
+
+## Phase 7 scope (this phase) — complete
+
+Built `architecture-decision`, reusing Pattern 2 (ADR-007) a sixth time and
+the required-composition rule (ADR-010, reused by `root-cause-analyzer`'s
+ADR-012) a third time: `SKILL.md` contract + a deterministic option-parsing/
+blast-radius-scoring engine + 34 passing tests (CLI test file written from
+the start, same discipline every prior phase established) + an 8-fixture
+evaluation harness (same two-layer scoring as Phases 2-6) + a real dogfood
+run regenerating a fresh `codebase-intelligence` report against this repo's
+current (7-skill) state and assessing a real decision this phase's own
+build actually faced.
+
+**Note on phase ordering**: this roadmap previously proposed Phase 7 as
+Refactoring Safety, with Architecture Decision slotted at Phase 8 (see
+`## Full target skill portfolio`). The user's Phase 7 instruction explicitly
+named "Architecture Decision," not Refactoring Safety — this is a real
+reordering, not a silent drift, so it's stated here plainly: Refactoring
+Safety moves to Phase 8, Architecture Decision fills Phase 7. The
+`## Full target skill portfolio` list below is left as the original catalog
+ordering (unchanged) since the adaptive-roadmap rule already treats that
+list as "do not build all at once," not a fixed sequence — the phase list
+above is the authoritative record of what was actually built, in what
+order.
+
+New this phase: ADR-013 — each parsed option's structural blast radius is
+scored against `codebase-intelligence`'s real fan-in/hotspot data, rolling
+keyword relevance up into a three-tier band (`low`/`medium`/`high`) rather
+than a bare relevance number, so a decision option that touches a real
+hotspot is never presented with the same confidence as one that touches
+nothing real. The exit criteria's "same bar" is met: full engine/test/
+evaluation/dogfood/memory-bank cycle, same as every prior phase; "first
+skill composing on top of Codebase Intelligence's output" was already true
+of `feature-planner` (Phase 4) and reused by `root-cause-analyzer` (Phase
+6) — this phase reuses that same required-composition rule a third time
+rather than re-claiming the "first," the same honesty discipline Phase 6
+applied to the identical phrasing.
+
+The real dogfood run (`examples/architecture-decision/example-run.md`)
+assessed a genuinely real decision — whether this skill itself should
+require or merely accept `codebase-intelligence` composition — and found
+two things worth stating plainly. First, a real, same-session-fixed bug:
+the tradeoff-detection regex missed the verb phrasing "trades X for Y,"
+which the dogfood decision's own text used twice (L20 in [[12-known-
+limitations]]). Second, a real, disclosed-not-fixed limitation: at
+full-repository scale, a decision *about the platform's own architecture*
+produces a nearly-uninformative blast-radius signal, because the decision
+text's vocabulary unavoidably overlaps the whole repo's own vocabulary
+(L21). Unlike Phase 6, this phase's evaluation harness scored perfect
+precision/recall on all 8 fixtures — stated plainly as not evidence of
+higher judgment quality than Phase 6's non-perfect score, since a single
+self-authored evaluation cannot support that comparison either way.
+
+Important honesty note, carried forward from Phases 3-6: this is the
+**sixth** judgment-based skill evaluated with self-authored, single-rater
+fixtures. [[16-assumptions-and-validation]] A5 and A10 remain UNKNOWN; the
+inter-rater-agreement experiment and Experiment B still have not been run —
+now carried forward across six skills, not five.

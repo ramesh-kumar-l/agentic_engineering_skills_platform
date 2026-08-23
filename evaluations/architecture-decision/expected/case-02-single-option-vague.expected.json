@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": ["vague-decision-language", "no-alternatives-signal", "no-reversibility-signal", "no-tradeoff-signal", "no-security-signal"],
+  "expected_categories": [
+    { "id": "c1", "category": "alternatives-identified", "keywords": ["single", "one option", "no alternative"] },
+    { "id": "c2", "category": "honesty-valve", "keywords": ["just", "obviously", "not evidence", "assertion"] },
+    { "id": "c3", "category": "blast-radius-grounding", "keywords": ["mailer.py", "weak", "docstring", "text-tier"] }
+  ]
+}

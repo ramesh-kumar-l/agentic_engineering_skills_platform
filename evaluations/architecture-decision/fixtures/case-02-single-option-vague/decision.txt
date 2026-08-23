@@ -1,0 +1,1 @@
+We'll just add a background job queue for email sending, it's obviously the simplest fix.

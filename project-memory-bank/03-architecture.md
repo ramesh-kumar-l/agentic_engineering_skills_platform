@@ -7,14 +7,17 @@ as-is (no new base pattern) in Phase 3 (`acceptance-test-engineer`), reused
 a third time in Phase 4 (`feature-planner`) alongside a new architectural
 decision making composition mandatory rather than optional, reused a
 fourth time in Phase 5 (`security-context-guard`) — see "Pattern 2, reused
-for Phase 5" and ADR-011 — and reused a **fifth** time in Phase 6
+for Phase 5" and ADR-011 — reused a fifth time in Phase 6
 (`root-cause-analyzer`), which also reuses Phase 4's mandatory-composition
 rule a second time and adds a new tiered-evidence-scoring decision (ADR-012)
-— see "Pattern 2, reused for Phase 6" below. At five consecutive reuses
-without a new base-pattern ADR, Pattern 2 is now this project's default
-architecture for judgment-based skills, not a fresh per-skill choice each
-time — worth stating plainly rather than re-justifying from scratch every
-phase.
+— see "Pattern 2, reused for Phase 6" — and reused a **sixth** time in
+Phase 7 (`architecture-decision`), which reuses the mandatory-composition
+rule a third time and adds a new per-option blast-radius-tiering decision
+(ADR-013) — see "Pattern 2, reused for Phase 7" below. At six consecutive
+reuses without a new base-pattern ADR, Pattern 2 is now this project's
+default architecture for judgment-based skills, not a fresh per-skill
+choice each time — worth stating plainly rather than re-justifying from
+scratch every phase.
 
 ## Pattern: SKILL.md + optional deterministic engine
 
@@ -462,3 +465,90 @@ synthetic `ci_report.json` — see `evaluations/root-cause-analyzer/
 RESULTS.md` and L8/A5 (now applying a fifth time, and the first of the
 five where the judgment layer did not score perfectly on every fixture —
 see L19 in [[12-known-limitations]]).
+
+## Pattern 2, reused for Phase 7: `architecture-decision` — plus ADR-013 (per-option blast-radius tiering) and ADR-010 reused a third time
+
+`architecture-decision` (Phase 7) is the **sixth** consecutive skill to
+reuse Pattern 2 without a new base-pattern ADR: `engine/` is a stdlib-only
+deterministic pre-processor (option parsing, decision-quality anti-pattern
+flags, per-option blast-radius scoring), and `SKILL.md`'s Step 3 is the
+agent-driven judgment layer that actually weighs the decision against a
+fixed checklist. It also reuses `feature-planner`'s (ADR-010) and
+`root-cause-analyzer`'s (ADR-012) required-composition rule a **third**
+time — a missing/malformed `codebase-intelligence` `report.json` is a hard
+failure for this skill too, via its own independent `ci_report_loader.py`
+copy (no cross-package import, same portability discipline as every prior
+composing skill).
+
+**What's genuinely new (ADR-013)**: `option_parser.py` splits the decision
+text into distinct `DecisionOption`s using three fixed shapes — explicit
+`Option A:` markers, a numbered/lettered list, or a `vs`/`versus` fallback
+split on a single line — falling back to one unlabeled "proposed" option
+if none match, rather than inventing alternatives that were never stated.
+`impact_scorer.py` then scores each option against `codebase-intelligence`'s
+modules using the same keyword-weighting scheme every prior judgment skill
+reuses (path > name > docstring/imports), but rolls the result up into a
+**blast-radius tier** using real dependency-graph data:
+`hotspot_count > 0 or blast_radius_score >= _HIGH_BLAST_RADIUS` forces
+`high`, regardless of the keyword relevance number — a decision option that
+touches a real hotspot is never presented with the same confidence as one
+that merely shares vocabulary with a module. `blast_radius_tier` is carried
+as its own field on `OptionImpact`, the same "don't collapse the
+distinction into one blended number" discipline ADR-012 established for
+evidence tiering.
+
+```
+skills/architecture-decision/
+  engine/
+    models.py               (CiModule/CiReportContext copy, DecisionOption,
+                              DecisionFlag, DecisionStats, ImpactedModule,
+                              OptionImpact, ArchitectureDecisionReport)
+    ci_report_loader.py     (own copy, required precondition — ADR-010/013)
+    option_parser.py        (3 shapes: markers, list items, vs-split)
+    decision_patterns.py / decision_scanner.py
+                             (vague-decision-language + 4 absence checks:
+                              alternatives, reversibility, tradeoff, security)
+    impact_scorer.py        (keyword relevance -> blast-radius tier, ADR-013)
+    stats.py, report.py, render_json.py, render_markdown.py, cli.py
+  tests/  (34 tests, CLI test file written from the start, same
+            discipline Phase 5 established, not discovered missing via a
+            later dogfood run — see L10/L13)
+```
+
+The 10-category Architecture Decision Record checklist this skill's Step 3
+uses lives in [[05-evaluation-framework]], a **sixth** checklist alongside
+the failure-first, acceptance-coverage, Plan Quality, Security Decision,
+and Root Cause Investigation ones — coverage-shaped like the other four
+enumeration checklists. Its category 6 (blast radius grounded in real
+data) is specific to this skill: distinguishing "the engine found nothing
+because the option is genuinely low-impact" from "the engine found nothing
+because the decision text never named a real target" is what stops an
+ungrounded option from being read as a safe one (see evaluation case-04's
+Option B, a real high-risk option that scored zero matched modules because
+its target went unnamed).
+
+**Real evidence found via dogfooding, not claimed in the abstract**:
+`examples/architecture-decision/example-run.md` regenerates a fresh
+`codebase-intelligence` report against this repo's current (7-skill, 143-
+module) state and runs a real, in-flight decision through it — whether
+`architecture-decision` itself should require or merely accept
+`codebase-intelligence` composition (the exact ADR-013 choice this phase
+made). The run found and fixed a real gap same-session: the tradeoff
+absence-pattern regex matched only the noun form ("tradeoff"/"trade-off"),
+not the verb phrasing ("trades X for Y") the decision text used twice — see
+L20 in [[12-known-limitations]]. It also surfaced, and deliberately did
+**not** fix, a sharper version of `feature-planner`'s (L14) and
+`root-cause-analyzer`'s (L19) coincidental-substring limitation: at full-
+repository scale, a decision *about the platform's own architecture*
+necessarily reuses this project's own recurring vocabulary, so both options'
+blast-radius scores inflated to 240+ and touched all 10 of the report's
+hotspots — a real but not useful signal (see L21).
+
+Evaluation harness architecture is identical in shape to Phases 2-6
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md), except every fixture now pairs a `decision.txt` with a
+synthetic `ci_report.json` — see `evaluations/architecture-decision/
+RESULTS.md` and L8/A5 (now applying a sixth time; unlike Phase 6, all 8
+fixtures scored perfect precision/recall on the judgment layer, stated
+plainly as not evidence of higher judgment quality than Phase 6's score,
+since a single self-authored evaluation cannot support that comparison).
