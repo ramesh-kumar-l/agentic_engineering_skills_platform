@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "file": "engine/pricing.py",
+      "overall_risk_tier": "high",
+      "diff_pattern_flags": [
+        {
+          "pattern_id": "modified-signature-no-test-change",
+          "category": "diff-pattern",
+          "severity": "medium",
+          "file": "engine/pricing.py",
+          "line": 1,
+          "description": "Return-value rounding behavior changed with no test-file change in the same diff.",
+          "matched_text": ""
+        }
+      ]
+    }
+  ]
+}

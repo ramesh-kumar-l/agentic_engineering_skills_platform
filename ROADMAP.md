@@ -112,9 +112,32 @@ the same limitation class as L14/L19/L21 now shown to affect two skills'
 independent copies of the same heuristic at once. See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 10 — Release Readiness.** Not started; requires
-explicit maintainer approval and re-justification against evidence before
-work begins.
+**Phase 10 — Release Readiness** (complete): tenth skill, the final skill
+in the Engineering Lifecycle group — `skills/release-readiness/` — reusing
+the same pattern a ninth time to turn a git diff into a per-file Release
+Readiness Scorecard, evaluated on 8 fixtures (all 8 scored perfect on both
+layers) plus a real dogfood run against this phase's own actual body of
+work (a real, staged-then-unstaged, never-committed diff of all 78 new
+files). New this phase: **ADR-016** — three always-available, non-blended
+per-file signals (diff-hygiene flags, structural blast radius, test
+coverage) combine into a `readiness_tier` via a documented rule table,
+rolling up into one advisory-only `overall_verdict`; two further, OPTIONAL
+signals — surfaced (never re-derived) from a supplied `regression-hunter`
+or `security-context-guard` report — are the first cross-skill-report
+composition in this platform, deliberately excluded from the rule table.
+This skill also reuses Phase 4's mandatory-composition rule (ADR-010) a
+sixth time. The real dogfood run confirmed an already-documented
+false-positive shape concretely (a legitimate CLI `print()` flagged as a
+debug leftover) and disclosed — without fixing — a sharper, more
+consequential version of the L14/L19/L21/L23 limitation class: the same
+substring-based `target_resolver.py` pattern, reused a third time, was
+shown to produce false-positive test coverage, not just an inflated caller
+list (L24). See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Proposed next: Phase 11 — Dependency / Supply Chain.** Not started;
+requires explicit maintainer approval and re-justification against
+evidence before work begins.
 
 ## How phases work here
 

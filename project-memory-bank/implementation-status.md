@@ -18,9 +18,10 @@ Replaced/updated in place, not appended to chronologically — see
 | architecture-decision | Level 2 — Evaluated | EXPERIMENTAL | 34/34 passing (CLI test file written from the start, same discipline as Phases 5-6) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, sixth time — see [[12-known-limitations]] L8); see `evaluations/architecture-decision/RESULTS.md` |
 | refactoring-safety | Level 2 — Evaluated | EXPERIMENTAL | 62/62 passing (CLI test file written from the start, same discipline as Phases 5-7) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, seventh time — see [[12-known-limitations]] L8); see `evaluations/refactoring-safety/RESULTS.md` |
 | regression-hunter | Level 2 — Evaluated | EXPERIMENTAL | 64/64 passing (CLI test file written from the start, same discipline as Phases 5-8) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eighth time — see [[12-known-limitations]] L8); see `evaluations/regression-hunter/RESULTS.md` |
+| release-readiness | Level 2 — Evaluated | EXPERIMENTAL | 78/78 passing (CLI test file written from the start, same discipline as Phases 5-9) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, ninth time — see [[12-known-limitations]] L8); see `evaluations/release-readiness/RESULTS.md` |
 
-No other skill has any implementation yet. **342 total tests passing across
-all nine skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 62 + 64).
+No other skill has any implementation yet. **420 total tests passing across
+all ten skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 62 + 64 + 78).
 
 ## codebase-intelligence — component status
 
@@ -178,6 +179,27 @@ all nine skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 62 + 64).
 | Judgment-layer actual findings (`evaluations/regression-hunter/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/regression-hunter/`) | Done — fresh codebase-intelligence report against this repo's current (9-skill) state + a real `git diff` (a genuine, already-tested `codebase-intelligence` scanner fix this phase's own build produced); disclosed, not fixed, a new cross-skill limitation (L23) |
 
+## release-readiness — component status
+
+| Component | Status |
+|---|---|
+| `engine/ci_report_loader.py` | Done, tested — same required-precondition pattern as every prior composing skill's loader (ADR-010, reused a sixth time); own independent copy, no cross-package import |
+| `engine/diff_parser.py` | Done, tested — unified diff -> structured ChangedFile/Hunk/LineChange, independent copy of adversarial-diff-reviewer's/regression-hunter's parsing conventions |
+| `engine/target_resolver.py` | Done, tested — resolves each changed file's effective path against the codebase-intelligence report; THIRD independent copy of the substring-matching pattern already disclosed as L23, now also shown to affect test-coverage matching (L24) |
+| `engine/test_coverage_scanner.py` | Done, tested — independent static heuristic, same pattern as refactoring-safety's/regression-hunter's, shares L24's false-positive-coverage gap |
+| `engine/blast_radius_scorer.py` | Done, tested — structural tier from real fan-in/hotspot data |
+| `engine/hygiene_patterns.py` / `hygiene_scanner.py` | Done, tested — release-blocking anti-pattern table (debug leftovers, TODO-blocking markers, hardcoded-secret-shaped literals, merge-conflict markers), the genuinely new Axis 1 this phase introduces |
+| `engine/regression_report_loader.py` / `security_report_loader.py` | Done, tested — OPTIONAL composition with regression-hunter's/security-context-guard's own reports (ADR-011 precedent, not ADR-010's mandatory rule); missing/malformed input is a warning, never a failure |
+| `engine/readiness_scorer.py` | Done, tested — per-file readiness_tier from Axes 1-3 only (ADR-016's rule table), report-level overall_verdict rollup; Axis 4/5 evidence surfaced but deliberately not blended in |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested — `--ci-report` is required (ADR-010/016); missing/malformed report is a hard failure; `--regression-report`/`--security-report` are optional |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested — Markdown keeps every axis visibly separate per file, and states the verdict is advisory in the document itself |
+| `engine/cli.py` | Done, tested — CLI test file (`tests/test_cli.py`) written from the start this phase, same discipline Phases 5-9 established |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) a ninth time + reuses ADR-010 a sixth time + new ADR-016 (Release Readiness Scorecard, three always-available axes + two optional surfaced-not-blended axes), includes agent-driven Step 4 workflow against the new Release Readiness Checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment), all 8 perfect on both layers |
+| Judgment-layer actual findings (`evaluations/release-readiness/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/release-readiness/`) | Done — fresh codebase-intelligence report against this repo's current (10-skill) state + a real, staged-then-unstaged (never committed) `git diff` of this phase's own 78 new files; confirmed a predicted false-positive shape, disclosed a new cross-skill limitation (L24) |
+
 ## Documentation & public-facing artifacts (added after Phase 5, not a phase)
 
 | Artifact | Status |
@@ -195,40 +217,43 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 10 onward, not
-  started (Phase 10 is proposed as Release Readiness — see [[08-roadmap]]).
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 11 onward, not
+  started (Phase 11 is proposed as Dependency / Supply Chain — see
+  [[08-roadmap]]).
 - Any reusable composed-workflow infrastructure across skills
   (feature-planner, root-cause-analyzer, architecture-decision,
-  refactoring-safety, and regression-hunter all make composition with
-  codebase-intelligence mandatory at the single-skill level, ADR-010/
-  ADR-012/ADR-013/ADR-014/ADR-015 — this is not the same as a multi-skill
-  workflow engine, Phase 14).
+  refactoring-safety, regression-hunter, and release-readiness all make
+  composition with codebase-intelligence mandatory at the single-skill
+  level, ADR-010/ADR-012/ADR-013/ADR-014/ADR-015/ADR-016 — this is not the
+  same as a multi-skill workflow engine, Phase 14).
 - Any UI.
 - Multi-runtime validation (only exercised via this session's agent so far).
-- Independent-rater evaluation for any of the eight judgment-based skills
-  (L8, now applying eight times) — needs a second, independent agent/session
+- Independent-rater evaluation for any of the nine judgment-based skills
+  (L8, now applying nine times) — needs a second, independent agent/session
   or real external usage.
 - Experiment A and Experiment B at proper rigor (independent party, real
   task, real measurement) — only N=1 self-run pilots exist so far, see
   [[17-experiment-viability-check]]. Feature-planner's, root-cause-
-  analyzer's, architecture-decision's, refactoring-safety's, and
-  regression-hunter's required-composition architecture (ADR-010, ADR-012,
-  ADR-013, ADR-014, ADR-015) is real evidence composition executes
-  correctly and is genuinely used, not evidence it outperforms the
-  alternative — architecture-decision's dogfood run is evidence composition
-  can execute correctly without being decisive on a real case (L21);
-  refactoring-safety's and regression-hunter's dogfood runs are evidence
-  composition can execute correctly while still depending on upstream data,
-  or a shared resolution pattern, whose own internal consistency has gaps
-  (L22, L23). A7's real qualitative-user-feedback experiment also remains
-  unrun — Pilot C (Phase 5) is a floor, not a substitute.
+  analyzer's, architecture-decision's, refactoring-safety's, regression-
+  hunter's, and release-readiness's required-composition architecture
+  (ADR-010, ADR-012, ADR-013, ADR-014, ADR-015, ADR-016) is real evidence
+  composition executes correctly and is genuinely used, not evidence it
+  outperforms the alternative — architecture-decision's dogfood run is
+  evidence composition can execute correctly without being decisive on a
+  real case (L21); refactoring-safety's, regression-hunter's, and
+  release-readiness's dogfood runs are evidence composition can execute
+  correctly while still depending on upstream data, or a shared resolution
+  pattern, whose own internal consistency has gaps (L22, L23, L24). A7's
+  real qualitative-user-feedback experiment also remains unrun — Pilot C
+  (Phase 5) is a floor, not a substitute.
 - A keyword-collision-at-scale fix for the blast-radius/relevance scorers
   (L21), a fan_in-undercounting fix for codebase-intelligence's
   dependency-graph builder (L22), and a substring-collision fix for the
-  shared `target_resolver.py` caller-identification pattern (L23) — all
+  shared `target_resolver.py` caller-identification/test-coverage pattern
+  (L23, L24 — now affecting three skills' independent copies) — all
   disclosed, not scheduled; would need real evidence of need before
   investing in a fix.
 
 ## Last updated
 
-2026-08-23 — end of Phase 9.
+2026-08-24 — end of Phase 10.

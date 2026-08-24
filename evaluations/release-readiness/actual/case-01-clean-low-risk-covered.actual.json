@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-hygiene-reviewed-as-absolute",
+      "description": "No diff-hygiene flags fired for this hunk -- the only change is a type-annotation addition to an existing signature line, no debug leftovers, TODO markers, secret-shaped literals, or merge-conflict markers were introduced, so none detected by the deterministic scanner is the correct outcome here.",
+      "grounding": "engine/hygiene_scanner.py's two checks both returned empty for this hunk.",
+      "priority": "low",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinguished",
+      "description": "engine/util.py is genuinely covered: tests/test_util.py imports engine.util directly, and structural risk is low (fan_in=0, not a hotspot), so this is a verified, low-risk change.",
+      "grounding": "target_resolver.py resolved engine/util.py by exact path match with fan_in=0; test_coverage_scanner.py found tests/test_util.py importing engine.util.",
+      "priority": "low",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "overall-verdict-explained",
+      "description": "The single changed file's readiness_tier is clear (low structural tier, real coverage, zero hygiene flags), so the overall_verdict of READY follows directly from the rule table -- this is a recommendation for a human to review, not an executed decision.",
+      "grounding": "readiness_scorer.py's rule table: structural=low and has_coverage=true and no hygiene flags -> clear; no file is blocked or needs-review, so overall_verdict=READY.",
+      "priority": "low",
+      "assumptions": null
+    }
+  ]
+}

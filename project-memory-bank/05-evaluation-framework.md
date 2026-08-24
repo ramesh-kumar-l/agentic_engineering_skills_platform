@@ -294,3 +294,52 @@ combining Axis 1 (diff-pattern flags), Axis 2 (structural blast radius),
 and Axis 3 (test coverage) — the checklist walk should be able to explain
 *why* a file landed at a given tier from the three underlying fields, not
 just repeat the tier as an assertion.
+
+## Release Readiness Checklist
+
+Ninth checklist, for skills whose job is *assessing whether a body of work
+is ready to ship* (`release-readiness`, Phase 10 — the final skill in the
+Engineering Lifecycle group). Shaped like the acceptance-coverage, Plan
+Quality, Root Cause Investigation, Architecture Decision Record,
+Refactoring Safety, and Regression Risk checklists (a coverage-enumeration
+list, not a decision-gate like the Security Decision Checklist) for most of
+its categories — but, uniquely among the coverage-shaped checklists, it
+also carries a non-negotiable framing requirement (category 10) because
+this skill's output is this portfolio's single highest-stakes
+recommendation:
+
+```
+1. Scope stated precisely (what is       6. Overall verdict explained via
+   actually being released, not just         the documented rule table,
+   "this diff")                              not asserted
+2. Diff-hygiene blockers reviewed as     7. False-positive check (is a
+   absolute, not leads — a hygiene           flagged pattern actually
+   flag means blocked, full stop            safe here, e.g. a legitimate
+3. Structural blast radius grounded         print() in a CLI's own output)
+   in real fan-in/hotspot data, not      8. Evidence cited, not opinion
+   guessed                              9. Explicit assumption flag
+4. Test coverage distinguished per          (evidence silent → state it,
+   file — covered vs. genuinely             don't guess)
+   untested, not conflated            10. Verdict framed as advisory/
+5. Regression/security evidence             human-checkpoint, NEVER an
+   surfaced-not-re-derived when              auto-gate — the single
+   present, explicitly marked                non-negotiable category this
+   ABSENT (not assumed clean) when           checklist adds beyond every
+   not supplied                              prior coverage-shaped one
+```
+
+**Convention, established across all nine checklists now**: category 9 is
+always the honesty valve when the checklist's job is *defining*,
+*diagnosing*, or *deciding* something ambiguous (this one and the seven
+coverage-shaped checklists before it); the Security Decision Checklist's
+category 7 adapts the same convention to "fail closed" because its job is a
+gate, not an enumeration. Category 10 here is genuinely new across the
+whole set: no prior checklist required a non-negotiable framing statement
+in every single walk, because no prior skill's output was this project's
+single highest-stakes recommendation. Category 5 is specific to this
+skill's optional-composition design (ADR-016): surfacing a composed
+regression/security signal verbatim, distinct from this skill's own
+always-available axes, is what stops a `READY` verdict (which reflects only
+Axes 1-3) from being silently read as "no regression risk exists" when a
+composed `regression-hunter` report actually shows otherwise — see
+evaluation case-07's deliberate divergence design.

@@ -1,0 +1,11 @@
+diff --git a/engine/config.py b/engine/config.py
+--- a/engine/config.py
++++ b/engine/config.py
+@@ -1,1 +1,7 @@
+ DEFAULT_TIMEOUT = 30
++<<<<<<< HEAD
++MAX_RETRIES = 3
++=======
++MAX_RETRIES = 5
++>>>>>>> feature-branch
++EXTRA_OPTION = True

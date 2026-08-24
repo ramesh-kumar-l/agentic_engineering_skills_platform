@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/util.py",
+      "docstring": "Small formatting helpers.",
+      "functions": ["format_name"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "tests/test_util.py",
+      "docstring": "",
+      "functions": ["test_format_name"],
+      "classes": [],
+      "imports": ["engine.util"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/util.py": 0},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

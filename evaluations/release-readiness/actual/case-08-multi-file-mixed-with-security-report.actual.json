@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-hygiene-reviewed-as-absolute",
+      "description": "engine/core.py has a debug print() statement added -- readiness_tier=blocked for this file specifically, an absolute blocker regardless of the other two files' state.",
+      "grounding": "engine/hygiene_scanner.py flagged the added print() line in engine/core.py.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinguished",
+      "description": "engine/util2.py is genuinely covered (tests/test_util2.py imports it, low fan_in) -> readiness_tier=clear. engine/helper.py has fan_in=1 (real caller engine/pipeline.py) but no covering test -> readiness_tier=needs-review. The three files land on three different tiers, which is correct, not an inconsistency.",
+      "grounding": "test_coverage_scanner.py: util2.py covered by tests/test_util2.py; helper.py has zero covering test modules.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "security-evidence-surfaced-not-re-derived",
+      "description": "The composed security-context-guard report's suggested_verdict is REQUIRES_HUMAN_APPROVAL (sensitivity=high) -- surfaced verbatim on security_evidence, not re-derived by this engine, and explicitly called out in warnings for the human to weigh alongside the per-file readiness tiers.",
+      "grounding": "security_report_loader.py loaded classification.sensitivity=high, suggested_verdict=REQUIRES_HUMAN_APPROVAL; report.py added an explicit warning.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c4",
+      "category": "overall-verdict-explained",
+      "description": "Because engine/core.py is blocked, overall_verdict=NOT_READY regardless of the other two files' better tiers -- one blocked file is sufficient to block the whole release per the rule table, a recommendation for the human, not an automatic rejection of the other files' work.",
+      "grounding": "readiness_scorer.py overall_verdict: any file blocked -> NOT_READY.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

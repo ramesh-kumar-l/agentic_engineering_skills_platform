@@ -1,0 +1,7 @@
+diff --git a/engine/session.py b/engine/session.py
+--- a/engine/session.py
++++ b/engine/session.py
+@@ -1,2 +1,2 @@
+ def new_session(user):
+-    return Session(user)
++    return Session(user, ttl=3600)

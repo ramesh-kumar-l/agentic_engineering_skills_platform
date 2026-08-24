@@ -56,7 +56,7 @@ CONTRIBUTING.md               How to propose a skill
 SECURITY.md                   How to report a vulnerability
 LICENSE                       Apache 2.0
 
-skills/                       The nine skills — the actual product
+skills/                       The ten skills — the actual product
   codebase-intelligence/
   adversarial-diff-reviewer/
   acceptance-test-engineer/
@@ -66,6 +66,7 @@ skills/                       The nine skills — the actual product
   architecture-decision/
   refactoring-safety/
   regression-hunter/
+  release-readiness/
 
 evaluations/                  Per-skill evaluation harnesses + fixtures + RESULTS.md
 examples/                     Real "dogfood" runs — each skill used on real work, not synthetic demos
@@ -143,7 +144,7 @@ for d in skills/*/; do
 done
 ```
 
-Expect **342 passing tests** across all nine skills (24 + 23 + 24 + 21 + 58 + 32 + 34 + 62 + 64)
+Expect **420 passing tests** across all ten skills (24 + 23 + 24 + 21 + 58 + 32 + 34 + 62 + 64 + 78)
 as of the most recent phase. See
 [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md)
 for the current authoritative count.
@@ -203,7 +204,7 @@ itself documented (ADR-010 vs ADR-011 in
 | See exactly what's built vs. what's planned | [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md) |
 | Understand one specific skill deeply | `skills/<name>/SKILL.md` |
 | See a skill run against a real (not synthetic) problem | `examples/<name>/example-run.md` |
-| Understand the two architecture patterns used across all nine skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
+| Understand the two architecture patterns used across all ten skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
 | See every real bug found and fixed via dogfooding | [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md), or the [blog version](blogs/03-i-dogfooded-every-skill-i-built.md) |
 | Understand what's actually validated vs. still assumed | [`project-memory-bank/16-assumptions-and-validation.md`](project-memory-bank/16-assumptions-and-validation.md) |
 | Propose a new skill | [`CONTRIBUTING.md`](CONTRIBUTING.md) |

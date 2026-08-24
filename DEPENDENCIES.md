@@ -1,7 +1,7 @@
 # Dependencies
 
 This document explains exactly what this project depends on, why the list is
-so short, and how installation works across the nine skills. If you're
+so short, and how installation works across the ten skills. If you're
 looking for step-by-step setup instructions instead, see
 [`QuickStarterGuide.md`](QuickStarterGuide.md).
 
@@ -20,7 +20,7 @@ looking for step-by-step setup instructions instead, see
 ## Why zero runtime dependencies is a deliberate choice, not an accident
 
 This is documented formally as [ADR-006](project-memory-bank/11-decisions.md)
-in the architectural decisions log, and it applies to all nine skills, not
+in the architectural decisions log, and it applies to all ten skills, not
 just the first one:
 
 - **Portability.** An agent runtime invoking a skill only needs a Python 3.10+
@@ -50,7 +50,7 @@ just the first one:
 
 ## What's actually in each skill's `pyproject.toml`
 
-All nine skills follow the identical shape:
+All ten skills follow the identical shape:
 
 ```toml
 [project]

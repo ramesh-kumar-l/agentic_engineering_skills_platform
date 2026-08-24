@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "structural-blast-radius-grounded",
+      "description": "engine/session.py resolves with fan_in=1 (medium tier) -- one real caller, engine/auth.py -- not a hotspot, but not zero either.",
+      "grounding": "target_resolver.py: fan_in=1, is_hotspot=false, caller_modules=[engine/auth.py].",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinguished",
+      "description": "No test module in the report imports engine.session -- genuinely uncovered.",
+      "grounding": "test_coverage_scanner.py found no covering test module.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "overall-verdict-explained",
+      "description": "readiness_tier=needs-review (medium structural tier with no coverage, per rule 3) rolls up to overall_verdict=READY_WITH_CONDITIONS -- a human should confirm the new ttl parameter is exercised before releasing.",
+      "grounding": "readiness_scorer.py rule 3: structural_tier in (high, medium) OR not has_coverage -> needs-review.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

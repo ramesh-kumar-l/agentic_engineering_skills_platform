@@ -189,7 +189,22 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   with a short, common stem name) that, like L22 before it, no
   self-authored synthetic fixture could plausibly have surfaced. The
   inter-rater-agreement experiment still has not been run for any of the
-  eight skills.
+  eight skills. Phase 10 (`release-readiness`) is the ninth judgment-based
+  skill evaluated this way, and also scored perfect precision/recall on
+  all 8 fixtures (`evaluations/release-readiness/RESULTS.md`) — same
+  caveat as Phases 7-9: this is not evidence this skill's judgment quality
+  exceeds `root-cause-analyzer`'s Phase 6 score, since a single
+  self-authored evaluation cannot support that comparison either way. The
+  real dogfood run was again the more informative evidence: it confirmed a
+  predicted false-positive shape concretely (a legitimate CLI `print()`
+  flagged as a debug leftover), and surfaced a materially new, more
+  consequential manifestation of the L14/L19/L21/L23 limitation class (L24
+  in [[12-known-limitations]] — `target_resolver.py`'s substring matching,
+  reused a third time, now shown to produce false-positive test coverage,
+  not just an inflated caller list) that, like L22/L23 before it, no
+  self-authored synthetic fixture could plausibly have surfaced. The
+  inter-rater-agreement experiment still has not been run for any of the
+  nine skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -356,4 +371,23 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   report through the same resolution pattern can inherit the identical gap
   independently — a reason for even more measured caution about treating
   every consumer of a composed report as independently verified just
-  because each one is independently tested. Status stays UNKNOWN.
+  because each one is independently tested. Phase 10 (`release-readiness`,
+  ADR-016) reuses the same required-composition rule a sixth time —
+  required composition is now a pattern applied by six different skills —
+  and is also the FIRST skill in this platform to compose OPTIONALLY with
+  two other skills' own outputs (`regression-hunter`'s and
+  `security-context-guard`'s reports), not just `codebase-intelligence`'s.
+  The Phase 10 dogfood run (`examples/release-readiness/example-run.md`)
+  sharpens Phase 9's finding a third time: `target_resolver.py`'s
+  substring-based resolution pattern, now reused a THIRD time, was shown
+  for the first time to corrupt not just a displayed caller list (L23) but
+  the actual `test_coverage.has_coverage` field a downstream rule table
+  consumes to decide whether a file needs closer review (L24) — a
+  genuinely untested new module can be made to look tested by the same
+  underlying mechanism. This is the strongest evidence yet in this project
+  that a shared resolution *pattern* (not a shared module — no cross-skill
+  imports exist) can carry a real, increasingly consequential defect
+  across independently-tested copies, without any single skill's own test
+  suite being able to catch it, since each copy's tests are written
+  against synthetic fixtures the same session authored. Status stays
+  UNKNOWN.

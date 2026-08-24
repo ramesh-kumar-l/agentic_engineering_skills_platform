@@ -7,6 +7,47 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 10: Release Readiness — tenth skill, the final skill in the
+  Engineering Lifecycle group (`skills/release-readiness/`): `SKILL.md`
+  contract reusing Pattern 2 (ADR-007) a ninth time — a deterministic
+  engine (16 modules, each under 300 lines, max 211, 78 passing tests
+  including a CLI test file written from the start) that parses a unified
+  git diff (independent copy of `regression-hunter`'s/`adversarial-diff-
+  reviewer`'s parsing conventions), scans it for four mechanically-
+  detectable, release-blocking diff-hygiene shapes (debug leftovers,
+  merge-conflict markers, hardcoded-secret-shaped literals, TODO-blocking
+  markers), resolves each changed file against `codebase-intelligence`'s
+  real modules (a third independent copy of the `target_resolver.py`
+  pattern), checks an independently-computed test-coverage signal, and
+  combines these three always-available axes into a per-file
+  `readiness_tier` via a documented rule table — plus OPTIONALLY loads and
+  surfaces (never re-derives) evidence from a supplied `regression-hunter`
+  and/or `security-context-guard` report — combined with an agent-driven
+  Release Readiness Checklist workflow (a ninth checklist in
+  `project-memory-bank/05-evaluation-framework.md`, the first with a
+  non-negotiable advisory-only framing category); an 8-fixture evaluation
+  harness (`evaluations/release-readiness/`, all 8 scored perfect on both
+  layers, two fixtures deliberately exercising real axis divergence); and
+  a dogfood run (`examples/release-readiness/`) that regenerated a fresh
+  `codebase-intelligence` report against this repo's current 10-skill
+  state and assessed a real, staged-then-unstaged (never committed) `git
+  diff` of this phase's own 78 new files, confirming a predicted
+  false-positive shape concretely (a legitimate CLI `print()` flagged as a
+  debug leftover) and disclosing — without fixing — a sharper, more
+  consequential version of the L14/L19/L21/L23 limitation class (L24):
+  `target_resolver.py`'s substring-based resolution, reused a third time,
+  produces false-positive TEST COVERAGE, not just an inflated caller list.
+  New architectural decision — **ADR-016**: the Release Readiness
+  Scorecard combines three always-available, non-blended axes into a
+  per-file tier and rolls per-file tiers into one advisory-only overall
+  verdict; two further, optional, cross-skill-composed axes are surfaced
+  but deliberately never blended in. Reuses `feature-planner`'s,
+  `root-cause-analyzer`'s, `architecture-decision`'s, `refactoring-
+  safety`'s, and `regression-hunter`'s mandatory-composition rule
+  (ADR-010) a sixth time, and `security-context-guard`'s optional-
+  composition precedent (ADR-011) for the two new optional axes
+  specifically — both stated explicitly as reuses.
+
 - Phase 9: Regression Hunter — ninth skill
   (`skills/regression-hunter/`): `SKILL.md` contract reusing Pattern 2
   (ADR-007) an eighth time — a deterministic engine (11 modules, each under

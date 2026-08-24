@@ -16,9 +16,9 @@ PHASE 5  — Security Context Guard            ← COMPLETE
 PHASE 6  — Root Cause Analyzer               ← COMPLETE
 PHASE 7  — Architecture Decision             ← COMPLETE (reordered — see Phase 7 note below)
 PHASE 8  — Refactoring Safety                 ← COMPLETE
-PHASE 9  — Regression Hunter                  ← COMPLETE (this phase)
-PHASE 10 — Release Readiness                  ← proposed next, not started
-PHASE 11 — Dependency / Supply Chain
+PHASE 9  — Regression Hunter                  ← COMPLETE
+PHASE 10 — Release Readiness                  ← COMPLETE (this phase)
+PHASE 11 — Dependency / Supply Chain          ← proposed next, not started
 PHASE 12 — Knowledge Capture
 PHASE 13 — Context Optimizer
 PHASE 14 — Workflow Composer
@@ -382,15 +382,96 @@ fixtures. [[16-assumptions-and-validation]] A5 and A10 remain UNKNOWN; the
 inter-rater-agreement experiment and Experiment B still have not been run —
 now carried forward across eight skills, not seven.
 
-## Phase 10 (proposed next, not started)
+## Phase 10 scope (this phase) — complete
+
+Built `release-readiness`, the tenth skill and the final skill in the
+Engineering Lifecycle group, reusing Pattern 2 (ADR-007) a ninth time and
+the required-composition rule (ADR-010, reused by `root-cause-analyzer`'s
+ADR-012, `architecture-decision`'s ADR-013, `refactoring-safety`'s ADR-014,
+and `regression-hunter`'s ADR-015) a sixth time: `SKILL.md` contract + a
+deterministic diff-hygiene/structural-blast-radius/test-coverage engine
+(16 modules, each under 300 lines, max 211) that composes a git diff and a
+required `codebase-intelligence` report into a per-file **Release Readiness
+Scorecard**, plus optionally surfaces (never re-derives) evidence from a
+`regression-hunter` and/or `security-context-guard` report for the same
+change — 78 passing tests (CLI test file written from the start, same
+discipline every prior phase since Phase 5 established) + an 8-fixture
+evaluation harness (same two-layer scoring as Phases 2-9) + a real dogfood
+run regenerating a fresh `codebase-intelligence` report against this
+repo's current (10-skill) state and assessing this phase's own real body of
+work via a real, staged-then-unstaged (never committed) `git diff`.
+
+New this phase: **ADR-016** — the Release Readiness Scorecard combines
+three always-available, non-blended per-file signals (diff-hygiene flags,
+structural blast radius, test coverage) into a per-file `readiness_tier`
+via a documented rule table, and surfaces two OPTIONAL, composed-elsewhere
+signals (regression-hunter's `overall_risk_tier`, security-context-guard's
+`suggested_verdict`) as distinct fields that deliberately do NOT feed that
+rule table — reused/re-blended verdicts from a different skill's own
+rule table would hide which skill produced which judgment, the same
+"don't collapse the distinction away" discipline ADR-012/013/014/015
+already established for their own axes. Per-file tiers roll up into one
+`overall_verdict` (`NOT_READY`/`READY_WITH_CONDITIONS`/`READY`), explicitly
+and repeatedly framed everywhere (SKILL.md, docstrings, README, this
+section) as a recommendation for a human to review, never an autonomous
+release gate — the same "advisory only" discipline ADR-011 established for
+`security-context-guard`'s `suggested_verdict`, extended here to this
+portfolio's highest-stakes recommendation. The exit criteria's "same bar"
+is met: full engine/test/evaluation/dogfood/memory-bank cycle, same as
+every prior phase; "first skill composing on top of Codebase
+Intelligence's output" was already true of `feature-planner` (Phase 4) and
+reused by five skills since — this phase reuses that same
+required-composition rule a sixth time rather than re-claiming the
+"first," the same honesty discipline every phase since Phase 6 has
+applied to the identical phrasing.
+
+The real dogfood run (`examples/release-readiness/example-run.md`)
+assessed this phase's own actual body of work — a real, staged-then-
+unstaged `git diff` of all 78 new `release-readiness` files (3,956 lines
+added, 0 removed; nothing was ever committed) — and found two things worth
+stating plainly. First, a real, confirmed instance of an
+already-documented limitation: the `debug-print-leftover` hygiene pattern
+fired 5 times on this skill's own `engine/cli.py` and
+`evaluations/release-readiness/run_evaluation.py`, every one a legitimate
+CLI `print()` call, not a debug leftover — `SKILL.md`'s Known Limitations
+predicted this exact failure shape before the run; this run confirmed it
+concretely rather than leaving it hypothetical, and it was left unfixed by
+design (the documented boundary between the hygiene table and the agent's
+Step 4 false-positive-check judgment). Second, a real, disclosed-not-fixed
+limitation (L24 in [[12-known-limitations]]): `target_resolver.py`'s
+substring-based resolution — a THIRD independent copy of the exact
+heuristic already disclosed as L23 — was shown for the first time to
+produce **false-positive test coverage**, not just an inflated caller
+list, when a module's stem (e.g. `models`, `stats`, `report`) collides
+with an identically-named module in an unrelated skill. This is a more
+consequential manifestation than L23's caller-list-only inflation, since
+it is the exact signal the readiness rule table uses to decide whether a
+structurally consequential, genuinely untested module needs closer review.
+Unlike most prior phases, this phase's evaluation harness scored perfect
+precision/recall on all 8 fixtures — stated plainly as not evidence of
+higher judgment quality than Phase 6's non-perfect score, since a single
+self-authored evaluation cannot support that comparison either way.
+
+Important honesty note, carried forward from Phases 3-9: this is the
+**ninth** judgment-based skill evaluated with self-authored, single-rater
+fixtures. [[16-assumptions-and-validation]] A5 and A10 remain UNKNOWN; the
+inter-rater-agreement experiment and Experiment B still have not been run —
+now carried forward across nine skills, not eight.
+
+## Phase 11 (proposed next, not started)
 
 Per the roadmap's own phase list and full target skill portfolio
-(`Engineering Lifecycle`: root-cause-analyzer, refactoring-safety,
-architecture-decision, regression-hunter, release-readiness), Phase 10 is
-proposed as **Release Readiness** — the final skill in the Engineering
-Lifecycle group, and a natural next step given nine skills now exist with
-no unified way to assess whether a body of work (not just one diff) is
-actually ready to ship. Per the adaptive-roadmap rule at the top of this
-file, this proposal must be re-justified against evidence at the start of
-Phase 10, not assumed — and per every prior phase's protocol, Phase 10 does
-not begin without explicit user instruction.
+(`Advanced`: dependency-supply-chain-reviewer, engineering-knowledge-
+capture, context-optimizer, workflow-composer, engineering-memory), Phase
+11 is proposed as **Dependency / Supply Chain** — the first skill in the
+`Advanced` group, now that all five Engineering Lifecycle skills exist. Per
+the adaptive-roadmap rule at the top of this file, this proposal must be
+re-justified against evidence at the start of Phase 11, not assumed — and
+per every prior phase's protocol, Phase 11 does not begin without explicit
+user instruction. The case for investing a phase in the independent-
+evidence gap (L8/A5) before an eleventh skill, flagged as a growing
+concern since Sprint 08 and sharpened by Sprint 09's L23 and this phase's
+L24 (the same substring-collision limitation class now shown in a THIRD
+and increasingly consequential form, across three skills' independent
+copies), is stronger than ever — a future session should weigh that
+explicitly before committing to Phase 11 rather than defaulting to it.

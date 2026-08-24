@@ -1,0 +1,8 @@
+{
+  "classification": {
+    "sensitivity": "high",
+    "suggested_verdict": "REQUIRES_HUMAN_APPROVAL",
+    "evidence": ["action-flag: Publishing"],
+    "uncertain": false
+  }
+}

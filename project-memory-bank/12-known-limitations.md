@@ -604,3 +604,78 @@ single-rater evidence, so this should not be read as evidence this skill's
 judgment quality is higher than `root-cause-analyzer`'s — a single
 self-authored evaluation cannot support that comparison either way. See
 [[16-assumptions-and-validation]] A5.
+
+---
+
+Entries below are from Phase 10 (release-readiness).
+
+## L24: `target_resolver.py`'s substring-based resolution produces false-positive TEST COVERAGE, not just an inflated caller list — a materially new manifestation of L23
+
+- **What failed**: N/A (disclosed limitation, not fixed — same mechanism
+  class as L14/L19/L21/L23, demonstrated in a new, more consequential
+  location: false-positive test-coverage matching, not just caller-list
+  inflation).
+- **Why**: `release-readiness`'s `target_resolver.py` is a THIRD
+  independent copy of `refactoring-safety`'s/`regression-hunter`'s
+  identical stem-based substring-matching pattern (already disclosed as
+  L23). `test_coverage_scanner.py` reuses the exact same substring check
+  (`target_stem in imports_text`) to decide whether a "looks like a test"
+  module genuinely covers a given file. For a module whose stem is a
+  common word shared across this platform's skills (e.g. `models`,
+  `stats`, `report`, `render_json`, `render_markdown`, `ci_report_loader`,
+  `target_resolver`, `test_coverage_scanner` — every module reusing Pattern
+  2's common naming convention for these roles), this produces a
+  false-positive "covered" verdict: a test module belonging to a
+  completely unrelated skill, which merely imports its OWN skill's
+  identically-stemmed module, is counted as covering this skill's module.
+- **Impact**: found via the real dogfood run
+  (`examples/release-readiness/example-run.md`) — `skills/release-
+  readiness/engine/models.py` resolved with `fan_in: 13` (structural tier
+  `high`) and `test_coverage.has_coverage: true`, "covered" by
+  `skills/architecture-decision/tests/test_impact_scorer.py` and
+  `skills/architecture-decision/tests/test_stats.py`, among others — but
+  `release-readiness` has **no `tests/test_models.py` of its own**. The
+  same false-positive pattern repeated for `stats.py`, `report.py`,
+  `render_json.py`, `render_markdown.py`, `ci_report_loader.py`,
+  `target_resolver.py`, and `test_coverage_scanner.py`. This is a more
+  consequential category of finding than L23: L23 (found via
+  `regression-hunter`'s dogfood run) inflated a *caller list* — a
+  displayed field that did not change that run's risk-tier outcome. Here,
+  the identical heuristic corrupts the exact signal
+  (`test_coverage.has_coverage`) `readiness_scorer.py`'s rule table uses to
+  decide whether a structurally consequential file needs closer review —
+  the mechanism is now shown capable of making a genuinely untested new
+  module look tested, the more dangerous direction for a skill whose
+  entire purpose is judging release readiness. In this specific dogfood
+  run the outcome still landed conservatively (`needs-review`, not
+  `clear`), because the same collision also inflated `fan_in`/hotspot
+  status enough to keep the structural tier at medium/high — but that is
+  a coincidence of this run's specific module names, not a property of the
+  fix.
+- **Fix**: Not applied, for the same reason L14/L19/L21/L23 were left
+  disclosed rather than patched: a real fix (requiring a word-boundary or
+  dotted-segment match instead of a bare substring check, or scoping the
+  match to the same skill's own `skills/<name>/` path prefix) is a real
+  design tradeoff against a now-FOUR-times-disclosed limitation class, not
+  evaluated here against other evidence of need across every skill that
+  reuses this exact pattern (now three: `refactoring-safety`,
+  `regression-hunter`, `release-readiness`).
+- **Regression prevention**: `examples/release-readiness/example-run.md`
+  documents this explicitly as a limitation observed on real use;
+  `SKILL.md`'s Known Limitations section cross-references L23 explicitly
+  (a third independent copy of the same underlying issue, not a new
+  finding in isolation) rather than treating this as unrelated, and
+  instructs the agent not to trust `test_coverage.has_coverage` at face
+  value for a module with a short, generic stem name, the same caution
+  already required for `structural.caller_modules`.
+
+## L8 update: now applying a ninth time, still perfect scores
+
+`release-readiness`'s judgment-layer evaluation scored perfect precision/
+recall on all 8 fixtures, same as seven of the eight prior judgment-based
+skills — `root-cause-analyzer` remains the one exception (L19 above). This
+is the ninth judgment-based skill evaluated this way; still self-authored,
+single-rater evidence, so this should not be read as evidence this skill's
+judgment quality is higher than `root-cause-analyzer`'s — a single
+self-authored evaluation cannot support that comparison either way. See
+[[16-assumptions-and-validation]] A5.

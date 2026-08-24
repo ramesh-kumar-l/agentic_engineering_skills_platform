@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/pricing.py",
+      "docstring": "Pricing helpers.",
+      "functions": ["apply_discount"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "tests/test_pricing.py",
+      "docstring": "",
+      "functions": ["test_apply_discount"],
+      "classes": [],
+      "imports": ["engine.pricing"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/pricing.py": 0},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

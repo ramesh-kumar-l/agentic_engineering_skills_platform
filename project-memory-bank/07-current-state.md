@@ -5,7 +5,7 @@ what currently exists — it is replaced/updated each phase, not appended to. Re
 this before any other memory file when starting new work. For finer-grained
 "what's in flight" detail, see [[active-context.md]] and [[implementation-status.md]].
 
-_Last updated: 2026-08-23 — end of Phase 9._
+_Last updated: 2026-08-24 — end of Phase 10._
 
 ## Repository contents
 
@@ -30,6 +30,7 @@ skills/root-cause-analyzer/         Skill 6 — SKILL.md + Python engine + agent
 skills/architecture-decision/       Skill 7 — SKILL.md + Python engine + agent workflow, required composition (ADR-010, reused a third time), per-option blast-radius tiering (ADR-013)
 skills/refactoring-safety/          Skill 8 — SKILL.md + Python engine + agent workflow, required composition (ADR-010, reused a fourth time), per-target risk tier + independent test-coverage signal (ADR-014)
 skills/regression-hunter/           Skill 9 — SKILL.md + Python engine + agent workflow, required composition (ADR-010, reused a fifth time), three-axis non-blended regression-risk scoring (ADR-015)
+skills/release-readiness/           Skill 10 — SKILL.md + Python engine + agent workflow, required composition (ADR-010, reused a sixth time), Release Readiness Scorecard (ADR-016), first skill also composing OPTIONALLY with two other skills' own reports
 evaluations/codebase-intelligence/       Evaluation harness + 4 fixtures + RESULTS.md
 evaluations/adversarial-diff-reviewer/   Evaluation harness + 8 fixtures + RESULTS.md
 evaluations/acceptance-test-engineer/    Evaluation harness + 8 fixtures + RESULTS.md
@@ -39,6 +40,7 @@ evaluations/root-cause-analyzer/         Evaluation harness + 8 fixtures + RESUL
 evaluations/architecture-decision/       Evaluation harness + 8 fixtures + RESULTS.md
 evaluations/refactoring-safety/          Evaluation harness + 8 fixtures + RESULTS.md
 evaluations/regression-hunter/           Evaluation harness + 8 fixtures + RESULTS.md
+evaluations/release-readiness/           Evaluation harness + 8 fixtures + RESULTS.md
 examples/codebase-intelligence/          Dogfood run against this repo itself
 examples/adversarial-diff-reviewer/      Dogfood run against a real in-session diff
 examples/acceptance-test-engineer/       Dogfood run against a real, already-shipped CLI's behavior
@@ -48,6 +50,7 @@ examples/root-cause-analyzer/            Dogfood run: fresh codebase-intelligenc
 examples/architecture-decision/          Dogfood run: fresh codebase-intelligence report + a real decision this phase's build faced; found+fixed L20, disclosed L21
 examples/refactoring-safety/             Dogfood run: fresh codebase-intelligence report + a real refactor this phase's build produced; disclosed L22
 examples/regression-hunter/              Dogfood run: fresh codebase-intelligence report + a real git diff this phase's build produced (a genuine codebase-intelligence scanner fix); disclosed L23
+examples/release-readiness/              Dogfood run: fresh codebase-intelligence report + a real, staged-then-unstaged (never committed) git diff of this phase's own 78 new files; confirmed a predicted false-positive shape, disclosed L24
 ```
 
 `workflows/` and `docs/` still do not exist — no reusable multi-skill
@@ -61,14 +64,14 @@ required composition, ADR-010, and manual, N=1 pilots — see
 00-project-vision.md
 01-product-thesis.md
 02-requirements.md
-03-architecture.md              updated this phase (Pattern 2 reused an eighth time, ADR-015 note)
+03-architecture.md              updated this phase (Pattern 2 reused a ninth time, ADR-016 note)
 04-skill-contract.md
-05-evaluation-framework.md      updated this phase (Regression Risk Checklist added)
+05-evaluation-framework.md      updated this phase (Release Readiness Checklist added)
 06-security-model.md
 07-current-state.md             (this file)
-08-roadmap.md                   updated this phase (Phase 9 complete, Phase 10 proposed next)
-11-decisions.md                 updated this phase (ADR-015)
-12-known-limitations.md         updated this phase (L23)
+08-roadmap.md                   updated this phase (Phase 10 complete, Phase 11 proposed next)
+11-decisions.md                 updated this phase (ADR-016)
+12-known-limitations.md         updated this phase (L24)
 16-assumptions-and-validation.md   updated this phase (A5, A10)
 17-experiment-viability-check.md
 implementation-status.md        updated this phase
@@ -82,7 +85,8 @@ sprint-history/SPRINT-05.md
 sprint-history/SPRINT-06.md
 sprint-history/SPRINT-07.md
 sprint-history/SPRINT-08.md
-sprint-history/SPRINT-09.md     NEW this phase
+sprint-history/SPRINT-09.md
+sprint-history/SPRINT-10.md     NEW this phase
 ```
 
 Still not created (deliberately): `09-workflow-catalog.md` (no reusable
@@ -92,7 +96,7 @@ external usage yet).
 
 ## What exists in practice
 
-- **Nine skills implemented**, all Level 2 (Evaluated) per
+- **Ten skills implemented**, all Level 2 (Evaluated) per
   [[04-skill-contract]]'s maturity model, all Trust Status EXPERIMENTAL:
   - `codebase-intelligence` — fully deterministic (Pattern 1, ADR-005/006).
   - `adversarial-diff-reviewer` — deterministic risk-flagging engine +
@@ -143,8 +147,21 @@ external usage yet).
     blended. Reuses `feature-planner`'s/`root-cause-analyzer`'s/
     `architecture-decision`'s/`refactoring-safety`'s mandatory-composition
     rule (ADR-010) a fifth time.
+  - `release-readiness` — deterministic diff-hygiene/structural-blast-
+    radius/test-coverage engine (debug leftovers, merge-conflict markers,
+    hardcoded-secret-shaped literals, TODO-blocking markers scanned
+    directly against the diff's own hunks) + agent-driven Release
+    Readiness Checklist workflow (Pattern 2, reused a ninth time), plus
+    ADR-016: three always-available, non-blended axes combine into a
+    per-file `readiness_tier` via a documented rule table, and two
+    OPTIONAL, cross-skill-composed axes (regression-hunter's and
+    security-context-guard's own report evidence) are surfaced but
+    deliberately not blended in. Reuses `feature-planner`'s/`root-cause-
+    analyzer`'s/`architecture-decision`'s/`refactoring-safety`'s/
+    `regression-hunter`'s mandatory-composition rule (ADR-010) a sixth
+    time — the final skill in the Engineering Lifecycle group.
   Full detail in [[implementation-status.md]].
-- **Nine evaluation harnesses**: codebase-intelligence (4 fixtures, all
+- **Ten evaluation harnesses**: codebase-intelligence (4 fixtures, all
   passing), adversarial-diff-reviewer (8 fixtures, deterministic 100%,
   judgment 100% precision/recall), acceptance-test-engineer (8 fixtures,
   same pattern, same result), feature-planner (8 fixtures, same pattern,
@@ -155,12 +172,14 @@ external usage yet).
   100% precision/recall on all 8), refactoring-safety (8 fixtures,
   deterministic 100%, judgment 100% precision/recall on all 8),
   regression-hunter (8 fixtures, deterministic 100%, judgment 100%
-  precision/recall on all 8). All eight judgment-layer evaluations carry
-  the L8 self-authored/single-rater caveat — now applying an eighth time.
-- **342 total unit/integration tests** across nine skills (24 + 23 + 24 +
-  21 + 58 + 32 + 34 + 62 + 64), all passing (`codebase-intelligence` grew
-  from 23 to 24 this phase via a real, tested `*.egg-info`-exclusion fix
-  found through `regression-hunter`'s own dogfood run).
+  precision/recall on all 8), release-readiness (8 fixtures, deterministic
+  100%, judgment 100% precision/recall on all 8). All nine judgment-layer
+  evaluations carry the L8 self-authored/single-rater caveat — now
+  applying a ninth time.
+- **420 total unit/integration tests** across ten skills (24 + 23 + 24 +
+  21 + 58 + 32 + 34 + 62 + 64 + 78), all passing (`codebase-intelligence`
+  grew from 23 to 24 in Phase 9 via a real, tested `*.egg-info`-exclusion
+  fix; unchanged this phase).
 - **Eight real bugs/gaps found and fixed via dogfooding**, not hypothetical:
   L1 (Phase 1, false-positive entry-point detection), L5/L6 (Phase 2, two
   successive secret-redaction gaps), L10 (Phase 3, `adversarial-diff-
@@ -193,24 +212,35 @@ external usage yet).
   mechanism class again in a new location (L23): `target_resolver.py`'s
   substring-based caller identification, shared as an independent copy
   between `refactoring-safety` and `regression-hunter`, inflates the
-  caller list for a module whose stem is a short, common word.
+  caller list for a module whose stem is a short, common word. Phase 10
+  sharpened this again into a more consequential form (L24): the same
+  substring-matching pattern, reused a THIRD time in `release-readiness`,
+  produces false-positive **test coverage**, not just an inflated caller
+  list — a genuinely untested new module can look tested.
 - **A fifth judgment-based skill evaluated the same way as the first
   four — and the first to break the perfect-score pattern**:
   root-cause-analyzer scored 7/8 fixtures perfect and 1/8 (case-03) at
   0.67/0.67 precision/recall against self-authored ground truth (L19 in
   [[12-known-limitations]]), disclosed as-is rather than adjusted.
-  architecture-decision (the sixth), refactoring-safety (the seventh), and
-  regression-hunter (the eighth) all returned to a perfect 8/8 score —
-  stated plainly as *not* evidence of higher judgment quality, since a
-  single self-authored evaluation cannot support that comparison. Neither
-  a perfect score nor an imperfect one, on self-authored single-rater
-  fixtures, is evidence of real-world quality. Disclosed explicitly in all
-  eight skills' `RESULTS.md` and `SKILL.md`.
+  architecture-decision (the sixth), refactoring-safety (the seventh),
+  regression-hunter (the eighth), and release-readiness (the ninth) all
+  returned to a perfect 8/8 score — stated plainly as *not* evidence of
+  higher judgment quality, since a single self-authored evaluation cannot
+  support that comparison. Neither a perfect score nor an imperfect one, on
+  self-authored single-rater fixtures, is evidence of real-world quality.
+  Disclosed explicitly in all nine skills' `RESULTS.md` and `SKILL.md`.
 - **First skill with mandatory (not optional) composition**: `feature-
   planner` (ADR-010, Phase 4) — now joined by `root-cause-analyzer` (Phase
   6), `architecture-decision` (Phase 7), `refactoring-safety` (Phase 8),
-  and `regression-hunter` (Phase 9), the fifth skill to adopt the same
-  rule.
+  `regression-hunter` (Phase 9), and `release-readiness` (Phase 10), the
+  sixth skill to adopt the same rule.
+- **First skill also composing OPTIONALLY with two other skills' own
+  outputs, not just `codebase-intelligence`'s**: `release-readiness`
+  (ADR-016) — a supplied `regression-hunter`/`security-context-guard`
+  report is surfaced verbatim as a distinct field, never re-derived and
+  never blended into this skill's own rule table, reusing
+  `security-context-guard`'s ADR-011 optional-composition precedent for
+  these two specifically (not ADR-010's mandatory rule).
 - **First skill whose engine output is explicitly advisory-only by
   design, not just by convention**: `security-context-guard` (ADR-011) —
   `classification.suggested_verdict` is never treated as an executed gate
@@ -253,11 +283,11 @@ external usage yet).
   could mislead a real decision. A7 stays UNKNOWN — real qualitative
   feedback from an actual user remains the missing ingredient.
 - **Zero real-world usage by anyone other than this session's agent**, for
-  any of the nine skills. Assumptions A2/A3/A5/A7/A10 have partial
+  any of the ten skills. Assumptions A2/A3/A5/A7/A10 have partial
   (synthetic, self-authored, or single-pilot/single-architecture) evidence
   only — not real-world validation, not independent-rater validation.
 - **Zero reusable multi-skill composed-workflow infrastructure, zero UI,
-  zero product code beyond these nine skills.**
+  zero product code beyond these ten skills.**
 
 ## What Phase 5 established
 
@@ -380,9 +410,43 @@ real, disclosed limitation shared between two skills' independent copies
 of the same caller-identification heuristic (L23 — substring-based
 matching inflating the caller list for short, common module stems).
 
+## What Phase 10 established
+
+Reused Pattern 2 (ADR-007) for a ninth judgment-based skill and
+`feature-planner`'s/`root-cause-analyzer`'s/`architecture-decision`'s/
+`refactoring-safety`'s/`regression-hunter`'s mandatory-composition rule
+(ADR-010) for a sixth skill — both stated explicitly as *reuses*. Added a
+reusable Release Readiness Checklist (10 categories) to
+[[05-evaluation-framework]], a ninth checklist, coverage-shaped like the
+acceptance-coverage/Plan Quality/Root Cause Investigation/Architecture
+Decision Record/Refactoring Safety/Regression Risk checklists, but the
+first to carry a non-negotiable framing category (verdict is advisory,
+never an auto-gate) because this skill's output is this portfolio's single
+highest-stakes recommendation. Established a new architectural decision
+(ADR-016): the Release Readiness Scorecard — three always-available,
+non-blended per-file signals (diff-hygiene flags, structural blast radius,
+test coverage) combined into a `readiness_tier` via a documented rule
+table, plus, for the first time in this portfolio, two OPTIONAL signals
+composed from two OTHER skills' own real outputs (`regression-hunter`'s and
+`security-context-guard`'s reports), surfaced verbatim but deliberately
+excluded from the rule table so a different skill's already-rolled-up
+verdict is never silently re-blended. Ran a real dogfood run against this
+phase's own actual body of work (a real, staged-then-unstaged, never
+committed `git diff` of all 78 new files) that confirmed a predicted
+false-positive shape concretely (a legitimate CLI `print()` flagged as a
+debug leftover) and surfaced a new, more consequential manifestation of the
+L14/L19/L21/L23 substring-collision limitation class: `target_resolver.py`,
+reused a third time, was shown to corrupt test-coverage matching, not just
+caller-list display (L24).
+
 ## Immediate next decision point
 
-Phase 10 (`Release Readiness`) is proposed next per [[08-roadmap]]'s
+Phase 11 (`Dependency / Supply Chain`) is proposed next per [[08-roadmap]]'s
 portfolio list, but has **not** been started and requires explicit user
 go-ahead — per the adaptive-roadmap rule, it must be re-justified against
-evidence at that time, not assumed.
+evidence at that time, not assumed. The case for investing a phase in the
+independent-evidence gap (L8/A5) or the now-three-times-disclosed
+substring-collision limitation class (L14/L19/L21/L23/L24) before an
+eleventh skill is stronger than at any prior phase boundary — a future
+session should weigh that explicitly rather than defaulting to the next
+portfolio item.

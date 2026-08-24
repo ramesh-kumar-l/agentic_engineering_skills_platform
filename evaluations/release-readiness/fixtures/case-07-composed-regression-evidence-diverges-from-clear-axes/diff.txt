@@ -1,0 +1,7 @@
+diff --git a/engine/pricing.py b/engine/pricing.py
+--- a/engine/pricing.py
++++ b/engine/pricing.py
+@@ -1,2 +1,2 @@
+ def apply_discount(price, pct):
+-    return price * (1 - pct)
++    return round(price * (1 - pct), 2)
