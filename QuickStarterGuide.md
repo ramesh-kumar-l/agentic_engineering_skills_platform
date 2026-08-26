@@ -9,8 +9,9 @@ If you only read one document besides the README, read this one.
 This repo is a portfolio of **AI coding-agent "skills"** — not prompts.
 Each skill is a `SKILL.md` contract (intent, inputs, workflow, security
 constraints, evaluation, known limitations) backed by a small, tested,
-stdlib-only Python engine. Eleven exist today, all `Trust Status:
-EXPERIMENTAL`, all tested, all evaluated, all honestly documented — see
+stdlib-only Python engine. Fifteen exist today — the originally-scoped
+portfolio is now complete — all `Trust Status: EXPERIMENTAL`, all tested,
+all evaluated, all honestly documented — see
 [`README.md`](README.md) for the full picture and
 [`project-memory-bank/`](project-memory-bank/) for the complete project
 history and reasoning.
@@ -56,7 +57,7 @@ CONTRIBUTING.md               How to propose a skill
 SECURITY.md                   How to report a vulnerability
 LICENSE                       Apache 2.0
 
-skills/                       The eleven skills — the actual product
+skills/                       The fifteen skills — the actual product
   codebase-intelligence/
   adversarial-diff-reviewer/
   acceptance-test-engineer/
@@ -68,6 +69,10 @@ skills/                       The eleven skills — the actual product
   regression-hunter/
   release-readiness/
   dependency-supply-chain/
+  engineering-knowledge-capture/
+  context-optimizer/
+  workflow-composer/
+  engineering-memory/
 
 evaluations/                  Per-skill evaluation harnesses + fixtures + RESULTS.md
 examples/                     Real "dogfood" runs — each skill used on real work, not synthetic demos
@@ -145,7 +150,7 @@ for d in skills/*/; do
 done
 ```
 
-Expect **474 passing tests** across all eleven skills (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46)
+Expect **693 passing tests** across all fifteen skills (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64 + 51 + 57)
 as of the most recent phase. See
 [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md)
 for the current authoritative count.
@@ -205,7 +210,7 @@ itself documented (ADR-010 vs ADR-011 in
 | See exactly what's built vs. what's planned | [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md) |
 | Understand one specific skill deeply | `skills/<name>/SKILL.md` |
 | See a skill run against a real (not synthetic) problem | `examples/<name>/example-run.md` |
-| Understand the two architecture patterns used across all eleven skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
+| Understand the two architecture patterns used across all fifteen skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
 | See every real bug found and fixed via dogfooding | [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md), or the [blog version](blogs/03-i-dogfooded-every-skill-i-built.md) |
 | Understand what's actually validated vs. still assumed | [`project-memory-bank/16-assumptions-and-validation.md`](project-memory-bank/16-assumptions-and-validation.md) |
 | Propose a new skill | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
@@ -268,5 +273,8 @@ before it starts.
 Please open an issue with input/expected/actual behavior — see
 [`CONTRIBUTING.md`](CONTRIBUTING.md#reporting-issues). Real bugs found this
 way are exactly the kind of evidence this project is built to take
-seriously (five were found and fixed via dogfooding already — see
-[`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md)).
+seriously — a growing number have already been found and fixed (or
+honestly disclosed, not fixed) via dogfooding; see
+[`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md)
+for the current, authoritative list rather than a count repeated here that
+would go stale with every new phase.
