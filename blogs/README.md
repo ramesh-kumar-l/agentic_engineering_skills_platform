@@ -32,6 +32,7 @@ Each post stands alone, but they build on each other in this order:
    zero real users after ten phases, and a real correctness bug disclosed
    four times without ever being fixed.
 
+
 ## A note on the Mermaid diagrams
 
 Every post includes Mermaid diagrams as fenced ` ```mermaid ` code blocks.
