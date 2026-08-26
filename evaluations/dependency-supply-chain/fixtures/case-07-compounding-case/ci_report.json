@@ -1,0 +1,9 @@
+{
+  "root_path": "/repo",
+  "external_dependencies": [
+    {"name": "zeta", "version": "*", "source_file": "requirements.txt"},
+    {"name": "request", "version": "1.0.0", "source_file": "package.json"},
+    {"name": "eta", "version": "==1.0.0", "source_file": "requirements.txt"},
+    {"name": "eta", "version": "==2.0.0", "source_file": "pyproject.toml"}
+  ]
+}

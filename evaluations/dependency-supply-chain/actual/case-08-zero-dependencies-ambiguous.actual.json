@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c8-1",
+      "category": "uncertainty-flag",
+      "description": "external_dependencies is empty, so zero flags fire — but that is treated as ambiguous, not as a clean bill of health. It could mean the repo genuinely has no dependencies, or it could mean the manifests live somewhere codebase-intelligence's root-level-only parser doesn't look. report.warnings explicitly names this ambiguity, and suggested_risk_level is REQUIRES_REVIEW rather than CLEAR, deliberately failing closed instead of reporting a false-clean result.",
+      "grounding": "report.py appends a warning when ci_context.dependencies is empty; risk_scorer.compute_risk_level returns REQUIRES_REVIEW whenever dependency_count==0, regardless of the (empty) flags list."
+    }
+  ]
+}

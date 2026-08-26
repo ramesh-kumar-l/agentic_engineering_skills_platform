@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c4-1",
+      "category": "pin-status",
+      "description": "delta is declared as '*', a wildcard — this is categorically worse than a bounded range because literally any version ever published, including one published tomorrow, resolves. Flagged at high severity (not low, like a plain range), which alone is enough to force suggested_risk_level to REQUIRES_REVIEW.",
+      "grounding": "delta's pin_status is 'wildcard' (contains '*'); scanner.py sets severity='high' specifically for the wildcard case, distinct from range/missing which are 'low'."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "root_path": "/repo",
+  "external_dependencies": [
+    {"name": "delta", "version": "*", "source_file": "requirements.txt"}
+  ]
+}

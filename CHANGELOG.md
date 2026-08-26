@@ -7,6 +7,33 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 11: Dependency / Supply Chain — eleventh skill
+  (`skills/dependency-supply-chain/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) a tenth time — a deterministic engine (11 modules, each under
+  100 lines, 46 passing tests including a CLI test file written from the
+  start) that composes on a required `codebase-intelligence` report
+  (ADR-010, seventh reuse) and scans its `external_dependencies` for pin
+  status (missing/wildcard/range/pinned, pip- and npm-style specifiers), a
+  5-entry curated known-risk-name table (each citing a real public
+  incident, exact-name matched), duplicate/conflicting version declarations
+  across manifests, and surface-area stats, rolled into one advisory,
+  fail-closed `suggested_risk_level` (ADR-011 discipline reused);
+  10th-checklist agent workflow (Dependency Risk Checklist,
+  `project-memory-bank/05-evaluation-framework.md`); an 8-fixture
+  evaluation harness (`evaluations/dependency-supply-chain/`, all 8 scored
+  perfect on both layers); and a dogfood run
+  (`examples/dependency-supply-chain/`) against this repo's own root
+  manifest that concretely confirmed an inherited scope limitation (only 1
+  of the platform's real dependencies visible from repo root — L2). New
+  architectural decision — **ADR-017**: required composition reused a
+  seventh time, plus two explicit scope decisions (no live CVE/
+  vulnerability-database lookup — L25 — and no per-dependency license-risk
+  detection, dropped mid-implementation once it became clear the data
+  doesn't exist in what's parsed — L26 — rather than shipping a fabricated-
+  looking flag). Started at the user's explicit direction, reopening a
+  same-day roadmap freeze from a mentor-style project review; not new
+  external-validation evidence. Platform test count: 474 (up from 428).
+
 - Phase 10: Release Readiness — tenth skill, the final skill in the
   Engineering Lifecycle group (`skills/release-readiness/`): `SKILL.md`
   contract reusing Pattern 2 (ADR-007) a ninth time — a deterministic

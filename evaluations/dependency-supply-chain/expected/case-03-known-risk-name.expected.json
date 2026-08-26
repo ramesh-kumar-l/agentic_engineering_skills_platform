@@ -1,0 +1,7 @@
+{
+  "flag_ids": ["known-risk-name"],
+  "suggested_risk_level": "NEEDS_REVIEW",
+  "expected_categories": [
+    {"category": "known-risk-pattern", "keywords": ["deprecated", "request", "verify"]}
+  ]
+}

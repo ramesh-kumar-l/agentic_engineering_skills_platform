@@ -53,7 +53,12 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   logged, and the README states plainly this remains a self-run pilot
   (ADR-009), not a rigorous blinded Experiment A.
 - **Status**: UNKNOWN — unchanged; a harness existing is not evidence, only
-  the capability to eventually produce some.
+  the capability to eventually produce some. 2026-08-26: Phase 11
+  (`dependency-supply-chain`) was started at the user's explicit direction,
+  reopening the freeze the mentor-review pass (same date) had put on new
+  skill work pending real validation evidence. Building an eleventh skill
+  is not evidence toward this assumption either way — it is stated here so
+  the record doesn't imply otherwise by omission.
 - **Decision**: still required before claiming any skill is "Level 2 —
   Evaluated" *in the outcome sense* — codebase-intelligence,
   adversarial-diff-reviewer, and acceptance-test-engineer have each met the
@@ -212,7 +217,17 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   not just an inflated caller list) that, like L22/L23 before it, no
   self-authored synthetic fixture could plausibly have surfaced. The
   inter-rater-agreement experiment still has not been run for any of the
-  nine skills.
+  nine skills. Phase 11 (`dependency-supply-chain`, 2026-08-26) is the
+  tenth judgment-based skill evaluated this way and also scored perfect
+  precision/recall on all 8 fixtures
+  (`evaluations/dependency-supply-chain/RESULTS.md`) — same caveat, ten for
+  ten now. This phase's real dogfood run (`examples/dependency-supply-chain/
+  example-run.md`) again surfaced a genuine, pre-known limitation in
+  practice rather than proving new judgment quality: run against this
+  repo's own root, only 1 of the platform's real dependencies was visible,
+  concretely confirming the inherited L2 root-level-only scope gap. The
+  inter-rater-agreement experiment still has not been run for any of the
+  ten skills.
 
 ### A6: Engineers will tolerate the additional workflow
 

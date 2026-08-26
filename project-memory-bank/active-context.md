@@ -7,19 +7,58 @@ appended to. Complements [[implementation-status.md]] (what's built) and
 
 ## Current phase
 
-Phase 10 (release-readiness) — COMPLETE. **Phase 11 is deliberately NOT
-started.** 2026-08-26: the user requested a mentor-style critique of the
-whole project against its stated goal (a real engineering asset that saves
-developers time/effort/tokens, not just an evaluated skill portfolio). The
-critique's top finding: ten phases shipped, zero real external users, A2/A5
-still UNKNOWN, and a real correctness bug (L23/L24's `target_resolver.py`
-substring collision) had been disclosed four times without being fixed. The
-user approved pausing new-skill work to act on two of that critique's
-technical recommendations first — see "What this session built" below.
-**The roadmap is intentionally frozen pending real external validation, not
-proceeding to Phase 11 by default.**
+Phase 11 (`dependency-supply-chain`) — COMPLETE. **Phase 12 onward remains
+frozen.** 2026-08-26 (same day, three sub-events): (1) the user requested a
+mentor-style critique of the whole project, which found ten phases shipped,
+zero real external users, A2/A5 still UNKNOWN, and the L23/L24 substring
+bug disclosed four times without being fixed — the user approved pausing
+new-skill work to fix that bug and scaffold a measurement harness instead
+(see "Mentor-review follow-up" below); (2) the user then explicitly
+directed starting Phase 11 anyway, with their own exit criteria ("same
+bar," first skill composing on `codebase-intelligence`'s output,
+"production-level stable") — **this reopened the freeze at the user's
+explicit direction, not because A2/A5 moved off UNKNOWN**; (3) Phase 11
+shipped (see "What Phase 11 built" below). The freeze remains in force for
+any phase beyond 11 — starting Phase 11 was a one-time, explicit exception,
+not a general unfreezing.
 
-## What this session built (mentor-review follow-up, not a new skill phase)
+## What Phase 11 built
+
+Built `dependency-supply-chain`, the eleventh skill: `SKILL.md` contract
+reusing Pattern 2 (ADR-007) a tenth time — a deterministic engine (11
+modules, each under 100 lines) that reuses a required `codebase-
+intelligence` report's `external_dependencies` field (ADR-010, reused a
+seventh time) and produces four explicit signals — pin status (missing/
+wildcard/range/pinned, covering both pip- and npm-style specifiers), a
+5-entry curated known-risk-name table (each citing a real public incident,
+exact-name matched, not substring), duplicate/conflicting version
+declarations across manifests, and surface-area stats — rolled into one
+advisory, fail-closed `suggested_risk_level` (CLEAR/NEEDS_REVIEW/
+REQUIRES_REVIEW), reusing `security-context-guard`'s ADR-011 discipline.
+**Corrected mid-implementation**: the original plan included a
+`license_patterns.py` module for per-dependency license-risk detection;
+this was dropped once it became clear a manifest's `license` field
+describes the *project's* license, not each dependency's, and no such data
+is actually available from what `codebase-intelligence` parses — shipping
+a fabricated-looking license flag was rejected in favor of naming the gap
+explicitly (L26). 46 passing tests (CLI test file from the start). New
+**ADR-017** documents both the required-composition reuse and the two
+explicit scope decisions (no live CVE lookup, no license-risk detection).
+New **Dependency Risk Checklist** (tenth checklist,
+[[05-evaluation-framework]], decision-gate shaped like the Security
+checklist). 8-fixture evaluation harness, both layers scored perfect —
+tenth judgment-based skill scored this way, same self-authored caveat (L8).
+Real dogfood (`examples/dependency-supply-chain/example-run.md`) against
+this repo's own root manifest found only 1 real dependency (`pytest`),
+concretely confirming the inherited L2 root-level-only scope gap (the
+platform's real per-skill dependencies live in `skills/*/pyproject.toml`,
+one level below repo root). New known limitations L25 (no live CVE
+database, permanent scope decision) and L26 (no per-dependency license
+data, corrected-during-build scope decision). Platform test count rose
+from 428 to **474**, zero regressions. `.github/workflows/tests.yml`'s
+matrix updated to include the new skill.
+
+## Mentor-review follow-up (2026-08-26, before Phase 11)
 
 1. **Fixed L23 fully, L24 partially** — replaced the bare substring check
    (`target_stem in imports_text`) with a word-boundary-aware match
@@ -159,24 +198,33 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Open threads / not yet decided
 
-- **2026-08-26 update: Phase 11 is frozen, not "next but unstarted."** The
-  mentor-review critique concluded velocity of building had outpaced
-  velocity of validating (A2/A5 both UNKNOWN after ten phases, zero real
-  external users). The roadmap will not auto-advance to Phase 11 —
-  re-justification now explicitly requires real external validation
-  evidence first (a real user, an independent/blind eval pass, or a real
-  usage-comparison run via the new `evaluations/usage-comparison/`
-  harness), not just the pre-written Phase 11 proposal in [[08-roadmap]].
-- **L8 remains the most important open thread, now applying nine times**:
-  eight of nine judgment-based skills (adversarial-diff-reviewer,
+- **2026-08-26 update: Phase 11 shipped at the user's explicit direction;
+  Phase 12 onward is still frozen.** The mentor-review critique concluded
+  velocity of building had outpaced velocity of validating (A2/A5 both
+  UNKNOWN after ten phases, zero real external users), and the user then
+  explicitly directed starting Phase 11 anyway. That is a one-time,
+  explicit exception, not new evidence and not a general unfreezing —
+  re-justifying Phase 12+ still requires real external validation evidence
+  first (a real user, an independent/blind eval pass, or a real
+  usage-comparison run via `evaluations/usage-comparison/`), not just a
+  pre-written roadmap proposal.
+- **L8 remains the most important open thread, now applying ten times**:
+  nine of ten judgment-based skills (adversarial-diff-reviewer,
   acceptance-test-engineer, feature-planner, security-context-guard,
   architecture-decision, refactoring-safety, regression-hunter,
-  release-readiness) scored 100% precision/recall against self-authored
-  ground truth; the ninth (root-cause-analyzer) scored 7/8 perfect and 1/8
-  at 0.67/0.67 (L19). All outcomes are equally inconclusive about
-  real-world quality — self-authored, single-rater evidence either way.
-  The inter-rater-agreement experiment (A5) still has not been run for any
-  of the nine.
+  release-readiness, dependency-supply-chain) scored 100% precision/recall
+  against self-authored ground truth; the tenth (root-cause-analyzer)
+  scored 7/8 perfect and 1/8 at 0.67/0.67 (L19). All outcomes are equally
+  inconclusive about real-world quality — self-authored, single-rater
+  evidence either way. The inter-rater-agreement experiment (A5) still has
+  not been run for any of the ten.
+- **L25/L26 (new, Phase 11)**: `dependency-supply-chain` has no live
+  CVE/vulnerability-database lookup (L25, permanent scope decision — this
+  project makes no network calls, ADR-006) and no per-dependency
+  license-risk detection (L26, corrected mid-implementation — the data
+  needed doesn't exist in what `codebase-intelligence` parses; dropped from
+  scope rather than fabricated). Both named explicitly in `SKILL.md`, not
+  silently omitted.
 - **The L14/L19/L21/L23/L24 substring-collision limitation class — status
   as of 2026-08-26: L23 FIXED, L24 PARTIALLY fixed, L14/L19/L21 still
   open.** `target_resolver.py`'s caller-identification bug (L23, shared
@@ -210,8 +258,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   deferred — revisit only if real usage shows they matter. L24 (Phase 10)
   is deferred for the same reason but flagged, above, as the strongest
   candidate yet to revisit soon.
-- No real (non-agent) engineer has used any of the ten skills yet — Trust
-  Status stays EXPERIMENTAL on all ten, and assumptions
+- No real (non-agent) engineer has used any of the eleven skills yet —
+  Trust Status stays EXPERIMENTAL on all eleven, and assumptions
   A2/A3/A5/A7/A10 in [[16-assumptions-and-validation]] remain only
   partially evidenced.
 
@@ -221,7 +269,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 2. [[implementation-status.md]]
 3. [[07-current-state]]
 4. `README.md` (root) — primary public-facing entry point
-5. `skills/release-readiness/SKILL.md`,
+5. `skills/dependency-supply-chain/SKILL.md`,
+   `skills/release-readiness/SKILL.md`,
    `skills/regression-hunter/SKILL.md`,
    `skills/refactoring-safety/SKILL.md`,
    `skills/architecture-decision/SKILL.md`,
@@ -229,14 +278,16 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    `skills/security-context-guard/SKILL.md`, `skills/feature-planner/SKILL.md`,
    `skills/acceptance-test-engineer/SKILL.md`,
    `skills/adversarial-diff-reviewer/SKILL.md`, `skills/codebase-intelligence/SKILL.md`
-6. `examples/release-readiness/example-run.md` (the real diff run that
-   disclosed L24)
+6. `examples/dependency-supply-chain/example-run.md` (real dogfood, confirms
+   the inherited L2 scope gap concretely) and `examples/release-readiness/
+   example-run.md` (the real diff run that disclosed L24)
 7. [[17-experiment-viability-check.md]]
 8. `blogs/` — earlier public-facing material (written before Phase 6; not
-   yet updated with Phase 6, 7, 8, 9, or 10 posts)
+   yet updated with Phase 6-11 posts)
 
 ## Last updated
 
-2026-08-26 — mentor-review follow-up: L23 fixed, L24 partially fixed,
-`evaluations/usage-comparison/` scaffolded, roadmap deliberately frozen
-pending real external validation. Test count: 428 (up from 420).
+2026-08-26 — Phase 11 (`dependency-supply-chain`) shipped at the user's
+explicit direction, reopening the same-day mentor-review freeze as a
+one-time exception; Phase 12 onward remains frozen. Test count: 474 (up
+from 428).

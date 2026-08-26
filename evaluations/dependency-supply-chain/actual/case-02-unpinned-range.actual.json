@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c2-1",
+      "category": "pin-status",
+      "description": "gamma is declared as >=1.0,<2.0, a range specifier, not pinned. This means two separate installs of this manifest can legitimately resolve to different actual versions of gamma over time, so the exact code running in production is not reproducible from the manifest alone.",
+      "grounding": "gamma's pin_status is 'range' (contains '>=' and ','), triggering unpinned-range at low severity, rolling up to NEEDS_REVIEW."
+    }
+  ]
+}

@@ -704,3 +704,47 @@ single-rater evidence, so this should not be read as evidence this skill's
 judgment quality is higher than `root-cause-analyzer`'s — a single
 self-authored evaluation cannot support that comparison either way. See
 [[16-assumptions-and-validation]] A5.
+
+## L25: `dependency-supply-chain` has no live CVE/vulnerability-database lookup
+
+**Status**: Scope decision, not a bug — disclosed upfront in `SKILL.md`'s
+When NOT to Use and Known Limitations sections, not discovered later.
+
+This project makes no network calls (ADR-006, stdlib-only, offline). A
+"supply-chain" skill without a live vulnerability feed cannot tell a user
+that a specific installed version is actually exploitable — it can only
+check offline-derivable signal (pin status, a small curated known-risk-name
+table, duplicate/conflicting version declarations, surface area). Use a
+real SCA tool (`pip-audit`, `npm audit`, Dependabot, Snyk, etc.) alongside
+this skill for real vulnerability data.
+
+**Regression prevention**: N/A — this is a permanent scope boundary, not a
+defect to regress on. `risk_patterns.py`'s known-risk table is explicitly
+five entries, each citing a real public incident, not a substitute for a
+CVE feed.
+
+## L26: `dependency-supply-chain` has no per-dependency license-risk detection
+
+**Status**: Scope decision, corrected during implementation (not shipped
+then found broken) — the original Phase 11 plan included a
+`license_patterns.py` module; it was dropped before merging, once it became
+clear the data it would need doesn't exist in what's available.
+
+A manifest's own `license` field (`package.json`, `pyproject.toml`)
+describes the *project's* declared license, not each individual
+dependency's license — that data isn't captured by
+`codebase-intelligence`'s `external_deps.py` at all. Getting real
+per-dependency license data would require inspecting installed package
+metadata (`site-packages`/`node_modules`), which isn't guaranteed to exist
+at scan time and would make this skill's output depend on the target
+environment's install state rather than its declared manifests alone.
+Shipping a "license risk" flag from data that doesn't exist would have been
+exactly the kind of ungrounded, plausible-looking output ADR-010 exists to
+prevent — see ADR-017.
+
+**Regression prevention**: `SKILL.md`'s Dependency Risk Checklist item 4
+requires the agent to state "not available" explicitly every walk, rather
+than silently omitting the category — `evaluations/dependency-supply-chain/`
+'s `run_evaluation.py` docstring and `RESULTS.md` both restate this caveat.
+Real per-dependency license detection is named as a future-evolution item
+in ADR-017, to be built only against real evidence of need.

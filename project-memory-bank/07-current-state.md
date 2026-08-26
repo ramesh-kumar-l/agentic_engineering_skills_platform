@@ -5,7 +5,12 @@ what currently exists — it is replaced/updated each phase, not appended to. Re
 this before any other memory file when starting new work. For finer-grained
 "what's in flight" detail, see [[active-context.md]] and [[implementation-status.md]].
 
-_Last updated: 2026-08-24 — end of Phase 10._
+_Last updated: 2026-08-24 — end of Phase 10. **Superseded in part by
+2026-08-26 events (mentor-review follow-up + Phase 11,
+`dependency-supply-chain`) — see [[active-context.md]] for the current
+picture; this file's detailed Phase 10 walkthrough below is still accurate
+for Phases 1-10, but test counts and "Phase 11 proposed next" language are
+stale.**_
 
 ## Repository contents
 
@@ -176,10 +181,11 @@ external usage yet).
   100%, judgment 100% precision/recall on all 8). All nine judgment-layer
   evaluations carry the L8 self-authored/single-rater caveat — now
   applying a ninth time.
-- **420 total unit/integration tests** across ten skills (24 + 23 + 24 +
-  21 + 58 + 32 + 34 + 62 + 64 + 78), all passing (`codebase-intelligence`
-  grew from 23 to 24 in Phase 9 via a real, tested `*.egg-info`-exclusion
-  fix; unchanged this phase).
+- **474 total unit/integration tests** across eleven skills (24 + 23 + 24 +
+  21 + 58 + 32 + 34 + 64 + 66 + 82 + 46), all passing — up from 420 as of
+  Phase 10, after a 2026-08-26 mentor-review follow-up (+8 tests fixing
+  L23/L24) and Phase 11's `dependency-supply-chain` (+46 tests). See
+  [[active-context.md]] for the current, authoritative breakdown.
 - **Eight real bugs/gaps found and fixed via dogfooding**, not hypothetical:
   L1 (Phase 1, false-positive entry-point detection), L5/L6 (Phase 2, two
   successive secret-redaction gaps), L10 (Phase 3, `adversarial-diff-
@@ -283,11 +289,12 @@ external usage yet).
   could mislead a real decision. A7 stays UNKNOWN — real qualitative
   feedback from an actual user remains the missing ingredient.
 - **Zero real-world usage by anyone other than this session's agent**, for
-  any of the ten skills. Assumptions A2/A3/A5/A7/A10 have partial
-  (synthetic, self-authored, or single-pilot/single-architecture) evidence
-  only — not real-world validation, not independent-rater validation.
+  any of the eleven skills (as of Phase 11). Assumptions A2/A3/A5/A7/A10
+  have partial (synthetic, self-authored, or single-pilot/single-
+  architecture) evidence only — not real-world validation, not
+  independent-rater validation.
 - **Zero reusable multi-skill composed-workflow infrastructure, zero UI,
-  zero product code beyond these ten skills.**
+  zero product code beyond these eleven skills.**
 
 ## What Phase 5 established
 
@@ -441,12 +448,11 @@ caller-list display (L24).
 
 ## Immediate next decision point
 
-Phase 11 (`Dependency / Supply Chain`) is proposed next per [[08-roadmap]]'s
-portfolio list, but has **not** been started and requires explicit user
-go-ahead — per the adaptive-roadmap rule, it must be re-justified against
-evidence at that time, not assumed. The case for investing a phase in the
-independent-evidence gap (L8/A5) or the now-three-times-disclosed
-substring-collision limitation class (L14/L19/L21/L23/L24) before an
-eleventh skill is stronger than at any prior phase boundary — a future
-session should weigh that explicitly rather than defaulting to the next
-portfolio item.
+**Superseded** — Phase 11 (`Dependency / Supply Chain`) shipped 2026-08-26
+at the user's explicit direction (see [[active-context.md]] for the full
+account), not because the independent-evidence gap (L8/A5) closed. Phase 12
+onward remains frozen under the same rule this section originally
+described: re-justify against real external validation evidence before
+starting, not the next portfolio item by default. The case for investing a
+phase in L8/A5 instead of a twelfth skill remains at least as strong as it
+was at the Phase 11 boundary.

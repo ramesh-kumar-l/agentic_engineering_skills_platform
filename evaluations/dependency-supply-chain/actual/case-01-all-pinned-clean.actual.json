@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c1-1",
+      "category": "recommendation",
+      "description": "Both alpha==1.0.0 and beta==2.1.0 are exact-pinned in requirements.txt with no unpinned, known-risk-name, or duplicate flags. suggested_risk_level is CLEAR with no flags, which is a genuine 'checked, found nothing' result rather than an unexamined default.",
+      "grounding": "ci_report.json external_dependencies; engine flags list is empty."
+    }
+  ]
+}

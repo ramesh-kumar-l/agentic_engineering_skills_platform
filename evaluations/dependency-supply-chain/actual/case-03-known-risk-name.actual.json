@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c3-1",
+      "category": "known-risk-pattern",
+      "description": "The dependency named exactly 'request' (not 'requests') matches risk_patterns.py's curated table: it was deprecated by its own maintainer in 2020, who recommends node-fetch/axios/undici instead. Worth a human verifying this dependency is still actually needed rather than an accidental typo for the real, maintained 'requests' package.",
+      "grounding": "match_known_risk('request') returns the KnownRiskPattern citing the 2020 deprecation notice; 'requests' (with the trailing s) does not match, confirming exact-name matching, not substring."
+    }
+  ]
+}

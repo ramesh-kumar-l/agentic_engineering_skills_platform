@@ -1,0 +1,7 @@
+{
+  "flag_ids": ["unpinned-range"],
+  "suggested_risk_level": "NEEDS_REVIEW",
+  "expected_categories": [
+    {"category": "surface-area", "keywords": ["surface", "unpinned", "10", "40"]}
+  ]
+}

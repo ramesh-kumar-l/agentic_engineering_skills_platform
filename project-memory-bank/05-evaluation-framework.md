@@ -343,3 +343,31 @@ always-available axes, is what stops a `READY` verdict (which reflects only
 Axes 1-3) from being silently read as "no regression risk exists" when a
 composed `regression-hunter` report actually shows otherwise — see
 evaluation case-07's deliberate divergence design.
+
+## Dependency Risk Checklist
+
+Tenth checklist, for `dependency-supply-chain` (Phase 11). Shaped like the
+Security Decision Checklist (a decision-gate, not a coverage-enumeration
+list) since this skill's job is producing one advisory recommendation, not
+enumerating independent findings:
+
+```
+1. Manifest completeness (via CI report - note any zero-dependency warning)
+2. Pin status assessment (which unpinned/wildcard deps matter here)
+3. Known-risk pattern matches (verify each against its cited incident)
+4. License risk - NOT available this version; state that explicitly
+   rather than guessing (see SKILL.md Known Limitations)
+5. Duplicate/conflicting version declarations
+6. Surface-area assessment (unpinned %, manifest breakdown)
+7. Recommendation (advisory risk level + rationale) - framed as advice
+   to a human, never a self-executed gate
+8. Explicit uncertainty flag - if evidence is inconclusive, say so and
+   default toward REQUIRES_REVIEW; never silently CLEAR
+```
+
+Category 8 is this checklist's fail-closed-under-uncertainty item, same
+convention as the Security Decision Checklist's category 7. Category 4 is
+new in kind, not just content: it's a checklist item whose correct answer
+is always "not available" in this skill's current version, stated as such
+rather than removed - an explicit, disclosed gap the checklist forces the
+agent to name every single walk, rather than one it could silently skip.

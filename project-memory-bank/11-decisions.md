@@ -837,3 +837,106 @@ highest-stakes recommendation.
   fourth skill copies the same pattern again.
 
 **Status**: Adopted.
+
+---
+
+## ADR-017: `dependency-supply-chain` reuses ADR-010's required-composition pattern a seventh time, declines to build a live-vulnerability-DB or per-dependency-license feature, and reuses ADR-011's advisory/fail-closed discipline
+
+**Decision**: `dependency-supply-chain` (Phase 11) requires a
+`codebase-intelligence` `report.json` as a hard precondition, the same way
+`feature-planner` (ADR-010), `root-cause-analyzer` (ADR-012),
+`architecture-decision` (ADR-013), `refactoring-safety` (ADR-014),
+`regression-hunter` (ADR-015), and `release-readiness` (ADR-016) do — a
+missing/malformed report is a failure condition, not a degraded path. This
+is a **reuse** of ADR-010's rule a seventh time. This skill reuses CI's
+already-parsed `external_dependencies` field rather than re-parsing
+manifests itself, to avoid an eleventh copy of manifest-parsing logic and
+to inherit (documented, not hidden) CI's existing root-level-only scope
+(L2). Two scope decisions are new and explicit:
+
+1. **No live CVE/vulnerability-database lookup.** This project makes no
+   network calls (ADR-006, stdlib-only, offline). A "supply-chain" skill
+   without one is a real, narrower thing than a Snyk/Dependabot-style
+   scanner — this is disclosed everywhere the skill is described (SKILL.md
+   When NOT to Use, Known Limitations), not silently implied to be more
+   than it is.
+2. **No per-dependency license-risk detection**, despite this being in the
+   original plan for this phase. Corrected during implementation: a
+   manifest's own `license` field (in `package.json`/`pyproject.toml`)
+   describes the *project's* license, not each declared dependency's —
+   codebase-intelligence's `external_deps.py` does not capture per-
+   dependency license data at all, and getting it would require inspecting
+   installed package metadata (site-packages/`node_modules`), which is not
+   guaranteed to exist and would make this skill's output depend on the
+   target environment's install state rather than its declared manifests.
+   Shipping a "license risk" flag from data that doesn't exist would be
+   exactly the kind of ungrounded, plausible-looking output ADR-010 exists
+   to prevent — so it was dropped from scope rather than faked, and named
+   explicitly in Known Limitations as a future-evolution item instead of
+   silently disappearing from the plan.
+
+`suggested_risk_level` reuses `security-context-guard`'s ADR-011 advisory/
+fail-closed discipline: it never blocks a merge or install itself (only a
+human, via the agent's workflow, decides), and it fails closed to
+`REQUIRES_REVIEW` — not `CLEAR` — whenever zero dependencies are found or
+the CI report carried warnings, because a zero-dependency result is
+ambiguous (genuinely no deps, vs. deps CI's parser didn't see) rather than
+proof of a clean supply chain.
+
+- User Value: turns "no one looks at `requirements.txt` until something
+  breaks" into three concrete, offline-checkable, verifiable-by-citation
+  signals (pin status, a five-entry known-risk-name table each citing a
+  real public incident, duplicate/conflicting version declarations) plus an
+  aggregate surface-area stat — without pretending to be a vulnerability
+  scanner it isn't.
+- Correctness: `pin_checker.py`'s classification (missing/wildcard/range/
+  pinned) is unit-tested against both pip-style (`==`, `>=`) and npm-style
+  (`^`, `~`, `x`) specifiers; `risk_patterns.py`'s known-risk table matches
+  by exact lowercased name, not substring (`test_matches_are_exact_not_
+  substring` explicitly guards against a `request`/`requests` false
+  positive — the same word-boundary-precision discipline as the project's
+  L23 fix, applied here from the start rather than found via dogfooding
+  later); `duplicate_detector.py` is verified to fire only on genuinely
+  conflicting version strings, not merely repeated identical declarations.
+  8/8 evaluation fixtures score correctly on both layers (deterministic
+  flag-set + risk-level, and this session's actual judgment-layer
+  derivation) — disclosed with the same self-authored/single-rater caveat
+  as every prior judgment skill (L8, now tenth time).
+- Security: read-only; no network calls, no package-manager invocation, no
+  installation/upgrade/removal of anything. `suggested_risk_level` is
+  advisory-only per ADR-011's precedent, stated explicitly in SKILL.md's
+  Security Constraints.
+- Simplicity: 11 engine files (not the originally-planned 13 — no
+  `license_patterns.py`, and `stats.py`/`surface_area.py` stayed separate
+  as planned since they answer genuinely different questions), all under
+  100 lines, orchestrated by one `scanner.py` and one `report.py`.
+- Maintainability: each detector (`pin_checker.py`, `risk_patterns.py`,
+  `duplicate_detector.py`) is independently testable and extensible (the
+  known-risk table can grow without touching pin-status logic).
+- Portability: stdlib-only; own `ci_report_loader.py` copy, no
+  cross-package import of `codebase-intelligence` (same discipline as
+  every prior composing skill).
+- Evidence: `evaluations/dependency-supply-chain/` — 8 fixtures (clean/
+  pinned, range-unpinned, known-risk-name, wildcard, duplicate-conflict,
+  large surface area, a compounding multi-flag case, and the zero-
+  dependency fail-closed case) — all correct on both layers. Real dogfood
+  (`examples/dependency-supply-chain/example-run.md`) against this
+  repo's own root manifest concretely demonstrated the inherited L2
+  scope limitation: only 1 dependency (`pytest`) is visible from repo
+  root, because the platform's ten skills' own dependencies live one
+  level down in `skills/*/pyproject.toml`, which CI's parser doesn't
+  recursively scan.
+- Future Evolution: real CVE-lookup integration and real per-dependency
+  license detection are both named, disclosed future-evolution items, not
+  silently deferred — either would require a genuinely new capability
+  (network access, or installed-package metadata inspection) this project
+  has deliberately not built, and should be evaluated against real evidence
+  of need (an actual user hitting this gap) before being added, per this
+  project's standing adaptive-roadmap rule.
+
+**Status**: Adopted. Note on process: this phase was started at the user's
+explicit direction on 2026-08-26, reopening the roadmap freeze the
+mentor-review pass (same date, this file's context) had put in place — A2
+and A5 remain `UNKNOWN`; starting this phase is not new external-validation
+evidence and is not presented as such (see
+[[16-assumptions-and-validation]]).

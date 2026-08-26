@@ -1,9 +1,9 @@
 # Agentic Engineering Skills Platform
 
 [![tests](https://github.com/ramesh-kumar-l/agentic_engineering_skills_platform/actions/workflows/tests.yml/badge.svg)](https://github.com/ramesh-kumar-l/agentic_engineering_skills_platform/actions/workflows/tests.yml)
-![Status](https://img.shields.io/badge/status-Phase%2010%20complete-blue)
-![Skills](https://img.shields.io/badge/skills-10-informational)
-![Tests](https://img.shields.io/badge/tests-428%20passing-brightgreen)
+![Status](https://img.shields.io/badge/status-Phase%2011%20complete-blue)
+![Skills](https://img.shields.io/badge/skills-11-informational)
+![Tests](https://img.shields.io/badge/tests-474%20passing-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero-brightgreen)
 ![Trust status](https://img.shields.io/badge/trust%20status-EXPERIMENTAL-yellow)
@@ -84,7 +84,7 @@ understanding before the skill list below makes full sense:
    the evaluation framework from the start (see
    [Evaluation & Honesty](#evaluation--honesty-this-is-the-part-most-repos-skip)).
 
-## The ten skills
+## The eleven skills
 
 | # | Skill | What it does | Pattern | Tests | Status |
 |---|---|---|---|---|---|
@@ -95,11 +95,12 @@ understanding before the skill list below makes full sense:
 | 5 | [`security-context-guard`](skills/security-context-guard/) | Classifies content/actions for secrets, PII, sensitive paths, and high-risk actions; recommends — never self-authorizes — human approval | Pattern 2 + advisory-only by hard rule | 58/58 | EXPERIMENTAL |
 | 6 | [`root-cause-analyzer`](skills/root-cause-analyzer/) | Turns a bug report (with or without a stack trace) into ranked, evidence-tiered candidate root-cause locations — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + tiered evidence | 32/32 | EXPERIMENTAL |
 | 7 | [`architecture-decision`](skills/architecture-decision/) | Turns a decision description into per-option, blast-radius-scored impact against a real dependency graph — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + blast-radius tiering | 34/34 | EXPERIMENTAL |
-| 8 | [`refactoring-safety`](skills/refactoring-safety/) | Turns a refactoring description into per-target risk assessment (real callers + hotspot status) plus an independent test-coverage signal — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + risk/coverage split | 62/62 | EXPERIMENTAL |
-| 9 | [`regression-hunter`](skills/regression-hunter/) | Turns a unified git diff into per-file regression risk from three non-blended signals (diff-pattern flags, structural blast radius, test-coverage status) — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + three-axis risk scoring | 64/64 | EXPERIMENTAL |
-| 10 | [`release-readiness`](skills/release-readiness/) | Turns a diff into a per-file Release Readiness Scorecard (diff-hygiene, structural blast radius, test coverage) plus optional composed regression/security evidence, rolled into an advisory-only overall verdict — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + optional cross-skill composition | 78/78 | EXPERIMENTAL |
+| 8 | [`refactoring-safety`](skills/refactoring-safety/) | Turns a refactoring description into per-target risk assessment (real callers + hotspot status) plus an independent test-coverage signal — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + risk/coverage split | 64/64 | EXPERIMENTAL |
+| 9 | [`regression-hunter`](skills/regression-hunter/) | Turns a unified git diff into per-file regression risk from three non-blended signals (diff-pattern flags, structural blast radius, test-coverage status) — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + three-axis risk scoring | 66/66 | EXPERIMENTAL |
+| 10 | [`release-readiness`](skills/release-readiness/) | Turns a diff into a per-file Release Readiness Scorecard (diff-hygiene, structural blast radius, test coverage) plus optional composed regression/security evidence, rolled into an advisory-only overall verdict — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + optional cross-skill composition | 82/82 | EXPERIMENTAL |
+| 11 | [`dependency-supply-chain`](skills/dependency-supply-chain/) | Scans declared dependencies for pin status, known-risk names, duplicate/conflicting versions, and surface area — **requires** a `codebase-intelligence` report. No live CVE lookup, no per-dependency license data (disclosed scope, not a bug) | Pattern 2 + mandatory composition + advisory/fail-closed | 46/46 | EXPERIMENTAL |
 
-**420 tests passing across the platform.** Every skill also ships an
+**474 tests passing across the platform.** Every skill also ships an
 evaluation harness against hand-authored fixtures
 (`evaluations/<skill>/RESULTS.md`) and a real "dogfood" run against actual
 work, not a synthetic demo (`examples/<skill>/example-run.md`).
@@ -124,7 +125,7 @@ that composes with another: [`QuickStarterGuide.md`](QuickStarterGuide.md).
 Dependency details (there are almost none — that's deliberate):
 [`DEPENDENCIES.md`](DEPENDENCIES.md).
 
-## Architecture: two patterns, reused across ten skills
+## Architecture: two patterns, reused across eleven skills
 
 Every skill in this repo is built from one of two architectural patterns —
 no third pattern has been needed yet, and neither has changed shape since it
@@ -404,10 +405,14 @@ copy. Start anywhere; each stands alone.
 
 ## Status and roadmap
 
-**Phase 10 complete.** Ten skills, 420 tests, ten evaluation harnesses,
-ten real dogfood runs, zero real-world usage by anyone outside this
-project yet. Full current snapshot:
-[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+**Phase 11 complete.** Eleven skills, 474 tests, eleven evaluation
+harnesses, eleven real dogfood runs, zero real-world usage by anyone
+outside this project yet. Phase 11 (`dependency-supply-chain`) started at
+an explicit user request that reopened a same-day roadmap freeze put in
+place by a mentor-style review of this project's own progress — Phase 12
+onward stays frozen pending real external validation evidence, not another
+skill by default. Full current snapshot:
+[`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it
 starts, never built just because it was planned): [`ROADMAP.md`](ROADMAP.md).
 

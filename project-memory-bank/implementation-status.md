@@ -19,11 +19,16 @@ Replaced/updated in place, not appended to chronologically — see
 | refactoring-safety | Level 2 — Evaluated | EXPERIMENTAL | 64/64 passing (CLI test file written from the start, same discipline as Phases 5-7; +2 tests 2026-08-26 fixing L23) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, seventh time — see [[12-known-limitations]] L8); see `evaluations/refactoring-safety/RESULTS.md` |
 | regression-hunter | Level 2 — Evaluated | EXPERIMENTAL | 66/66 passing (CLI test file written from the start, same discipline as Phases 5-8; +2 tests 2026-08-26 fixing L23) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eighth time — see [[12-known-limitations]] L8); see `evaluations/regression-hunter/RESULTS.md` |
 | release-readiness | Level 2 — Evaluated | EXPERIMENTAL | 82/82 passing (CLI test file written from the start, same discipline as Phases 5-9; +4 tests 2026-08-26 partially fixing L24) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, ninth time — see [[12-known-limitations]] L8); see `evaluations/release-readiness/RESULTS.md` |
+| dependency-supply-chain | Level 2 — Evaluated | EXPERIMENTAL | 46/46 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, tenth time — see [[12-known-limitations]] L8); see `evaluations/dependency-supply-chain/RESULTS.md` |
 
-No other skill has any implementation yet. **428 total tests passing across
-all ten skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82), up from
-420 after a 2026-08-26 mentor-review follow-up fixed L23 and partially fixed
-L24 — see `12-known-limitations.md` and `active-context.md`.
+No other skill has any implementation yet. **474 total tests passing across
+all eleven skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46),
+up from 428 after Phase 11 (`dependency-supply-chain`, 2026-08-26) added the
+eleventh skill — started at the user's explicit direction, reopening the
+mentor-review pass's roadmap freeze from earlier the same day; A2/A5 remain
+UNKNOWN, this is not new external-validation evidence — see
+`12-known-limitations.md`, `11-decisions.md` (ADR-017), and
+`active-context.md`.
 
 ## codebase-intelligence — component status
 
@@ -202,6 +207,26 @@ L24 — see `12-known-limitations.md` and `active-context.md`.
 | Judgment-layer actual findings (`evaluations/release-readiness/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/release-readiness/`) | Done — fresh codebase-intelligence report against this repo's current (10-skill) state + a real, staged-then-unstaged (never committed) `git diff` of this phase's own 78 new files; confirmed a predicted false-positive shape, disclosed a new cross-skill limitation (L24) |
 
+## dependency-supply-chain — component status
+
+| Component | Status |
+|---|---|
+| `engine/ci_report_loader.py` | Done, tested — same required-precondition pattern as every prior composing skill's loader (ADR-010, reused a seventh time); own independent copy, extracts only `external_dependencies` |
+| `engine/pin_checker.py` | Done, tested — classifies missing/wildcard/range/pinned across pip- and npm-style version specifiers |
+| `engine/risk_patterns.py` | Done, tested — 5-entry curated known-risk-name table, each citing a real public incident; exact-name matching (not substring), verified against a `request`/`requests` false-positive case |
+| `engine/duplicate_detector.py` | Done, tested — flags same dependency name declared with conflicting versions across manifests |
+| `engine/surface_area.py` | Done, tested — total/unpinned-count/unpinned-% and per-manifest breakdown |
+| `engine/scanner.py` | Done, tested — orchestrates pin/known-risk/duplicate detection; NOT implemented: license-risk detection (ADR-017, L26 — no per-dependency license data exists to detect from) |
+| `engine/risk_scorer.py` | Done, tested — advisory-only `suggested_risk_level`, fails closed to REQUIRES_REVIEW on zero dependencies or CI warnings (ADR-011 precedent) |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested — `--ci-report` is required (ADR-010/017); missing/malformed report is a hard failure |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, tested — CLI test file (`tests/test_cli.py`) written from the start, same discipline Phases 5-10 established |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) a tenth time + reuses ADR-010 a seventh time + new ADR-017 (no live CVE/license-risk scope decisions, ADR-011 fail-closed reuse), includes agent-driven Step 3 workflow against the new Dependency Risk Checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment), all 8 perfect on both layers |
+| Judgment-layer actual findings (`evaluations/dependency-supply-chain/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/dependency-supply-chain/`) | Done — real run against this repo's own root manifest; concretely confirmed the inherited L2 root-level-only scope gap (only 1 of the platform's real dependencies visible from repo root) |
+
 ## Documentation & public-facing artifacts (added after Phase 5, not a phase)
 
 | Artifact | Status |
@@ -219,9 +244,9 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 11 onward, not
-  started (Phase 11 is proposed as Dependency / Supply Chain — see
-  [[08-roadmap]]).
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 12 onward, not
+  started; the roadmap freeze from the 2026-08-26 mentor-review pass still
+  applies to any further phase beyond Phase 11 (see [[08-roadmap]]).
 - Any reusable composed-workflow infrastructure across skills
   (feature-planner, root-cause-analyzer, architecture-decision,
   refactoring-safety, regression-hunter, and release-readiness all make
@@ -230,8 +255,8 @@ this pass — test count and evaluation results are unchanged from the Phase
   same as a multi-skill workflow engine, Phase 14).
 - Any UI.
 - Multi-runtime validation (only exercised via this session's agent so far).
-- Independent-rater evaluation for any of the nine judgment-based skills
-  (L8, now applying nine times) — needs a second, independent agent/session
+- Independent-rater evaluation for any of the ten judgment-based skills
+  (L8, now applying ten times) — needs a second, independent agent/session
   or real external usage.
 - Experiment A and Experiment B at proper rigor (independent party, real
   task, real measurement) — only N=1 self-run pilots exist so far, see
@@ -256,6 +281,15 @@ this pass — test count and evaluation results are unchanged from the Phase
   disclosed, not scheduled; would need real evidence of need before
   investing in a fix.
 
+- A live CVE/vulnerability-database lookup and real per-dependency license
+  detection for `dependency-supply-chain` (L25, L26) — both explicit scope
+  decisions, not scheduled; would need real evidence of need (network
+  access and installed-package-metadata inspection are both capabilities
+  this project has deliberately not built).
+
 ## Last updated
 
-2026-08-24 — end of Phase 10.
+2026-08-26 — end of Phase 11 (`dependency-supply-chain`). Started at the
+user's explicit direction, reopening the mentor-review pass's same-day
+roadmap freeze; 474 total tests passing across eleven skills (up from 428).
+A2/A5 remain UNKNOWN — this phase is not new external-validation evidence.

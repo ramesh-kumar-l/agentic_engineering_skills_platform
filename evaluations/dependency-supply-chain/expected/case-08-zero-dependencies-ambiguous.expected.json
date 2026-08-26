@@ -1,0 +1,7 @@
+{
+  "flag_ids": [],
+  "suggested_risk_level": "REQUIRES_REVIEW",
+  "expected_categories": [
+    {"category": "uncertainty-flag", "keywords": ["zero", "ambiguous", "root-level", "warning"]}
+  ]
+}

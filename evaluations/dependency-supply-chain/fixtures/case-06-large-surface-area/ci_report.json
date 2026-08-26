@@ -1,0 +1,15 @@
+{
+  "root_path": "/repo",
+  "external_dependencies": [
+    {"name": "pkg-a", "version": "1.0.0", "source_file": "requirements.txt"},
+    {"name": "pkg-b", "version": "1.0.0", "source_file": "requirements.txt"},
+    {"name": "pkg-c", "version": "1.0.0", "source_file": "requirements.txt"},
+    {"name": "pkg-d", "version": "1.0.0", "source_file": "requirements.txt"},
+    {"name": "pkg-e", "version": "1.0.0", "source_file": "requirements.txt"},
+    {"name": "pkg-f", "version": "1.0.0", "source_file": "requirements.txt"},
+    {"name": "pkg-g", "version": ">=1.0", "source_file": "requirements.txt"},
+    {"name": "pkg-h", "version": ">=1.0", "source_file": "requirements.txt"},
+    {"name": "pkg-i", "version": ">=1.0", "source_file": "requirements.txt"},
+    {"name": "pkg-j", "version": ">=1.0", "source_file": "requirements.txt"}
+  ]
+}

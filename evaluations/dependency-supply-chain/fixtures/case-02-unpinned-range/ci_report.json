@@ -1,0 +1,6 @@
+{
+  "root_path": "/repo",
+  "external_dependencies": [
+    {"name": "gamma", "version": ">=1.0,<2.0", "source_file": "requirements.txt"}
+  ]
+}

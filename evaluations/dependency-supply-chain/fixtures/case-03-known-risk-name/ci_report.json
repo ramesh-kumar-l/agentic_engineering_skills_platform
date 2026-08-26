@@ -1,0 +1,6 @@
+{
+  "root_path": "/repo",
+  "external_dependencies": [
+    {"name": "request", "version": "2.88.0", "source_file": "package.json"}
+  ]
+}

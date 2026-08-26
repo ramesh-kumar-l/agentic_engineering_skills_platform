@@ -1,0 +1,13 @@
+[project]
+name = "dependency-supply-chain"
+version = "0.1.0"
+description = "Deterministic supply-chain hygiene scanner (pin status, known-risk names, duplicate/conflicting versions, surface area) backing the Dependency / Supply Chain skill. Composes on top of codebase-intelligence's report.json (required precondition, reusing ADR-010's pattern a seventh time)."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

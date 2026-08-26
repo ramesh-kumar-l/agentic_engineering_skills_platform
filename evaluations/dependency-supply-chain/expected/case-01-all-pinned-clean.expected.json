@@ -1,0 +1,7 @@
+{
+  "flag_ids": [],
+  "suggested_risk_level": "CLEAR",
+  "expected_categories": [
+    {"category": "recommendation", "keywords": ["clear", "no flags", "pinned"]}
+  ]
+}

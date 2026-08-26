@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c6-1",
+      "category": "surface-area",
+      "description": "10 total direct dependencies, 4 of them (pkg-g through pkg-j) range-unpinned — a 40% unpinned surface area. This aggregate figure is the checklist's surface-area item, distinct from the four individual unpinned-range flags: even though each flag alone is low severity, the aggregate 40% figure is what a reviewer should actually weigh when deciding whether to prioritize a pinning pass across this manifest.",
+      "grounding": "surface_area.py computes unpinned_count=4, total_dependencies=10, unpinned_percentage=40.0 from the same records the scanner flagged individually."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c5-1",
+      "category": "duplicate-version",
+      "description": "epsilon is pinned to ==1.0.0 in requirements.txt but ==2.0.0 in pyproject.toml. Each individual declaration is exact-pinned, so no unpinned-version flag fires — but the two manifests actively disagree with each other, which is a distinct, more concerning kind of non-determinism than an unpinned range: the resolved version now depends on which manifest the install tool actually reads.",
+      "grounding": "duplicate_detector.find_duplicate_conflicts groups by lowercased name; epsilon has 2 distinct version strings across 2 source files, producing one duplicate-conflicting-version flag at medium severity."
+    }
+  ]
+}

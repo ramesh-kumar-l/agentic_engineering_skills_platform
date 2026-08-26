@@ -1,0 +1,7 @@
+{
+  "root_path": "/repo",
+  "external_dependencies": [
+    {"name": "alpha", "version": "1.0.0", "source_file": "requirements.txt"},
+    {"name": "beta", "version": "2.1.0", "source_file": "requirements.txt"}
+  ]
+}

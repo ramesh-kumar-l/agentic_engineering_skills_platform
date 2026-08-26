@@ -17,9 +17,13 @@ PHASE 6  — Root Cause Analyzer               ← COMPLETE
 PHASE 7  — Architecture Decision             ← COMPLETE (reordered — see Phase 7 note below)
 PHASE 8  — Refactoring Safety                 ← COMPLETE
 PHASE 9  — Regression Hunter                  ← COMPLETE
-PHASE 10 — Release Readiness                  ← COMPLETE (this phase)
-PHASE 11 — Dependency / Supply Chain          ← proposed next, not started
-PHASE 12 — Knowledge Capture
+PHASE 10 — Release Readiness                  ← COMPLETE
+PHASE 11 — Dependency / Supply Chain          ← COMPLETE (this phase; started
+                                                  at the user's explicit
+                                                  direction, reopening a
+                                                  same-day roadmap freeze —
+                                                  not new validation evidence)
+PHASE 12 — Knowledge Capture                  ← frozen, same as before Phase 11
 PHASE 13 — Context Optimizer
 PHASE 14 — Workflow Composer
 PHASE 15 — Engineering Memory
@@ -458,20 +462,38 @@ fixtures. [[16-assumptions-and-validation]] A5 and A10 remain UNKNOWN; the
 inter-rater-agreement experiment and Experiment B still have not been run —
 now carried forward across nine skills, not eight.
 
-## Phase 11 (proposed next, not started)
+## Phase 11 — Dependency / Supply Chain (COMPLETE, 2026-08-26)
 
 Per the roadmap's own phase list and full target skill portfolio
 (`Advanced`: dependency-supply-chain-reviewer, engineering-knowledge-
 capture, context-optimizer, workflow-composer, engineering-memory), Phase
-11 is proposed as **Dependency / Supply Chain** — the first skill in the
-`Advanced` group, now that all five Engineering Lifecycle skills exist. Per
-the adaptive-roadmap rule at the top of this file, this proposal must be
-re-justified against evidence at the start of Phase 11, not assumed — and
-per every prior phase's protocol, Phase 11 does not begin without explicit
-user instruction. The case for investing a phase in the independent-
-evidence gap (L8/A5) before an eleventh skill, flagged as a growing
-concern since Sprint 08 and sharpened by Sprint 09's L23 and this phase's
-L24 (the same substring-collision limitation class now shown in a THIRD
-and increasingly consequential form, across three skills' independent
-copies), is stronger than ever — a future session should weigh that
-explicitly before committing to Phase 11 rather than defaulting to it.
+11 was proposed as **Dependency / Supply Chain** — the first skill in the
+`Advanced` group, now that all five Engineering Lifecycle skills exist.
+
+**How this actually started**: earlier the same day, a mentor-review pass
+froze the roadmap pending real external validation evidence (the
+independent-evidence gap, L8/A5, and the four-times-disclosed L23/L24 bug
+were the stated reasons) — Phase 11 was explicitly NOT going to auto-start.
+The user then, in the same session, explicitly directed starting it anyway,
+with their own stated exit criteria. That is a one-time, user-authorized
+exception to the freeze, not evidence A2/A5 moved off `UNKNOWN` — recorded
+here honestly rather than presented as if the freeze's conditions were met.
+See [[11-decisions]] ADR-017 and [[active-context.md]] for the full build.
+
+**What shipped**: `dependency-supply-chain` — pin-status, known-risk-name,
+duplicate-version, and surface-area scanning, composing on a required
+`codebase-intelligence` report (ADR-010, seventh reuse). 46 tests, 8/8
+evaluation fixtures on both layers. Two scope decisions made explicitly
+during the build rather than silently: no live CVE lookup (permanent,
+L25), and no per-dependency license-risk detection (dropped mid-build once
+it became clear the data doesn't exist in what's parsed — L26).
+
+**Phase 12 onward**: the freeze from before Phase 11 remains in force. The
+case for investing a phase in the independent-evidence gap (L8/A5) before a
+twelfth skill, flagged as a growing concern since Sprint 08 and sharpened
+by Sprint 09's L23 and Sprint 10's L24 (the substring-collision limitation
+class, now fixed/partially-fixed — see [[12-known-limitations]]), remains
+at least as strong as it was at the Phase 11 boundary — a future session
+should weigh that explicitly before starting Phase 12, and should not read
+Phase 11 shipping as precedent that the freeze auto-lifts on request alone
+without the user again making that call explicitly.

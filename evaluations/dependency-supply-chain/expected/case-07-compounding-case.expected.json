@@ -1,0 +1,7 @@
+{
+  "flag_ids": ["unpinned-wildcard", "known-risk-name", "duplicate-conflicting-version"],
+  "suggested_risk_level": "REQUIRES_REVIEW",
+  "expected_categories": [
+    {"category": "recommendation", "keywords": ["escalat", "requires_review", "multiple"]}
+  ]
+}

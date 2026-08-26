@@ -1,0 +1,7 @@
+{
+  "flag_ids": ["unpinned-wildcard"],
+  "suggested_risk_level": "REQUIRES_REVIEW",
+  "expected_categories": [
+    {"category": "pin-status", "keywords": ["wildcard", "high", "reproducib"]}
+  ]
+}

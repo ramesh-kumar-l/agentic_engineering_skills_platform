@@ -17,6 +17,7 @@ jobs:
           - adversarial-diff-reviewer
           - architecture-decision
           - codebase-intelligence
+          - dependency-supply-chain
           - feature-planner
           - refactoring-safety
           - regression-hunter

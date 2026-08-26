@@ -135,9 +135,28 @@ shown to produce false-positive test coverage, not just an inflated caller
 list (L24). See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 11 — Dependency / Supply Chain.** Not started;
-requires explicit maintainer approval and re-justification against
-evidence before work begins.
+**Phase 11 — Dependency / Supply Chain** (complete): eleventh skill —
+`skills/dependency-supply-chain/` — reusing the same pattern a tenth time
+to scan a repo's declared dependencies for pin status, known-risk names,
+duplicate/conflicting version declarations, and surface area, evaluated on
+8 fixtures (all 8 scored perfect on both layers) plus a real dogfood run
+against this repo's own root manifest. New this phase: **ADR-017** —
+composing on `codebase-intelligence`'s output a seventh time (ADR-010), and
+two explicit scope decisions rather than silent gaps: no live CVE/
+vulnerability-database lookup (this project makes no network calls,
+ADR-006), and no per-dependency license-risk detection (dropped
+mid-implementation once it became clear the data needed doesn't exist in
+what's parsed — a manifest's `license` field describes the *project's*
+license, not each dependency's). The real dogfood run against this repo's
+own root manifest concretely confirmed a pre-known scope limitation: only 1
+of the platform's actual dependencies (`pytest`) was visible, because the
+platform's own real per-skill dependencies live one level below repo root.
+**Process note**: earlier the same day, a mentor-style review of this
+project's own progress (zero real external users after ten phases) froze
+the roadmap pending real validation evidence; Phase 11 started anyway at
+the user's explicit direction — a one-time exception, not new evidence.
+Phase 12 onward remains frozen. See
+[`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 
 ## How phases work here
 

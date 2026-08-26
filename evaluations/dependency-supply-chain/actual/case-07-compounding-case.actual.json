@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c7-1",
+      "category": "recommendation",
+      "description": "Three independent, unrelated flags fire here: zeta is wildcard-pinned (high severity), request matches the known-risk-name table (medium), and eta has conflicting duplicate declarations (medium). All three are surfaced explicitly rather than collapsed into one generic 'multiple issues' note. suggested_risk_level escalates to REQUIRES_REVIEW specifically because of the single high-severity wildcard flag on zeta — the other two, on their own, would only reach NEEDS_REVIEW.",
+      "grounding": "risk_scorer.compute_risk_level returns REQUIRES_REVIEW because any(f.severity=='high') is true for the zeta wildcard flag; report.flags contains all three pattern_ids simultaneously."
+    }
+  ]
+}
