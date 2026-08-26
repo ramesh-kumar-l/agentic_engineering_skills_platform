@@ -1,6 +1,6 @@
 # Blog series: Building the Agentic Engineering Skills Platform
 
-Five posts, written as the project was actually built — not a retrospective
+Six posts, written as the project was actually built — not a retrospective
 marketing pass. Every code snippet, test count, and bug described here is
 real and traceable to a specific file in this repository at the time of
 writing. Where a claim is uncertain or unproven, the post says so explicitly,
@@ -26,6 +26,11 @@ Each post stands alone, but they build on each other in this order:
    — a full walkthrough of `security-context-guard`'s classify → minimize →
    sanitize → authorize → execute → audit workflow, and the hard rule that
    the engine never gets to make the authorization call itself.
+6. **[Ten Skills In, I Stopped Building the Eleventh to Fix a Bug I'd
+   Already Disclosed Four Times](06-ten-skills-and-the-bug-i-disclosed-four-times-before-fixing.md)**
+   — what happened when a mentor-style review of the whole project found
+   zero real users after ten phases, and a real correctness bug disclosed
+   four times without ever being fixed.
 
 ## A note on the Mermaid diagrams
 

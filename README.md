@@ -1,8 +1,10 @@
 # Agentic Engineering Skills Platform
 
+[![tests](https://github.com/ramesh-kumar-l/agentic_engineering_skills_platform/actions/workflows/tests.yml/badge.svg)](https://github.com/ramesh-kumar-l/agentic_engineering_skills_platform/actions/workflows/tests.yml)
 ![Status](https://img.shields.io/badge/status-Phase%2010%20complete-blue)
 ![Skills](https://img.shields.io/badge/skills-10-informational)
-![Tests](https://img.shields.io/badge/tests-420%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-428%20passing-brightgreen)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero-brightgreen)
 ![Trust status](https://img.shields.io/badge/trust%20status-EXPERIMENTAL-yellow)
 ![License](https://img.shields.io/badge/license-Apache%202.0-lightgrey)
