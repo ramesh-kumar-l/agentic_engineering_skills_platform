@@ -1,0 +1,4 @@
+Option A: move user profile photos from local disk storage to an S3-compatible object store.
+Option B: keep local disk storage but add a cron job to clean up orphaned files.
+
+Option A trades a new external dependency for effectively unlimited storage capacity and is straightforward to revert by copying files back to disk. Option B avoids new dependencies but requires ongoing cron maintenance, which is a minor operational cost.

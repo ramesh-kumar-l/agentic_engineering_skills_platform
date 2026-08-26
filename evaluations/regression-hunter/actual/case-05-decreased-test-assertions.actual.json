@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-pattern-flags-reviewed",
+      "description": "decreased-test-assertions fired: 2 assertion lines were removed from test_add versus 1 kept -- real verification coverage for add() dropped, not just refactored into fewer, equally-strong lines.",
+      "grounding": "regression_scanner.py's assertion check found 3 removed assert lines vs. 1 added in tests/test_mathlib.py, which is test-shaped by path convention.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "structural-blast-radius",
+      "description": "tests/test_mathlib.py itself resolved with fan_in=0 and is not a hotspot -- low structural tier is correct here since the changed file is the test file itself, not the production code it exercises.",
+      "grounding": "target_resolver.py resolved tests/test_mathlib.py by exact path match with fan_in=0, is_hotspot=False.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

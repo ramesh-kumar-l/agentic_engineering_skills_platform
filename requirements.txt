@@ -1,0 +1,20 @@
+# Root requirements file for the Agentic Engineering Skills Platform.
+#
+# This is a monorepo of independent, stdlib-only Python packages (see
+# DEPENDENCIES.md for the full explanation of why). There are ZERO runtime
+# dependencies anywhere in this repository — every skill's engine runs on
+# nothing but the Python 3.10+ standard library (ast, re, json, pathlib,
+# dataclasses, argparse).
+#
+# The one and only dependency in the entire project is pytest, needed to run
+# the test suites (149 tests across five skills) and the evaluation harnesses.
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# This installs pytest into whatever environment you run it in — it does NOT
+# install the five skills themselves as packages. Each skill is independently
+# installable via its own pyproject.toml (see DEPENDENCIES.md and
+# QuickStarterGuide.md for per-skill install/run instructions).
+
+pytest>=7.0

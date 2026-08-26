@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/formatter.py",
+      "docstring": "Output formatting helpers.",
+      "functions": ["format_output"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "tests/test_formatter.py",
+      "docstring": "",
+      "functions": ["test_format_output"],
+      "classes": [],
+      "imports": ["engine.formatter"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

@@ -1,0 +1,3 @@
+Delete the legacy `legacy_router.py` module entirely. Update every caller
+and reference to use the new routing module instead. Verify via CI after
+merging. Reversible via git revert if something regresses.

@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/report_builder.py",
+      "docstring": "Builds the summary report.",
+      "functions": ["build_summary"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/dashboard.py",
+      "docstring": "Dashboard rendering.",
+      "functions": ["render"],
+      "classes": [],
+      "imports": ["engine.report_builder"]
+    },
+    {
+      "path": "engine/exporter.py",
+      "docstring": "Export summary to CSV.",
+      "functions": ["export"],
+      "classes": [],
+      "imports": ["engine.report_builder"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/report_builder.py": 2},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

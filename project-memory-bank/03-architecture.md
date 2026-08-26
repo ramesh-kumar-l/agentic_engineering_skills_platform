@@ -5,12 +5,29 @@ First real architectural content, established in Phase 1
 with a second pattern for judgment-based skills (ADR-007/ADR-008), reused
 as-is (no new base pattern) in Phase 3 (`acceptance-test-engineer`), reused
 a third time in Phase 4 (`feature-planner`) alongside a new architectural
-decision making composition mandatory rather than optional, and reused a
-**fourth** time in Phase 5 (`security-context-guard`) — see "Pattern 2,
-reused for Phase 5" and ADR-011 below. At four consecutive reuses without a
-new base-pattern ADR, Pattern 2 is now this project's default architecture
-for judgment-based skills, not a fresh per-skill choice each time — worth
-stating plainly rather than re-justifying from scratch every phase.
+decision making composition mandatory rather than optional, reused a
+fourth time in Phase 5 (`security-context-guard`) — see "Pattern 2, reused
+for Phase 5" and ADR-011 — reused a fifth time in Phase 6
+(`root-cause-analyzer`), which also reuses Phase 4's mandatory-composition
+rule a second time and adds a new tiered-evidence-scoring decision (ADR-012)
+— see "Pattern 2, reused for Phase 6" — reused a **sixth** time in
+Phase 7 (`architecture-decision`), which reuses the mandatory-composition
+rule a third time and adds a new per-option blast-radius-tiering decision
+(ADR-013) — see "Pattern 2, reused for Phase 7" — reused a **seventh**
+time in Phase 8 (`refactoring-safety`), which reuses the mandatory-
+composition rule a fourth time and adds a new per-target risk-tier +
+independent test-coverage-signal decision (ADR-014) — see "Pattern 2,
+reused for Phase 8" — reused an **eighth** time in Phase 9
+(`regression-hunter`), which reuses the mandatory-composition rule a fifth
+time and adds a new three-axis, non-blended regression-risk-scoring
+decision (ADR-015), and reused a **ninth** time in Phase 10
+(`release-readiness`), which reuses the mandatory-composition rule a sixth
+time and adds a new Release Readiness Scorecard decision (ADR-016) — see
+"Pattern 2, reused for Phase 10" below. At nine consecutive reuses without
+a new base-pattern ADR, Pattern 2 is now this project's default
+architecture for judgment-based skills, not a fresh per-skill choice each
+time — worth stating plainly rather than re-justifying from scratch every
+phase.
 
 ## Pattern: SKILL.md + optional deterministic engine
 
@@ -375,3 +392,502 @@ Evaluation harness architecture is identical in shape to Phases 2-4
 (fixtures + expected + actual + eval_cases + run_evaluation.py +
 RESULTS.md) — see `evaluations/security-context-guard/RESULTS.md` and
 L8/A5 (now applying a fourth time).
+
+---
+
+## Pattern 2, reused for Phase 6: `root-cause-analyzer` — plus ADR-012 (tiered evidence) and ADR-010 reused
+
+Phase 6 reused Pattern 2 a **fifth** time (deterministic pre-processing +
+agent-driven derivation against a fixed checklist), swapping the domain to
+diagnosing why a failure happened. Two architectural elements carry over
+from prior phases rather than being invented fresh: `feature-planner`'s
+mandatory-composition rule (ADR-010) applies here too — a missing/malformed
+`codebase-intelligence` report is a hard failure, not a degraded path — and
+this is stated explicitly as a **reuse**, not a new decision on that point
+(see ADR-012 in [[11-decisions]]). What is new this phase: candidate
+locations are scored in two explicit, non-blended **evidence tiers**, not a
+single blended score.
+
+```
+skills/root-cause-analyzer/
+  SKILL.md            <- contract: Step 1 precondition, Step 2 engine, Steps 3-4 agent reasoning
+  engine/              <- deterministic, stdlib-only Python package
+    models.py            shared schema (CiReportContext, StackFrame,
+                          SymptomFlag, CandidateLocation, CandidateReport,
+                          RootCauseReport)
+    ci_report_loader.py  same required-precondition pattern as
+                          feature-planner's loader (ADR-010, reused, own
+                          independent copy — no cross-package import)
+    stack_trace_parser.py   extracts stack-trace-shaped frames from the
+                          symptom text: Python tracebacks
+                          (`File "path", line N, in symbol`) and a generic
+                          `path:line` shape
+    candidate_scorer.py   scores ci_report modules against the symptom in
+                          two tiers — a dominant flat bonus for a
+                          stack-trace path match (evidence_tier=
+                          "stack-trace"), reusing relevance_scorer.py's
+                          keyword-overlap weighting as the fallback tier
+                          (evidence_tier="keyword") — see ADR-012
+    symptom_patterns.py / symptom_scanner.py   fixed regex table: vague
+                          symptom language, missing expected/actual,
+                          missing repro, missing error signal (mirrors
+                          Phase 4's planning_patterns.py/planning_scanner.py)
+    stats.py, report.py, render_json.py / render_markdown.py, cli.py
+  tests/                unit + integration + CLI tests, one file per engine
+                        module, CLI test file written from the start (same
+                        discipline Phase 5 established, not discovered
+                        missing via a later dogfood run — see L10/L13)
+```
+
+`candidate_scorer.py` deliberately keeps `evidence_tier` as its own field on
+`CandidateLocation`, separate from the numeric `score` — so the agent's
+Step 3 investigation can always tell "the traceback literally names this
+file" apart from "this file happens to share vocabulary with the bug
+report," even after both are sorted into one ranked list.
+
+The 10-category Root Cause Investigation checklist this skill's Step 3 uses
+lives in [[05-evaluation-framework]], a **fifth** checklist alongside the
+failure-first, acceptance-coverage, Plan Quality, and Security Decision
+ones — shaped like the coverage-enumeration checklists (not the
+decision-gate shape), since this skill's job is enumerating what a complete
+investigation covers, not issuing a binary verdict. Its honesty-valve
+category (10) follows the same "state the assumption" convention as the
+other three coverage-shaped checklists.
+
+**Real evidence found via dogfooding, not claimed in the abstract**:
+`examples/root-cause-analyzer/example-run.md` regenerates a fresh
+`codebase-intelligence` report against this repo's current (6-skill) state
+and runs a real, retrospective symptom against it — a natural-language bug
+report describing Phase 5's own L16 defect, written without naming the file
+or the fix. The candidate scorer — using keyword-tier evidence only, since
+this was a silent misclassification with no stack trace to parse — ranked
+`action_patterns.py` (the file that actually contained L16's bug) first out
+of 122 scored modules. This is explicitly disclosed as a *retrospective
+validation*, not a new bug find (L16 was already fixed in Phase 5) — the
+real, still-open test is whether this ranks a **genuinely new, not-yet-
+diagnosed** symptom's true root cause well, which this project has not yet
+observed.
+
+Evaluation harness architecture is identical in shape to Phases 2-5
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md), except every fixture now pairs a `symptom.txt` with a
+synthetic `ci_report.json` — see `evaluations/root-cause-analyzer/
+RESULTS.md` and L8/A5 (now applying a fifth time, and the first of the
+five where the judgment layer did not score perfectly on every fixture —
+see L19 in [[12-known-limitations]]).
+
+## Pattern 2, reused for Phase 7: `architecture-decision` — plus ADR-013 (per-option blast-radius tiering) and ADR-010 reused a third time
+
+`architecture-decision` (Phase 7) is the **sixth** consecutive skill to
+reuse Pattern 2 without a new base-pattern ADR: `engine/` is a stdlib-only
+deterministic pre-processor (option parsing, decision-quality anti-pattern
+flags, per-option blast-radius scoring), and `SKILL.md`'s Step 3 is the
+agent-driven judgment layer that actually weighs the decision against a
+fixed checklist. It also reuses `feature-planner`'s (ADR-010) and
+`root-cause-analyzer`'s (ADR-012) required-composition rule a **third**
+time — a missing/malformed `codebase-intelligence` `report.json` is a hard
+failure for this skill too, via its own independent `ci_report_loader.py`
+copy (no cross-package import, same portability discipline as every prior
+composing skill).
+
+**What's genuinely new (ADR-013)**: `option_parser.py` splits the decision
+text into distinct `DecisionOption`s using three fixed shapes — explicit
+`Option A:` markers, a numbered/lettered list, or a `vs`/`versus` fallback
+split on a single line — falling back to one unlabeled "proposed" option
+if none match, rather than inventing alternatives that were never stated.
+`impact_scorer.py` then scores each option against `codebase-intelligence`'s
+modules using the same keyword-weighting scheme every prior judgment skill
+reuses (path > name > docstring/imports), but rolls the result up into a
+**blast-radius tier** using real dependency-graph data:
+`hotspot_count > 0 or blast_radius_score >= _HIGH_BLAST_RADIUS` forces
+`high`, regardless of the keyword relevance number — a decision option that
+touches a real hotspot is never presented with the same confidence as one
+that merely shares vocabulary with a module. `blast_radius_tier` is carried
+as its own field on `OptionImpact`, the same "don't collapse the
+distinction into one blended number" discipline ADR-012 established for
+evidence tiering.
+
+```
+skills/architecture-decision/
+  engine/
+    models.py               (CiModule/CiReportContext copy, DecisionOption,
+                              DecisionFlag, DecisionStats, ImpactedModule,
+                              OptionImpact, ArchitectureDecisionReport)
+    ci_report_loader.py     (own copy, required precondition — ADR-010/013)
+    option_parser.py        (3 shapes: markers, list items, vs-split)
+    decision_patterns.py / decision_scanner.py
+                             (vague-decision-language + 4 absence checks:
+                              alternatives, reversibility, tradeoff, security)
+    impact_scorer.py        (keyword relevance -> blast-radius tier, ADR-013)
+    stats.py, report.py, render_json.py, render_markdown.py, cli.py
+  tests/  (34 tests, CLI test file written from the start, same
+            discipline Phase 5 established, not discovered missing via a
+            later dogfood run — see L10/L13)
+```
+
+The 10-category Architecture Decision Record checklist this skill's Step 3
+uses lives in [[05-evaluation-framework]], a **sixth** checklist alongside
+the failure-first, acceptance-coverage, Plan Quality, Security Decision,
+and Root Cause Investigation ones — coverage-shaped like the other four
+enumeration checklists. Its category 6 (blast radius grounded in real
+data) is specific to this skill: distinguishing "the engine found nothing
+because the option is genuinely low-impact" from "the engine found nothing
+because the decision text never named a real target" is what stops an
+ungrounded option from being read as a safe one (see evaluation case-04's
+Option B, a real high-risk option that scored zero matched modules because
+its target went unnamed).
+
+**Real evidence found via dogfooding, not claimed in the abstract**:
+`examples/architecture-decision/example-run.md` regenerates a fresh
+`codebase-intelligence` report against this repo's current (7-skill, 143-
+module) state and runs a real, in-flight decision through it — whether
+`architecture-decision` itself should require or merely accept
+`codebase-intelligence` composition (the exact ADR-013 choice this phase
+made). The run found and fixed a real gap same-session: the tradeoff
+absence-pattern regex matched only the noun form ("tradeoff"/"trade-off"),
+not the verb phrasing ("trades X for Y") the decision text used twice — see
+L20 in [[12-known-limitations]]. It also surfaced, and deliberately did
+**not** fix, a sharper version of `feature-planner`'s (L14) and
+`root-cause-analyzer`'s (L19) coincidental-substring limitation: at full-
+repository scale, a decision *about the platform's own architecture*
+necessarily reuses this project's own recurring vocabulary, so both options'
+blast-radius scores inflated to 240+ and touched all 10 of the report's
+hotspots — a real but not useful signal (see L21).
+
+Evaluation harness architecture is identical in shape to Phases 2-6
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md), except every fixture now pairs a `decision.txt` with a
+synthetic `ci_report.json` — see `evaluations/architecture-decision/
+RESULTS.md` and L8/A5 (now applying a sixth time; unlike Phase 6, all 8
+fixtures scored perfect precision/recall on the judgment layer, stated
+plainly as not evidence of higher judgment quality than Phase 6's score,
+since a single self-authored evaluation cannot support that comparison).
+
+## Pattern 2, reused for Phase 8: `refactoring-safety` — plus ADR-014 (per-target risk tier + independent test-coverage signal) and ADR-010 reused a fourth time
+
+`refactoring-safety` (Phase 8) is the **seventh** consecutive skill to
+reuse Pattern 2 without a new base-pattern ADR: `engine/` is a stdlib-only
+deterministic pre-processor (operation/target parsing, target resolution,
+test-coverage scanning, safety-quality anti-pattern flags, per-target risk
+scoring), and `SKILL.md`'s Step 3 is the agent-driven judgment layer that
+actually decides whether the refactor is safe to proceed against a fixed
+checklist. It also reuses `feature-planner`'s (ADR-010), `root-cause-
+analyzer`'s (ADR-012), and `architecture-decision`'s (ADR-013) required-
+composition rule a **fourth** time — a missing/malformed `codebase-
+intelligence` `report.json` is a hard failure for this skill too, via its
+own independent `ci_report_loader.py` copy (no cross-package import, same
+portability discipline as every prior composing skill).
+
+**What's genuinely new (ADR-014)**: `operation_parser.py` detects one of 8
+fixed operation types (rename/delete/move/change-signature/split/merge/
+extract/inline, falling back to generic "refactor") and extracts target
+identifiers — quoted/backticked names first, a bare-identifier fallback
+second (requiring an underscore, dotted extension, or internal capital, so
+it doesn't misfire on ordinary sentence-initial capitalized words).
+`target_resolver.py` resolves each target against `codebase-intelligence`'s
+modules (stem, function-name, or class-name match) and finds its real
+callers via an independent substring scan of every module's raw `imports`
+list — deliberately not trusting `codebase-intelligence`'s own `fan_in`
+field for caller *identity*, only for the risk-tier calculation (see L22
+below for why that distinction turned out to matter).
+`test_coverage_scanner.py` independently checks whether any test-shaped
+module (`tests/` dir, or `test_*`/`*_test` filename) imports the target.
+`safety_scorer.py` then rolls operation type (boundary-changing vs.
+internal-only) and fan-in/hotspot data into a `risk_tier`
+(`low`/`medium`/`high`), and — the actually new architectural move —
+raises a **distinct** `untested-blast-radius` flag when the tier is
+medium/high and no covering test module was found, rather than blending
+structural risk and verification status into one number. `risk_tier` and
+`test_coverage_modules` stay separate fields on `TargetAssessment`, the
+same "don't collapse the distinction into one blended number" discipline
+ADR-012 and ADR-013 already established for their own tiering decisions.
+
+```
+skills/refactoring-safety/
+  engine/
+    models.py                (CiModule/CiReportContext copy, RefactorTarget,
+                               SafetyFlag, RefactorStats, CallerModule,
+                               TargetAssessment, RefactoringSafetyReport)
+    ci_report_loader.py      (own copy, required precondition — ADR-010/014)
+    operation_parser.py      (8 fixed op types, quoted/backtick + bare
+                               identifier fallback target extraction)
+    target_resolver.py       (module-stem/function/class resolution, real
+                               caller lookup via independent import scan)
+    test_coverage_scanner.py (independent static test-coverage heuristic)
+    safety_scorer.py         (risk tier from op type + fan-in/hotspot,
+                               distinct untested-blast-radius flag — ADR-014)
+    safety_patterns.py / safety_scanner.py
+                              (vague-refactor-language + 4 absence checks:
+                               test plan, rollback, caller update, verification)
+    stats.py, report.py, render_json.py, render_markdown.py, cli.py
+  tests/  (62 tests, CLI test file written from the start, same discipline
+            Phases 5-7 established, not discovered missing via a later
+            dogfood run — see L10/L13)
+```
+
+The 10-category Refactoring Safety checklist this skill's Step 3 uses lives
+in [[05-evaluation-framework]], a **seventh** checklist alongside the
+failure-first, acceptance-coverage, Plan Quality, Security Decision, Root
+Cause Investigation, and Architecture Decision Record ones —
+coverage-shaped like the five other enumeration checklists. Its category 4
+(test coverage distinguished from text-level silence) is specific to this
+skill: a refactor description that never mentions tests is not the same
+claim as a target that has no real test coverage — these are independent
+signals, and evaluation case-03 deliberately makes them diverge (the text
+never says "test," but the target genuinely has a real covering test
+module) to test that the checklist walk keeps them distinct.
+
+**Real evidence found via dogfooding, not claimed in the abstract**:
+`examples/refactoring-safety/example-run.md` regenerates a fresh
+`codebase-intelligence` report against this repo's current (8-skill) state
+and runs a real refactor through it — extracting a path-stem helper
+duplicated across this skill's own `target_resolver.py` and
+`test_coverage_scanner.py`, a genuine artifact of this phase's own build,
+not an invented example. The run surfaced, and deliberately did **not**
+fix, a new category of limitation: `codebase-intelligence`'s own `fan_in`
+count for `target_resolver.py` reported 1, but this skill's own
+`caller_modules` scan correctly found 2 real callers (`engine/report.py`
+via a relative import, and `tests/test_target_resolver.py` via an
+absolute-style cross-package import that `codebase-intelligence`'s
+dependency-graph builder did not recognize as an edge) — see L22 in
+[[12-known-limitations]]. Unlike Phase 7's L20 (a bug in this skill's own
+regex) or L21 (a scaling limitation in this skill's own scorer), L22
+originates in the *composed upstream data itself*, a distinct and useful
+category of dogfood finding this project had not produced before.
+
+Evaluation harness architecture is identical in shape to Phases 2-7
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md), except every fixture now pairs a `refactor.txt` with a
+synthetic `ci_report.json` — see `evaluations/refactoring-safety/
+RESULTS.md` and L8/A5 (now applying a seventh time; all 8 fixtures scored
+perfect precision/recall on the judgment layer, stated plainly as not
+evidence of higher judgment quality than Phase 6's score, since a single
+self-authored evaluation cannot support that comparison).
+
+## Pattern 2, reused for Phase 9: `regression-hunter` — plus ADR-015 (three-axis, non-blended regression-risk scoring) and ADR-010 reused a fifth time
+
+`regression-hunter` (Phase 9) is the **eighth** consecutive skill to reuse
+Pattern 2 without a new base-pattern ADR: `engine/` is a stdlib-only
+deterministic pre-processor (diff parsing, target resolution, test-coverage
+scanning, diff-pattern regression flagging, three-axis risk scoring), and
+`SKILL.md`'s Step 3 is the agent-driven judgment layer that actually
+decides what existing behavior is genuinely at risk against a fixed
+checklist. It also reuses `feature-planner`'s (ADR-010), `root-cause-
+analyzer`'s (ADR-012), `architecture-decision`'s (ADR-013), and
+`refactoring-safety`'s (ADR-014) required-composition rule a **fifth**
+time — a missing/malformed `codebase-intelligence` `report.json` is a hard
+failure for this skill too, via its own independent `ci_report_loader.py`
+copy (no cross-package import, same portability discipline as every prior
+composing skill).
+
+**What's genuinely new (ADR-015)**: unlike every prior composing
+judgment-based skill, this skill's primary input is a **git diff**, not a
+free-text description — `diff_parser.py` is an independent copy of
+`adversarial-diff-reviewer`'s unified-diff parsing conventions, adapted to
+this skill's own `ChangedFile`/`Hunk`/`LineChange` models.
+`regression_patterns.py`/`regression_scanner.py` scan the diff's own hunks
+directly for five mechanically-detectable shapes (removed exception
+handling, a removed conditional guard with no replacement, a large
+unreplaced deletion, decreased test assertions in a changed test file, a
+modified function signature with no corresponding test-file change in the
+same diff) — this is the genuinely new deterministic-layer contribution
+this phase, since no prior skill scans a diff's hunks for regression shapes
+(`adversarial-diff-reviewer`'s `risk_scanner.py` scans *added* lines for
+new defects; this skill scans *removed and modified* lines for existing
+behavior at risk). `target_resolver.py` and `test_coverage_scanner.py`
+reuse `refactoring-safety`'s resolution and coverage patterns as
+independent copies, adapted to resolve a diff's changed-file paths instead
+of free-text-parsed identifiers. `risk_scorer.py` then combines all three
+axes — diff-pattern flags, structural tier, test coverage — into one
+`overall_risk_tier` per file via a documented, explicit rule table, while
+keeping all three fields visible and separately inspectable on
+`FileRiskAssessment`, the same "don't collapse the distinction into one
+blended number" discipline ADR-012/013/014 already established for their
+own tiering decisions — extended here to three axes instead of two.
+
+```
+skills/regression-hunter/
+  engine/
+    models.py                (CiModule/CiReportContext copy, ChangedFile/
+                               Hunk/LineChange, RegressionFlag,
+                               StructuralAssessment, TestCoverageStatus,
+                               FileRiskAssessment, RegressionHunterReport)
+    ci_report_loader.py      (own copy, required precondition — ADR-010/015)
+    diff_parser.py           (independent copy of adversarial-diff-
+                               reviewer's unified-diff parsing conventions)
+    target_resolver.py       (exact-path + module-stem resolution against
+                               the composed report, real caller lookup via
+                               import scan — same pattern as refactoring-
+                               safety's, same L23 substring-collision gap)
+    test_coverage_scanner.py (independent static test-coverage heuristic,
+                               same pattern as refactoring-safety's)
+    regression_patterns.py / regression_scanner.py
+                              (5 diff-pattern checks scanned against the
+                               diff's own hunks — the new Axis 1)
+    risk_scorer.py           (combines Axis 1/2/3 into overall_risk_tier
+                               via a documented rule table — ADR-015)
+    stats.py, report.py, render_json.py, render_markdown.py, cli.py
+  tests/  (64 tests, CLI test file written from the start, same discipline
+            Phases 5-8 established, not discovered missing via a later
+            dogfood run — see L10/L13)
+```
+
+The 10-category Regression Risk checklist this skill's Step 3 uses lives in
+[[05-evaluation-framework]], an **eighth** checklist alongside the
+failure-first, acceptance-coverage, Plan Quality, Security Decision, Root
+Cause Investigation, Architecture Decision Record, and Refactoring Safety
+ones — coverage-shaped like six of the seven other enumeration checklists.
+Its category 5 (overall risk tier explained via the documented rule table,
+not asserted) is specific to this skill's three-axis design: the checklist
+walk should be able to explain *why* a file landed at a given tier from the
+three underlying fields, not just repeat the tier as an assertion, the same
+way category 4 in `refactoring-safety`'s checklist distinguishes text-level
+silence from structural fact.
+
+**Real evidence found via dogfooding, not claimed in the abstract**:
+`examples/regression-hunter/example-run.md` regenerates a fresh
+`codebase-intelligence` report against this repo's current (9-skill) state
+and runs a real `git diff` through it — a genuine, already-tested
+`codebase-intelligence` scanner fix this phase's own build produced
+(excluding `*.egg-info` directories from repo scans, with a new test,
+24/24 `codebase-intelligence` tests passing). The run correctly scored both
+changed files LOW overall risk (zero diff-pattern flags, no structural
+escalation) — the correct, honest outcome for a small, purely additive,
+already-tested change. It also surfaced, and deliberately did **not** fix,
+a new category of limitation: `target_resolver.py`'s substring-based
+caller-identification heuristic — shared, as an independent copy, with
+`refactoring-safety`'s identical pattern — inflated `scanner.py`'s caller
+list to 22 modules, most of them false positives from other skills' own
+`*_scanner.py` modules sharing the substring `"scanner"` (see L23 in
+[[12-known-limitations]]). Unlike L22 (a gap in the *composed upstream
+data*), L23 is a gap in a *resolution pattern shared across two skills'
+independent copies* — a new, more precise category of cross-skill finding
+this project had not produced before.
+
+Evaluation harness architecture is identical in shape to Phases 2-8
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md), except every fixture now pairs a `diff.txt` with a synthetic
+`ci_report.json` — see `evaluations/regression-hunter/RESULTS.md` and
+L8/A5 (now applying an eighth time; all 8 fixtures scored perfect
+precision/recall on the judgment layer, stated plainly as not evidence of
+higher judgment quality than Phase 6's score, since a single self-authored
+evaluation cannot support that comparison).
+
+## Pattern 2, reused for Phase 10: `release-readiness` — plus ADR-016 (the Release Readiness Scorecard) and ADR-010 reused a sixth time
+
+`release-readiness` (Phase 10) is the **ninth** consecutive skill to reuse
+Pattern 2 without a new base-pattern ADR, and the final skill in the
+Engineering Lifecycle group: `engine/` is a stdlib-only deterministic
+pre-processor (diff parsing, diff-hygiene flagging, structural resolution,
+test-coverage scanning, optional regression/security evidence loading,
+per-file/overall readiness scoring), and `SKILL.md`'s Step 4 is the
+agent-driven judgment layer that actually decides what a given release
+readiness scorecard means for THIS release, against a fixed checklist. It
+also reuses `feature-planner`'s (ADR-010), `root-cause-analyzer`'s
+(ADR-012), `architecture-decision`'s (ADR-013), `refactoring-safety`'s
+(ADR-014), and `regression-hunter`'s (ADR-015) required-composition rule a
+**sixth** time — a missing/malformed `codebase-intelligence` `report.json`
+is a hard failure for this skill too, via its own independent
+`ci_report_loader.py` copy (no cross-package import, same portability
+discipline as every prior composing skill).
+
+**What's genuinely new (ADR-016)**: unlike every prior composing skill,
+`release-readiness` is the FIRST to also compose OPTIONALLY with two other
+skills' own outputs (`regression-hunter`'s and `security-context-guard`'s
+`report.json`), not just `codebase-intelligence`'s. `hygiene_scanner.py`
+scans the diff's own hunks for release-blocking anti-patterns (debug
+leftovers, TODO-blocking markers, hardcoded-secret-shaped literals, merge-
+conflict markers) — Axis 1, a mechanically-detectable-shape table in the
+same spirit as `regression-hunter`'s `regression_patterns.py` but scoped to
+release-blocking concerns rather than regression-correlated ones.
+`target_resolver.py`/`blast_radius_scorer.py` (Axis 2) and
+`test_coverage_scanner.py` (Axis 3) reuse `refactoring-safety`'s/
+`regression-hunter`'s patterns as a THIRD independent copy.
+`regression_report_loader.py`/`security_report_loader.py` load the two
+optional reports (Axis 4/5) — missing or malformed input is a warning, not
+a failure, reusing `security-context-guard`'s ADR-011 precedent for
+optional composition rather than ADR-010's mandatory one. `readiness_
+scorer.py` combines ONLY the three always-available axes into a per-file
+`readiness_tier` via a documented rule table (any hygiene flag -> blocked;
+high structural tier with no coverage -> blocked; medium/high structural
+tier or no coverage -> needs-review; otherwise clear), then rolls per-file
+tiers into one `overall_verdict`. Axis 4/5 evidence is surfaced as distinct
+fields but deliberately NOT blended into the rule table — a design choice,
+not an oversight, since each is already a rolled-up verdict from a
+DIFFERENT skill's own rule table, and re-blending it here would hide which
+skill actually produced which judgment (the same "don't collapse the
+distinction away" discipline ADR-012/013/014/015 already established for
+their own axes, extended here across skill boundaries rather than within
+one skill's own axes).
+
+```
+skills/release-readiness/
+  engine/
+    models.py                (CiModule/CiReportContext copy, ChangedFile/
+                               Hunk/LineChange, HygieneFlag, StructuralAssessment,
+                               TestCoverageStatus, RegressionEvidence,
+                               SecurityEvidence, FileReadinessAssessment,
+                               ReleaseReadinessReport)
+    ci_report_loader.py      (own copy, required precondition — ADR-010/016)
+    diff_parser.py           (independent copy of regression-hunter's/
+                               adversarial-diff-reviewer's parsing conventions)
+    target_resolver.py       (exact-path + module-stem resolution, real
+                               caller lookup via import scan — THIRD
+                               independent copy of the L23 substring-
+                               matching limitation, now shown to also
+                               affect test-coverage matching — see L24)
+    test_coverage_scanner.py (independent static test-coverage heuristic,
+                               third independent copy of the same pattern)
+    blast_radius_scorer.py   (structural tier from fan-in/hotspot data)
+    hygiene_patterns.py / hygiene_scanner.py
+                              (release-blocking anti-pattern table — debug
+                               leftovers, TODO-blocking markers, hardcoded-
+                               secret-shaped literals, merge-conflict markers)
+    regression_report_loader.py / security_report_loader.py
+                              (OPTIONAL composition, ADR-011 precedent —
+                               absent evidence, not a failure, on missing/
+                               malformed input)
+    readiness_scorer.py      (per-file readiness_tier from Axes 1-3 only,
+                               overall_verdict rollup — ADR-016)
+    stats.py, report.py, render_json.py, render_markdown.py, cli.py
+  tests/  (78 tests, CLI test file written from the start, same discipline
+            Phases 5-9 established, not discovered missing via a later
+            dogfood run — see L10/L13)
+```
+
+The 10-category Release Readiness Checklist this skill's Step 4 uses lives
+in [[05-evaluation-framework]], a **ninth** checklist alongside the
+failure-first, acceptance-coverage, Plan Quality, Security Decision, Root
+Cause Investigation, Architecture Decision Record, Refactoring Safety, and
+Regression Risk ones — coverage-shaped like seven of the eight other
+enumeration checklists, but with an explicit non-negotiable framing
+category (verdict is advisory, never an auto-gate) this skill's
+higher-stakes recommendation specifically requires.
+
+**Real evidence found via dogfooding, not claimed in the abstract**:
+`examples/release-readiness/example-run.md` regenerates a fresh
+`codebase-intelligence` report against this repo's current (10-skill)
+state and runs a real, staged-then-unstaged (never committed) `git diff` of
+this phase's own 78 new files through it. The run confirmed, concretely on
+this skill's own real `engine/cli.py` and `run_evaluation.py`, an
+already-documented limitation (legitimate CLI `print()` output flagged as a
+debug leftover) — left unfixed by design, the same "leads not verdicts"
+boundary every prior anti-pattern table has. It also surfaced, and
+deliberately did **not** fix, a new, more consequential manifestation of
+the L14/L19/L21/L23 substring-collision limitation class: `target_
+resolver.py`'s stem-based matching — reused unmodified inside `test_
+coverage_scanner.py` — produced **false-positive test coverage**, not just
+an inflated caller list, for modules whose stem (`models`, `stats`,
+`report`, etc.) collides with an identically-named module in an unrelated
+skill (L24 in [[12-known-limitations]]).
+
+Evaluation harness architecture is identical in shape to Phases 2-9
+(fixtures + expected + actual + eval_cases + run_evaluation.py +
+RESULTS.md), except every fixture now pairs a `diff.txt` with a synthetic
+`ci_report.json`, and two fixtures (case-07, case-08) also supply a
+synthetic `regression_report.json`/`security_report.json` to exercise the
+optional composition path — see `evaluations/release-readiness/
+RESULTS.md` and L8/A5 (now applying a ninth time; all 8 fixtures scored
+perfect precision/recall on the judgment layer, stated plainly as not
+evidence of higher judgment quality than Phase 6's score, since a single
+self-authored evaluation cannot support that comparison).

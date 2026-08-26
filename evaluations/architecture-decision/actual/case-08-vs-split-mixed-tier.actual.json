@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "alternatives-identified",
+      "description": "A single-sentence question with no explicit markers was correctly split on the vs split into two real alternatives: Alternative 1 (new Elasticsearch cluster) and Alternative 2 (continue with Postgres full-text search).",
+      "grounding": "engine/option_parser.py's vs/versus fallback shape matched, producing 'Alternative 1' and 'Alternative 2'.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "honesty-valve",
+      "description": "This decision text is one line -- too thin to be an actual Architecture Decision Record yet. It states no reversibility, no tradeoff, and no security consideration at all (the engine's three absence flags confirm this directly, not just a hunch). Before this can be treated as a real decision, someone needs to add: migration cost/reversibility of an Elasticsearch cutover, the operational tradeoff (a new service to run vs. reusing existing Postgres), and whether product-catalog data has any access-control implications in a new index.",
+      "grounding": "decision_scanner.py flagged no-reversibility-signal, no-tradeoff-signal, and no-security-signal simultaneously -- the only fixture where all three fire together.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "blast-radius-high",
+      "description": "Both alternatives match engine/search.py, which is already a hotspot (fan_in=9) regardless of which alternative is chosen -- the current Postgres search path is itself a high-traffic dependency, which is useful 'current state' information for the record even before a direction is picked.",
+      "grounding": "impact_scorer.py: engine/search.py hotspot=true, matched by both Alternative 1 and Alternative 2, both blast_radius_tier=high.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

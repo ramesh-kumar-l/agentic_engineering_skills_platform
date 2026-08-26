@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "regression-evidence-surfaced-not-blended",
+      "description": "The composed regression-hunter report shows overall_risk_tier=high for engine/pricing.py (a modified-signature-no-test-change flag from a REAL, already-run regression-hunter pass) -- this is surfaced verbatim on regression_evidence, not re-derived and not blended into readiness_tier, per ADR-016's design.",
+      "grounding": "regression_report_loader.py loaded engine/pricing.py's entry: overall_risk_tier=high, diff_pattern_flag_count=1.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "overall-verdict-explained",
+      "description": "readiness_tier=clear from Axes 1-3 alone (no hygiene flags, low structural, real coverage) rolls up to overall_verdict=READY -- but this is explicitly NOT the same as 'no regression risk', since Axis 4 shows high regression risk from a different skill's real analysis. The two are surfaced as separate fields by design, not blended.",
+      "grounding": "readiness_scorer.py's rule table only consumes Axes 1-3; regression_evidence is a distinct field.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "assumption-flag",
+      "description": "Because overall_verdict=READY reflects only the always-available axes, a human reviewing this record should explicitly weigh the composed regression-hunter finding (high risk, unaddressed by any test change in this diff) before treating READY as sufficient -- this is stated explicitly rather than silently assumed to be a non-issue.",
+      "grounding": "SKILL.md's Agent Responsibilities: never re-derive a verdict a composed report already computed, and never let a clear axis 1-3 tier imply the regression axis is also clear.",
+      "priority": "high",
+      "assumptions": "Assumes the supplied regression-hunter report is current for this exact diff -- this engine does not verify report freshness (see Known Limitations)."
+    }
+  ]
+}

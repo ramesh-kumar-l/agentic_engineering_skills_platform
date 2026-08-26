@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "missing-security",
+      "description": "Security implications are genuinely not mentioned, and this is a real gap, not a false positive: moving photos to an S3-compatible object store requires new credentials (an access key or an IAM role) that the local-disk approach never needed. The engine's absence flag is correctly surfacing a real, unaddressed risk here, not just missing boilerplate wording.",
+      "grounding": "decision_scanner.py flagged no-security-signal; Option A introduces a new external dependency (S3), which structurally implies new credential handling not present in Option B.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "consequences",
+      "description": "Option A: new external dependency for effectively unlimited storage capacity, straightforward to revert by copying files back to disk. Option B: no new dependencies, but ongoing cron maintenance -- a minor operational cost.",
+      "grounding": "Decision text's second paragraph states both consequences explicitly.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "blast-radius-grounding",
+      "description": "Option A matches engine/storage.py (medium tier, fan_in=3). Option B matches both engine/cron_cleanup.py and engine/storage.py (also medium tier) -- both options score similarly since neither touches a hotspot, which is a genuinely useful, low-noise signal here (unlike case-01's 'engine' collision, both matches are on-topic: 'storage' and 'cleanup'/'orphaned').",
+      "grounding": "impact_scorer.py: engine/storage.py blast_radius_tier=medium for Option A; engine/cron_cleanup.py + engine/storage.py both matched for Option B, also medium.",
+      "priority": "low",
+      "assumptions": null
+    }
+  ]
+}

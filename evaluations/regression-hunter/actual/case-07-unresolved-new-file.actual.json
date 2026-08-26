@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "existing-behavior-at-risk-stated",
+      "description": "engine/new_feature.py is a brand new file, not present in the composed codebase-intelligence report -- resolved_module_path is unresolved (None), which is expected for a genuinely new file (the report predates it), not evidence of a fabricated or suspicious target.",
+      "grounding": "target_resolver.py's exact-path and stem-fallback resolution both found no matching module for engine/new_feature.py in the fixture's ci_report.json.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "structural-blast-radius",
+      "description": "Because the file is unresolved, structural tier defaults to low with no real fan-in/hotspot data available -- this is a real absence of structural signal for a new file, not evidence the file is low-risk in the way an existing, resolved low-fan-in file would be.",
+      "grounding": "risk_scorer.py's structural_tier() returns 'low' when resolved_module_path is None; report.py's warnings explicitly flag that no changed file resolved against the report.",
+      "priority": "medium",
+      "assumptions": "Whether this new file's behavior is actually risky cannot be assessed structurally until a fresh codebase-intelligence report that includes it is regenerated -- stated as an assumption rather than guessed."
+    }
+  ]
+}

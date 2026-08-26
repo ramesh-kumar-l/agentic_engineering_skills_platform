@@ -1,0 +1,9 @@
+{
+  "flag_ids": ["large-deletion-no-addition"],
+  "file_risk_tiers": { "engine/report_builder.py": "high" },
+  "expected_categories": [
+    { "id": "c1", "category": "diff-pattern-flags-reviewed", "keywords": ["large-deletion-no-addition", "14 lines", "no addition"] },
+    { "id": "c2", "category": "missing-coverage-named", "keywords": ["no test", "uncovered", "not covered"] },
+    { "id": "c3", "category": "overall-risk-tier-explained", "keywords": ["medium tier", "flag", "no coverage", "high"] }
+  ]
+}

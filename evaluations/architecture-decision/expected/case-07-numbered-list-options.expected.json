@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "alternatives-identified", "keywords": ["three", "Item 1", "Item 2", "Item 3"] },
+    { "id": "c2", "category": "blast-radius-high", "keywords": ["hotspot", "notifications.py", "fan_in=11"] },
+    { "id": "c3", "category": "ungrounded-option", "keywords": ["webhooks", "does not exist", "new module"] }
+  ]
+}

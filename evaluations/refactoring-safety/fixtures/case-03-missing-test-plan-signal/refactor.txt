@@ -1,0 +1,3 @@
+Rename `pricing.py` to `pricing_engine.py`. Update every call site and
+reference across the codebase. Reversible via git revert if anything looks
+wrong after deploy.

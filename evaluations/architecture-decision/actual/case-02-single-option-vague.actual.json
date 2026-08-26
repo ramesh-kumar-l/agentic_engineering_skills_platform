@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "alternatives-identified",
+      "description": "Only one option is on the table -- the parser found no 'Option X:' markers, no numbered list, and no vs/versus split, so it fell back to a single unlabeled 'proposed' option. This is a proposal, not a comparison; the checklist's alternatives category cannot be satisfied and must be stated as a real gap, not glossed over.",
+      "grounding": "engine/option_parser.py fell back to the single-option shape; report.warnings includes 'No explicit alternatives were parsed'.",
+      "priority": "high",
+      "assumptions": "Assuming no other options were actually considered off the record -- the text gives no evidence either way."
+    },
+    {
+      "id": "c2",
+      "category": "honesty-valve",
+      "description": "'Just' and 'obviously the simplest fix' are confidence assertions, not evidence -- no comparison against an alternative approach, no data on volume or latency requirements that would make a queue 'simplest'. Flag this explicitly as unsupported rather than accepting the framing.",
+      "grounding": "decision_scanner.py flagged pattern_id=vague-decision-language on 'just'.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "blast-radius-grounding",
+      "description": "engine/mailer.py is the only matched module, via a single text-tier keyword hit ('email' in its docstring) -- score 1, no path or name match. This is a weak lead, not confirmation that mailer.py is actually where a queue would be introduced; the real affected surface (a new queue/worker module) doesn't exist in the report yet.",
+      "grounding": "impact_scorer.py scored engine/mailer.py relevance_score=1 (text-tier only), blast_radius_tier=low.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

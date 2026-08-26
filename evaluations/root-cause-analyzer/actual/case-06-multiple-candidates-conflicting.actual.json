@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "ruled-out",
+      "description": "engine/report_scheduler.py (score 7) is ruled out — it only schedules report jobs; it has no involvement in formatting a row or fetching a user's name, despite sharing the word 'report' with the symptom text.",
+      "grounding": "module docstring 'Schedules report generation jobs for each user' — no field-formatting or user-lookup responsibility.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "candidate-locations",
+      "description": "Two real candidates remain: engine/report_export.py (score 15, formats the row including the name field) and engine/user_repository.py (score 8, loads the user record the name comes from). Either a blank field is being written by format_row, or get_user is returning a record with no name populated.",
+      "grounding": "candidates.candidates[0:2] = [report_export.py score 15, user_repository.py score 8]; both docstrings explicitly mention 'name'.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "assumption-flag",
+      "description": "Without a stack trace or a way to inspect the intermediate value between get_user and format_row, this report cannot narrow further than 'one of these two functions' — stated explicitly as an open question rather than picking one and presenting it as the answer.",
+      "grounding": "candidates.stack_frames == [] for this fixture — no direct evidence available to break the tie.",
+      "priority": "high",
+      "assumptions": "Assuming the defect is in the export/lookup path rather than in the underlying data itself (e.g. the user genuinely has no name on file) — worth checking the user's actual record before assuming it's a code bug."
+    }
+  ]
+}

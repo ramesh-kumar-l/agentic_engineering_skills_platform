@@ -12,13 +12,13 @@ PHASE 1  — Codebase Intelligence             ← COMPLETE
 PHASE 2  — Adversarial Diff Reviewer         ← COMPLETE
 PHASE 3  — Acceptance Test Engineer          ← COMPLETE
 PHASE 4  — Feature Planner                   ← COMPLETE
-PHASE 5  — Security Context Guard            ← COMPLETE (this phase)
-PHASE 6  — Root Cause Analyzer               ← proposed next, not started
-PHASE 7  — Refactoring Safety
-PHASE 8  — Architecture Decision
-PHASE 9  — Regression Hunter
-PHASE 10 — Release Readiness
-PHASE 11 — Dependency / Supply Chain
+PHASE 5  — Security Context Guard            ← COMPLETE
+PHASE 6  — Root Cause Analyzer               ← COMPLETE
+PHASE 7  — Architecture Decision             ← COMPLETE (reordered — see Phase 7 note below)
+PHASE 8  — Refactoring Safety                 ← COMPLETE
+PHASE 9  — Regression Hunter                  ← COMPLETE
+PHASE 10 — Release Readiness                  ← COMPLETE (this phase)
+PHASE 11 — Dependency / Supply Chain          ← proposed next, not started
 PHASE 12 — Knowledge Capture
 PHASE 13 — Context Optimizer
 PHASE 14 — Workflow Composer
@@ -167,3 +167,311 @@ session's existing bounded-autonomy behavior already produced on this case,
 so it didn't yet demonstrate a changed decision — real qualitative feedback
 from an actual user remains the missing ingredient, same shape as A2/A10's
 gap.
+
+## Phase 6 scope (this phase) — complete
+
+Built `root-cause-analyzer`, reusing Pattern 2 (ADR-007) a fifth time and
+`feature-planner`'s required-composition rule (ADR-010) a second time:
+`SKILL.md` contract + a deterministic stack-trace/keyword tiered
+candidate-location engine + 32 passing tests (CLI test file written from
+the start, same discipline Phase 5 established) + an 8-fixture evaluation
+harness (same two-layer scoring as Phases 2-5) + a real dogfood run
+regenerating a fresh `codebase-intelligence` report against this repo's
+current (6-skill) state and diagnosing a real, retrospective symptom.
+
+New this phase: ADR-012 — candidate locations are scored in two explicit,
+non-blended evidence tiers (`stack-trace`, a dominant flat bonus when a
+parsed stack frame's path matches a real module, vs. `keyword`, the
+fallback keyword-overlap tier) rather than one blended score, so the
+agent's Step 3 investigation can always tell a runtime-confirmed location
+apart from a vocabulary-coincidence lead. The exit criteria's "same bar" is
+met: full engine/test/evaluation/dogfood/memory-bank cycle, same as every
+prior phase; "first skill composing on top of Codebase Intelligence's
+output" was already true of `feature-planner` (Phase 4, ADR-010) — this
+phase reuses that same required-composition rule rather than re-claiming
+the "first," and states that explicitly rather than overclaiming a novelty
+that isn't there.
+
+The real dogfood run (`examples/root-cause-analyzer/example-run.md`) fed a
+natural-language description of Phase 5's own L16 defect — written without
+naming the file or the fix — into the freshly-composed engine, which ranked
+the module that actually contained that bug (`action_patterns.py`) first
+out of 122 scored modules, using keyword-tier evidence alone (no stack
+trace existed for that defect, since it was a silent misclassification).
+Disclosed explicitly as retrospective validation, not a new bug find — a
+prospective run against a genuinely new, not-yet-diagnosed symptom remains
+unrun.
+
+Important honesty note, carried forward from Phases 3-5: this is the
+**fifth** judgment-based skill evaluated with self-authored, single-rater
+fixtures — and the **first** whose judgment layer did not score perfect
+precision/recall on every fixture (case-03 scored 0.67/0.67, disclosed
+as-is — see L19 in [[12-known-limitations]]). [[16-assumptions-and-
+validation]] A5 and A10 remain UNKNOWN; the inter-rater-agreement
+experiment and Experiment B still have not been run.
+
+## Phase 7 scope (this phase) — complete
+
+Built `architecture-decision`, reusing Pattern 2 (ADR-007) a sixth time and
+the required-composition rule (ADR-010, reused by `root-cause-analyzer`'s
+ADR-012) a third time: `SKILL.md` contract + a deterministic option-parsing/
+blast-radius-scoring engine + 34 passing tests (CLI test file written from
+the start, same discipline every prior phase established) + an 8-fixture
+evaluation harness (same two-layer scoring as Phases 2-6) + a real dogfood
+run regenerating a fresh `codebase-intelligence` report against this repo's
+current (7-skill) state and assessing a real decision this phase's own
+build actually faced.
+
+**Note on phase ordering**: this roadmap previously proposed Phase 7 as
+Refactoring Safety, with Architecture Decision slotted at Phase 8 (see
+`## Full target skill portfolio`). The user's Phase 7 instruction explicitly
+named "Architecture Decision," not Refactoring Safety — this is a real
+reordering, not a silent drift, so it's stated here plainly: Refactoring
+Safety moves to Phase 8, Architecture Decision fills Phase 7. The
+`## Full target skill portfolio` list below is left as the original catalog
+ordering (unchanged) since the adaptive-roadmap rule already treats that
+list as "do not build all at once," not a fixed sequence — the phase list
+above is the authoritative record of what was actually built, in what
+order.
+
+New this phase: ADR-013 — each parsed option's structural blast radius is
+scored against `codebase-intelligence`'s real fan-in/hotspot data, rolling
+keyword relevance up into a three-tier band (`low`/`medium`/`high`) rather
+than a bare relevance number, so a decision option that touches a real
+hotspot is never presented with the same confidence as one that touches
+nothing real. The exit criteria's "same bar" is met: full engine/test/
+evaluation/dogfood/memory-bank cycle, same as every prior phase; "first
+skill composing on top of Codebase Intelligence's output" was already true
+of `feature-planner` (Phase 4) and reused by `root-cause-analyzer` (Phase
+6) — this phase reuses that same required-composition rule a third time
+rather than re-claiming the "first," the same honesty discipline Phase 6
+applied to the identical phrasing.
+
+The real dogfood run (`examples/architecture-decision/example-run.md`)
+assessed a genuinely real decision — whether this skill itself should
+require or merely accept `codebase-intelligence` composition — and found
+two things worth stating plainly. First, a real, same-session-fixed bug:
+the tradeoff-detection regex missed the verb phrasing "trades X for Y,"
+which the dogfood decision's own text used twice (L20 in [[12-known-
+limitations]]). Second, a real, disclosed-not-fixed limitation: at
+full-repository scale, a decision *about the platform's own architecture*
+produces a nearly-uninformative blast-radius signal, because the decision
+text's vocabulary unavoidably overlaps the whole repo's own vocabulary
+(L21). Unlike Phase 6, this phase's evaluation harness scored perfect
+precision/recall on all 8 fixtures — stated plainly as not evidence of
+higher judgment quality than Phase 6's non-perfect score, since a single
+self-authored evaluation cannot support that comparison either way.
+
+Important honesty note, carried forward from Phases 3-6: this is the
+**sixth** judgment-based skill evaluated with self-authored, single-rater
+fixtures. [[16-assumptions-and-validation]] A5 and A10 remain UNKNOWN; the
+inter-rater-agreement experiment and Experiment B still have not been run —
+now carried forward across six skills, not five.
+
+## Phase 8 scope (this phase) — complete
+
+Built `refactoring-safety`, reusing Pattern 2 (ADR-007) a seventh time and
+the required-composition rule (ADR-010, reused by `root-cause-analyzer`'s
+ADR-012 and `architecture-decision`'s ADR-013) a fourth time: `SKILL.md`
+contract + a deterministic operation-parsing/target-resolution/risk-scoring
+engine + 62 passing tests (CLI test file written from the start, same
+discipline every prior phase established) + an 8-fixture evaluation
+harness (same two-layer scoring as Phases 2-7) + a real dogfood run
+regenerating a fresh `codebase-intelligence` report against this repo's
+current (8-skill) state and assessing a real refactor this phase's own
+build actually produced (a duplicated path-stem helper across two of this
+skill's own engine modules).
+
+**Note on the exit criteria's phrasing and phase naming**: the initial
+instruction for this phase named "Architecture Decision" as Phase 8's exit
+criteria — but `architecture-decision` was already built and completed as
+Phase 7 the prior session. This discrepancy was surfaced and clarified with
+the user before work began, who confirmed the actual intent was to build
+this roadmap's next proposed skill, Refactoring Safety, rather than
+re-building an already-complete skill. Stated here plainly rather than
+silently building a duplicate `architecture-decision` under a new phase
+number.
+
+New this phase: ADR-014 — each resolved refactor target's structural risk
+is scored into a three-tier band (`low`/`medium`/`high`) from real
+fan-in/hotspot data (operation-type-aware: boundary-changing operations
+like rename/delete/move/change-signature score against real fan-in;
+internal-only operations like extract/inline score against hotspot status
+alone), and a **separate**, independently-computed test-coverage signal
+(does a real test-shaped module import the target) is checked against that
+tier — the two are kept as distinct fields rather than blended, so a
+structurally risky target with real test coverage is never confused with
+one that has none. The exit criteria's "same bar" is met: full engine/test/
+evaluation/dogfood/memory-bank cycle, same as every prior phase; composing
+required on `codebase-intelligence`'s output was already true starting
+Phase 4 — this phase reuses that same required-composition rule a fourth
+time.
+
+The real dogfood run (`examples/refactoring-safety/example-run.md`)
+assessed a genuinely real refactor — extracting a path-stem helper
+duplicated across this skill's own `target_resolver.py` and
+`test_coverage_scanner.py` — and found one thing worth stating plainly: a
+real, disclosed-not-fixed cross-skill limitation (L22 in [[12-known-
+limitations]]) where `codebase-intelligence`'s own `fan_in` metric
+undercounted a real caller (a test module using an absolute-style
+cross-package import) that this skill's own independent caller scan found
+correctly. Unlike Phase 7, all 8 evaluation fixtures scored perfect
+precision/recall on both layers — stated plainly as not evidence of higher
+judgment quality than Phase 6's non-perfect score, since a single
+self-authored evaluation cannot support that comparison either way.
+
+Important honesty note, carried forward from Phases 3-7: this is the
+**seventh** judgment-based skill evaluated with self-authored, single-rater
+fixtures. [[16-assumptions-and-validation]] A5 and A10 remain UNKNOWN; the
+inter-rater-agreement experiment and Experiment B still have not been run —
+now carried forward across seven skills, not six.
+
+## Phase 9 scope (this phase) — complete
+
+Built `regression-hunter`, reusing Pattern 2 (ADR-007) an eighth time and
+the required-composition rule (ADR-010, reused by `root-cause-analyzer`'s
+ADR-012, `architecture-decision`'s ADR-013, and `refactoring-safety`'s
+ADR-014) a fifth time: `SKILL.md` contract + a deterministic diff-pattern/
+structural-blast-radius/test-coverage engine + 64 passing tests (CLI test
+file written from the start, same discipline every prior phase since Phase
+5 established) + an 8-fixture evaluation harness (same two-layer scoring as
+Phases 2-8) + a real dogfood run regenerating a fresh `codebase-
+intelligence` report against this repo's current (9-skill) state and
+assessing a real `git diff` this phase's own build actually produced (a
+genuine `codebase-intelligence` scanner fix excluding `*.egg-info`
+directories from repo scans).
+
+New this phase: ADR-015 — given a git diff (not a free-text description,
+unlike every prior composing skill), each changed file's regression risk is
+computed as three explicitly separate, non-blended signals — diff-pattern
+flags scanned directly against the diff's own hunks (Axis 1, the genuinely
+new deterministic-layer contribution this phase, since no prior skill
+scans a diff's hunks for mechanically-detectable regression shapes),
+structural blast radius grounded in `codebase-intelligence`'s real fan-in/
+hotspot data (Axis 2, reusing `refactoring-safety`'s `target_resolver.py`/
+`safety_scorer.py` pattern as an independent copy), and test coverage
+status (Axis 3, reusing `refactoring-safety`'s `test_coverage_scanner.py`
+pattern as an independent copy) — combined into one `overall_risk_tier` per
+file via a documented rule table, while all three underlying fields stay
+visible and separately inspectable, never blended away. The exit criteria's
+"same bar" is met: full engine/test/evaluation/dogfood/memory-bank cycle,
+same as every prior phase; composing required on `codebase-intelligence`'s
+output was already true starting Phase 4 — this phase reuses that same
+required-composition rule a fifth time.
+
+The real dogfood run (`examples/regression-hunter/example-run.md`)
+assessed a genuinely real, already-tested change — a small
+`codebase-intelligence` scanner fix (excluding `*.egg-info` directories
+from repo scans) this phase's own build produced and fully tested (24/24
+`codebase-intelligence` tests passing, up from 23) — and found one thing
+worth stating plainly: a real, disclosed-not-fixed cross-skill limitation
+(L23 in [[12-known-limitations]]) where `target_resolver.py`'s
+substring-based caller-identification heuristic, present as an independent
+copy in both `refactoring-safety` and `regression-hunter`, inflates the
+caller list for any composed-report module whose stem is a short, common
+word (e.g. `"scanner"` matching six other skills' own `*_scanner.py`
+modules). Unlike Phase 6 (`root-cause-analyzer`'s one non-perfect
+judgment-layer case), all 8 evaluation fixtures scored perfect precision/
+recall on both layers here — stated plainly as not evidence of higher
+judgment quality than Phase 6's non-perfect score, since a single
+self-authored evaluation cannot support that comparison either way.
+
+Important honesty note, carried forward from Phases 3-8: this is the
+**eighth** judgment-based skill evaluated with self-authored, single-rater
+fixtures. [[16-assumptions-and-validation]] A5 and A10 remain UNKNOWN; the
+inter-rater-agreement experiment and Experiment B still have not been run —
+now carried forward across eight skills, not seven.
+
+## Phase 10 scope (this phase) — complete
+
+Built `release-readiness`, the tenth skill and the final skill in the
+Engineering Lifecycle group, reusing Pattern 2 (ADR-007) a ninth time and
+the required-composition rule (ADR-010, reused by `root-cause-analyzer`'s
+ADR-012, `architecture-decision`'s ADR-013, `refactoring-safety`'s ADR-014,
+and `regression-hunter`'s ADR-015) a sixth time: `SKILL.md` contract + a
+deterministic diff-hygiene/structural-blast-radius/test-coverage engine
+(16 modules, each under 300 lines, max 211) that composes a git diff and a
+required `codebase-intelligence` report into a per-file **Release Readiness
+Scorecard**, plus optionally surfaces (never re-derives) evidence from a
+`regression-hunter` and/or `security-context-guard` report for the same
+change — 78 passing tests (CLI test file written from the start, same
+discipline every prior phase since Phase 5 established) + an 8-fixture
+evaluation harness (same two-layer scoring as Phases 2-9) + a real dogfood
+run regenerating a fresh `codebase-intelligence` report against this
+repo's current (10-skill) state and assessing this phase's own real body of
+work via a real, staged-then-unstaged (never committed) `git diff`.
+
+New this phase: **ADR-016** — the Release Readiness Scorecard combines
+three always-available, non-blended per-file signals (diff-hygiene flags,
+structural blast radius, test coverage) into a per-file `readiness_tier`
+via a documented rule table, and surfaces two OPTIONAL, composed-elsewhere
+signals (regression-hunter's `overall_risk_tier`, security-context-guard's
+`suggested_verdict`) as distinct fields that deliberately do NOT feed that
+rule table — reused/re-blended verdicts from a different skill's own
+rule table would hide which skill produced which judgment, the same
+"don't collapse the distinction away" discipline ADR-012/013/014/015
+already established for their own axes. Per-file tiers roll up into one
+`overall_verdict` (`NOT_READY`/`READY_WITH_CONDITIONS`/`READY`), explicitly
+and repeatedly framed everywhere (SKILL.md, docstrings, README, this
+section) as a recommendation for a human to review, never an autonomous
+release gate — the same "advisory only" discipline ADR-011 established for
+`security-context-guard`'s `suggested_verdict`, extended here to this
+portfolio's highest-stakes recommendation. The exit criteria's "same bar"
+is met: full engine/test/evaluation/dogfood/memory-bank cycle, same as
+every prior phase; "first skill composing on top of Codebase
+Intelligence's output" was already true of `feature-planner` (Phase 4) and
+reused by five skills since — this phase reuses that same
+required-composition rule a sixth time rather than re-claiming the
+"first," the same honesty discipline every phase since Phase 6 has
+applied to the identical phrasing.
+
+The real dogfood run (`examples/release-readiness/example-run.md`)
+assessed this phase's own actual body of work — a real, staged-then-
+unstaged `git diff` of all 78 new `release-readiness` files (3,956 lines
+added, 0 removed; nothing was ever committed) — and found two things worth
+stating plainly. First, a real, confirmed instance of an
+already-documented limitation: the `debug-print-leftover` hygiene pattern
+fired 5 times on this skill's own `engine/cli.py` and
+`evaluations/release-readiness/run_evaluation.py`, every one a legitimate
+CLI `print()` call, not a debug leftover — `SKILL.md`'s Known Limitations
+predicted this exact failure shape before the run; this run confirmed it
+concretely rather than leaving it hypothetical, and it was left unfixed by
+design (the documented boundary between the hygiene table and the agent's
+Step 4 false-positive-check judgment). Second, a real, disclosed-not-fixed
+limitation (L24 in [[12-known-limitations]]): `target_resolver.py`'s
+substring-based resolution — a THIRD independent copy of the exact
+heuristic already disclosed as L23 — was shown for the first time to
+produce **false-positive test coverage**, not just an inflated caller
+list, when a module's stem (e.g. `models`, `stats`, `report`) collides
+with an identically-named module in an unrelated skill. This is a more
+consequential manifestation than L23's caller-list-only inflation, since
+it is the exact signal the readiness rule table uses to decide whether a
+structurally consequential, genuinely untested module needs closer review.
+Unlike most prior phases, this phase's evaluation harness scored perfect
+precision/recall on all 8 fixtures — stated plainly as not evidence of
+higher judgment quality than Phase 6's non-perfect score, since a single
+self-authored evaluation cannot support that comparison either way.
+
+Important honesty note, carried forward from Phases 3-9: this is the
+**ninth** judgment-based skill evaluated with self-authored, single-rater
+fixtures. [[16-assumptions-and-validation]] A5 and A10 remain UNKNOWN; the
+inter-rater-agreement experiment and Experiment B still have not been run —
+now carried forward across nine skills, not eight.
+
+## Phase 11 (proposed next, not started)
+
+Per the roadmap's own phase list and full target skill portfolio
+(`Advanced`: dependency-supply-chain-reviewer, engineering-knowledge-
+capture, context-optimizer, workflow-composer, engineering-memory), Phase
+11 is proposed as **Dependency / Supply Chain** — the first skill in the
+`Advanced` group, now that all five Engineering Lifecycle skills exist. Per
+the adaptive-roadmap rule at the top of this file, this proposal must be
+re-justified against evidence at the start of Phase 11, not assumed — and
+per every prior phase's protocol, Phase 11 does not begin without explicit
+user instruction. The case for investing a phase in the independent-
+evidence gap (L8/A5) before an eleventh skill, flagged as a growing
+concern since Sprint 08 and sharpened by Sprint 09's L23 and this phase's
+L24 (the same substring-collision limitation class now shown in a THIRD
+and increasingly consequential form, across three skills' independent
+copies), is stronger than ever — a future session should weigh that
+explicitly before committing to Phase 11 rather than defaulting to it.

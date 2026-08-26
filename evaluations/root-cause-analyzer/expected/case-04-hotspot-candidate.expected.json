@@ -1,0 +1,8 @@
+{
+  "symptom_pattern_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "blast-radius", "keywords": ["hotspot", "fan_in", "config_loader"] },
+    { "id": "c2", "category": "candidate-locations", "keywords": ["config_loader.py", "cach"] },
+    { "id": "c3", "category": "fix-risk", "keywords": ["widely", "used", "caution", "regression"] }
+  ]
+}

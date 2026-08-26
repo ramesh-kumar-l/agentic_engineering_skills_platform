@@ -1,0 +1,8 @@
+{
+  "symptom_pattern_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "assumption-flag", "keywords": ["third-party", "vendored", "outside", "somelib"] },
+    { "id": "c2", "category": "candidate-locations", "keywords": ["export.py", "pool", "connection"] },
+    { "id": "c3", "category": "confirmation-step", "keywords": ["release", "pool size", "confirm"] }
+  ]
+}

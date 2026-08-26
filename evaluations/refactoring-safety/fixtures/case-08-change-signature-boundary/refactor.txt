@@ -1,0 +1,4 @@
+Change the signature of `notify.py` to accept a structured event object
+instead of separate positional arguments. Update every caller and
+reference. Run the test suite and CI to verify. This is reversible via
+a feature flag if the new signature causes issues.

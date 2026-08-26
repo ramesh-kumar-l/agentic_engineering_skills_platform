@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "assumption-flag",
+      "description": "The parsed stack frame points into a third-party library path (somelib/pool.py under site-packages), not into this repo — the engine's own warning confirms no ci_report module matched it. The actual root cause is assumed to be in how engine/export.py uses that library's connection pool (e.g. not releasing connections), not in the library itself, since the library's internal bug is out of this repo's control to fix directly.",
+      "grounding": "report.warnings contains the 'none of their paths matched' warning; candidates.candidates has no stack-trace-tier entries.",
+      "priority": "high",
+      "assumptions": "Assuming the defect is in export.py's pool usage pattern rather than in somelib itself — this is the working hypothesis to investigate first because it's the one this repo can actually fix."
+    },
+    {
+      "id": "c2",
+      "category": "candidate-locations",
+      "description": "engine/export.py is the best available candidate (score 14, keyword tier) — it's the only module in this repo that imports somelib and performs the export that hangs.",
+      "grounding": "candidates.candidates[0] = {path: engine/export.py, score: 14, evidence_tier: keyword}; module imports include 'somelib'.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "confirmation-step",
+      "description": "Confirm by checking whether export_csv() releases/closes its pool connections in all code paths (including error paths) and whether a recent release changed the pool size or timeout configuration — a connection leak on repeated exports would produce exactly this symptom.",
+      "grounding": "TimeoutError: connection pool exhausted is the literal error text in the symptom, which is a leak/exhaustion signature, not a random hang.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

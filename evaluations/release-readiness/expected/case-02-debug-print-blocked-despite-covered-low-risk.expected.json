@@ -1,0 +1,10 @@
+{
+  "flag_ids": ["debug-print-leftover"],
+  "file_readiness_tiers": { "engine/util.py": "blocked" },
+  "overall_verdict": "NOT_READY",
+  "expected_categories": [
+    { "id": "c1", "category": "diff-hygiene-reviewed-as-absolute", "keywords": ["print", "debug", "blocked"] },
+    { "id": "c2", "category": "false-positive-check", "keywords": ["leftover", "not intended", "debug statement"] },
+    { "id": "c3", "category": "overall-verdict-explained", "keywords": ["not_ready", "blocked", "absolute"] }
+  ]
+}

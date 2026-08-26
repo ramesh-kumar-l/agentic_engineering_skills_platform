@@ -1,0 +1,4 @@
+Option A: introduce a Redis cache in front of engine/pricing.py to reduce read latency on the pricing lookup.
+Option B: keep the existing direct Postgres reads and instead add a database index on the pricing table.
+
+Option A trades higher operational cost (a new Redis cluster to run and monitor) for significantly lower latency, and is fully reversible -- the cache can be removed and reads fall back to Postgres directly. Option B has a lower operational cost since indexing is a one-way schema change, but the latency gain is smaller. Neither option changes authentication or the existing access-control model for the pricing API.

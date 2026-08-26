@@ -1,0 +1,8 @@
+{
+  "symptom_pattern_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "ruled-out", "keywords": ["report_scheduler", "scheduling", "not"] },
+    { "id": "c2", "category": "candidate-locations", "keywords": ["report_export", "format_row", "user_repository"] },
+    { "id": "c3", "category": "assumption-flag", "keywords": ["two", "either", "narrow"] }
+  ]
+}

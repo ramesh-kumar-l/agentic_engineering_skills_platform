@@ -1,0 +1,7 @@
+{
+  "decision_flag_ids": ["no-verification-signal"],
+  "expected_categories": [
+    { "id": "c1", "category": "targets-identified", "keywords": ["phantom_module.py", "ghost_module.py", "did not match", "not a real target"] },
+    { "id": "c2", "category": "explicit-assumption-flag", "keywords": ["assumption", "cannot confirm", "not in the report"] }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "candidate-locations",
+      "description": "engine/search.py is the top candidate (score 11, keyword tier) — its rank_by_relevance function and docstring both share vocabulary with the symptom ('search', 'relevance', 'sorted').",
+      "grounding": "candidates.candidates[0] = {path: engine/search.py, score: 11, evidence_tier: keyword}.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "assumption-flag",
+      "description": "No stack trace was present in the report, so this candidate is keyword-overlap evidence only, not a confirmed location — treated as a lead to investigate, not a diagnosis.",
+      "grounding": "candidates.stack_frames == [] for this fixture; both surfaced candidates are evidence_tier=keyword.",
+      "priority": "high",
+      "assumptions": "Assuming the bug is in the ranking logic itself (rank_by_relevance) rather than in how engine/index.py orders results before ranking — both are plausible without more evidence."
+    },
+    {
+      "id": "c3",
+      "category": "confirmation-step",
+      "description": "Confirm by logging the input to rank_by_relevance and checking whether it receives a relevance score per result, or already-unordered input from index.query — narrows down which of the two candidates is actually responsible.",
+      "grounding": "engine/search.py imports engine/index.py per the ci_report, so the two functions form a real call chain worth tracing.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "alternatives-identified",
+      "description": "Three real alternatives are on the table, correctly parsed as Item 1, Item 2, Item 3 from the numbered list -- not collapsed into two the way an 'Option A/B'-only parser might. Each has a distinct mechanism (webhooks, faster polling, status quo), not a rephrasing of the same idea.",
+      "grounding": "engine/option_parser.py's numbered-list shape matched all three '1./2./3.' lines.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "blast-radius-high",
+      "description": "All three items touch engine/notifications.py, which is a real hotspot (fan_in=11) -- including Item 2 and Item 3, which read as 'do nothing structural' options but still keyword-match the same hotspot module via 'polling'. That's a useful correction: even the do-nothing options are not risk-free from a change-blast-radius standpoint, because they still involve editing the hotspot's config/interval.",
+      "grounding": "impact_scorer.py: engine/notifications.py hotspot=true, matched for all three items; report.warnings flags the HIGH-tier option.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "ungrounded-option",
+      "description": "Item 1 proposes webhooks, but no webhook-handling module exists yet in the codebase-intelligence report -- the blast radius for the *new* code Item 1 would require is entirely ungrounded (the engine can only score what already exists). Item 1's real cost (new retry/dead-letter handling, a new failure mode) is stated in the text but not visible in the structural data at all.",
+      "grounding": "No module path containing 'webhook' exists in ci_report.json's modules list.",
+      "priority": "high",
+      "assumptions": "Assuming a webhook handler would be added as new code near engine/notifications.py -- not confirmed, since it doesn't exist yet."
+    }
+  ]
+}

@@ -137,3 +137,209 @@ adapted from "state the assumption" to **"fail closed under uncertainty"**
 ambiguous scope. Keep this convention (an honesty-valve final category,
 adapted to the checklist's actual job) if a future skill adds a fifth
 checklist of this shape.
+
+## Root Cause Investigation Checklist
+
+Fifth checklist, for skills whose job is *diagnosing why a failure happened*
+(`root-cause-analyzer`, Phase 6). Shaped like the acceptance-coverage and
+Plan Quality checklists (a coverage-enumeration list, not a decision-gate
+like the Security Decision Checklist) because the job here is enumerating
+what a complete investigation covers, not issuing a binary verdict:
+
+```
+1. Symptom restated precisely (observed vs. expected behavior)
+2. Reproduction context (steps/trigger/frequency, if stated)
+3. Candidate locations — grounded in the candidate report, not guessed
+4. Evidence tier distinguished (stack-trace-confirmed vs. keyword-inferred)
+5. Blast-radius / hotspot context for each candidate (fan-in/fan-out signal)
+6. Recent-change correlation (deploy/release timing, if mentioned)
+7. Ruled-out candidates and why (negative evidence, not just positive leads)
+8. Confirmation step to prove the root cause before proposing a fix
+9. Fix-risk note (does the suspected fix touch a hotspot/high fan-in module?)
+10. Explicit assumption flag (evidence silent → state it, don't guess which
+    location is truly the root cause)
+```
+
+**Convention, established across all five checklists now**: category 10 is
+always the honesty valve when the checklist's job is *defining* or
+*diagnosing* something ambiguous (this one and the three coverage-shaped
+checklists before it); the Security Decision Checklist's category 7 adapts
+the same convention to "fail closed" because its job is a gate, not an
+enumeration. Category 4 here is specific to this skill: distinguishing
+evidence tiers is what stops a coincidental keyword match from being
+presented with the same confidence as a real stack-trace hit (see ADR-012
+in [[11-decisions]]).
+
+## Architecture Decision Record Checklist
+
+Sixth checklist, for skills whose job is *weighing a decision between
+alternatives* (`architecture-decision`, Phase 7). Shaped like the
+acceptance-coverage, Plan Quality, and Root Cause Investigation checklists
+(a coverage-enumeration list, not a decision-gate like the Security
+Decision Checklist) — the job here is enumerating what a complete decision
+record covers, not issuing a binary approve/deny verdict:
+
+```
+1. Context stated precisely
+2. Alternatives identified — real, grounded in what was parsed from the
+   decision text, not invented by the agent
+3. Decision explicitly stated
+4. Consequences / tradeoffs stated, per option, not one-sided
+5. Reversibility assessed per option
+6. Blast radius grounded in real structural data, not assumed (a
+   zero-match option means "ungrounded," not "safe" — see ADR-013)
+7. Security implications considered (or explicit N/A)
+8. Evidence cited, not opinion
+9. Future evolution / revisit trigger stated
+10. Explicit assumption flag (evidence silent → state it, don't guess)
+```
+
+**Convention, established across all six checklists now**: category 10 is
+always the honesty valve when the checklist's job is *defining*,
+*diagnosing*, or *deciding* something ambiguous (this one and the four
+coverage-shaped checklists before it); the Security Decision Checklist's
+category 7 adapts the same convention to "fail closed" because its job is a
+gate, not an enumeration. Category 6 here is specific to this skill:
+distinguishing "the engine found nothing because the option is genuinely
+low-impact" from "the engine found nothing because the decision text never
+named a real target" is what stops an ungrounded option from being read as
+a safe one (see ADR-013 in [[11-decisions]] and evaluation case-04's Option
+B, where a real, high-risk option scored zero matched modules because its
+target went unnamed).
+
+## Refactoring Safety Checklist
+
+Seventh checklist, for skills whose job is *assessing whether a proposed
+refactor is safe to execute* (`refactoring-safety`, Phase 8). Shaped like
+the acceptance-coverage, Plan Quality, Root Cause Investigation, and
+Architecture Decision Record checklists (a coverage-enumeration list, not a
+decision-gate like the Security Decision Checklist) — the job here is
+enumerating what a complete safety assessment covers, not issuing a binary
+approve/deny verdict:
+
+```
+1. Operation type stated precisely     6. Verification step stated (how
+   (not a vague "refactor")               success will be confirmed)
+2. Targets identified — real,          7. Behavioral equivalence / scope
+   resolved against the codebase-         explicitly asserted (does this
+   intelligence report, not invented      refactor also change behavior,
+3. Callers / blast radius assessed        or only structure?)
+   from real fan-in data, not          8. Security implications
+   guessed                                considered (or explicit N/A)
+4. Test coverage verified per          9. Evidence cited, not opinion
+   target — covered vs. genuinely     10. Explicit assumption flag
+   untested distinguished, not            (evidence silent → state it,
+   conflated with text-level             don't guess)
+   silence
+5. Rollback / reversibility plan
+   stated
+```
+
+**Convention, established across all seven checklists now**: category 10
+is always the honesty valve when the checklist's job is *defining*,
+*diagnosing*, or *deciding* something ambiguous (this one and the five
+coverage-shaped checklists before it); the Security Decision Checklist's
+category 7 adapts the same convention to "fail closed" because its job is a
+gate, not an enumeration. Category 4 here is specific to this skill:
+distinguishing "the refactor text never mentions tests" (a text-level
+absence) from "this target has no real test coverage" (a structural fact,
+independently computed) is what stops a well-written description from
+being read as evidence of actual verification — the two signals can and do
+diverge, and conflating them is exactly the failure mode evaluation
+case-03 exists to catch (see ADR-014 in [[11-decisions]]).
+
+## Regression Risk Checklist
+
+Eighth checklist, for skills whose job is *identifying which existing
+behavior is at risk of regressing from a diff* (`regression-hunter`, Phase
+9). Shaped like the acceptance-coverage, Plan Quality, Root Cause
+Investigation, Architecture Decision Record, and Refactoring Safety
+checklists (a coverage-enumeration list, not a decision-gate like the
+Security Decision Checklist) — the job here is enumerating what a complete
+regression-risk assessment covers, not issuing a binary approve/deny
+verdict:
+
+```
+1. Existing behavior at risk stated       6. False-positive check (is a
+   precisely per file, not just              flagged pattern actually
+   "this diff looks risky"                   safe here, e.g. exception
+2. Diff-pattern flags reviewed —              re-raised elsewhere)
+   distinguished from real evidence,       7. Missing-coverage files
+   not treated as proof                       explicitly named, not
+3. Structural blast radius grounded           silently accepted
+   in real fan-in/hotspot data, not       8. Security implications
+   guessed                                    considered (or explicit N/A)
+4. Test coverage verified per file —      9. Evidence cited, not opinion
+   covered vs. genuinely untested        10. Explicit assumption flag
+   distinguished, not conflated               (evidence silent → state it,
+5. Overall risk tier explained via the        don't guess)
+   documented rule table, not asserted
+```
+
+**Convention, established across all eight checklists now**: category 10 is
+always the honesty valve when the checklist's job is *defining*,
+*diagnosing*, or *deciding* something ambiguous (this one and the six
+coverage-shaped checklists before it); the Security Decision Checklist's
+category 7 adapts the same convention to "fail closed" because its job is a
+gate, not an enumeration. Category 2 here is specific to this skill:
+distinguishing "a diff-pattern flag fired" from "a real regression exists"
+is what stops a mechanically-detected shape (e.g. a removed `except` block
+that was genuinely dead code) from being presented with the same confidence
+as an actually-verified defect — the fixed pattern table is a lead
+generator (ADR-007), never a verdict, the same discipline every prior
+Pattern 2 skill's anti-pattern table already established. Category 5 is
+this skill's version of the three-axis discipline ADR-015 introduces:
+`overall_risk_tier` traces to a documented, inspectable rule table
+combining Axis 1 (diff-pattern flags), Axis 2 (structural blast radius),
+and Axis 3 (test coverage) — the checklist walk should be able to explain
+*why* a file landed at a given tier from the three underlying fields, not
+just repeat the tier as an assertion.
+
+## Release Readiness Checklist
+
+Ninth checklist, for skills whose job is *assessing whether a body of work
+is ready to ship* (`release-readiness`, Phase 10 — the final skill in the
+Engineering Lifecycle group). Shaped like the acceptance-coverage, Plan
+Quality, Root Cause Investigation, Architecture Decision Record,
+Refactoring Safety, and Regression Risk checklists (a coverage-enumeration
+list, not a decision-gate like the Security Decision Checklist) for most of
+its categories — but, uniquely among the coverage-shaped checklists, it
+also carries a non-negotiable framing requirement (category 10) because
+this skill's output is this portfolio's single highest-stakes
+recommendation:
+
+```
+1. Scope stated precisely (what is       6. Overall verdict explained via
+   actually being released, not just         the documented rule table,
+   "this diff")                              not asserted
+2. Diff-hygiene blockers reviewed as     7. False-positive check (is a
+   absolute, not leads — a hygiene           flagged pattern actually
+   flag means blocked, full stop            safe here, e.g. a legitimate
+3. Structural blast radius grounded         print() in a CLI's own output)
+   in real fan-in/hotspot data, not      8. Evidence cited, not opinion
+   guessed                              9. Explicit assumption flag
+4. Test coverage distinguished per          (evidence silent → state it,
+   file — covered vs. genuinely             don't guess)
+   untested, not conflated            10. Verdict framed as advisory/
+5. Regression/security evidence             human-checkpoint, NEVER an
+   surfaced-not-re-derived when              auto-gate — the single
+   present, explicitly marked                non-negotiable category this
+   ABSENT (not assumed clean) when           checklist adds beyond every
+   not supplied                              prior coverage-shaped one
+```
+
+**Convention, established across all nine checklists now**: category 9 is
+always the honesty valve when the checklist's job is *defining*,
+*diagnosing*, or *deciding* something ambiguous (this one and the seven
+coverage-shaped checklists before it); the Security Decision Checklist's
+category 7 adapts the same convention to "fail closed" because its job is a
+gate, not an enumeration. Category 10 here is genuinely new across the
+whole set: no prior checklist required a non-negotiable framing statement
+in every single walk, because no prior skill's output was this project's
+single highest-stakes recommendation. Category 5 is specific to this
+skill's optional-composition design (ADR-016): surfacing a composed
+regression/security signal verbatim, distinct from this skill's own
+always-available axes, is what stops a `READY` verdict (which reflects only
+Axes 1-3) from being silently read as "no regression risk exists" when a
+composed `regression-hunter` report actually shows otherwise — see
+evaluation case-07's deliberate divergence design.

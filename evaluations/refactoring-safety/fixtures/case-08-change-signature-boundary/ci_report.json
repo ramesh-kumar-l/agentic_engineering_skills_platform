@@ -1,0 +1,38 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/notify.py",
+      "docstring": "Sends notifications.",
+      "functions": ["send_notification"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/orders.py",
+      "docstring": "Order processing.",
+      "functions": ["place_order"],
+      "classes": [],
+      "imports": ["engine.notify"]
+    },
+    {
+      "path": "engine/alerts.py",
+      "docstring": "Alerting.",
+      "functions": ["raise_alert"],
+      "classes": [],
+      "imports": ["engine.notify"]
+    },
+    {
+      "path": "tests/test_notify.py",
+      "docstring": "",
+      "functions": ["test_send_notification"],
+      "classes": [],
+      "imports": ["engine.notify"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/notify.py": 2},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

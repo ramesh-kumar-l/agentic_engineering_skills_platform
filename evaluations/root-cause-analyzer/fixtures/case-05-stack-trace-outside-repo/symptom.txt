@@ -1,0 +1,6 @@
+Expected the export to finish but it hangs instead. Steps to reproduce: click "Export CSV" on the reports page. Error observed:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/site-packages/somelib/pool.py", line 210, in acquire
+    self._wait()
+TimeoutError: connection pool exhausted

@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/notifications.py",
+      "docstring": "Notification delivery and polling scheduler.",
+      "functions": ["poll", "deliver"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/checkout.py",
+      "docstring": "Checkout flow, unrelated to notifications.",
+      "functions": ["checkout"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/notifications.py": 11, "engine/checkout.py": 1},
+    "fan_out": {"engine/notifications.py": 3},
+    "hotspots": ["engine/notifications.py"]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/mailer.py",
+      "docstring": "Sends transactional email synchronously.",
+      "functions": ["send"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/mailer.py": 1},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

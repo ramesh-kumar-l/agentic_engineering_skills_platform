@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "test-coverage-distinction",
+      "description": "The refactor text never mentions tests or coverage (no-test-plan-signal fired), but the codebase actually has real coverage: tests/test_pricing.py imports engine.pricing directly. This is a case where the description's silence does NOT mean the target is genuinely unverified -- it means the author simply didn't write it down. `untested-blast-radius` correctly did not fire because the structural signal (real test coverage exists) overrides the text-absence signal.",
+      "grounding": "safety_scanner.py's no-test-plan-signal checks the refactor TEXT for test-related words and found none; test_coverage_scanner.py checks the actual codebase-intelligence report independently and found tests/test_pricing.py -- the two signals diverge on purpose, and the checklist must not conflate them.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "rollback-plan",
+      "description": "The refactor text states a rollback path explicitly (revert via git if anything looks wrong after deploy).",
+      "grounding": "Text's second sentence states the rollback plan; no-rollback-signal absence check correctly did not fire.",
+      "priority": "low",
+      "assumptions": null
+    }
+  ]
+}

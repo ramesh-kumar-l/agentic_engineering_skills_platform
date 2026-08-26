@@ -1,0 +1,4 @@
+Option A: refactor engine/auth.py to use a new session token format instead of the legacy format.
+Option B: leave the legacy format in place and only patch the known vulnerability.
+
+Option A is a one-way door since old sessions cannot be decoded afterward, trading migration cost for a cleaner security posture. Option B is fully reversible with a simple patch rollback.

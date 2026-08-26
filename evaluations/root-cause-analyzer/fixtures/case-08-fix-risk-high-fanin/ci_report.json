@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/response_builder.py",
+      "docstring": "Builds the shared response envelope used by every API endpoint.",
+      "functions": ["build_response"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/users_api.py",
+      "docstring": "Users API endpoints, uses response_builder.",
+      "functions": ["get_user"],
+      "classes": [],
+      "imports": ["response_builder"]
+    },
+    {
+      "path": "engine/orders_api.py",
+      "docstring": "Orders API endpoints, uses response_builder.",
+      "functions": ["get_order"],
+      "classes": [],
+      "imports": ["response_builder"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/response_builder.py": 14},
+    "fan_out": {"engine/users_api.py": 1, "engine/orders_api.py": 1},
+    "hotspots": ["engine/response_builder.py"]
+  }
+}

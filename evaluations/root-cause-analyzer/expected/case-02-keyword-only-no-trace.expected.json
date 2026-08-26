@@ -1,0 +1,8 @@
+{
+  "symptom_pattern_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "candidate-locations", "keywords": ["search.py", "rank_by_relevance"] },
+    { "id": "c2", "category": "assumption-flag", "keywords": ["no stack trace", "assum", "keyword"] },
+    { "id": "c3", "category": "confirmation-step", "keywords": ["sort", "rank_by_relevance", "confirm"] }
+  ]
+}

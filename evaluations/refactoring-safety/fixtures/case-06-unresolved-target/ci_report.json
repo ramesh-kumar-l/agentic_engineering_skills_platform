@@ -1,0 +1,17 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/real_module.py",
+      "docstring": "An unrelated real module.",
+      "functions": ["do_work"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

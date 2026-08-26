@@ -1,0 +1,1 @@
+Expected the payment webhook to acknowledge with 200 but it returns 500 instead. Steps to reproduce: send a test webhook event after this morning's deploy. Error in logs: webhook handler raised an exception. This started right after the deploy this morning — it worked fine yesterday, and the release notes mention a change to the webhook signature verification.

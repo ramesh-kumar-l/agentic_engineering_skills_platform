@@ -1,0 +1,5 @@
+1. Migrate the notification service to use webhooks instead of polling.
+2. Keep polling but reduce the interval from 60s to 10s.
+3. Keep polling as-is and accept the current latency.
+
+Option 1 is a one-way architectural change (a two-way door in practice since polling code can be kept dormant) that removes most latency at the cost of needing webhook retry/dead-letter handling -- a new failure mode. Option 2 is fully reversible with a one-line config change but increases load on the notification service, a real operational risk if it is already a hotspot. Option 3 has no development cost but keeps the current latency, which is the actual problem being solved. No new credentials or authentication are required for any option.

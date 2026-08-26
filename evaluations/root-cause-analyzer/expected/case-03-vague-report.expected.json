@@ -1,0 +1,14 @@
+{
+  "symptom_pattern_ids": [
+    "vague-symptom-catchall",
+    "vague-symptom-severity",
+    "no-expected-actual-signal",
+    "no-repro-signal",
+    "no-error-signal"
+  ],
+  "expected_categories": [
+    { "id": "c1", "category": "repro-context", "keywords": ["missing", "reproduce", "clarif"] },
+    { "id": "c2", "category": "assumption-flag", "keywords": ["assum", "cannot", "insufficient"] },
+    { "id": "c3", "category": "ruled-out", "keywords": ["coincidental", "app.py", "worker.py"] }
+  ]
+}

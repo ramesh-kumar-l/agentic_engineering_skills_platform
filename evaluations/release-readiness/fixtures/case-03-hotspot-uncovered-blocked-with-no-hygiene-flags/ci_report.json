@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/payment.py",
+      "docstring": "Payment processing hotspot.",
+      "functions": ["charge", "submit"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/checkout.py",
+      "docstring": "Calls payment.charge.",
+      "functions": ["complete_checkout"],
+      "classes": [],
+      "imports": ["engine.payment"]
+    },
+    {
+      "path": "engine/refunds.py",
+      "docstring": "Calls payment.charge for reversal.",
+      "functions": ["reverse"],
+      "classes": [],
+      "imports": ["engine.payment"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/payment.py": 6},
+    "fan_out": {},
+    "hotspots": ["engine/payment.py"]
+  }
+}

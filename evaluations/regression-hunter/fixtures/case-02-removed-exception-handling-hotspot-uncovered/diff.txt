@@ -1,0 +1,10 @@
+diff --git a/engine/payment.py b/engine/payment.py
+--- a/engine/payment.py
++++ b/engine/payment.py
+@@ -1,7 +1,4 @@
+ def charge(account, amount):
+-    try:
+-        return gateway.submit(account, amount)
+-    except GatewayTimeout:
+-        return None
++    return gateway.submit(account, amount)

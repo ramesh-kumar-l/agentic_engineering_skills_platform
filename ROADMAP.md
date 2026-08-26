@@ -46,9 +46,98 @@ skill's own action classifier, and doubled as the first internal pilot
 toward Assumption A7 (does security handling increase trust). See
 [`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
 
-**Proposed next: Phase 6 — Root Cause Analyzer.** Not started; requires
-explicit maintainer approval and re-justification against evidence before
-work begins.
+**Phase 6 — Root Cause Analyzer** (complete): sixth skill —
+`skills/root-cause-analyzer/` — reusing the same pattern a fifth time to
+turn a bug report (with or without a stack trace) into ranked, evidence-
+tiered candidate root-cause locations, evaluated on 8 fixtures plus a real
+dogfood run that regenerated a fresh `codebase-intelligence` report and
+retrospectively diagnosed a natural-language description of Phase 5's own
+L16 defect. New this phase: candidate locations are scored in two explicit,
+non-blended evidence tiers — stack-trace-confirmed vs. keyword-inferred
+(ADR-012) — and this skill reuses Phase 4's mandatory-composition rule
+(ADR-010) a second time. This phase also produced the project's first
+non-perfect judgment-layer evaluation score, disclosed as-is. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Phase 7 — Architecture Decision** (complete): seventh skill —
+`skills/architecture-decision/` — reusing the same pattern a sixth time to
+turn a decision description into per-option, blast-radius-scored impact
+against a real dependency graph, evaluated on 8 fixtures (all 8 scored
+perfect on both layers) plus a real dogfood run against a genuine in-flight
+decision this phase's own build faced. New this phase: **ADR-013** — each
+option's structural blast radius is scored as an explicit `low`/`medium`/
+`high` tier from real fan-in/hotspot data, not a bare relevance number —
+and this skill reuses Phase 4's mandatory-composition rule (ADR-010) a
+third time. The real dogfood run found and fixed a real gap in the
+tradeoff-detection regex, and separately disclosed (without fixing) a
+sharper version of the coincidental-keyword-match limitation at
+full-repository scale. Note: this roadmap previously proposed Refactoring
+Safety for Phase 7 — the actual Phase 7 instruction named Architecture
+Decision instead, so Refactoring Safety now sits at Phase 8. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Phase 8 — Refactoring Safety** (complete): eighth skill —
+`skills/refactoring-safety/` — reusing the same pattern a seventh time to
+turn a refactoring description into a per-target risk assessment against a
+real dependency graph plus an independently-computed test-coverage signal,
+evaluated on 8 fixtures (all 8 scored perfect on both layers) plus a real
+dogfood run against a genuine refactor this phase's own build produced
+(extracting a duplicated helper). New this phase: **ADR-014** — a target's
+structural risk tier is kept as a field distinct from its test-coverage
+status, rather than blended into one score — and this skill reuses Phase
+4's mandatory-composition rule (ADR-010) a fourth time. The real dogfood
+run disclosed — without fixing — a new cross-skill limitation: `codebase-
+intelligence`'s own `fan_in` metric undercounted a real caller that this
+skill's own independent caller scan found correctly. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Phase 9 — Regression Hunter** (complete): ninth skill —
+`skills/regression-hunter/` — reusing the same pattern an eighth time to
+turn a unified git diff into a per-file regression-risk assessment,
+evaluated on 8 fixtures (all 8 scored perfect on both layers) plus a real
+dogfood run against a genuine diff this phase's own build produced. New
+this phase: **ADR-015** — regression risk is scored from three explicit,
+non-blended signals per changed file (diff-pattern flags like removed
+exception handling or a removed conditional guard; structural blast radius
+from real fan-in/hotspot data, ADR-013-style; and an independently-computed
+test-coverage signal, ADR-014-style) combined into an overall tier via a
+documented rule table, with all three axes still visible separately in the
+report — and this skill reuses Phase 4's mandatory-composition rule
+(ADR-010) a fifth time. The real diff dogfooded was a genuine `codebase-intelligence` fix from this
+phase's own build (excluding `*.egg-info` directories from repo scans), and
+running it through the skill disclosed — without fixing — a new limitation
+(L23): `target_resolver.py`'s substring-based caller matching produces a
+wildly inflated caller list for short, common module stems like `scanner`,
+the same limitation class as L14/L19/L21 now shown to affect two skills'
+independent copies of the same heuristic at once. See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Phase 10 — Release Readiness** (complete): tenth skill, the final skill
+in the Engineering Lifecycle group — `skills/release-readiness/` — reusing
+the same pattern a ninth time to turn a git diff into a per-file Release
+Readiness Scorecard, evaluated on 8 fixtures (all 8 scored perfect on both
+layers) plus a real dogfood run against this phase's own actual body of
+work (a real, staged-then-unstaged, never-committed diff of all 78 new
+files). New this phase: **ADR-016** — three always-available, non-blended
+per-file signals (diff-hygiene flags, structural blast radius, test
+coverage) combine into a `readiness_tier` via a documented rule table,
+rolling up into one advisory-only `overall_verdict`; two further, OPTIONAL
+signals — surfaced (never re-derived) from a supplied `regression-hunter`
+or `security-context-guard` report — are the first cross-skill-report
+composition in this platform, deliberately excluded from the rule table.
+This skill also reuses Phase 4's mandatory-composition rule (ADR-010) a
+sixth time. The real dogfood run confirmed an already-documented
+false-positive shape concretely (a legitimate CLI `print()` flagged as a
+debug leftover) and disclosed — without fixing — a sharper, more
+consequential version of the L14/L19/L21/L23 limitation class: the same
+substring-based `target_resolver.py` pattern, reused a third time, was
+shown to produce false-positive test coverage, not just an inflated caller
+list (L24). See
+[`project-memory-bank/07-current-state.md`](project-memory-bank/07-current-state.md).
+
+**Proposed next: Phase 11 — Dependency / Supply Chain.** Not started;
+requires explicit maintainer approval and re-justification against
+evidence before work begins.
 
 ## How phases work here
 

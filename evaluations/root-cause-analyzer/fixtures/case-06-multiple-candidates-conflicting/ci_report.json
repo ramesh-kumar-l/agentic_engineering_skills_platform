@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/report_export.py",
+      "docstring": "Formats and writes the report file, including the user name field.",
+      "functions": ["export_report", "format_row"],
+      "classes": [],
+      "imports": ["user_repository"]
+    },
+    {
+      "path": "engine/user_repository.py",
+      "docstring": "Loads user records, including name and email, from the report of active users.",
+      "functions": ["get_user"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/report_scheduler.py",
+      "docstring": "Schedules report generation jobs for each user.",
+      "functions": ["schedule_report"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/user_repository.py": 2},
+    "fan_out": {"engine/report_export.py": 1},
+    "hotspots": []
+  }
+}

@@ -351,3 +351,356 @@ every judgment-based skill built so far. Same standing caveat as Phases
 2-4: this continues to show the evaluation design cannot yet discriminate a
 genuinely good derivation from a mediocre one, not that any of the four
 skills performs well in the world. See [[16-assumptions-and-validation]] A5.
+
+## L18: Symptom anti-pattern list and stack-trace parser are not exhaustive
+
+- **What failed**: N/A (scope boundary, not a bug — same shape as
+  L3/L7/L11/L15/L17).
+- **Why**: `symptom_patterns.py` is a small fixed regex table (2 wording
+  patterns + 3 absence checks); `stack_trace_parser.py` covers exactly two
+  shapes (Python tracebacks, generic `path:line`). A symptom written in
+  other phrasing, or a stack trace from a language/runtime whose format
+  differs (e.g. JavaScript's `at func (file:line:col)`, Java's
+  `at pkg.Class.method(File.java:42)`), will not be recognized.
+- **Impact**: `SKILL.md`'s Known Limitations section states this
+  explicitly. A missed stack-trace shape silently falls back to
+  keyword-tier scoring only — not a hard failure, but a real, disclosed
+  precision loss for non-Python stack traces specifically.
+- **Fix**: Not applicable — documented boundary between the deterministic
+  layer (a lead generator, same role as every other Pattern 2 skill's fixed
+  table) and the agent's own judgment, which can recognize an unfamiliar
+  trace shape by reading it directly even when the regex table can't.
+- **Regression prevention**: Documented in `SKILL.md` under "Known
+  Limitations."
+
+## L19: Keyword-tier candidate scoring shares feature-planner's coincidental-substring limitation, and produced this project's first non-perfect judgment-layer score
+
+- **What failed**: N/A (inherited limitation, not a new bug — same
+  mechanism as L14).
+- **Why**: `candidate_scorer.py`'s keyword-tier matching is substring-based,
+  same as `feature-planner/engine/relevance_scorer.py` (ADR-010's
+  precedent). Evaluation case-03 (`evaluations/root-cause-analyzer/fixtures/
+  case-03-vague-report/`) demonstrated this directly: the word "work" in
+  "doesn't work" matched `engine/worker.py` purely as a substring, and
+  "app" in "The app is just broken" matched `engine/app.py` — both
+  coincidental, not real evidence of involvement.
+- **Impact**: this is the first evaluation case, across five judgment-based
+  skills, where the agent's actual derivation scored below perfect
+  precision/recall against hand-authored expected categories (0.67/0.67 —
+  `evaluations/root-cause-analyzer/RESULTS.md`, case-03). This was not
+  adjusted to look better; the expected-category keywords for that case
+  were written before the actual derivation and left as originally
+  authored. It breaks the "four-for-four perfect scores" pattern noted in
+  the L8 updates above — read as a data point that this evaluation design
+  *can* produce imperfect scores when the expected/actual wording
+  genuinely diverges, not as evidence this skill's judgment quality is
+  lower than the other four's (a single self-authored case cannot support
+  either claim). See [[16-assumptions-and-validation]] A5.
+- **Fix**: Not applicable — the deterministic layer working as designed
+  (surfacing a lead, not a verdict) is exactly why case-03's actual
+  derivation explicitly states both matches are coincidental rather than
+  presenting them as real candidates (see `evaluations/root-cause-analyzer/
+  actual/case-03-vague-report.actual.json`).
+- **Regression prevention**: `evaluations/root-cause-analyzer/eval_cases/
+  case-03-vague-report.md` documents the expected failure mode explicitly
+  (false confidence on a coincidental match) as the thing being tested for.
+
+## L8 update: now applying a fifth time, first non-perfect score
+
+`root-cause-analyzer`'s judgment-layer evaluation scored perfect
+precision/recall on 7 of 8 fixtures and 0.67/0.67 on the 8th (case-03) —
+see L19 above and `evaluations/root-cause-analyzer/RESULTS.md`. This is the
+fifth judgment-based skill evaluated this way, and the first whose score is
+not a clean 100% — still self-authored, single-rater evidence either way,
+so neither outcome should be read as proof of real-world diagnostic
+quality. See [[16-assumptions-and-validation]] A5.
+
+## L20: Tradeoff-detection regex missed the verb form "trades X for Y" (FIXED same-session, found via real dogfooding)
+
+- **What failed**: `decision_patterns.py`'s `no-tradeoff-signal` absence
+  pattern matched only the noun forms `tradeoff`/`trade-off` (plus
+  cost/downside/risk/however/but/at-the-expense-of), not the verb phrasing
+  "Option A trades X for Y" — a natural, common way to state a tradeoff in
+  English that the initial pattern table did not anticipate.
+- **Why**: found via the real dogfood run
+  (`examples/architecture-decision/example-run.md`), not a synthetic
+  fixture — the dogfood decision text used "trades flexibility ... for
+  correctness" and "trades correctness for reach" to state two real
+  tradeoffs, and the first engine run still flagged `no-tradeoff-signal` as
+  if neither had been stated. Same pattern as L16 (`security-context-guard`):
+  a regex table validated only against hand-authored synthetic fixtures
+  missed a real phrasing the first genuine, real-text use of the tool hit
+  immediately.
+- **Impact**: a false absence-flag on a decision that actually did state
+  its tradeoffs — the kind of false-negative-on-the-flag-itself error that
+  erodes trust in the anti-pattern table if left uncorrected, since the
+  whole point of the flag is to catch decisions that genuinely omit this.
+- **Fix**: added `trades?\b` to the tradeoff regex alternation in
+  `engine/decision_patterns.py`. Re-verified: all 34 unit/integration/CLI
+  tests still pass, all 8 evaluation fixtures still score correctly (none
+  of the synthetic fixtures relied on the verb form being *absent* to
+  trigger the flag), and the dogfood decision's `no-tradeoff-signal` flag
+  no longer fires after the fix.
+- **Regression prevention**: `tests/test_decision_scanner.py` covers the
+  noun-form and absence cases; the dogfood write-up in
+  `examples/architecture-decision/example-run.md` documents the verb-form
+  gap explicitly as the thing that was found and fixed, so a future
+  regression is at least documented context even though no fixture
+  currently pins the verb-form case directly (a gap worth closing if this
+  skill sees more real use).
+
+## L21: Blast-radius keyword scoring degrades sharply at full-repository scale when a decision is about the platform's own architecture
+
+- **What failed**: N/A (disclosed limitation, not fixed — same mechanism
+  class as L14 and L19, demonstrated more sharply here).
+- **Why**: `impact_scorer.py`'s keyword matching is substring-based and has
+  no stopword for common path-prefix tokens (e.g. `engine`, which every
+  module in this repo's `skills/*/engine/` layout shares). Evaluation
+  case-01 and case-05 already demonstrated this at small scale (2-3 module
+  fixtures). The real dogfood run
+  (`examples/architecture-decision/example-run.md`) demonstrated it far
+  more sharply: a decision *about the architecture-decision skill's own
+  required-composition choice* — necessarily written using this project's
+  own recurring vocabulary ("codebase", "intelligence", "report", "adr",
+  "composition", "decision") — produced a blast-radius score of 241–256 and
+  matched all 10 of the report's hotspots for *both* options, against a
+  143-module, 7-skill repository whose own documentation constantly reuses
+  exactly that vocabulary.
+- **Impact**: at this scale, the blast-radius signal is real (every listed
+  module genuinely contains the matched words) but not useful — it cannot
+  distinguish "this decision is about the whole platform" from "this
+  decision's wording happens to overlap this repo's own vocabulary
+  everywhere." A keyword-only scorer cannot fix this on its own.
+- **Fix**: Not applied. A real fix would need either TF-IDF-style
+  down-weighting of corpus-common terms or a minimum keyword-specificity
+  threshold, neither implemented — this tradeoff (added complexity vs. a
+  disclosed, understood limitation, ADR-013's Future Evolution clause) has
+  not been evaluated against real evidence of need beyond this single
+  dogfood run.
+- **Regression prevention**: `examples/architecture-decision/example-run.md`
+  documents this explicitly as a limitation observed on real use, not
+  papered over; `SKILL.md`'s "When NOT to Use" section warns against
+  trusting this skill's blast-radius signal for a decision about the
+  platform's own architecture at large.
+
+## L8 update: now applying a sixth time, back to perfect scores
+
+`architecture-decision`'s judgment-layer evaluation scored perfect
+precision/recall on all 8 fixtures — unlike `root-cause-analyzer`'s Phase 6
+(one non-perfect case, L19 above). This is the sixth judgment-based skill
+evaluated this way; still self-authored, single-rater evidence, so this
+should not be read as evidence this skill's judgment quality is higher than
+`root-cause-analyzer`'s — a single self-authored evaluation cannot support
+that comparison either way. See [[16-assumptions-and-validation]] A5.
+
+## L22: `codebase-intelligence`'s `fan_in` can undercount a real caller relative to `refactoring-safety`'s own caller scan
+
+- **What**: `refactoring-safety`'s real dogfood run
+  (`examples/refactoring-safety/example-run.md`) assessed a genuine refactor
+  target (`skills/refactoring-safety/engine/target_resolver.py`) whose
+  Markdown output listed **two** real callers via the engine's own
+  `caller_modules` scan (`engine/report.py`, a relative-import caller, and
+  `tests/test_target_resolver.py`, an absolute-style-import caller) — but
+  `codebase-intelligence`'s own `dependency_graph.fan_in` for that same
+  module reported **1**, not 2.
+- **Why**: `codebase-intelligence`'s dependency-graph builder only
+  constructed a `DependencyEdge` for the relative import
+  (`.target_resolver`); the test file's absolute-style import
+  (`engine.target_resolver`) was a real caller but was not recognized as an
+  edge into that same graph. `refactoring-safety`'s `target_resolver.py`
+  does not trust `fan_in` for caller *identity* — its `_find_callers`
+  independently scans every module's raw `imports` list by substring, so it
+  found both callers correctly — but `safety_scorer.py`'s risk-tier
+  calculation scores against the authoritative `fan_in` number (1), not the
+  length of `caller_modules` (2), for consistency with `codebase-
+  intelligence`'s own reported metric.
+- **Impact**: in the dogfood case this did not change the outcome (an
+  `extract` operation on a non-hotspot module stays `low` risk either way),
+  but on a **boundary-changing** operation (rename/delete/move/change-
+  signature) where the fan-in threshold sits at the boundary between tiers,
+  this gap could under-score a target's real risk by one real caller.
+- **Fix**: Not applied. This gap originates in `codebase-intelligence`'s
+  own dependency-graph construction, not in `refactoring-safety`'s code —
+  fixing it here would mean either trusting `caller_modules`' length over
+  `codebase-intelligence`'s own `fan_in` field (a real design tradeoff not
+  evaluated against other evidence yet) or fixing the upstream graph
+  builder to recognize absolute-style cross-package imports as edges (a
+  different skill's concern). See ADR-014's Future Evolution clause.
+- **Regression prevention**: `examples/refactoring-safety/example-run.md`
+  documents this explicitly as a limitation observed on real use;
+  `SKILL.md`'s "When NOT to Use" and Agent Responsibilities sections
+  instruct the agent to check `caller_modules` directly rather than
+  trusting `fan_in` alone as the complete caller picture.
+
+## L8 update: now applying a seventh time, still perfect scores
+
+`refactoring-safety`'s judgment-layer evaluation scored perfect precision/
+recall on all 8 fixtures, same as five of the six prior judgment-based
+skills — `root-cause-analyzer` remains the one exception (L19 above). This
+is the seventh judgment-based skill evaluated this way; still self-authored,
+single-rater evidence, so this should not be read as evidence this skill's
+judgment quality is higher than `root-cause-analyzer`'s — a single
+self-authored evaluation cannot support that comparison either way. See
+[[16-assumptions-and-validation]] A5.
+
+---
+
+Entries below are from Phase 9 (regression-hunter).
+
+## L23: `target_resolver.py`'s substring-based caller identification produces a wildly inflated caller list for short, common module stems (FIXED 2026-08-26, mentor-review follow-up)
+
+- **What failed**: N/A (disclosed limitation, not fixed — same mechanism
+  class as L14/L19/L21, demonstrated in a new location: structural caller
+  identification, not keyword-relevance ranking).
+- **Why**: `regression-hunter`'s `target_resolver.py::_find_callers` (an
+  independent copy of `refactoring-safety`'s identical
+  `target_resolver.py::_find_callers` pattern) resolves a changed file's
+  module stem, then checks whether that stem appears as a bare **substring**
+  anywhere in each candidate module's joined `imports` text
+  (`target_stem in imports_text`). For `codebase-intelligence/engine/
+  scanner.py`, the stem `"scanner"` is a substring of `"testability_
+  scanner"`, `"decision_scanner"`, `"safety_scanner"`, `"regression_
+  scanner"`, `"symptom_scanner"`, and `"risk_scanner"` — every other skill
+  in this platform that reuses Pattern 2's "scanner" naming convention for
+  its own anti-pattern-flag module.
+- **Impact**: found via the real dogfood run
+  (`examples/regression-hunter/example-run.md`) — a genuine, already-tested
+  `codebase-intelligence` scanner fix (excluding `*.egg-info` directories
+  from repo scans). The Markdown output listed **22 "caller" modules** for
+  `scanner.py`, most of them false positives — modules like
+  `skills/architecture-decision/engine/report.py` that import their own
+  skill's `decision_scanner.py` and have never heard of `codebase-
+  intelligence/engine/scanner.py` at all. In this specific run the false
+  positives did not change `overall_risk_tier` (which is driven by the
+  composed report's real `fan_in`/hotspot data, not by the length of
+  `caller_modules`), but the `caller_modules` list itself — which
+  `SKILL.md`'s Agent Responsibilities explicitly instructs the agent to
+  check alongside `fan_in` — is materially misleading for any module whose
+  stem is a short, common word. This is also the first time this class of
+  limitation is shown to affect **two** skills' independent copies of the
+  same heuristic simultaneously (`refactoring-safety`'s and
+  `regression-hunter`'s `target_resolver.py` share the identical
+  vulnerability, since the second is a portability-discipline-driven
+  independent copy of the first's resolution pattern, not a shared import).
+- **Fix**: Applied 2026-08-26, after a mentor-review pass explicitly
+  flagged this as having crossed from "disclosed tradeoff" to "proven,
+  four-times-recurring correctness bug" once L24 showed the same heuristic
+  could corrupt a decision signal, not just a displayed field. Both
+  `refactoring-safety/engine/target_resolver.py` and
+  `regression-hunter/engine/target_resolver.py` now use a word-boundary-
+  aware match (`_contains_whole_token`, `re.search(r"\b<stem>\b", ...)`)
+  instead of a bare `in` substring check. Since `\w` includes `_`,
+  `\bscanner\b` correctly rejects "testability_scanner" (no boundary
+  between `_` and `s`) while still matching a real, dotted import like
+  "engine.scanner" (boundary at `.`) — exactly the collision this entry
+  documented. Applied identically (independent copy, no shared import,
+  same portability discipline as the original bug) to both skills.
+- **Regression prevention**: `test_caller_list_excludes_module_whose_
+  import_merely_embeds_the_stem_substring`-shaped tests added to both
+  skills' `tests/test_target_resolver.py`, using the exact
+  `scanner`/`testability_scanner` collision from this entry's dogfood
+  finding, paired with a positive-case test confirming a real dotted
+  import still resolves correctly. `examples/regression-hunter/
+  example-run.md` remains as historical record of the original finding.
+
+## L8 update: now applying an eighth time, still perfect scores
+
+`regression-hunter`'s judgment-layer evaluation scored perfect precision/
+recall on all 8 fixtures, same as six of the seven prior judgment-based
+skills — `root-cause-analyzer` remains the one exception (L19 above). This
+is the eighth judgment-based skill evaluated this way; still self-authored,
+single-rater evidence, so this should not be read as evidence this skill's
+judgment quality is higher than `root-cause-analyzer`'s — a single
+self-authored evaluation cannot support that comparison either way. See
+[[16-assumptions-and-validation]] A5.
+
+---
+
+Entries below are from Phase 10 (release-readiness).
+
+## L24: `target_resolver.py`'s substring-based resolution produces false-positive TEST COVERAGE, not just an inflated caller list — a materially new manifestation of L23
+
+- **What failed**: N/A (disclosed limitation, not fixed — same mechanism
+  class as L14/L19/L21/L23, demonstrated in a new, more consequential
+  location: false-positive test-coverage matching, not just caller-list
+  inflation).
+- **Why**: `release-readiness`'s `target_resolver.py` is a THIRD
+  independent copy of `refactoring-safety`'s/`regression-hunter`'s
+  identical stem-based substring-matching pattern (already disclosed as
+  L23). `test_coverage_scanner.py` reuses the exact same substring check
+  (`target_stem in imports_text`) to decide whether a "looks like a test"
+  module genuinely covers a given file. For a module whose stem is a
+  common word shared across this platform's skills (e.g. `models`,
+  `stats`, `report`, `render_json`, `render_markdown`, `ci_report_loader`,
+  `target_resolver`, `test_coverage_scanner` — every module reusing Pattern
+  2's common naming convention for these roles), this produces a
+  false-positive "covered" verdict: a test module belonging to a
+  completely unrelated skill, which merely imports its OWN skill's
+  identically-stemmed module, is counted as covering this skill's module.
+- **Impact**: found via the real dogfood run
+  (`examples/release-readiness/example-run.md`) — `skills/release-
+  readiness/engine/models.py` resolved with `fan_in: 13` (structural tier
+  `high`) and `test_coverage.has_coverage: true`, "covered" by
+  `skills/architecture-decision/tests/test_impact_scorer.py` and
+  `skills/architecture-decision/tests/test_stats.py`, among others — but
+  `release-readiness` has **no `tests/test_models.py` of its own**. The
+  same false-positive pattern repeated for `stats.py`, `report.py`,
+  `render_json.py`, `render_markdown.py`, `ci_report_loader.py`,
+  `target_resolver.py`, and `test_coverage_scanner.py`. This is a more
+  consequential category of finding than L23: L23 (found via
+  `regression-hunter`'s dogfood run) inflated a *caller list* — a
+  displayed field that did not change that run's risk-tier outcome. Here,
+  the identical heuristic corrupts the exact signal
+  (`test_coverage.has_coverage`) `readiness_scorer.py`'s rule table uses to
+  decide whether a structurally consequential file needs closer review —
+  the mechanism is now shown capable of making a genuinely untested new
+  module look tested, the more dangerous direction for a skill whose
+  entire purpose is judging release readiness. In this specific dogfood
+  run the outcome still landed conservatively (`needs-review`, not
+  `clear`), because the same collision also inflated `fan_in`/hotspot
+  status enough to keep the structural tier at medium/high — but that is
+  a coincidence of this run's specific module names, not a property of the
+  fix.
+- **Fix**: PARTIALLY applied 2026-08-26. Both `target_resolver.py` and
+  `test_coverage_scanner.py` in `release-readiness` now use the same
+  word-boundary-aware match introduced for L23
+  (`_contains_whole_token`, `re.search(r"\b<stem>\b", ...)`) instead of a
+  bare substring check. This closes the *embedded-substring* subclass of
+  this bug (a stem like "models" appearing inside an unrelated identifier
+  such as "shared_models_cache") for both caller identification and test
+  coverage matching. **It does NOT close this entry's headline dogfood
+  example**: two different skills each having their own genuinely,
+  legitimately-imported, identically-stemmed module (e.g.
+  `architecture-decision`'s `models.py` and `release-readiness`'s own
+  `models.py`) still produces a real, boundary-respecting dotted-import
+  match — `\bmodels\b` matches "engine.models" regardless of *which*
+  skill's `engine/models.py` it actually refers to, because the resolver
+  has no notion of "same skill" scoping. Closing that remaining gap
+  requires a repo-layout-aware fix (e.g. scoping matches to the same
+  `skills/<name>/` path prefix as the resolved target) that was
+  deliberately NOT implemented in this pass — it is a larger, more
+  repo-layout-specific change than the general-purpose word-boundary fix,
+  and risks introducing false negatives for genuinely cross-directory
+  callers in a non-monorepo target repo, not evaluated against evidence of
+  need. This entry stays open, narrowed to exactly this remaining scope.
+- **Regression prevention**: `test_excludes_test_module_whose_import_
+  merely_embeds_the_stem_substring` and a paired positive-case test added
+  to `release-readiness`'s `tests/test_target_resolver.py` and
+  `tests/test_test_coverage_scanner.py`, confirming the embedded-substring
+  subclass is closed while a real dotted-import match still resolves
+  correctly. `examples/release-readiness/example-run.md` remains the
+  historical record of the original, still-partially-open finding.
+  `SKILL.md`'s Known Limitations section should be read alongside this
+  updated entry — the cross-skill identical-stem gap is real and current,
+  not historical.
+
+## L8 update: now applying a ninth time, still perfect scores
+
+`release-readiness`'s judgment-layer evaluation scored perfect precision/
+recall on all 8 fixtures, same as seven of the eight prior judgment-based
+skills — `root-cause-analyzer` remains the one exception (L19 above). This
+is the ninth judgment-based skill evaluated this way; still self-authored,
+single-rater evidence, so this should not be read as evidence this skill's
+judgment quality is higher than `root-cause-analyzer`'s — a single
+self-authored evaluation cannot support that comparison either way. See
+[[16-assumptions-and-validation]] A5.

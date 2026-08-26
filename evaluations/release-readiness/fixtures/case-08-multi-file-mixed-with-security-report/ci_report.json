@@ -1,0 +1,45 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/core.py",
+      "docstring": "Core entry logic.",
+      "functions": ["run"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/util2.py",
+      "docstring": "Small helper.",
+      "functions": ["helper"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "tests/test_util2.py",
+      "docstring": "",
+      "functions": ["test_helper"],
+      "classes": [],
+      "imports": ["engine.util2"]
+    },
+    {
+      "path": "engine/helper.py",
+      "docstring": "Compute helper.",
+      "functions": ["compute"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/pipeline.py",
+      "docstring": "Calls helper.compute.",
+      "functions": ["run_pipeline"],
+      "classes": [],
+      "imports": ["engine.helper"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/core.py": 0, "engine/util2.py": 0, "engine/helper.py": 1},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

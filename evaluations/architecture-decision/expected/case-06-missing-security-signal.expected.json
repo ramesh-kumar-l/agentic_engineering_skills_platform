@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": ["no-security-signal"],
+  "expected_categories": [
+    { "id": "c1", "category": "missing-security", "keywords": ["credentials", "IAM", "not mentioned"] },
+    { "id": "c2", "category": "consequences", "keywords": ["storage capacity", "operational cost", "revert"] },
+    { "id": "c3", "category": "blast-radius-grounding", "keywords": ["storage.py", "cron_cleanup.py", "medium"] }
+  ]
+}

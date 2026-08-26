@@ -1,0 +1,8 @@
+{
+  "symptom_pattern_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "evidence-tier", "keywords": ["stack-trace", "response_builder", "highest"] },
+    { "id": "c2", "category": "fix-risk", "keywords": ["fan_in", "widely", "endpoints", "regression"] },
+    { "id": "c3", "category": "blast-radius", "keywords": ["hotspot", "14", "every endpoint"] }
+  ]
+}

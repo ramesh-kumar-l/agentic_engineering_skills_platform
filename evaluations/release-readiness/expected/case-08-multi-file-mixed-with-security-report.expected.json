@@ -1,0 +1,15 @@
+{
+  "flag_ids": ["debug-print-leftover"],
+  "file_readiness_tiers": {
+    "engine/core.py": "blocked",
+    "engine/util2.py": "clear",
+    "engine/helper.py": "needs-review"
+  },
+  "overall_verdict": "NOT_READY",
+  "expected_categories": [
+    { "id": "c1", "category": "diff-hygiene-reviewed-as-absolute", "keywords": ["print", "debug", "core.py"] },
+    { "id": "c2", "category": "test-coverage-distinguished", "keywords": ["util2.py", "covered", "helper.py", "uncovered"] },
+    { "id": "c3", "category": "security-evidence-surfaced-not-re-derived", "keywords": ["requires_human_approval", "security-context-guard", "surfaced"] },
+    { "id": "c4", "category": "overall-verdict-explained", "keywords": ["not_ready", "blocked", "core.py"] }
+  ]
+}

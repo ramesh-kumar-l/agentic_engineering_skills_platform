@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-hygiene-reviewed-as-absolute",
+      "description": "No diff-hygiene flags fired -- the only change is a comment-text edit, no debug leftovers, TODO markers, secret-shaped literals, or conflict markers were introduced. This is correctly 'no flags', not evidence the file is release-ready on its own.",
+      "grounding": "engine/hygiene_scanner.py's two checks both returned empty for this hunk.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "structural-blast-radius-grounded",
+      "description": "engine/payment.py resolves as a real hotspot with fan_in=6 -- two real callers (engine/checkout.py, engine/refunds.py) found via the composed codebase-intelligence report, so this file is genuinely structurally consequential, not a guess.",
+      "grounding": "target_resolver.py resolved engine/payment.py by exact path match, fan_in=6, is_hotspot=true, caller_modules=[engine/checkout.py, engine/refunds.py].",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "test-coverage-distinguished",
+      "description": "No test module in the composed report imports engine.payment -- this is genuinely uncovered, not merely unmentioned in the diff text; a hotspot with zero real test coverage is a real release risk on its own, independent of hygiene.",
+      "grounding": "test_coverage_scanner.py found zero test modules importing engine.payment across all 3 modules in the report.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c4",
+      "category": "overall-verdict-explained",
+      "description": "Per the rule table, structural_tier=high AND not has_coverage -> blocked, even with zero hygiene flags -- this demonstrates a clean diff can still be readiness_tier=blocked from Axis 2/3 alone, so overall_verdict=NOT_READY is correct and not an over-reaction to a trivial comment edit.",
+      "grounding": "readiness_scorer.py rule 2: structural_tier==high and not has_coverage -> blocked.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

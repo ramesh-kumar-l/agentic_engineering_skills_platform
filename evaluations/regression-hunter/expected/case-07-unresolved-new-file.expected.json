@@ -1,0 +1,8 @@
+{
+  "flag_ids": ["modified-signature-no-test-change"],
+  "file_risk_tiers": { "engine/new_feature.py": "medium" },
+  "expected_categories": [
+    { "id": "c1", "category": "existing-behavior-at-risk-stated", "keywords": ["new file", "unresolved", "does not exist"] },
+    { "id": "c2", "category": "structural-blast-radius", "keywords": ["unresolved", "no structural data", "low"] }
+  ]
+}

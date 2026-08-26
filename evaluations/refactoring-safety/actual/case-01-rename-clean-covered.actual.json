@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "targets-identified",
+      "description": "The refactor names two real targets: `cache.py` (the rename source, resolved to engine/cache.py) and `cache_layer.py` (the rename destination, which does not yet exist in the report). This is expected for a rename -- the new name legitimately has nothing to resolve to before the rename happens, unlike a genuinely mistyped or fabricated target.",
+      "grounding": "engine/target_resolver.py resolved `cache.py` to engine/cache.py by module-stem match; `cache_layer.py` correctly returned resolved_module_path=None since no such module exists yet.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinction",
+      "description": "engine/cache.py has real structural risk (fan_in=1, boundary-changing rename operation -> medium tier) but it is genuinely covered: tests/test_cache.py imports engine.cache directly, so this is a verified-risk situation, not a silent one.",
+      "grounding": "target_resolver.py found engine/session.py as a caller (fan_in=1); test_coverage_scanner.py found tests/test_cache.py importing engine.cache, so no untested-blast-radius flag fired.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "rollback-plan",
+      "description": "The refactor text explicitly states this is reversible via git revert if regressions appear after landing.",
+      "grounding": "Refactor description's final sentence states the rollback path explicitly; no-rollback-signal absence check correctly did not fire.",
+      "priority": "low",
+      "assumptions": null
+    }
+  ]
+}

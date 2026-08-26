@@ -1,0 +1,17 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/reporting.py",
+      "docstring": "Generates analytics reports.",
+      "functions": ["generate_report"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/reporting.py": 2},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

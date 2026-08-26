@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/mathlib.py",
+      "docstring": "Math helpers.",
+      "functions": ["add", "subtract"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "tests/test_mathlib.py",
+      "docstring": "",
+      "functions": ["test_add", "test_subtract"],
+      "classes": [],
+      "imports": ["engine.mathlib"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/mathlib.py": 0},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

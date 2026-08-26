@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-hygiene-reviewed-as-absolute",
+      "description": "This diff introduces three literal, unresolved merge-conflict markers (<<<<<<< HEAD, =======, >>>>>>> feature-branch) -- the file is almost certainly syntactically broken as a result, an absolute, unambiguous blocker regardless of any other axis.",
+      "grounding": "engine/hygiene_scanner.py's conflict-marker check matched all three lines in the added hunk content.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "overall-verdict-explained",
+      "description": "readiness_tier=blocked (hygiene flag fired) rolls up to overall_verdict=NOT_READY -- this diff must not be released until the conflict is resolved, a recommendation for the human merging this, not an automatic rejection.",
+      "grounding": "readiness_scorer.py rule 1: any hygiene flag -> blocked; overall_verdict: any blocked -> NOT_READY.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

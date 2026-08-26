@@ -1,0 +1,24 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/session.py",
+      "docstring": "Session helper.",
+      "functions": ["new_session"],
+      "classes": ["Session"],
+      "imports": []
+    },
+    {
+      "path": "engine/auth.py",
+      "docstring": "Calls session.new_session.",
+      "functions": ["login"],
+      "classes": [],
+      "imports": ["engine.session"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/session.py": 1},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

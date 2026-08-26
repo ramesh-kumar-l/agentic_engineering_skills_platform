@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "blast-radius-grounding",
+      "description": "`auth.py` resolves to engine/auth.py, a real hotspot with fan_in=7 (three real callers: engine/api.py, engine/admin.py, engine/billing.py). This is exactly the kind of target where 'trivial' language is most dangerous -- a rename here breaks every one of those callers unless updated in lockstep.",
+      "grounding": "target_resolver.py resolved engine/auth.py by stem match; codebase-intelligence's fan_in/hotspots fields confirm 7 real dependents and hotspot status, driving risk_tier=high.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinction",
+      "description": "No test module in the report imports engine.auth -- this HIGH-risk target has zero verification coverage. The refactor text also never mentions tests. Both signals agree here: this is genuinely unverified, not just under-described.",
+      "grounding": "test_coverage_scanner.py found no covering test module; safety_scorer.py raised untested-blast-radius (severity high) because risk_tier=high and test_coverage_modules is empty.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "explicit-assumption-flag",
+      "description": "The text asserts safety ('trivial', 'shouldn't break anything') without any supporting evidence -- no callers, no test plan, no rollback plan, and no verification step are stated anywhere. This must be recorded as an unsubstantiated assumption, not accepted at face value.",
+      "grounding": "decision text matched vague-refactor-language ('just', 'trivial', \"shouldn't break anything\") plus four absence flags (no-test-plan-signal, no-rollback-signal, no-caller-update-signal, no-verification-signal) -- every plan-quality category this checklist checks for is silent.",
+      "priority": "high",
+      "assumptions": "Text provides no actual evidence the rename is safe; this is an unsubstantiated claim, not a verified fact."
+    }
+  ]
+}

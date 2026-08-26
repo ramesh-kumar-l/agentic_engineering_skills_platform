@@ -1,0 +1,1 @@
+Expected the search results to be sorted by relevance but they come back in random order instead. Steps to reproduce: search for "shoes" on the products page and look at the result ordering. No error message appears in the console, the request just returns an unsorted list.

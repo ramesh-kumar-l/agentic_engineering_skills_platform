@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "diff-hygiene-reviewed-as-absolute",
+      "description": "A debug print() statement was added to engine/util.py -- this fires the debug-print-leftover hygiene flag, which per ADR-016's rule table is an ABSOLUTE blocker regardless of the file's low structural tier and real test coverage.",
+      "grounding": "engine/hygiene_scanner.py flagged line 2 (added) matching the debug-print-leftover pattern; readiness_scorer.py's rule 1 fires on any non-empty hygiene_flags list.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "false-positive-check",
+      "description": "This print() call has no surrounding justification (e.g. it is not this module's intended CLI output) -- reading the diff, it looks like a genuine leftover debug statement, not an intentional print, so treating the flag as a real blocker rather than a false positive is correct here.",
+      "grounding": "engine/util.py is a formatting helper module with no CLI/stdout responsibility per its docstring -- a print() call here has no legitimate purpose.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "overall-verdict-explained",
+      "description": "Because the only changed file is readiness_tier=blocked (hygiene flag fired), overall_verdict is NOT_READY per the rule table -- this is a recommendation to remove the debug statement before release, not an executed rejection.",
+      "grounding": "readiness_scorer.py's overall_verdict: any file blocked -> NOT_READY.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

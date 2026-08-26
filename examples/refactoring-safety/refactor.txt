@@ -1,0 +1,4 @@
+Extract the path-stem helper duplicated across `target_resolver.py` and
+`test_coverage_scanner.py` in the refactoring-safety engine into a shared
+module, and update both call sites to import it instead of repeating the
+`PurePosixPath(path).stem` logic inline.

@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "structural-blast-radius-grounded",
+      "description": "engine/payment.py is a real hotspot with fan_in=6 (engine/checkout.py is a real caller) -- structurally consequential even though this specific edit is a comment change.",
+      "grounding": "target_resolver.py: fan_in=6, is_hotspot=true.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "test-coverage-distinguished",
+      "description": "tests/test_payment.py genuinely imports engine.payment, so this hotspot IS covered -- unlike case-03, coverage exists, but per the rule table a high structural tier stays at needs-review even when covered (never drops all the way to clear), since a diff-hygiene scan alone cannot prove behavioral equivalence on a real hotspot.",
+      "grounding": "test_coverage_scanner.py found tests/test_payment.py importing engine.payment.",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "overall-verdict-explained",
+      "description": "readiness_tier=needs-review (not blocked, not clear) rolls up to overall_verdict=READY_WITH_CONDITIONS -- a human should still glance at this hotspot change before releasing, even though nothing is an outright blocker.",
+      "grounding": "readiness_scorer.py rule 3: structural_tier in (high, medium) -> needs-review even when covered and flag-free.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

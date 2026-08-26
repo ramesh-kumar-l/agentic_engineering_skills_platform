@@ -1,0 +1,11 @@
+{
+  "flag_ids": [],
+  "file_readiness_tiers": { "engine/payment.py": "blocked" },
+  "overall_verdict": "NOT_READY",
+  "expected_categories": [
+    { "id": "c1", "category": "diff-hygiene-reviewed-as-absolute", "keywords": ["no hygiene", "none detected", "no flags"] },
+    { "id": "c2", "category": "structural-blast-radius-grounded", "keywords": ["hotspot", "fan_in", "6"] },
+    { "id": "c3", "category": "test-coverage-distinguished", "keywords": ["no test", "uncovered", "not covered"] },
+    { "id": "c4", "category": "overall-verdict-explained", "keywords": ["not_ready", "blocked", "hotspot"] }
+  ]
+}

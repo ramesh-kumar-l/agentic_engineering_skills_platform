@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "recent-change",
+      "description": "The symptom explicitly correlates the failure with this morning's deploy ('worked fine yesterday') and names a specific recent change — the webhook signature verification — as the release-notes item most likely responsible.",
+      "grounding": "Symptom text: 'started right after the deploy this morning', 'release notes mention a change to the webhook signature verification'.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "candidate-locations",
+      "description": "engine/webhook_handler.py's verify_signature function is the primary candidate — it's both the top keyword match (score 14) and the exact function the release notes call out as changed.",
+      "grounding": "candidates.candidates[0] = {path: engine/webhook_handler.py, score: 14}; module functions include 'verify_signature'.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "confirmation-step",
+      "description": "Confirm by diffing verify_signature's implementation against the pre-deploy version (or re-running a known-good webhook payload against both) to see whether the new signature check rejects a payload the old one accepted — a targeted, cheap check before touching payments.py.",
+      "grounding": "The recent-change correlation makes a before/after diff the highest-leverage confirmation step, not a broad investigation of the whole webhook path.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

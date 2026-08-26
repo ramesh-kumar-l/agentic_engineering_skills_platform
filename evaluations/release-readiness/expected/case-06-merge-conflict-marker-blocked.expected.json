@@ -1,0 +1,9 @@
+{
+  "flag_ids": ["merge-conflict-marker"],
+  "file_readiness_tiers": { "engine/config.py": "blocked" },
+  "overall_verdict": "NOT_READY",
+  "expected_categories": [
+    { "id": "c1", "category": "diff-hygiene-reviewed-as-absolute", "keywords": ["conflict marker", "unresolved", "broken"] },
+    { "id": "c2", "category": "overall-verdict-explained", "keywords": ["not_ready", "blocked", "syntactically"] }
+  ]
+}

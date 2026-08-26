@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/pricing.py",
+      "docstring": "Pricing calculation.",
+      "functions": ["compute_price"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/checkout.py",
+      "docstring": "Checkout flow.",
+      "functions": ["checkout"],
+      "classes": [],
+      "imports": ["engine.pricing"]
+    },
+    {
+      "path": "tests/test_pricing.py",
+      "docstring": "",
+      "functions": ["test_compute_price"],
+      "classes": [],
+      "imports": ["engine.pricing"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/pricing.py": 1},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

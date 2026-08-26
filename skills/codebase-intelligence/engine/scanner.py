@@ -74,7 +74,10 @@ def scan(
     skipped_file_count = 0
 
     for dirpath, dirnames, filenames in os.walk(root):
-        kept_dirs = [d for d in dirnames if d not in excluded]
+        kept_dirs = [
+            d for d in dirnames
+            if d not in excluded and not d.endswith(".egg-info")
+        ]
         excluded_dir_count += len(dirnames) - len(kept_dirs)
         dirnames[:] = kept_dirs
 

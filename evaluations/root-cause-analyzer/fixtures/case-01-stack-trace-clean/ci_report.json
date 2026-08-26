@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/cart.py",
+      "docstring": "Cart total computation.",
+      "functions": ["total", "add_item"],
+      "classes": [],
+      "imports": ["tax"]
+    },
+    {
+      "path": "engine/tax.py",
+      "docstring": "Tax rate lookup by region.",
+      "functions": ["rate_for_region"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/checkout.py",
+      "docstring": "Checkout flow, calls cart total.",
+      "functions": ["checkout"],
+      "classes": [],
+      "imports": ["cart"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/cart.py": 2, "engine/tax.py": 1},
+    "fan_out": {"engine/cart.py": 1, "engine/checkout.py": 1},
+    "hotspots": []
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "flag_ids": [],
+  "file_readiness_tiers": { "engine/session.py": "needs-review" },
+  "overall_verdict": "READY_WITH_CONDITIONS",
+  "expected_categories": [
+    { "id": "c1", "category": "structural-blast-radius-grounded", "keywords": ["fan_in=1", "medium", "engine/auth.py"] },
+    { "id": "c2", "category": "test-coverage-distinguished", "keywords": ["no test", "uncovered", "not covered"] },
+    { "id": "c3", "category": "overall-verdict-explained", "keywords": ["ready_with_conditions", "needs-review"] }
+  ]
+}

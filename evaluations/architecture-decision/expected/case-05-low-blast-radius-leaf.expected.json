@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": [],
+  "expected_categories": [
+    { "id": "c1", "category": "blast-radius-grounding", "keywords": ["relevance_score=6", "path-tier", "low-stakes"] },
+    { "id": "c2", "category": "consequences", "keywords": ["reversible", "no meaningful cost", "security-sensitive"] },
+    { "id": "c3", "category": "ungrounded-option", "keywords": ["documentation-only", "no code", "zero modules"] }
+  ]
+}

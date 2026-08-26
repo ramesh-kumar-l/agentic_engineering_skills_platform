@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "reversibility-assessed",
+      "description": "The decision states reversibility explicitly: if performance targets aren't met after the Go rewrite, the team can migrate back to Python. This is a real, stated reversibility path, not an assumption.",
+      "grounding": "Decision text's final sentence: 'reversible if performance targets aren't met -- we can migrate back to Python.'",
+      "priority": "medium",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "missing-tradeoff",
+      "description": "Neither option states a downside. Option A ('better performance') never mentions the real cost of a full rewrite in a second language (team unfamiliarity, tooling duplication, two runtimes in production). Option B ('add caching') never mentions cache-invalidation risk. This reads as a one-sided pitch for Option A rather than a weighed comparison, and the engine correctly flagged the absence -- the checklist should require the missing downside to be stated before this decision proceeds.",
+      "grounding": "decision_scanner.py flagged no-tradeoff-signal (no cost/downside/risk/however/but language anywhere in the text).",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "missing-security",
+      "description": "No security implications are mentioned for either option. A reporting-module rewrite is plausibly N/A for security, but that should be stated explicitly ('no new attack surface or credential handling introduced') rather than left silent -- the engine's absence flag correctly surfaces this as unaddressed, not automatically safe.",
+      "grounding": "decision_scanner.py flagged no-security-signal.",
+      "priority": "low",
+      "assumptions": "Assuming the reporting module does not read/write anything security-sensitive -- not confirmed by the decision text itself."
+    }
+  ]
+}

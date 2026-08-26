@@ -1,0 +1,3 @@
+Move build_report out of report_builder.py into a new dedicated module.
+Update all callers and references, run the tests, and verify with CI.
+Reversible via git revert if it breaks anything.

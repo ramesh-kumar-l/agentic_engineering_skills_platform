@@ -1,0 +1,2 @@
+Rename `phantom_module.py` to `ghost_module.py`. Update every call site,
+run tests, and keep it reversible via git revert.

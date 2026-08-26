@@ -1,0 +1,10 @@
+{
+  "flag_ids": [],
+  "file_readiness_tiers": { "engine/pricing.py": "clear" },
+  "overall_verdict": "READY",
+  "expected_categories": [
+    { "id": "c1", "category": "regression-evidence-surfaced-not-blended", "keywords": ["high", "regression-hunter", "surfaced"] },
+    { "id": "c2", "category": "overall-verdict-explained", "keywords": ["ready", "clear", "not blended"] },
+    { "id": "c3", "category": "assumption-flag", "keywords": ["assume", "weigh", "human"] }
+  ]
+}

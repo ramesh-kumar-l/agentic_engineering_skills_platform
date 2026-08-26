@@ -1,0 +1,4 @@
+Rename `cache.py` to `cache_layer.py`. Update every call site and reference
+across the codebase to the new module name. Run the unit tests and CI to
+verify nothing broke. This is reversible via git revert if it causes any
+regressions.

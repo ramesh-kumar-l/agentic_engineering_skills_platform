@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "evidence-tier",
+      "description": "engine/cart.py is a stack-trace-confirmed candidate (score 115, tier stack-trace), the highest-confidence tier — the traceback names this file and line directly, unlike the two keyword-only candidates (tax.py score 7, checkout.py score 6).",
+      "grounding": "candidates.candidates[0] = {path: engine/cart.py, score: 115, evidence_tier: stack-trace}.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "candidate-locations",
+      "description": "engine/cart.py's total() function is the primary suspected location — the traceback frame points at line 44 inside total(), which matches the symptom (tax not applied).",
+      "grounding": "Stack frame {path: engine/cart.py, line: 44, symbol: total} plus module functions list includes 'total'.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "confirmation-step",
+      "description": "Confirm by reading total()'s body for a tax_rate/tax.py usage — if it returns subtotal directly without calling engine/tax.py's rate_for_region, that confirms the root cause before any fix is made.",
+      "grounding": "engine/cart.py imports engine/tax.py per the ci_report, so a correct total() should call it; the traceback's own comment line ('ignores tax_rate') is the confirming detail.",
+      "priority": "high",
+      "assumptions": null
+    }
+  ]
+}

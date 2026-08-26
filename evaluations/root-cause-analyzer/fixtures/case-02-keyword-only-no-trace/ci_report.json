@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/search.py",
+      "docstring": "Product search and relevance ranking.",
+      "functions": ["search_products", "rank_by_relevance"],
+      "classes": [],
+      "imports": ["index"]
+    },
+    {
+      "path": "engine/index.py",
+      "docstring": "Search index build/query.",
+      "functions": ["query"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/billing.py",
+      "docstring": "Handles billing charges.",
+      "functions": ["charge_card"],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/index.py": 1},
+    "fan_out": {"engine/search.py": 1},
+    "hotspots": []
+  }
+}

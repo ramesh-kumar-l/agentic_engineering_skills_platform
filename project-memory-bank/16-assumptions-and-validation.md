@@ -44,8 +44,16 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   checkable signal (the skill's category-10 discipline surfaced an
   assumption about `argparse` interaction that direct reasoning likely would
   have skipped) but is explicitly not evidence for or against this
-  assumption at the required rigor.
-- **Status**: UNKNOWN.
+  assumption at the required rigor. 2026-08-26 (mentor-review follow-up): a
+  minimal before/after measurement harness now exists —
+  `evaluations/usage-comparison/` — the first artifact in this project that
+  can actually log real turns/tokens/wall-clock-time for a task run both
+  with a skill and with plain prompting. It ships empty, same discipline as
+  every other harness here: no numbers are claimed until real runs are
+  logged, and the README states plainly this remains a self-run pilot
+  (ADR-009), not a rigorous blinded Experiment A.
+- **Status**: UNKNOWN — unchanged; a harness existing is not evidence, only
+  the capability to eventually produce some.
 - **Decision**: still required before claiming any skill is "Level 2 —
   Evaluated" *in the outcome sense* — codebase-intelligence,
   adversarial-diff-reviewer, and acceptance-test-engineer have each met the
@@ -136,8 +144,75 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   `evaluations/feature-planner/RESULTS.md`, same caveat) — three-for-three
   then, and Phase 5 repeated it a fourth time for `security-context-guard`
   (100% precision/recall, `evaluations/security-context-guard/RESULTS.md`,
-  same caveat) — four-for-four now. The inter-rater-agreement experiment
-  still has not been run for any of the four skills.
+  same caveat) — four-for-four then. Phase 6 (`root-cause-analyzer`) is the
+  fifth judgment-based skill evaluated this way, and the first that did
+  **not** score perfectly on every fixture: 7/8 fixtures perfect, one
+  (case-03) at 0.67/0.67 precision and recall
+  (`evaluations/root-cause-analyzer/RESULTS.md`, L19 in
+  [[12-known-limitations]]). This is disclosed as-is, not adjusted — and it
+  does not resolve the underlying question either way: a single
+  self-authored, single-rater case scoring below 100% is exactly as
+  inconclusive about real-world quality as four cases scoring 100% were.
+  The inter-rater-agreement experiment still has not been run for any of
+  the five skills. Phase 7 (`architecture-decision`) is the sixth
+  judgment-based skill evaluated this way, and returned to perfect
+  precision/recall on all 8 fixtures
+  (`evaluations/architecture-decision/RESULTS.md`) — this should not be
+  read as evidence this skill's judgment quality is higher than
+  `root-cause-analyzer`'s Phase 6 score; a single self-authored evaluation
+  cannot support that comparison in either direction. The more interesting
+  Phase 7 evidence on this question came from the real dogfood run, not the
+  synthetic fixtures: it found and fixed one real gap in the deterministic
+  layer (L20 in [[12-known-limitations]]) and surfaced, undisclosed by any
+  fixture, a real limitation that only shows up at full-repository scale
+  (L21) — a reminder that a clean self-authored fixture score and a
+  skill's real-world behavior are answering different questions, exactly
+  the point this assumption's status has tracked since Phase 2.
+  The inter-rater-agreement experiment still has not been run for any of
+  the six skills. Phase 8 (`refactoring-safety`) is the seventh
+  judgment-based skill evaluated this way, and also scored perfect
+  precision/recall on all 8 fixtures
+  (`evaluations/refactoring-safety/RESULTS.md`) — same caveat as Phase 7:
+  this is not evidence this skill's judgment quality exceeds
+  `root-cause-analyzer`'s Phase 6 score, since a single self-authored
+  evaluation cannot support that comparison either way. Once again, the
+  real dogfood run was the more informative evidence: it surfaced a genuine
+  cross-skill limitation (L22 in [[12-known-limitations]] —
+  `codebase-intelligence`'s own `fan_in` count undercounting a real caller)
+  that no synthetic fixture, authored by the same session that would have
+  to notice the gap to test for it, could have found. The inter-rater-
+  agreement experiment still has not been run for any of the seven skills.
+  Phase 9 (`regression-hunter`) is the eighth judgment-based skill evaluated
+  this way, and also scored perfect precision/recall on all 8 fixtures
+  (`evaluations/regression-hunter/RESULTS.md`) — same caveat as Phases 7-8:
+  this is not evidence this skill's judgment quality exceeds
+  `root-cause-analyzer`'s Phase 6 score, since a single self-authored
+  evaluation cannot support that comparison either way. The real dogfood
+  run was again the more informative evidence: it correctly scored a real,
+  already-tested `codebase-intelligence` fix as low-risk on both axes that
+  mattered, and surfaced a new cross-skill limitation (L23 in
+  [[12-known-limitations]] — `target_resolver.py`'s substring-based caller
+  identification, shared as an independent copy between `refactoring-
+  safety` and `regression-hunter`, inflates the caller list for any module
+  with a short, common stem name) that, like L22 before it, no
+  self-authored synthetic fixture could plausibly have surfaced. The
+  inter-rater-agreement experiment still has not been run for any of the
+  eight skills. Phase 10 (`release-readiness`) is the ninth judgment-based
+  skill evaluated this way, and also scored perfect precision/recall on
+  all 8 fixtures (`evaluations/release-readiness/RESULTS.md`) — same
+  caveat as Phases 7-9: this is not evidence this skill's judgment quality
+  exceeds `root-cause-analyzer`'s Phase 6 score, since a single
+  self-authored evaluation cannot support that comparison either way. The
+  real dogfood run was again the more informative evidence: it confirmed a
+  predicted false-positive shape concretely (a legitimate CLI `print()`
+  flagged as a debug leftover), and surfaced a materially new, more
+  consequential manifestation of the L14/L19/L21/L23 limitation class (L24
+  in [[12-known-limitations]] — `target_resolver.py`'s substring matching,
+  reused a third time, now shown to produce false-positive test coverage,
+  not just an inflated caller list) that, like L22/L23 before it, no
+  self-authored synthetic fixture could plausibly have surfaced. The
+  inter-rater-agreement experiment still has not been run for any of the
+  nine skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -247,4 +322,80 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   Phase 3's pilot was, but it is still not the rigorous, independently-
   baselined comparison Experiment B requires — one architecture existing
   and working is not the same as composition being *shown to outperform*
-  the individual-skill alternative. Status stays UNKNOWN.
+  the individual-skill alternative. Phase 6 (`root-cause-analyzer`, ADR-012)
+  reuses `feature-planner`'s required-composition rule (ADR-010) a second
+  time — required composition is now a pattern applied twice, by two
+  different skills, not a one-off. The Phase 6 dogfood run
+  (`examples/root-cause-analyzer/example-run.md`) is additional real-usage
+  evidence in the same shape as Phase 4's: a fresh `codebase-intelligence`
+  report was genuinely required and genuinely used, and correctly ranked a
+  real historical root-cause file first out of 122 scored modules from a
+  natural-language description alone. That is still retrospective-
+  validation evidence on N=1, not the independently-baselined comparison
+  Experiment B requires. Phase 7 (`architecture-decision`, ADR-013) reuses
+  the same required-composition rule a third time — required composition
+  is now a pattern applied by three different skills, strengthening the
+  case that this is a real, repeatable architectural choice rather than a
+  one-off. The Phase 7 dogfood run
+  (`examples/architecture-decision/example-run.md`) is a different shape of
+  evidence than Phase 4's or Phase 6's, though: composition was genuinely
+  required and used, but the blast-radius signal it produced was too noisy
+  at full-repo scale to be decisive either way for the real decision this
+  session faced (L21 in [[12-known-limitations]]) — a case where required
+  composition executed correctly but did not clearly demonstrate its value
+  on this particular real use. That is an honest, disclosed data point
+  against overclaiming composition's benefit, not for it. Phase 8
+  (`refactoring-safety`, ADR-014) reuses the same required-composition rule
+  a fourth time — required composition is now a pattern applied by four
+  different skills. The Phase 8 dogfood run
+  (`examples/refactoring-safety/example-run.md`) is closer in shape to
+  Phase 4's and Phase 6's than Phase 7's: composition was genuinely
+  required and used, every risk-tier and caller claim in the output traced
+  to real structural data, and the run correctly grounded a real refactor
+  target's blast radius — but it also surfaced a real limitation in the
+  *composed* data itself (L22): `codebase-intelligence`'s own `fan_in`
+  metric can silently undercount a real caller that this skill's own
+  independent caller scan still finds. This is a new, more precise
+  category of evidence than any prior phase produced: composition can
+  execute correctly and be genuinely used, while still depending on an
+  upstream report whose own internal consistency has not been fully
+  verified — a reason for measured caution about composition's reliability
+  guarantees, not its execution. Phase 9 (`regression-hunter`, ADR-015)
+  reuses the same required-composition rule a fifth time — required
+  composition is now a pattern applied by five different skills. The
+  Phase 9 dogfood run (`examples/regression-hunter/example-run.md`) is
+  closest in shape to Phase 8's: composition was genuinely required and
+  used, every structural-tier and caller claim traced to real data from the
+  composed report, and the run correctly scored a real, already-tested
+  change as low-risk — but it also surfaced a limitation shared across TWO
+  skills' independent copies of the same composition-consuming logic (L23):
+  `target_resolver.py`'s substring-based caller-identification heuristic,
+  present in both `refactoring-safety` and `regression-hunter` as
+  independent copies (not a shared import, per this project's portability
+  discipline), inflates the caller list for any composed-report module
+  whose stem is a short, common word. This sharpens Phase 8's finding: it
+  is not just that composition depends on an upstream report whose internal
+  consistency has gaps (L22), but that two skills consuming that same
+  report through the same resolution pattern can inherit the identical gap
+  independently — a reason for even more measured caution about treating
+  every consumer of a composed report as independently verified just
+  because each one is independently tested. Phase 10 (`release-readiness`,
+  ADR-016) reuses the same required-composition rule a sixth time —
+  required composition is now a pattern applied by six different skills —
+  and is also the FIRST skill in this platform to compose OPTIONALLY with
+  two other skills' own outputs (`regression-hunter`'s and
+  `security-context-guard`'s reports), not just `codebase-intelligence`'s.
+  The Phase 10 dogfood run (`examples/release-readiness/example-run.md`)
+  sharpens Phase 9's finding a third time: `target_resolver.py`'s
+  substring-based resolution pattern, now reused a THIRD time, was shown
+  for the first time to corrupt not just a displayed caller list (L23) but
+  the actual `test_coverage.has_coverage` field a downstream rule table
+  consumes to decide whether a file needs closer review (L24) — a
+  genuinely untested new module can be made to look tested by the same
+  underlying mechanism. This is the strongest evidence yet in this project
+  that a shared resolution *pattern* (not a shared module — no cross-skill
+  imports exist) can carry a real, increasingly consequential defect
+  across independently-tested copies, without any single skill's own test
+  suite being able to catch it, since each copy's tests are written
+  against synthetic fixtures the same session authored. Status stays
+  UNKNOWN.

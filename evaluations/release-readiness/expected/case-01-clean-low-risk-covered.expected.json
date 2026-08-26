@@ -1,0 +1,10 @@
+{
+  "flag_ids": [],
+  "file_readiness_tiers": { "engine/util.py": "clear" },
+  "overall_verdict": "READY",
+  "expected_categories": [
+    { "id": "c1", "category": "diff-hygiene-reviewed-as-absolute", "keywords": ["no hygiene", "none detected", "no flags"] },
+    { "id": "c2", "category": "test-coverage-distinguished", "keywords": ["tests/test_util.py", "covered", "low"] },
+    { "id": "c3", "category": "overall-verdict-explained", "keywords": ["ready", "clear", "all axes"] }
+  ]
+}

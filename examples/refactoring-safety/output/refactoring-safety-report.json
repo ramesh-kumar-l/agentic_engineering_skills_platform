@@ -1,0 +1,91 @@
+{
+  "refactor_text": "Extract the path-stem helper duplicated across `target_resolver.py` and\n`test_coverage_scanner.py` in the refactoring-safety engine into a shared\nmodule, and update both call sites to import it instead of repeating the\n`PurePosixPath(path).stem` logic inline.\n",
+  "operation_type": "extract",
+  "stats": {
+    "word_count": 38,
+    "target_count": 2,
+    "resolved_target_count": 2,
+    "flag_count": 3,
+    "high_severity_flag_count": 2
+  },
+  "flags": [
+    {
+      "pattern_id": "no-test-plan-signal",
+      "category": "unstated-signal",
+      "severity": "high",
+      "description": "Refactor text never mentions tests or coverage \u2014 the checklist's verification category will have to be stated as an assumption rather than derived from the plan itself.",
+      "matched_text": ""
+    },
+    {
+      "pattern_id": "no-rollback-signal",
+      "category": "unstated-signal",
+      "severity": "high",
+      "description": "Refactor text never addresses how to back out if something breaks \u2014 a refactor with no stated rollback path is riskier than one that states it has none, because the absence hasn't been considered.",
+      "matched_text": ""
+    },
+    {
+      "pattern_id": "no-verification-signal",
+      "category": "unstated-signal",
+      "severity": "medium",
+      "description": "Refactor text never states how success will be verified after the change lands \u2014 a refactor plan with no verification step described is one where 'done' is undefined.",
+      "matched_text": ""
+    }
+  ],
+  "targets": [
+    {
+      "target_name": "target_resolver.py",
+      "resolved_module_path": "skills/refactoring-safety/engine/target_resolver.py",
+      "matched_functions": [],
+      "matched_classes": [],
+      "fan_in": 1,
+      "fan_out": 1,
+      "is_hotspot": false,
+      "caller_modules": [
+        {
+          "path": "skills/refactoring-safety/engine/report.py",
+          "fan_in": 1,
+          "fan_out": 8,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/refactoring-safety/tests/test_target_resolver.py",
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        }
+      ],
+      "test_coverage_modules": [
+        "skills/refactoring-safety/tests/test_target_resolver.py"
+      ],
+      "risk_tier": "low"
+    },
+    {
+      "target_name": "test_coverage_scanner.py",
+      "resolved_module_path": "skills/refactoring-safety/engine/test_coverage_scanner.py",
+      "matched_functions": [],
+      "matched_classes": [],
+      "fan_in": 1,
+      "fan_out": 1,
+      "is_hotspot": false,
+      "caller_modules": [
+        {
+          "path": "skills/refactoring-safety/engine/report.py",
+          "fan_in": 1,
+          "fan_out": 8,
+          "is_hotspot": true
+        },
+        {
+          "path": "skills/refactoring-safety/tests/test_test_coverage_scanner.py",
+          "fan_in": 0,
+          "fan_out": 0,
+          "is_hotspot": false
+        }
+      ],
+      "test_coverage_modules": [
+        "skills/refactoring-safety/tests/test_test_coverage_scanner.py"
+      ],
+      "risk_tier": "low"
+    }
+  ],
+  "warnings": []
+}

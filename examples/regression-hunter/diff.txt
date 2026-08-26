@@ -1,0 +1,38 @@
+diff --git a/skills/codebase-intelligence/engine/scanner.py b/skills/codebase-intelligence/engine/scanner.py
+index f2bc087..19220c4 100644
+--- a/skills/codebase-intelligence/engine/scanner.py
++++ b/skills/codebase-intelligence/engine/scanner.py
+@@ -74,7 +74,10 @@ def scan(
+     skipped_file_count = 0
+ 
+     for dirpath, dirnames, filenames in os.walk(root):
+-        kept_dirs = [d for d in dirnames if d not in excluded]
++        kept_dirs = [
++            d for d in dirnames
++            if d not in excluded and not d.endswith(".egg-info")
++        ]
+         excluded_dir_count += len(dirnames) - len(kept_dirs)
+         dirnames[:] = kept_dirs
+ 
+diff --git a/skills/codebase-intelligence/tests/test_scanner.py b/skills/codebase-intelligence/tests/test_scanner.py
+index 055794c..45751ea 100644
+--- a/skills/codebase-intelligence/tests/test_scanner.py
++++ b/skills/codebase-intelligence/tests/test_scanner.py
+@@ -28,6 +28,17 @@ def test_scan_excludes_default_dirs(tmp_path: Path):
+     assert excluded_dirs == 1
+ 
+ 
++def test_scan_excludes_egg_info_dirs(tmp_path: Path):
++    (tmp_path / "mypkg.egg-info").mkdir()
++    (tmp_path / "mypkg.egg-info" / "PKG-INFO").write_text("Name: mypkg\n", encoding="utf-8")
++    (tmp_path / "app.py").write_text("x = 1\n", encoding="utf-8")
++
++    files, excluded_dirs, _, _ = scanner.scan(tmp_path)
++
++    assert {f.path for f in files} == {"app.py"}
++    assert excluded_dirs == 1
++
++
+ def test_scan_skips_secret_shaped_files_without_reading_content(tmp_path: Path):
+     (tmp_path / ".env").write_text("SECRET_KEY=super-secret-value\n", encoding="utf-8")
+     (tmp_path / "app.py").write_text("x = 1\n", encoding="utf-8")

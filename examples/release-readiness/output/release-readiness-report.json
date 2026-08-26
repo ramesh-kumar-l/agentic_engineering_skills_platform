@@ -1,0 +1,3899 @@
+{
+  "stats": {
+    "files_changed": 78,
+    "files_added": 76,
+    "files_deleted": 0,
+    "lines_added": 3956,
+    "lines_removed": 0,
+    "hygiene_flag_count": 9,
+    "blocked_file_count": 3,
+    "needs_review_file_count": 75
+  },
+  "files": [
+    {
+      "file": "evaluations/release-readiness/RESULTS.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 137,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/actual/case-01-clean-low-risk-covered.actual.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 28,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/actual/case-02-debug-print-blocked-despite-covered-low-risk.actual.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 28,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/actual/case-03-hotspot-uncovered-blocked-with-no-hygiene-flags.actual.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 36,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/actual/case-04-hotspot-covered-needs-review.actual.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 28,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/actual/case-05-medium-structural-uncovered-needs-review.actual.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 28,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/actual/case-06-merge-conflict-marker-blocked.actual.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 20,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/actual/case-07-composed-regression-evidence-diverges-from-clear-axes.actual.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 28,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/actual/case-08-multi-file-mixed-with-security-report.actual.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 36,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/eval_cases/case-01-clean-low-risk-covered.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 23,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/eval_cases/case-02-debug-print-blocked-despite-covered-low-risk.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 21,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/eval_cases/case-03-hotspot-uncovered-blocked-with-no-hygiene-flags.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 23,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/eval_cases/case-04-hotspot-covered-needs-review.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 16,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/eval_cases/case-05-medium-structural-uncovered-needs-review.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 15,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/eval_cases/case-06-merge-conflict-marker-blocked.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 16,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/eval_cases/case-07-composed-regression-evidence-diverges-from-clear-axes.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 24,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/eval_cases/case-08-multi-file-mixed-with-security-report.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 23,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/expected/case-01-clean-low-risk-covered.expected.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 10,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/expected/case-02-debug-print-blocked-despite-covered-low-risk.expected.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 10,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/expected/case-03-hotspot-uncovered-blocked-with-no-hygiene-flags.expected.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 11,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/expected/case-04-hotspot-covered-needs-review.expected.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 10,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/expected/case-05-medium-structural-uncovered-needs-review.expected.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 10,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/expected/case-06-merge-conflict-marker-blocked.expected.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 9,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/expected/case-07-composed-regression-evidence-diverges-from-clear-axes.expected.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 10,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/expected/case-08-multi-file-mixed-with-security-report.expected.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 15,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-01-clean-low-risk-covered/ci_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 24,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-01-clean-low-risk-covered/diff.txt",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 7,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-02-debug-print-blocked-despite-covered-low-risk/ci_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 24,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-02-debug-print-blocked-despite-covered-low-risk/diff.txt",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 7,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-03-hotspot-uncovered-blocked-with-no-hygiene-flags/ci_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 31,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-03-hotspot-uncovered-blocked-with-no-hygiene-flags/diff.txt",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 8,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-04-hotspot-covered-needs-review/ci_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 31,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-04-hotspot-covered-needs-review/diff.txt",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 8,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-05-medium-structural-uncovered-needs-review/ci_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 24,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-05-medium-structural-uncovered-needs-review/diff.txt",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 7,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-06-merge-conflict-marker-blocked/ci_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 17,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-06-merge-conflict-marker-blocked/diff.txt",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 11,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-07-composed-regression-evidence-diverges-from-clear-axes/ci_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 24,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-07-composed-regression-evidence-diverges-from-clear-axes/diff.txt",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 7,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-07-composed-regression-evidence-diverges-from-clear-axes/regression_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 19,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-08-multi-file-mixed-with-security-report/ci_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 45,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-08-multi-file-mixed-with-security-report/diff.txt",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 21,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/fixtures/case-08-multi-file-mixed-with-security-report/security_report.json",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 8,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "evaluations/release-readiness/run_evaluation.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 260,
+      "lines_removed": 0,
+      "hygiene_flags": [
+        {
+          "pattern_id": "debug-print-leftover",
+          "category": "debug-leftover",
+          "severity": "medium",
+          "file": "evaluations/release-readiness/run_evaluation.py",
+          "line": 254,
+          "description": "Debug statement (print/console.log/pdb/debugger/breakpoint) left in added code \u2014 likely leftover from local debugging, not intended for a released version.",
+          "matched_text": "print(f\"wrote {HARNESS_DIR / 'RESULTS.md'}\")"
+        }
+      ],
+      "structural": {
+        "resolved_module_path": "evaluations/release-readiness/run_evaluation.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "blocked"
+    },
+    {
+      "file": "skills/release-readiness/README.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 75,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/SKILL.md",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 366,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "<unknown>",
+      "is_new_file": false,
+      "is_deleted_file": false,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/blast_radius_scorer.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 28,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/blast_radius_scorer.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/release-readiness/engine/readiness_scorer.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_blast_radius_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/release-readiness/tests/test_blast_radius_scorer.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/ci_report_loader.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 67,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/ci_report_loader.py",
+        "fan_in": 2,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/architecture-decision/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 5,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/architecture-decision/tests/test_ci_report_loader.py",
+          "skills/feature-planner/tests/test_ci_report_loader.py",
+          "skills/refactoring-safety/tests/test_ci_report_loader.py",
+          "skills/regression-hunter/tests/test_ci_report_loader.py",
+          "skills/release-readiness/tests/test_ci_report_loader.py",
+          "skills/root-cause-analyzer/tests/test_ci_report_loader.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/cli.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 99,
+      "lines_removed": 0,
+      "hygiene_flags": [
+        {
+          "pattern_id": "debug-print-leftover",
+          "category": "debug-leftover",
+          "severity": "medium",
+          "file": "skills/release-readiness/engine/cli.py",
+          "line": 64,
+          "description": "Debug statement (print/console.log/pdb/debugger/breakpoint) left in added code \u2014 likely leftover from local debugging, not intended for a released version.",
+          "matched_text": "print(f\"error: path does not exist: {args.path}\", file=sys.stderr)"
+        },
+        {
+          "pattern_id": "debug-print-leftover",
+          "category": "debug-leftover",
+          "severity": "medium",
+          "file": "skills/release-readiness/engine/cli.py",
+          "line": 77,
+          "description": "Debug statement (print/console.log/pdb/debugger/breakpoint) left in added code \u2014 likely leftover from local debugging, not intended for a released version.",
+          "matched_text": "print(f\"error: {exc}\", file=sys.stderr)"
+        },
+        {
+          "pattern_id": "debug-print-leftover",
+          "category": "debug-leftover",
+          "severity": "medium",
+          "file": "skills/release-readiness/engine/cli.py",
+          "line": 90,
+          "description": "Debug statement (print/console.log/pdb/debugger/breakpoint) left in added code \u2014 likely leftover from local debugging, not intended for a released version.",
+          "matched_text": "print(f\"wrote {args.out / filename}\")"
+        },
+        {
+          "pattern_id": "debug-print-leftover",
+          "category": "debug-leftover",
+          "severity": "medium",
+          "file": "skills/release-readiness/engine/cli.py",
+          "line": 93,
+          "description": "Debug statement (print/console.log/pdb/debugger/breakpoint) left in added code \u2014 likely leftover from local debugging, not intended for a released version.",
+          "matched_text": "print(content)"
+        }
+      ],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/cli.py",
+        "fan_in": 0,
+        "fan_out": 4,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/acceptance-test-engineer/tests/test_cli.py",
+          "skills/adversarial-diff-reviewer/tests/test_cli.py",
+          "skills/security-context-guard/tests/test_cli.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "blocked"
+    },
+    {
+      "file": "skills/release-readiness/engine/diff_parser.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 130,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/diff_parser.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_diff_parser.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_diff_parser.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_regression_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_diff_parser.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_hygiene_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/adversarial-diff-reviewer/tests/test_diff_parser.py",
+          "skills/adversarial-diff-reviewer/tests/test_risk_scanner.py",
+          "skills/adversarial-diff-reviewer/tests/test_stats.py",
+          "skills/regression-hunter/tests/test_diff_parser.py",
+          "skills/regression-hunter/tests/test_regression_scanner.py",
+          "skills/regression-hunter/tests/test_stats.py",
+          "skills/release-readiness/tests/test_diff_parser.py",
+          "skills/release-readiness/tests/test_hygiene_scanner.py",
+          "skills/release-readiness/tests/test_stats.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/hygiene_patterns.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 75,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/hygiene_patterns.py",
+        "fan_in": 1,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/release-readiness/engine/hygiene_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/hygiene_scanner.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 81,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/hygiene_scanner.py",
+        "fan_in": 1,
+        "fan_out": 2,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_hygiene_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/release-readiness/tests/test_hygiene_scanner.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/models.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 211,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/models.py",
+        "fan_in": 13,
+        "fan_out": 0,
+        "is_hotspot": true,
+        "caller_modules": [
+          {
+            "path": "skills/acceptance-test-engineer/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/engine/requirement_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/engine/testability_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/diff_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/risk_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/ci_report_loader.py",
+            "fan_in": 2,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/decision_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/impact_scorer.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/option_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/architecture-decision/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_impact_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/external_deps.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/generic_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/graph.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/python_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/scanner.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/tests/test_graph.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/ci_report_loader.py",
+            "fan_in": 2,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/planning_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/relevance_scorer.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 5,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_relevance_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/ci_report_loader.py",
+            "fan_in": 2,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/operation_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/refactoring-safety/engine/safety_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/safety_scorer.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/target_resolver.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/test_coverage_scanner.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_safety_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_target_resolver.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_test_coverage_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/ci_report_loader.py",
+            "fan_in": 2,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/diff_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/regression_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/regression-hunter/engine/risk_scorer.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/target_resolver.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/test_coverage_scanner.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_risk_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_target_resolver.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_test_coverage_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/blast_radius_scorer.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/ci_report_loader.py",
+            "fan_in": 2,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/diff_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/hygiene_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/readiness_scorer.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/regression_report_loader.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/engine/security_report_loader.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/target_resolver.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/test_coverage_scanner.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_blast_radius_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_readiness_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_target_resolver.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_test_coverage_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/candidate_scorer.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/ci_report_loader.py",
+            "fan_in": 2,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/stack_trace_parser.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/symptom_scanner.py",
+            "fan_in": 1,
+            "fan_out": 2,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_candidate_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/classification.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/render_json.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/render_markdown.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/scanner.py",
+            "fan_in": 1,
+            "fan_out": 5,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/stats.py",
+            "fan_in": 1,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/tests/test_classification.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "high"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/architecture-decision/tests/test_impact_scorer.py",
+          "skills/architecture-decision/tests/test_stats.py",
+          "skills/codebase-intelligence/tests/test_graph.py",
+          "skills/feature-planner/tests/test_relevance_scorer.py",
+          "skills/refactoring-safety/engine/test_coverage_scanner.py",
+          "skills/refactoring-safety/tests/test_safety_scorer.py",
+          "skills/refactoring-safety/tests/test_stats.py",
+          "skills/refactoring-safety/tests/test_target_resolver.py",
+          "skills/refactoring-safety/tests/test_test_coverage_scanner.py",
+          "skills/regression-hunter/engine/test_coverage_scanner.py",
+          "skills/regression-hunter/tests/test_risk_scorer.py",
+          "skills/regression-hunter/tests/test_stats.py",
+          "skills/regression-hunter/tests/test_target_resolver.py",
+          "skills/regression-hunter/tests/test_test_coverage_scanner.py",
+          "skills/release-readiness/engine/test_coverage_scanner.py",
+          "skills/release-readiness/tests/test_blast_radius_scorer.py",
+          "skills/release-readiness/tests/test_readiness_scorer.py",
+          "skills/release-readiness/tests/test_stats.py",
+          "skills/release-readiness/tests/test_target_resolver.py",
+          "skills/release-readiness/tests/test_test_coverage_scanner.py",
+          "skills/root-cause-analyzer/tests/test_candidate_scorer.py",
+          "skills/security-context-guard/tests/test_classification.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/readiness_scorer.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 66,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/readiness_scorer.py",
+        "fan_in": 1,
+        "fan_out": 2,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_readiness_scorer.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/release-readiness/tests/test_readiness_scorer.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/regression_report_loader.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 62,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/regression_report_loader.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_regression_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/release-readiness/tests/test_regression_report_loader.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/render_json.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 12,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/render_json.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/acceptance-test-engineer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/acceptance-test-engineer/tests/test_integration.py",
+          "skills/adversarial-diff-reviewer/tests/test_integration.py",
+          "skills/architecture-decision/tests/test_integration.py",
+          "skills/codebase-intelligence/tests/test_integration.py",
+          "skills/feature-planner/tests/test_integration.py",
+          "skills/refactoring-safety/tests/test_integration.py",
+          "skills/refactoring-safety/tests/test_report.py",
+          "skills/regression-hunter/tests/test_integration.py",
+          "skills/regression-hunter/tests/test_report.py",
+          "skills/release-readiness/tests/test_integration.py",
+          "skills/release-readiness/tests/test_report.py",
+          "skills/root-cause-analyzer/tests/test_integration.py",
+          "skills/security-context-guard/tests/test_integration.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/render_markdown.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 115,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/render_markdown.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/acceptance-test-engineer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/acceptance-test-engineer/tests/test_integration.py",
+          "skills/adversarial-diff-reviewer/tests/test_integration.py",
+          "skills/architecture-decision/tests/test_integration.py",
+          "skills/codebase-intelligence/tests/test_integration.py",
+          "skills/feature-planner/tests/test_integration.py",
+          "skills/refactoring-safety/tests/test_integration.py",
+          "skills/regression-hunter/tests/test_integration.py",
+          "skills/release-readiness/tests/test_integration.py",
+          "skills/root-cause-analyzer/tests/test_integration.py",
+          "skills/security-context-guard/tests/test_integration.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/report.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 112,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/report.py",
+        "fan_in": 1,
+        "fan_out": 10,
+        "is_hotspot": true,
+        "caller_modules": [
+          {
+            "path": "evaluations/acceptance-test-engineer/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/adversarial-diff-reviewer/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/architecture-decision/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/codebase-intelligence/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/feature-planner/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/refactoring-safety/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/regression-hunter/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/release-readiness/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/root-cause-analyzer/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "evaluations/security-context-guard/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/codebase-intelligence/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 5,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_regression_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/tests/test_security_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_ci_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/cli.py",
+            "fan_in": 0,
+            "fan_out": 3,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/tests/test_integration.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/tests/test_report.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "high"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/acceptance-test-engineer/tests/test_integration.py",
+          "skills/acceptance-test-engineer/tests/test_report.py",
+          "skills/adversarial-diff-reviewer/tests/test_integration.py",
+          "skills/adversarial-diff-reviewer/tests/test_report.py",
+          "skills/architecture-decision/tests/test_ci_report_loader.py",
+          "skills/architecture-decision/tests/test_integration.py",
+          "skills/architecture-decision/tests/test_report.py",
+          "skills/codebase-intelligence/tests/test_integration.py",
+          "skills/codebase-intelligence/tests/test_report.py",
+          "skills/feature-planner/tests/test_ci_report_loader.py",
+          "skills/feature-planner/tests/test_integration.py",
+          "skills/feature-planner/tests/test_report.py",
+          "skills/refactoring-safety/tests/test_ci_report_loader.py",
+          "skills/refactoring-safety/tests/test_integration.py",
+          "skills/refactoring-safety/tests/test_report.py",
+          "skills/regression-hunter/tests/test_ci_report_loader.py",
+          "skills/regression-hunter/tests/test_integration.py",
+          "skills/regression-hunter/tests/test_report.py",
+          "skills/release-readiness/tests/test_ci_report_loader.py",
+          "skills/release-readiness/tests/test_integration.py",
+          "skills/release-readiness/tests/test_regression_report_loader.py",
+          "skills/release-readiness/tests/test_report.py",
+          "skills/release-readiness/tests/test_security_report_loader.py",
+          "skills/root-cause-analyzer/tests/test_ci_report_loader.py",
+          "skills/root-cause-analyzer/tests/test_integration.py",
+          "skills/root-cause-analyzer/tests/test_report.py",
+          "skills/security-context-guard/tests/test_integration.py",
+          "skills/security-context-guard/tests/test_report.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/security_report_loader.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 54,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/security_report_loader.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_security_report_loader.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/release-readiness/tests/test_security_report_loader.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/stats.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 50,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/stats.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/acceptance-test-engineer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/architecture-decision/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/architecture-decision/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 5,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/feature-planner/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/refactoring-safety/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 6,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/root-cause-analyzer/tests/test_stats.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 4,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/acceptance-test-engineer/tests/test_stats.py",
+          "skills/adversarial-diff-reviewer/tests/test_stats.py",
+          "skills/architecture-decision/tests/test_stats.py",
+          "skills/feature-planner/tests/test_stats.py",
+          "skills/refactoring-safety/tests/test_stats.py",
+          "skills/regression-hunter/tests/test_stats.py",
+          "skills/release-readiness/tests/test_stats.py",
+          "skills/root-cause-analyzer/tests/test_stats.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/target_resolver.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 84,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/target_resolver.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/refactoring-safety/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_target_resolver.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_target_resolver.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_target_resolver.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/refactoring-safety/tests/test_target_resolver.py",
+          "skills/regression-hunter/tests/test_target_resolver.py",
+          "skills/release-readiness/tests/test_target_resolver.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/engine/test_coverage_scanner.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 40,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/engine/test_coverage_scanner.py",
+        "fan_in": 1,
+        "fan_out": 1,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "skills/refactoring-safety/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/refactoring-safety/tests/test_test_coverage_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/regression-hunter/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 8,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/regression-hunter/tests/test_test_coverage_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/release-readiness/engine/report.py",
+            "fan_in": 1,
+            "fan_out": 10,
+            "is_hotspot": true
+          },
+          {
+            "path": "skills/release-readiness/tests/test_test_coverage_scanner.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "medium"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "skills/refactoring-safety/tests/test_test_coverage_scanner.py",
+          "skills/regression-hunter/tests/test_test_coverage_scanner.py",
+          "skills/release-readiness/tests/test_test_coverage_scanner.py"
+        ]
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/pyproject.toml",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 13,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "<unknown>",
+      "is_new_file": false,
+      "is_deleted_file": false,
+      "lines_added": 0,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": null,
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_blast_radius_scorer.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 28,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_blast_radius_scorer.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_ci_report_loader.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 48,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_ci_report_loader.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_cli.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 124,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_cli.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_diff_parser.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 83,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_diff_parser.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_hygiene_scanner.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 116,
+      "lines_removed": 0,
+      "hygiene_flags": [
+        {
+          "pattern_id": "debug-print-leftover",
+          "category": "debug-leftover",
+          "severity": "medium",
+          "file": "skills/release-readiness/tests/test_hygiene_scanner.py",
+          "line": 29,
+          "description": "Debug statement (print/console.log/pdb/debugger/breakpoint) left in added code \u2014 likely leftover from local debugging, not intended for a released version.",
+          "matched_text": "+  console.log(\"here\");"
+        },
+        {
+          "pattern_id": "todo-blocking-marker",
+          "category": "todo-blocking",
+          "severity": "low",
+          "file": "skills/release-readiness/tests/test_hygiene_scanner.py",
+          "line": 55,
+          "description": "TODO/FIXME/XXX marker left in added code \u2014 may indicate intentionally incomplete work not yet ready to ship.",
+          "matched_text": "+    # TODO: handle the edge case before release"
+        },
+        {
+          "pattern_id": "hardcoded-secret-shaped",
+          "category": "hardcoded-secret",
+          "severity": "high",
+          "file": "skills/release-readiness/tests/test_hygiene_scanner.py",
+          "line": 68,
+          "description": "Line looks like a hardcoded secret/credential literal \u2014 an independent copy of security-context-guard's generic-credential-assignment pattern, in miniature; a lead, not proof of a real leak.",
+          "matched_text": "+    api_key = \"sk-1234567890abcdef\""
+        },
+        {
+          "pattern_id": "todo-blocking-marker",
+          "category": "todo-blocking",
+          "severity": "low",
+          "file": "skills/release-readiness/tests/test_hygiene_scanner.py",
+          "line": 112,
+          "description": "TODO/FIXME/XXX marker left in added code \u2014 may indicate intentionally incomplete work not yet ready to ship.",
+          "matched_text": "+    # TODO: fix this"
+        }
+      ],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_hygiene_scanner.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "blocked"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_integration.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 71,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_integration.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_readiness_scorer.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 73,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_readiness_scorer.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_regression_report_loader.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 55,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_regression_report_loader.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_report.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 159,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_report.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_security_report_loader.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 51,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_security_report_loader.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_stats.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 81,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_stats.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_target_resolver.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 71,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_target_resolver.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    },
+    {
+      "file": "skills/release-readiness/tests/test_test_coverage_scanner.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 58,
+      "lines_removed": 0,
+      "hygiene_flags": [],
+      "structural": {
+        "resolved_module_path": "skills/release-readiness/tests/test_test_coverage_scanner.py",
+        "fan_in": 0,
+        "fan_out": 0,
+        "is_hotspot": false,
+        "caller_modules": [],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": []
+      },
+      "regression_evidence": {
+        "available": false,
+        "overall_risk_tier": null,
+        "diff_pattern_flag_count": 0,
+        "source_path": null
+      },
+      "readiness_tier": "needs-review"
+    }
+  ],
+  "overall_verdict": "NOT_READY",
+  "regression_report_composed": false,
+  "security_report_composed": false,
+  "security_evidence": {
+    "available": false,
+    "sensitivity": null,
+    "suggested_verdict": null,
+    "source_path": null
+  },
+  "warnings": [
+    "At least one changed file's readiness tier is BLOCKED (a diff-hygiene flag, or high structural blast radius with no test coverage) \u2014 this diff is NOT recommended for release without further changes."
+  ]
+}

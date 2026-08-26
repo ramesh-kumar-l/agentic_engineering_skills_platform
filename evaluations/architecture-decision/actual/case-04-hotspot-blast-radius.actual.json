@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "blast-radius-high",
+      "description": "Option A's blast radius is HIGH: it directly touches engine/auth.py, a real hotspot with fan_in=15 -- 15 other modules depend on it. Any refactor here has a wide real blast radius, not a hypothetical one, and this decision genuinely warrants wider review before proceeding.",
+      "grounding": "impact_scorer.py: engine/auth.py matched with hotspot=true, blast_radius_tier=high; report.warnings flags the HIGH-tier option.",
+      "priority": "high",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "ungrounded-option",
+      "description": "Option B ('leave the legacy format in place and only patch the known vulnerability') matched zero modules in the report -- the vulnerability and the patch target aren't named. Its blast radius cannot be treated as automatically low; it's ungrounded, not confirmed small. This should be stated as an explicit assumption, not silently read as 'safer'.",
+      "grounding": "Option B's impacted_modules list is empty in the engine output.",
+      "priority": "high",
+      "assumptions": "Assuming the vulnerability patch is scoped to engine/auth.py too, since that's the only auth-related module in the report -- not confirmed by the decision text."
+    },
+    {
+      "id": "c3",
+      "category": "consequences",
+      "description": "Option A is a one-way door (old sessions become undecodable) trading migration cost for a cleaner security posture. Option B is fully reversible via a simple patch rollback but leaves the legacy format's known vulnerability in place longer.",
+      "grounding": "Decision text's final paragraph states both consequences explicitly.",
+      "priority": "medium",
+      "assumptions": null
+    }
+  ]
+}

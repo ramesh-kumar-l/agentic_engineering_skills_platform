@@ -1,0 +1,8 @@
+{
+  "decision_flag_ids": ["no-reversibility-signal", "no-tradeoff-signal", "no-security-signal"],
+  "expected_categories": [
+    { "id": "c1", "category": "alternatives-identified", "keywords": ["vs split", "Alternative 1", "Alternative 2"] },
+    { "id": "c2", "category": "honesty-valve", "keywords": ["too thin", "one line", "before this can be"] },
+    { "id": "c3", "category": "blast-radius-high", "keywords": ["search.py", "hotspot", "both alternatives"] }
+  ]
+}

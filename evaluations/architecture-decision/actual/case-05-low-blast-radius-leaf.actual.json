@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "c1",
+      "category": "blast-radius-grounding",
+      "description": "Option A matches engine/cli_helpers.py via two path hits (relevance_score=6, from both 'engine' and 'cli_helpers' appearing literally in the option text), with fan_in=0, not a hotspot -- blast_radius_tier=low. Part of that relevance score is the same 'engine' path-prefix collision noted in case-01 -- it's a real match on 'cli_helpers' too, but the confidence here should be stated as 'grounded but low-stakes', not overstated.",
+      "grounding": "impact_scorer.py: engine/cli_helpers.py relevance_score=6 (two path-tier keyword hits: 'engine', 'cli_helpers'), blast_radius_score=1, tier=low.",
+      "priority": "low",
+      "assumptions": null
+    },
+    {
+      "id": "c2",
+      "category": "consequences",
+      "description": "Both options are stated as easily reversible with no meaningful cost difference, and the decision text explicitly notes no security-sensitive data is logged by the new flag -- all three checklist categories (reversibility, tradeoff, security) are genuinely addressed here, not just present as keywords.",
+      "grounding": "Decision text's final sentence covers reversibility, cost, and security explicitly; decision_scanner.py produced zero flags for this fixture.",
+      "priority": "low",
+      "assumptions": null
+    },
+    {
+      "id": "c3",
+      "category": "ungrounded-option",
+      "description": "Option B (document the existing verbose environment variable instead of adding a flag) is documentation-only and correctly shows zero matched modules -- there is no code impact to ground, which is itself useful signal that this option has near-zero blast radius by nature, not by scorer limitation.",
+      "grounding": "Option B's impacted_modules list is empty in the engine output.",
+      "priority": "low",
+      "assumptions": null
+    }
+  ]
+}

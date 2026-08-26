@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/legacy_router.py",
+      "docstring": "Legacy request router, pending removal.",
+      "functions": ["route"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/api.py",
+      "docstring": "Public API routes.",
+      "functions": ["handle_request"],
+      "classes": [],
+      "imports": ["engine.legacy_router"]
+    },
+    {
+      "path": "engine/admin.py",
+      "docstring": "Admin routes.",
+      "functions": ["handle_admin_request"],
+      "classes": [],
+      "imports": ["engine.legacy_router"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/legacy_router.py": 6},
+    "fan_out": {},
+    "hotspots": ["engine/legacy_router.py"]
+  }
+}

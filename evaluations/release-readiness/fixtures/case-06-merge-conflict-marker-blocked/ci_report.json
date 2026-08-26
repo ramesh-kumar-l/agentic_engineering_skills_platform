@@ -1,0 +1,17 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/config.py",
+      "docstring": "Configuration constants.",
+      "functions": [],
+      "classes": [],
+      "imports": []
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/config.py": 0},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

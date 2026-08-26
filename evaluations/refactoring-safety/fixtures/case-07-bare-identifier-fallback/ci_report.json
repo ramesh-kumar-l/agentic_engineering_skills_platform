@@ -1,0 +1,31 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {
+      "path": "engine/report_builder.py",
+      "docstring": "Builds structured reports.",
+      "functions": ["build_report"],
+      "classes": [],
+      "imports": []
+    },
+    {
+      "path": "engine/cli.py",
+      "docstring": "CLI entry point.",
+      "functions": ["main"],
+      "classes": [],
+      "imports": ["engine.report_builder"]
+    },
+    {
+      "path": "tests/test_report_builder.py",
+      "docstring": "",
+      "functions": ["test_build_report"],
+      "classes": [],
+      "imports": ["engine.report_builder"]
+    }
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/report_builder.py": 1},
+    "fan_out": {},
+    "hotspots": []
+  }
+}
