@@ -76,3 +76,44 @@ def test_resolve_targets_resolves_each_independently():
     assessments = resolve_targets(targets, _ci_report())
     assert assessments[0].resolved_module_path == "engine/report.py"
     assert assessments[1].resolved_module_path is None
+
+
+def _stem_collision_ci_report():
+    return CiReportContext(
+        root_path="/repo",
+        modules=[
+            CiModule(path="engine/scanner.py", docstring="", functions=[], classes=[], imports=[]),
+            CiModule(
+                path="engine/testability_scanner.py",
+                docstring="",
+                functions=[],
+                classes=[],
+                imports=["engine.decision_scanner"],
+            ),
+            CiModule(
+                path="engine/cli.py",
+                docstring="",
+                functions=[],
+                classes=[],
+                imports=["engine.scanner"],
+            ),
+        ],
+        dependency_graph=CiDependencyGraph(),
+    )
+
+
+def test_caller_list_excludes_unrelated_module_that_merely_shares_a_stem_substring():
+    """Regression test for L14/L19/L21/L23: a "scanner" target must not pick
+    up "testability_scanner.py" as a caller just because "scanner" is a
+    substring of its stem."""
+    target = RefactorTarget(name="scanner.py")
+    assessment = resolve_target(target, _stem_collision_ci_report())
+    caller_paths = [c.path for c in assessment.caller_modules]
+    assert "engine/testability_scanner.py" not in caller_paths
+
+
+def test_caller_list_still_includes_a_real_dotted_import_match():
+    target = RefactorTarget(name="scanner.py")
+    assessment = resolve_target(target, _stem_collision_ci_report())
+    caller_paths = [c.path for c in assessment.caller_modules]
+    assert "engine/cli.py" in caller_paths

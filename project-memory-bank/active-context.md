@@ -7,9 +7,51 @@ appended to. Complements [[implementation-status.md]] (what's built) and
 
 ## Current phase
 
-Phase 10 (release-readiness) — COMPLETE. Phase 11 (Dependency / Supply
-Chain, per [[08-roadmap]]'s portfolio list) not started, still waiting on
-explicit user instruction per [[08-roadmap]]'s phase protocol.
+Phase 10 (release-readiness) — COMPLETE. **Phase 11 is deliberately NOT
+started.** 2026-08-26: the user requested a mentor-style critique of the
+whole project against its stated goal (a real engineering asset that saves
+developers time/effort/tokens, not just an evaluated skill portfolio). The
+critique's top finding: ten phases shipped, zero real external users, A2/A5
+still UNKNOWN, and a real correctness bug (L23/L24's `target_resolver.py`
+substring collision) had been disclosed four times without being fixed. The
+user approved pausing new-skill work to act on two of that critique's
+technical recommendations first — see "What this session built" below.
+**The roadmap is intentionally frozen pending real external validation, not
+proceeding to Phase 11 by default.**
+
+## What this session built (mentor-review follow-up, not a new skill phase)
+
+1. **Fixed L23 fully, L24 partially** — replaced the bare substring check
+   (`target_stem in imports_text`) with a word-boundary-aware match
+   (`\b<stem>\b`) in `refactoring-safety/engine/target_resolver.py`,
+   `regression-hunter/engine/target_resolver.py`,
+   `release-readiness/engine/target_resolver.py`, and
+   `release-readiness/engine/test_coverage_scanner.py`. This closes the
+   embedded-substring collision class (e.g. "scanner" inside
+   "testability_scanner") that L23 fully described. It does **not** close
+   L24's headline example — two different skills each legitimately
+   importing their own identically-stemmed `models.py` still produces a
+   real, boundary-respecting match, since the resolver has no notion of
+   "same skill" path scoping. See `12-known-limitations.md`'s updated L23
+   (FIXED) and L24 (PARTIALLY fixed, narrowed scope) entries for the exact
+   distinction — do not read this as L24 being closed. 8 new regression
+   tests added (2 refactoring-safety, 2 regression-hunter, 4
+   release-readiness); platform test count rose from 420 to **428**, all
+   passing, zero regressions.
+2. **Scaffolded `evaluations/usage-comparison/`** — a before/after
+   token/turns/time measurement harness, the first artifact in this project
+   that can log a real task run both with a skill and with plain prompting.
+   Ships empty (no fabricated numbers); see its README for the same
+   self-run-pilot honesty caveat every other harness here carries.
+
+Both items were the "purely technical" half of a broader checklist the
+mentor critique produced (see the session's chat history / plan file for
+the full checklist) — the remaining items (get one real external user, run
+an independent/blind eval pass, actually log real usage-comparison runs)
+require the user's own action outside this session and were explicitly
+left to them.
+
+## Prior phase summary (historical)
 
 ## What Phase 10 built
 
@@ -117,9 +159,14 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Open threads / not yet decided
 
-- Phase 11 (Dependency / Supply Chain) is next on the portfolio list per
-  [[08-roadmap]] but not started and not re-justified against evidence yet
-  — that re-justification happens at the start of Phase 11, not now.
+- **2026-08-26 update: Phase 11 is frozen, not "next but unstarted."** The
+  mentor-review critique concluded velocity of building had outpaced
+  velocity of validating (A2/A5 both UNKNOWN after ten phases, zero real
+  external users). The roadmap will not auto-advance to Phase 11 —
+  re-justification now explicitly requires real external validation
+  evidence first (a real user, an independent/blind eval pass, or a real
+  usage-comparison run via the new `evaluations/usage-comparison/`
+  harness), not just the pre-written Phase 11 proposal in [[08-roadmap]].
 - **L8 remains the most important open thread, now applying nine times**:
   eight of nine judgment-based skills (adversarial-diff-reviewer,
   acceptance-test-engineer, feature-planner, security-context-guard,
@@ -130,15 +177,21 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   real-world quality — self-authored, single-rater evidence either way.
   The inter-rater-agreement experiment (A5) still has not been run for any
   of the nine.
-- **The L14/L19/L21/L23/L24 substring-collision limitation class is now
-  the second most important open thread**, and arguably the strongest case
-  yet for a dedicated fix-it phase rather than a tenth (now eleventh)
-  skill copying the pattern again: L24 demonstrated the SAME shared
-  `target_resolver.py` pattern, reused a THIRD time, corrupts test-coverage
-  matching (not just a displayed caller list) — a more consequential
-  failure mode than any prior occurrence, since it feeds directly into a
-  downstream rule table's decision. Sprint 09 already flagged this
-  concern; Sprint 10 sharpens it further (see `sprint-history/SPRINT-10.md`).
+- **The L14/L19/L21/L23/L24 substring-collision limitation class — status
+  as of 2026-08-26: L23 FIXED, L24 PARTIALLY fixed, L14/L19/L21 still
+  open.** `target_resolver.py`'s caller-identification bug (L23, shared
+  across `refactoring-safety`/`regression-hunter`) and its embedded-
+  substring subclass in `release-readiness`'s `test_coverage_scanner.py`
+  (part of L24) are fixed via a word-boundary-aware match — see
+  `12-known-limitations.md`. L24's headline example (two skills'
+  identically-stemmed modules producing a real, boundary-respecting
+  false-positive coverage match) remains open — closing it needs
+  repo-layout-aware path scoping, deliberately not implemented this pass.
+  L14 (`feature-planner/relevance_scorer.py`), L19
+  (`root-cause-analyzer/candidate_scorer.py`), and L21
+  (`architecture-decision/impact_scorer.py`) are a related but distinct
+  keyword-relevance-scoring limitation class in different files — NOT
+  touched by this fix, still open.
 - **Experiment A/B and A7's real experiment are all still not viable to run
   for real** — [[17-experiment-viability-check.md]]'s pilots (A, B, C) found
   plausible-but-narrow signal on N=1 each; Phase 10's dogfood run is
@@ -184,4 +237,6 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Last updated
 
-2026-08-24 — end of Phase 10.
+2026-08-26 — mentor-review follow-up: L23 fixed, L24 partially fixed,
+`evaluations/usage-comparison/` scaffolded, roadmap deliberately frozen
+pending real external validation. Test count: 428 (up from 420).

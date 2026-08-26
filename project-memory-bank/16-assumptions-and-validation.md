@@ -44,8 +44,16 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   checkable signal (the skill's category-10 discipline surfaced an
   assumption about `argparse` interaction that direct reasoning likely would
   have skipped) but is explicitly not evidence for or against this
-  assumption at the required rigor.
-- **Status**: UNKNOWN.
+  assumption at the required rigor. 2026-08-26 (mentor-review follow-up): a
+  minimal before/after measurement harness now exists —
+  `evaluations/usage-comparison/` — the first artifact in this project that
+  can actually log real turns/tokens/wall-clock-time for a task run both
+  with a skill and with plain prompting. It ships empty, same discipline as
+  every other harness here: no numbers are claimed until real runs are
+  logged, and the README states plainly this remains a self-run pilot
+  (ADR-009), not a rigorous blinded Experiment A.
+- **Status**: UNKNOWN — unchanged; a harness existing is not evidence, only
+  the capability to eventually produce some.
 - **Decision**: still required before claiming any skill is "Level 2 —
   Evaluated" *in the outcome sense* — codebase-intelligence,
   adversarial-diff-reviewer, and acceptance-test-engineer have each met the

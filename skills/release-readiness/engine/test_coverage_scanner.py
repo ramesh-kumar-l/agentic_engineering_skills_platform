@@ -12,9 +12,27 @@ support.
 
 from __future__ import annotations
 
+import re
 from pathlib import PurePosixPath
 
 from .models import CiReportContext
+
+
+def _contains_whole_token(haystack: str, needle: str) -> bool:
+    """Word-boundary-aware containment check.
+
+    A bare `needle in haystack` substring check false-positives whenever
+    `needle` (a module stem like "models") happens to appear inside a
+    longer, unrelated identifier belonging to a different skill — see L24
+    in project-memory-bank/12-known-limitations.md, which showed this
+    corrupts `has_coverage` itself (a genuinely untested module can look
+    "covered"), not just an inflated caller list. Since `\\w` includes `_`,
+    a word-boundary match rejects same-stem collisions inside unrelated
+    identifiers while still matching a real, dotted/path-qualified import.
+    """
+    if not needle:
+        return False
+    return re.search(rf"\b{re.escape(needle)}\b", haystack) is not None
 
 
 def _looks_like_test_module(path: str) -> bool:
@@ -35,6 +53,8 @@ def find_test_coverage(resolved_module_path: str | None, ci_report: CiReportCont
         if not _looks_like_test_module(module.path):
             continue
         imports_text = " ".join(module.imports).lower()
-        if target_stem in imports_text or resolved_module_path.lower() in imports_text:
+        if _contains_whole_token(imports_text, target_stem) or _contains_whole_token(
+            imports_text, resolved_module_path.lower()
+        ):
             covering.append(module.path)
     return covering

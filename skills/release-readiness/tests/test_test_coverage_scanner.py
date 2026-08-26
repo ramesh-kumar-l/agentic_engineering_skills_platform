@@ -56,3 +56,44 @@ def test_ignores_non_test_modules_even_if_they_import_target():
         dependency_graph=CiDependencyGraph(),
     )
     assert find_test_coverage("engine/report.py", ci_report) == []
+
+
+def test_excludes_test_module_whose_import_merely_embeds_the_stem_substring():
+    """Regression test for L24's dogfood finding: a "models" target must
+    not be marked has_coverage-worthy by a test module whose import list
+    merely contains "models" embedded inside a longer, unrelated
+    identifier (e.g. "shared_models_cache"), not a real import of the
+    target module itself."""
+    ci_report = CiReportContext(
+        root_path="/repo",
+        modules=[
+            CiModule(path="engine/models.py", docstring="", functions=[], classes=[], imports=[]),
+            CiModule(
+                path="tests/test_cache.py",
+                docstring="",
+                functions=["test_cache_behavior"],
+                classes=[],
+                imports=["shared_models_cache"],
+            ),
+        ],
+        dependency_graph=CiDependencyGraph(),
+    )
+    assert find_test_coverage("engine/models.py", ci_report) == []
+
+
+def test_still_finds_real_dotted_import_coverage_for_a_common_stem():
+    ci_report = CiReportContext(
+        root_path="/repo",
+        modules=[
+            CiModule(path="engine/models.py", docstring="", functions=[], classes=[], imports=[]),
+            CiModule(
+                path="tests/test_models.py",
+                docstring="",
+                functions=["test_model_fields"],
+                classes=[],
+                imports=["engine.models"],
+            ),
+        ],
+        dependency_graph=CiDependencyGraph(),
+    )
+    assert find_test_coverage("engine/models.py", ci_report) == ["tests/test_models.py"]

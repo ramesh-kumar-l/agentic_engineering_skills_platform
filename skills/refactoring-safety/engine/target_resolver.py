@@ -19,6 +19,7 @@ lightweight, AST-free import representation.
 
 from __future__ import annotations
 
+import re
 from pathlib import PurePosixPath
 
 from .models import CallerModule, CiReportContext, RefactorTarget, TargetAssessment
@@ -26,6 +27,22 @@ from .models import CallerModule, CiReportContext, RefactorTarget, TargetAssessm
 
 def _stem(path: str) -> str:
     return PurePosixPath(path).stem
+
+
+def _contains_whole_token(haystack: str, needle: str) -> bool:
+    """Word-boundary-aware containment check.
+
+    A bare `needle in haystack` substring check false-positives whenever
+    `needle` (a module stem like "scanner") happens to appear inside a
+    longer, unrelated identifier (e.g. "testability_scanner") — see L14/
+    L19/L21/L23 in project-memory-bank/12-known-limitations.md. Since `\\w`
+    includes `_`, `\\bscanner\\b` correctly rejects "testability_scanner"
+    (no boundary between "_" and "s") while still matching "engine.scanner"
+    (boundary at ".").
+    """
+    if not needle:
+        return False
+    return re.search(rf"\b{re.escape(needle)}\b", haystack) is not None
 
 
 def _resolve_module(name: str, ci_report: CiReportContext):
@@ -52,7 +69,9 @@ def _find_callers(resolved_path: str, ci_report: CiReportContext) -> list[Caller
         if module.path == resolved_path:
             continue
         imports_text = " ".join(module.imports).lower()
-        if target_stem in imports_text or resolved_path.lower() in imports_text:
+        if _contains_whole_token(imports_text, target_stem) or _contains_whole_token(
+            imports_text, resolved_path.lower()
+        ):
             callers.append(
                 CallerModule(
                     path=module.path,

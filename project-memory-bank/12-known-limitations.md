@@ -547,7 +547,7 @@ self-authored evaluation cannot support that comparison either way. See
 
 Entries below are from Phase 9 (regression-hunter).
 
-## L23: `target_resolver.py`'s substring-based caller identification produces a wildly inflated caller list for short, common module stems
+## L23: `target_resolver.py`'s substring-based caller identification produces a wildly inflated caller list for short, common module stems (FIXED 2026-08-26, mentor-review follow-up)
 
 - **What failed**: N/A (disclosed limitation, not fixed — same mechanism
   class as L14/L19/L21, demonstrated in a new location: structural caller
@@ -582,17 +582,26 @@ Entries below are from Phase 9 (regression-hunter).
   `regression-hunter`'s `target_resolver.py` share the identical
   vulnerability, since the second is a portability-discipline-driven
   independent copy of the first's resolution pattern, not a shared import).
-- **Fix**: Not applied. A real fix (e.g. requiring a word-boundary or
-  dotted-segment match instead of a bare substring check, or a minimum stem
-  length before matching) is a real design tradeoff against a
-  currently-understood, now-twice-disclosed limitation class (L14, L19,
-  L21 before this), not evaluated here against other evidence of need
-  across every skill that uses this pattern.
-- **Regression prevention**: `examples/regression-hunter/example-run.md`
-  documents this explicitly as a limitation observed on real use;
-  `SKILL.md`'s Agent Responsibilities and Known Limitations sections
-  instruct the agent not to trust `caller_modules`'s length at face value
-  for a module with a short, generic stem name.
+- **Fix**: Applied 2026-08-26, after a mentor-review pass explicitly
+  flagged this as having crossed from "disclosed tradeoff" to "proven,
+  four-times-recurring correctness bug" once L24 showed the same heuristic
+  could corrupt a decision signal, not just a displayed field. Both
+  `refactoring-safety/engine/target_resolver.py` and
+  `regression-hunter/engine/target_resolver.py` now use a word-boundary-
+  aware match (`_contains_whole_token`, `re.search(r"\b<stem>\b", ...)`)
+  instead of a bare `in` substring check. Since `\w` includes `_`,
+  `\bscanner\b` correctly rejects "testability_scanner" (no boundary
+  between `_` and `s`) while still matching a real, dotted import like
+  "engine.scanner" (boundary at `.`) — exactly the collision this entry
+  documented. Applied identically (independent copy, no shared import,
+  same portability discipline as the original bug) to both skills.
+- **Regression prevention**: `test_caller_list_excludes_module_whose_
+  import_merely_embeds_the_stem_substring`-shaped tests added to both
+  skills' `tests/test_target_resolver.py`, using the exact
+  `scanner`/`testability_scanner` collision from this entry's dogfood
+  finding, paired with a positive-case test confirming a real dotted
+  import still resolves correctly. `examples/regression-hunter/
+  example-run.md` remains as historical record of the original finding.
 
 ## L8 update: now applying an eighth time, still perfect scores
 
@@ -652,22 +661,38 @@ Entries below are from Phase 10 (release-readiness).
   status enough to keep the structural tier at medium/high — but that is
   a coincidence of this run's specific module names, not a property of the
   fix.
-- **Fix**: Not applied, for the same reason L14/L19/L21/L23 were left
-  disclosed rather than patched: a real fix (requiring a word-boundary or
-  dotted-segment match instead of a bare substring check, or scoping the
-  match to the same skill's own `skills/<name>/` path prefix) is a real
-  design tradeoff against a now-FOUR-times-disclosed limitation class, not
-  evaluated here against other evidence of need across every skill that
-  reuses this exact pattern (now three: `refactoring-safety`,
-  `regression-hunter`, `release-readiness`).
-- **Regression prevention**: `examples/release-readiness/example-run.md`
-  documents this explicitly as a limitation observed on real use;
-  `SKILL.md`'s Known Limitations section cross-references L23 explicitly
-  (a third independent copy of the same underlying issue, not a new
-  finding in isolation) rather than treating this as unrelated, and
-  instructs the agent not to trust `test_coverage.has_coverage` at face
-  value for a module with a short, generic stem name, the same caution
-  already required for `structural.caller_modules`.
+- **Fix**: PARTIALLY applied 2026-08-26. Both `target_resolver.py` and
+  `test_coverage_scanner.py` in `release-readiness` now use the same
+  word-boundary-aware match introduced for L23
+  (`_contains_whole_token`, `re.search(r"\b<stem>\b", ...)`) instead of a
+  bare substring check. This closes the *embedded-substring* subclass of
+  this bug (a stem like "models" appearing inside an unrelated identifier
+  such as "shared_models_cache") for both caller identification and test
+  coverage matching. **It does NOT close this entry's headline dogfood
+  example**: two different skills each having their own genuinely,
+  legitimately-imported, identically-stemmed module (e.g.
+  `architecture-decision`'s `models.py` and `release-readiness`'s own
+  `models.py`) still produces a real, boundary-respecting dotted-import
+  match — `\bmodels\b` matches "engine.models" regardless of *which*
+  skill's `engine/models.py` it actually refers to, because the resolver
+  has no notion of "same skill" scoping. Closing that remaining gap
+  requires a repo-layout-aware fix (e.g. scoping matches to the same
+  `skills/<name>/` path prefix as the resolved target) that was
+  deliberately NOT implemented in this pass — it is a larger, more
+  repo-layout-specific change than the general-purpose word-boundary fix,
+  and risks introducing false negatives for genuinely cross-directory
+  callers in a non-monorepo target repo, not evaluated against evidence of
+  need. This entry stays open, narrowed to exactly this remaining scope.
+- **Regression prevention**: `test_excludes_test_module_whose_import_
+  merely_embeds_the_stem_substring` and a paired positive-case test added
+  to `release-readiness`'s `tests/test_target_resolver.py` and
+  `tests/test_test_coverage_scanner.py`, confirming the embedded-substring
+  subclass is closed while a real dotted-import match still resolves
+  correctly. `examples/release-readiness/example-run.md` remains the
+  historical record of the original, still-partially-open finding.
+  `SKILL.md`'s Known Limitations section should be read alongside this
+  updated entry — the cross-skill identical-stem gap is real and current,
+  not historical.
 
 ## L8 update: now applying a ninth time, still perfect scores
 
