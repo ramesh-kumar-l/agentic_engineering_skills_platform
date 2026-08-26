@@ -1,9 +1,9 @@
 # Agentic Engineering Skills Platform
 
 [![tests](https://github.com/ramesh-kumar-l/agentic_engineering_skills_platform/actions/workflows/tests.yml/badge.svg)](https://github.com/ramesh-kumar-l/agentic_engineering_skills_platform/actions/workflows/tests.yml)
-![Status](https://img.shields.io/badge/status-Phase%2011%20complete-blue)
-![Skills](https://img.shields.io/badge/skills-11-informational)
-![Tests](https://img.shields.io/badge/tests-474%20passing-brightgreen)
+![Status](https://img.shields.io/badge/status-Phase%2015%20complete-blue)
+![Skills](https://img.shields.io/badge/skills-15-informational)
+![Tests](https://img.shields.io/badge/tests-693%20passing-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero-brightgreen)
 ![Trust status](https://img.shields.io/badge/trust%20status-EXPERIMENTAL-yellow)
@@ -129,7 +129,7 @@ that composes with another: [`QuickStarterGuide.md`](QuickStarterGuide.md).
 Dependency details (there are almost none — that's deliberate):
 [`DEPENDENCIES.md`](DEPENDENCIES.md).
 
-## Architecture: two patterns, reused across eleven skills
+## Architecture: two patterns, reused across fifteen skills
 
 Every skill in this repo is built from one of two architectural patterns —
 no third pattern has been needed yet, and neither has changed shape since it
@@ -141,8 +141,8 @@ used when the task is genuinely mechanical. No judgment layer needed because
 there's no judgment being made.
 
 **Pattern 2 — deterministic pre-processor + agent-driven judgment** (the
-other nine skills, reused nine consecutive times without needing a new
-base pattern):
+other fourteen skills, reused fourteen consecutive times without needing a
+new base pattern):
 
 ```mermaid
 flowchart TD
@@ -256,6 +256,69 @@ L14/L19/L21/L23 limitation class: the same substring-based
 false-positive TEST COVERAGE, not just an inflated caller list — see
 [Real bugs found by using this on real work](#real-bugs-found-by-using-this-on-real-work).
 
+`dependency-supply-chain` (skill 11) reuses `security-context-guard`'s
+advisory/fail-closed discipline for a new domain: pin status, a curated
+known-risk-name table, and duplicate/conflicting version declarations
+across manifests roll into one advisory `suggested_risk_level`.
+[ADR-017](project-memory-bank/11-decisions.md) documents two explicit
+scope decisions — no live CVE-database lookup, and no per-dependency
+license-risk detection, the latter dropped *mid-build* once it became
+clear the data that feature would need isn't actually available from what
+`codebase-intelligence` parses, rather than shipping a fabricated-looking
+flag. It reuses the mandatory-composition rule a seventh time — and its
+own real dogfood run against this repo's own root manifest concretely
+confirmed an inherited scope gap: only the repo-root manifest is parsed,
+not the real per-skill manifests one level below.
+
+`engineering-knowledge-capture` (skill 12) is the first skill whose
+deterministic layer targets a documentation artifact — a candidate
+decision, lesson, limitation, or workaround — rather than a code-risk
+judgment. [ADR-018](project-memory-bank/11-decisions.md) documents that
+shift and a module-mention resolver built correct from day one against
+the substring-collision class four prior limitations had already
+disclosed. Its own real dogfood run, against a narrative built from this
+project's own engineering history, still found a new limitation: the
+resolver only checks the exact matched line for a mention, not the
+surrounding paragraph — see
+[Real bugs found by using this on real work](#real-bugs-found-by-using-this-on-real-work).
+
+`context-optimizer` (skill 13) inverts the project's own
+fail-closed-toward-caution convention:
+[ADR-019](project-memory-bank/11-decisions.md) fails **OPEN** toward
+inclusion under uncertainty instead, because silently excluding a file a
+task actually needs is the worse failure for a context-recommendation
+tool. A real dogfood run at full-repository scale still found the same
+coincidental-keyword-flooding class recurring, this time producing
+false-positive CORE recommendations from this project's own recurring
+documentation vocabulary.
+
+`workflow-composer` (skill 14) is the first skill whose deliverable is
+composed **execution**, not analysis:
+[ADR-020](project-memory-bank/11-decisions.md) subprocess-invokes other
+skills' real `engine/cli.py` entry points through a small, hardcoded
+registry of three workflow templates, gated by a compatibility-drift
+check, and fails **CLOSED** on any step failure — the opposite default
+from ADR-019 one phase earlier, both the same "fail toward the
+cheaper-to-recover-from error" principle pointed in whichever direction
+fits that skill's actual stakes. Its own real, non-dry-run execution
+against this repo succeeded on both steps, and also surfaced the
+coincidental-keyword-flooding class living inside `feature-planner`
+itself — the oldest relevance engine in the portfolio, not just newer
+copies.
+
+`engineering-memory` (skill 15, the final skill in the originally-scoped
+portfolio) is the first skill whose primary corpus is this project's own
+memory bank rather than a target repo's code:
+[ADR-021](project-memory-bank/11-decisions.md) retrieves against
+`11-decisions.md`/`12-known-limitations.md` directly, applies
+word-boundary matching from day one as an accumulated lesson rather than
+a new discovery, and always attaches a staleness flag to a retrieved
+record rather than silently trusting or silently dropping it. Its own
+real dogfood run against this project's actual 50-record memory bank
+found yet another, genuinely different limitation in the same resolver
+family — see
+[Real bugs found by using this on real work](#real-bugs-found-by-using-this-on-real-work).
+
 ## Evaluation & honesty (this is the part most repos skip)
 
 Every judgment-based skill's evaluation harness scores two layers
@@ -267,19 +330,22 @@ separately:
   computed by comparing an AI agent's *actual* derivation for each fixture
   against hand-authored expected output.
 
-Eight of the nine judgment-based skills score **100% precision/recall** on
-their judgment layer; one, `root-cause-analyzer`, scored 7/8 fixtures
-perfect and 1/8 at **0.67/0.67** — left exactly as computed, not adjusted
-to preserve the streak ([`L19`](project-memory-bank/12-known-limitations.md)).
-`architecture-decision`, `refactoring-safety`, `regression-hunter`, and
-`release-readiness` all returned to a perfect 8/8 score, and that's not
-read as evidence any of them reasons better than `root-cause-analyzer` — a
-single self-authored evaluation can't support that comparison in either
-direction. Read every one of these numbers in context, not in isolation:
-the same agent session authored the fixtures, the expected ground truth,
-*and* the actual derivation, for all nine skills. There was no independent
-party anywhere in that loop. A perfect score under those conditions
-demonstrates
+Thirteen of the fourteen judgment-based skills score **100%
+precision/recall** on their judgment layer; one, `root-cause-analyzer`,
+scored 7/8 fixtures perfect and 1/8 at **0.67/0.67** — left exactly as
+computed, not adjusted to preserve the streak
+([`L19`](project-memory-bank/12-known-limitations.md)).
+`architecture-decision`, `refactoring-safety`, `regression-hunter`,
+`release-readiness`, `dependency-supply-chain`,
+`engineering-knowledge-capture`, `context-optimizer`, `workflow-composer`,
+and `engineering-memory` all returned to a perfect 8/8 score, and that's
+not read as evidence any of them reasons better than `root-cause-
+analyzer` — a single self-authored evaluation can't support that
+comparison in either direction. Read every one of these numbers in
+context, not in isolation: the same agent session authored the fixtures,
+the expected ground truth, *and* the actual derivation, for all fourteen
+skills. There was no independent party anywhere in that loop. A perfect
+score under those conditions demonstrates
 the workflow is **executable and internally consistent** — it does not, and
 cannot, demonstrate real-world review/planning/classification quality, and
 neither does an imperfect one demonstrate the opposite. This is disclosed
@@ -289,7 +355,7 @@ and tracked as an explicit open item
 someone else to discover:
 
 Perfect self-graded scores (with `root-cause-analyzer`'s one honest
-exception) are now the established pattern across nine attempts, not a
+exception) are now the established pattern across fourteen attempts, not a
 new finding each time — it continues to show this evaluation design cannot
 yet discriminate good derivation from mediocre, per
 [`07-current-state.md`](project-memory-bank/07-current-state.md).
@@ -313,10 +379,13 @@ in the blog series.
 
 Every skill has been "dogfooded" — run against real material (this repo's
 own source, this project's own real pending decisions) rather than only
-synthetic fixtures. That practice has found and disclosed ten real defects/limitations
-across all ten phases so far (six fixed same-session, four disclosed and
-deliberately left unfixed as documented design tradeoffs — L21, L22, L23,
-L24 below), cataloged transparently in
+synthetic fixtures. That practice has found and disclosed sixteen real defects/limitations
+across all fifteen phases so far (six fixed same-session — table below;
+one fixed later via a dedicated 2026-08-26 mentor-review follow-up rather
+than same-session — L23; nine disclosed and deliberately left unfixed as
+documented design tradeoffs — L21, L22, L24 [mitigated alongside L23's
+fix but not fully closed], L25, L26, L28, L29, L30, L31 below), cataloged
+transparently in
 [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md)
 rather than quietly patched and forgotten:
 
@@ -357,18 +426,67 @@ identical caller-matching pattern) resolves callers by bare substring
 match, producing a wildly inflated caller list for short, common module
 stems like `scanner` — the first time this limitation class has been shown
 to affect two skills' independent copies of the same heuristic at once
-([`L23`](project-memory-bank/12-known-limitations.md)). `release-
-readiness`'s own dogfood run (Phase 10) assessed a real, staged-then-
-unstaged (never committed) diff of this phase's own 78 new files, and
-disclosed a sharper, more consequential version of the same limitation
-class: the identical `target_resolver.py` substring-matching pattern,
-reused a THIRD time and shared unmodified inside its own
-`test_coverage_scanner.py`, produced false-positive TEST COVERAGE (not
-just an inflated caller list) for modules whose stem collides with an
-identically-named module in an unrelated skill —
+([`L23`](project-memory-bank/12-known-limitations.md) — later **fixed in
+full** by a 2026-08-26 mentor-review follow-up, replacing the bare
+substring check with a word-boundary-aware match in every independent
+copy, before Phase 11 began). `release-readiness`'s own dogfood run
+(Phase 10) assessed a real, staged-then-unstaged (never committed) diff of
+this phase's own 78 new files, and disclosed a sharper, more consequential
+version of the same limitation class: the identical `target_resolver.py`
+substring-matching pattern, reused a THIRD time and shared unmodified
+inside its own `test_coverage_scanner.py`, produced false-positive TEST
+COVERAGE (not just an inflated caller list) for modules whose stem
+collides with an identically-named module in an unrelated skill —
 `skills/release-readiness/engine/models.py` resolved as "covered" by
 `architecture-decision`'s test files despite having no `tests/test_models.py`
-of its own ([`L24`](project-memory-bank/12-known-limitations.md)).
+of its own ([`L24`](project-memory-bank/12-known-limitations.md) — the
+same mentor-review follow-up **mitigated but did not fully close** this
+one).
+
+`dependency-supply-chain`'s own dogfood run (Phase 11) against this repo's
+own root manifest found only one real dependency (`pytest`), concretely
+confirming an inherited scope gap: `codebase-intelligence` only parses the
+repo-root manifest, not the real per-skill manifests that actually exist
+one level below at `skills/*/pyproject.toml`
+([`L25`](project-memory-bank/12-known-limitations.md), a permanent scope
+decision — no live CVE database). A second scope gap was caught and
+corrected *before* shipping rather than disclosed after the fact: a
+planned per-dependency license-risk feature was dropped mid-build once it
+became clear a manifest's `license` field describes the project's own
+license, not each dependency's
+([`L26`](project-memory-bank/12-known-limitations.md)).
+`engineering-knowledge-capture`'s own dogfood run (Phase 12), against a
+narrative built from genuine excerpts of this project's own engineering
+history, found that its location resolver only checks the exact matched
+line for a module mention, not the surrounding paragraph — every candidate
+in that real run resolved to no location at all despite
+`target_resolver.py` being named four times in the sentence immediately
+above ([`L28`](project-memory-bank/12-known-limitations.md)) — the first
+dogfood finding in this project's history about a gap between
+synthetic-fixture phrasing and real-prose phrasing specifically.
+`context-optimizer`'s own dogfood run (Phase 13), at full-repository
+scale with a real task description from this session's own work, still
+hit the same coincidental-keyword-collision class: 5 of 17 CORE
+recommendations were unrelated files, flooded in by this project's own
+recurring documentation/evaluation-harness vocabulary
+([`L29`](project-memory-bank/12-known-limitations.md)). `workflow-
+composer`'s own dogfood run (Phase 14), a real non-dry-run execution of
+its `understand-then-plan` template against this repo's current state,
+succeeded on both steps but found the same limitation class living inside
+`feature-planner` itself — its composed relevance scorer ranked a test
+file as the single highest-scoring file in the entire repository, ahead
+of every genuinely relevant implementation file
+([`L30`](project-memory-bank/12-known-limitations.md)). `engineering-
+memory`'s own dogfood run (Phase 15, the final skill in the
+originally-scoped portfolio), a real retrieval against this project's own
+actual 50-record memory bank, found a *different* ambiguity from the same
+resolver family: its basename-exact module resolver, built correct from
+day one specifically to defeat the substring-collision class above,
+still collapses multiple real, distinct files that happen to share a
+basename (`ci_report_loader.py`, present in most composing skills) into
+one arbitrarily-chosen match — a "multiple TRUE matches" ambiguity, not
+the "FALSE match via containment" this resolver was built to prevent
+([`L31`](project-memory-bank/12-known-limitations.md)).
 
 The full narrative for each of the five original findings, including exact
 code diffs, is in the blog post
