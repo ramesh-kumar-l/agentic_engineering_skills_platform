@@ -23,8 +23,12 @@ PHASE 11 — Dependency / Supply Chain          ← COMPLETE (this phase; starte
                                                   direction, reopening a
                                                   same-day roadmap freeze —
                                                   not new validation evidence)
-PHASE 12 — Knowledge Capture                  ← frozen, same as before Phase 11
-PHASE 13 — Context Optimizer
+PHASE 12 — Knowledge Capture                  ← COMPLETE (this phase; started
+                                                  at the user's explicit
+                                                  direction, a SECOND
+                                                  same-day-freeze reopening —
+                                                  not new validation evidence)
+PHASE 13 — Context Optimizer                  ← frozen, same as before Phase 12
 PHASE 14 — Workflow Composer
 PHASE 15 — Engineering Memory
 ```
@@ -504,3 +508,50 @@ at least as strong as it was at the Phase 11 boundary — a future session
 should weigh that explicitly before starting Phase 12, and should not read
 Phase 11 shipping as precedent that the freeze auto-lifts on request alone
 without the user again making that call explicitly.
+
+## Phase 12 — Engineering Knowledge Capture (COMPLETE, 2026-08-26)
+
+Per the roadmap's own phase list and full target skill portfolio
+(`Advanced`: dependency-supply-chain-reviewer, engineering-knowledge-
+capture, context-optimizer, workflow-composer, engineering-memory), Phase
+12 was proposed as **Engineering Knowledge Capture** — the second skill in
+the `Advanced` group.
+
+**How this actually started**: exactly as predicted in the "Phase 12
+onward" note directly above — the freeze from before Phase 11 was still in
+force, and the case for investing in L8/A5 instead of a twelfth skill was
+not weaker. The user then explicitly directed starting Phase 12 anyway,
+with their own stated exit criteria (same shape as Phase 11's: "same bar,"
+first skill composing on `codebase-intelligence`'s output — not literally
+true, the eleventh Pattern 2 reuse and eighth ADR-010 reuse, stated plainly
+in [[03-architecture]]/[[11-decisions]] — "scalable and production-level
+stable"). This is a **second**, one-time, user-authorized exception to the
+freeze, not evidence A2/A5 moved off `UNKNOWN` — recorded here honestly,
+the same way Phase 11's exception was, rather than presented as if the
+freeze's conditions were newly met.
+
+**What shipped**: `engineering-knowledge-capture` — a deterministic
+decision/lesson/limitation/workaround candidate scanner over a free-text
+engineering narrative, each candidate resolved against real structural
+data (fan_in/hotspot) where a module is named, composing on a required
+`codebase-intelligence` report (ADR-010, eighth reuse). 47 tests, 8/8
+evaluation fixtures on both layers. New ADR-018 documents the required-
+composition reuse, the location resolver's word-boundary-correct-from-
+day-one implementation (the fourth independent copy of the fix first
+applied after L23/L24, and the first not shipped with the bug first), and
+this skill's status as the first in the portfolio whose deterministic
+layer targets a documentation artifact rather than a code-risk judgment.
+A real dogfood run against genuine excerpts of this project's own
+engineering history found a new, disclosed-not-fixed limitation (L28):
+the resolver only checks the exact matched line, not the surrounding
+paragraph, so every candidate in that real run resolved to no location at
+all despite the relevant module being named four times nearby.
+
+**Phase 13 onward**: the freeze from before Phase 11 remains in force,
+now for a second consecutive phase boundary. The case for investing a
+phase in the independent-evidence gap (L8/A5) before a thirteenth skill is
+at least as strong as it was at the Phase 11 and Phase 12 boundaries — a
+future session should weigh that explicitly before starting Phase 13, and
+should not read Phase 11 or Phase 12 shipping as precedent that the freeze
+auto-lifts on request alone without the user again making that call
+explicitly, each time.

@@ -786,3 +786,46 @@ pointers to intent, not literal lookups, unless/until a fuller charter
 version (covering sections beyond 11) is provided and checked in — at
 which point this entry should be marked FIXED and
 `operating-charter.md`'s "End of checked-in charter" note updated.
+
+---
+
+## L28: `engineering-knowledge-capture`'s location resolver only checks the matched line, not the surrounding paragraph
+
+- **What failed**: A real dogfood run
+  (`examples/engineering-knowledge-capture/example-run.md`) against a
+  narrative built from genuine excerpts of this project's own engineering
+  history — the L23/L24 substring-bug fix and Phase 11's dropped
+  license-detection scope decision — produced **zero** resolved
+  candidates, even though the narrative names `target_resolver.py` by
+  full path four times.
+- **Why**: `location_resolver.py`'s `resolve_mention` (ADR-018) is only
+  ever called with a single matched line as its `evidence_text` argument
+  (see `knowledge_scanner.py`'s `_line_for_offset` and `report.py`'s
+  per-candidate resolution call). In this project's own real retrospective
+  writing, a module name is typically stated once in an early sentence of
+  a paragraph, with the decision/lesson/limitation marker appearing in a
+  later sentence of the *same* paragraph rather than the same line — a
+  shape none of this skill's synthetic evaluation fixtures exercised,
+  since each fixture deliberately puts the marker and the module mention
+  in one sentence.
+- **Impact**: every candidate in the dogfood run scored `MEDIUM`
+  (fail-closed, per ADR-018/L28's own discipline) instead of the `HIGH` a
+  correctly-resolved mention of a real hotspot module would have produced
+  — a real, concrete instance of the gap between "the evaluation harness's
+  synthetic fixtures pass" and "the skill performs well on real prose,"
+  the same category of honest gap L8 already generalizes, sharpened here
+  with a reproducible example.
+- **Fix**: not applied. Widening the resolution window from "the matched
+  line" to "the matched line's surrounding paragraph" would recover this
+  case, but risks the opposite failure mode — crediting a candidate with a
+  module named several sentences earlier for an unrelated reason, a false
+  positive this project has no real evidence is rarer than the false
+  negative just found. Left as a known limitation pending real usage
+  evidence about which failure mode actually matters more in practice,
+  rather than guessing at the right window size from one dogfood run.
+- **Regression prevention**: `SKILL.md`'s Known Limitations states this
+  explicitly; a future fix should add a paragraph-scoped (not whole-
+  narrative-scoped) resolution test alongside the existing single-line
+  tests in `tests/test_location_resolver.py` before widening the window,
+  so both the recall gain and the precision cost are visible in the same
+  test suite.

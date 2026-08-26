@@ -371,3 +371,39 @@ new in kind, not just content: it's a checklist item whose correct answer
 is always "not available" in this skill's current version, stated as such
 rather than removed - an explicit, disclosed gap the checklist forces the
 agent to name every single walk, rather than one it could silently skip.
+
+## Knowledge Capture Checklist
+
+Eleventh checklist, for `engineering-knowledge-capture` (Phase 12). Shaped
+like the Security Decision Checklist and the Dependency Risk Checklist
+(a decision-gate, not a coverage-enumeration list) since this skill's job
+is producing one recommendation per candidate (capture it or don't), not
+enumerating independent findings:
+
+```
+1. Narrative scope stated (what session/change/timeframe does this cover?)
+2. Candidates reviewed per category (decision/lesson/limitation/workaround)
+3. Structural relevance considered (hotspot/high-fan-in module -> higher
+   priority to actually write up)
+4. False-positive check (is this genuinely new knowledge, or restating
+   something already captured elsewhere in the memory bank?)
+5. Duplicate check against existing ADRs/L-numbers (agent responsibility -
+   the engine has no memory-bank access and cannot know this itself)
+6. Draft canonical entry (ADR / L-number / lesson-learned shape) for
+   candidates worth keeping - this skill's actual deliverable
+7. Explicit uncertainty flag - thin/ambiguous narrative or an unresolved
+   location defaults toward MEDIUM priority and says so, never silently LOW
+```
+
+Category 7 is this checklist's fail-closed-under-uncertainty item, same
+convention as the Security Decision Checklist's category 7 and the
+Dependency Risk Checklist's category 8. Category 5 is new in kind, not
+just content, the same way the Dependency Risk Checklist's category 4
+was: it's a checklist item the engine can never answer on its own (it has
+no `project-memory-bank/` access), so the checklist forces the agent to
+do a real duplicate check every walk rather than silently skipping it.
+This is also the first checklist in the portfolio whose category 6 is
+itself the skill's actual deliverable (drafting the entry) rather than a
+verdict about code — the checklist doesn't end at "recommend," it ends at
+"produce the artifact," reflecting ADR-018's "documentation artifact, not
+a code-risk judgment" framing.

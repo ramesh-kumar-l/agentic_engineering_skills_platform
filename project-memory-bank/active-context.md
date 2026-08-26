@@ -7,20 +7,24 @@ appended to. Complements [[implementation-status.md]] (what's built) and
 
 ## Current phase
 
-Phase 11 (`dependency-supply-chain`) — COMPLETE. **Phase 12 onward remains
-frozen.** 2026-08-26 (same day, three sub-events): (1) the user requested a
-mentor-style critique of the whole project, which found ten phases shipped,
-zero real external users, A2/A5 still UNKNOWN, and the L23/L24 substring
-bug disclosed four times without being fixed — the user approved pausing
-new-skill work to fix that bug and scaffold a measurement harness instead
-(see "Mentor-review follow-up" below); (2) the user then explicitly
-directed starting Phase 11 anyway, with their own exit criteria ("same
-bar," first skill composing on `codebase-intelligence`'s output,
+Phase 12 (`engineering-knowledge-capture`) — COMPLETE. **Phase 13 onward
+remains frozen.** 2026-08-26 (same day, four sub-events): (1) the user
+requested a mentor-style critique of the whole project, which found ten
+phases shipped, zero real external users, A2/A5 still UNKNOWN, and the
+L23/L24 substring bug disclosed four times without being fixed — the user
+approved pausing new-skill work to fix that bug and scaffold a measurement
+harness instead (see "Mentor-review follow-up" below); (2) the user then
+explicitly directed starting Phase 11 anyway, with their own exit criteria
+("same bar," first skill composing on `codebase-intelligence`'s output,
 "production-level stable") — **this reopened the freeze at the user's
 explicit direction, not because A2/A5 moved off UNKNOWN**; (3) Phase 11
-shipped (see "What Phase 11 built" below). The freeze remains in force for
-any phase beyond 11 — starting Phase 11 was a one-time, explicit exception,
-not a general unfreezing.
+shipped, and the operating charter was checked in as a documentation-only
+pass (see "Documentation check-in" below); (4) the user then explicitly
+directed starting Phase 12, with the same shape of exit criteria — **a
+second, one-time reopening of the same freeze**, and Phase 12 shipped (see
+"What Phase 12 built" below). The freeze remains in force for any phase
+beyond 12 — starting Phase 11 and Phase 12 were each one-time, explicit
+exceptions, not a general unfreezing.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
 
@@ -35,6 +39,45 @@ rather than papered over: several existing files cite charter sections
 (39–40, 43, "First Activation") that don't exist in this version, which only
 runs through Section 11 — see [[12-known-limitations|L27]]. No code, tests,
 or roadmap changed; Phase 12+ freeze is untouched by this.
+
+## What Phase 12 built
+
+Built `engineering-knowledge-capture`, the twelfth skill: `SKILL.md`
+contract reusing Pattern 2 (ADR-007) an eleventh time — a deterministic
+engine (9 modules, each under 130 lines) that scans a free-text
+engineering narrative for four candidate categories (decision, lesson,
+limitation, workaround; 16 patterns total, non-exhaustive), resolves any
+module mentioned on the matched line against a required `codebase-
+intelligence` report (ADR-010, reused an eighth time), and rolls a
+resolved candidate's real fan_in/hotspot data into an advisory
+`suggested_capture_priority` (HIGH/MEDIUM — LOW is defined but never
+assigned this version, a deliberate fail-upward choice under uncertainty).
+New **ADR-018** documents the required-composition reuse, the fourth
+independent copy of the word-boundary-aware resolution fix first applied
+after L23/L24 — this one built correct from day one rather than shipped
+with the bug first — and this skill's status as the first in the
+portfolio whose deterministic layer targets a documentation artifact (an
+ADR/known-limitation/lessons-learned candidate) rather than a code-risk
+judgment. New **Knowledge Capture Checklist** (eleventh checklist,
+[[05-evaluation-framework]], decision-gate shaped like the Security and
+Dependency Risk checklists). 47 passing tests (CLI test file from the
+start). 8-fixture evaluation harness, both layers scored perfect —
+eleventh judgment-based skill scored this way, same self-authored caveat
+(L8). Real dogfood (`examples/engineering-knowledge-capture/example-run.md`)
+against a narrative built from genuine excerpts of this project's own
+engineering history (the L23/L24 fix, Phase 11's dropped license-detection
+decision) found a new, disclosed-not-fixed limitation: **L28** —
+`location_resolver.py` only checks the exact matched line for a module
+mention, not the surrounding paragraph, so every candidate in that real
+run resolved to no location at all despite `target_resolver.py` being
+named four times in the sentence immediately above the flagged markers.
+This is the first dogfood run in this project's history whose finding is
+about a gap between synthetic-fixture behavior and real-prose behavior
+specifically (every evaluation fixture deliberately puts the module
+mention in the same sentence as the marker; real retrospective writing
+often doesn't). Platform test count rose from 474 to **521**, zero
+regressions. `.github/workflows/tests.yml`'s matrix updated to include the
+new skill.
 
 ## What Phase 11 built
 
@@ -212,33 +255,41 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Open threads / not yet decided
 
-- **2026-08-26 update: Phase 11 shipped at the user's explicit direction;
-  Phase 12 onward is still frozen.** The mentor-review critique concluded
-  velocity of building had outpaced velocity of validating (A2/A5 both
-  UNKNOWN after ten phases, zero real external users), and the user then
-  explicitly directed starting Phase 11 anyway. That is a one-time,
-  explicit exception, not new evidence and not a general unfreezing —
-  re-justifying Phase 12+ still requires real external validation evidence
+- **2026-08-26 update: Phase 11 AND Phase 12 both shipped at the user's
+  explicit direction; Phase 13 onward is still frozen.** The mentor-review
+  critique concluded velocity of building had outpaced velocity of
+  validating (A2/A5 both UNKNOWN after ten phases, zero real external
+  users), and the user then explicitly directed starting Phase 11, and
+  later the same day Phase 12, anyway. Each is a one-time, explicit
+  exception, not new evidence and not a general unfreezing —
+  re-justifying Phase 13+ still requires real external validation evidence
   first (a real user, an independent/blind eval pass, or a real
   usage-comparison run via `evaluations/usage-comparison/`), not just a
   pre-written roadmap proposal.
-- **L8 remains the most important open thread, now applying ten times**:
-  nine of ten judgment-based skills (adversarial-diff-reviewer,
+- **L8 remains the most important open thread, now applying eleven
+  times**: ten of eleven judgment-based skills (adversarial-diff-reviewer,
   acceptance-test-engineer, feature-planner, security-context-guard,
   architecture-decision, refactoring-safety, regression-hunter,
-  release-readiness, dependency-supply-chain) scored 100% precision/recall
-  against self-authored ground truth; the tenth (root-cause-analyzer)
-  scored 7/8 perfect and 1/8 at 0.67/0.67 (L19). All outcomes are equally
-  inconclusive about real-world quality — self-authored, single-rater
-  evidence either way. The inter-rater-agreement experiment (A5) still has
-  not been run for any of the ten.
-- **L25/L26 (new, Phase 11)**: `dependency-supply-chain` has no live
+  release-readiness, dependency-supply-chain, engineering-knowledge-capture)
+  scored 100% precision/recall against self-authored ground truth; the
+  eleventh (root-cause-analyzer) scored 7/8 perfect and 1/8 at 0.67/0.67
+  (L19). All outcomes are equally inconclusive about real-world quality —
+  self-authored, single-rater evidence either way. The inter-rater-
+  agreement experiment (A5) still has not been run for any of the eleven.
+- **L25/L26 (Phase 11)**: `dependency-supply-chain` has no live
   CVE/vulnerability-database lookup (L25, permanent scope decision — this
   project makes no network calls, ADR-006) and no per-dependency
   license-risk detection (L26, corrected mid-implementation — the data
   needed doesn't exist in what `codebase-intelligence` parses; dropped from
   scope rather than fabricated). Both named explicitly in `SKILL.md`, not
   silently omitted.
+- **L28 (new, Phase 12)**: `engineering-knowledge-capture`'s
+  `location_resolver.py` only checks the exact matched line for a module
+  mention, not the surrounding paragraph — found via a real dogfood run
+  where every candidate resolved to no location despite the relevant
+  module being named four times nearby. Disclosed, not fixed — widening
+  the window risks a new false-positive class this project has no evidence
+  is rarer than the false negative just found.
 - **The L14/L19/L21/L23/L24 substring-collision limitation class — status
   as of 2026-08-26: L23 FIXED, L24 PARTIALLY fixed, L14/L19/L21 still
   open.** `target_resolver.py`'s caller-identification bug (L23, shared
@@ -272,8 +323,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   deferred — revisit only if real usage shows they matter. L24 (Phase 10)
   is deferred for the same reason but flagged, above, as the strongest
   candidate yet to revisit soon.
-- No real (non-agent) engineer has used any of the eleven skills yet —
-  Trust Status stays EXPERIMENTAL on all eleven, and assumptions
+- No real (non-agent) engineer has used any of the twelve skills yet —
+  Trust Status stays EXPERIMENTAL on all twelve, and assumptions
   A2/A3/A5/A7/A10 in [[16-assumptions-and-validation]] remain only
   partially evidenced.
 
@@ -286,7 +337,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 3. [[implementation-status.md]]
 4. [[07-current-state]]
 5. `README.md` (root) — primary public-facing entry point
-6. `skills/dependency-supply-chain/SKILL.md`,
+6. `skills/engineering-knowledge-capture/SKILL.md`,
+   `skills/dependency-supply-chain/SKILL.md`,
    `skills/release-readiness/SKILL.md`,
    `skills/regression-hunter/SKILL.md`,
    `skills/refactoring-safety/SKILL.md`,
@@ -295,7 +347,9 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    `skills/security-context-guard/SKILL.md`, `skills/feature-planner/SKILL.md`,
    `skills/acceptance-test-engineer/SKILL.md`,
    `skills/adversarial-diff-reviewer/SKILL.md`, `skills/codebase-intelligence/SKILL.md`
-7. `examples/dependency-supply-chain/example-run.md` (real dogfood, confirms
+7. `examples/engineering-knowledge-capture/example-run.md` (real dogfood,
+   surfaced the new L28 line-vs-paragraph resolution gap),
+   `examples/dependency-supply-chain/example-run.md` (real dogfood, confirms
    the inherited L2 scope gap concretely) and `examples/release-readiness/
    example-run.md` (the real diff run that disclosed L24)
 8. [[17-experiment-viability-check.md]]
@@ -304,9 +358,10 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Last updated
 
-2026-08-26 — Phase 11 (`dependency-supply-chain`) shipped at the user's
-explicit direction, reopening the same-day mentor-review freeze as a
-one-time exception; Phase 12 onward remains frozen. Test count: 474 (up
-from 428). Same day, after Phase 11: the operating charter checked in at
+2026-08-26 — Phase 12 (`engineering-knowledge-capture`) shipped at the
+user's explicit direction, a second one-time reopening of the same-day
+mentor-review freeze (after Phase 11, `dependency-supply-chain`); Phase 13
+onward remains frozen. Test count: 521 (up from 474). Earlier the same
+day, between Phase 11 and Phase 12: the operating charter checked in at
 [[operating-charter]] (documentation only, no code/roadmap change; see
 [[12-known-limitations|L27]] for the disclosed section-numbering gap).

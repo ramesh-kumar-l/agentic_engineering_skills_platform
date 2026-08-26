@@ -1,0 +1,2 @@
+We decided to keep the CLI argument names consistent across all skills
+rather than optimizing per-skill ergonomics.

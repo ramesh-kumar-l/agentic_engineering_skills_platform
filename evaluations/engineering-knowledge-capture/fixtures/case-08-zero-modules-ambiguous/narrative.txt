@@ -1,0 +1,2 @@
+We decided to defer the retry-logic module rewrite until next quarter,
+since it isn't blocking anything right now.

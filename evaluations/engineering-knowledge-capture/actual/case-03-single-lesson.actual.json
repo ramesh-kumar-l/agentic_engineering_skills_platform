@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c3-1",
+      "category": "lesson",
+      "description": "A confirmed root cause is stated (shared temp directory reused across parallel test runs) that corrects an initial wrong assumption (an ordering bug) — exactly the shape of a genuine lessons-learned entry (project-memory-bank/13-lessons-learned.md), not a restatement of something already known. No module is named, so priority fails closed to MEDIUM. Recommendation: capture as a lessons-learned entry describing both the wrong initial hypothesis and the real cause, since the gap between the two is the actually useful part for a future session to avoid repeating.",
+      "grounding": "knowledge_scanner.scan matches 'lesson-turns-out'; location_resolver.resolve_mention returns None; priority_scorer.compute_priority(None, ci_has_warning=False) returns MEDIUM."
+    }
+  ]
+}

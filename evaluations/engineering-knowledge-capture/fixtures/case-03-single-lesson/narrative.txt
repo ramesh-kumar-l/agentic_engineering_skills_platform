@@ -1,0 +1,3 @@
+Turns out the flaky test was caused by a shared temp directory being
+reused across parallel test runs, not by any real ordering bug in the
+code under test.

@@ -1,0 +1,11 @@
+{
+  "candidate_pattern_ids": ["decision-we-decided", "limitation-known-limitation"],
+  "candidate_priorities": {
+    "decision-we-decided": "MEDIUM",
+    "limitation-known-limitation": "MEDIUM"
+  },
+  "expected_categories": [
+    {"category": "decision", "keywords": ["adr", "in-process"]},
+    {"category": "limitation", "keywords": ["known-limitations", "second replica"]}
+  ]
+}

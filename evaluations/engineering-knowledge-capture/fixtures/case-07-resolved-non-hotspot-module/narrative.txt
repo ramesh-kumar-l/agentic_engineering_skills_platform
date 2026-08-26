@@ -1,0 +1,3 @@
+We learned that stats.py double-counted category totals until a new
+fixture happened to catch it — a narrow, low-traffic module, but worth a
+regression test regardless.

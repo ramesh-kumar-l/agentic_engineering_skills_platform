@@ -1,0 +1,11 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {"path": "engine/stats.py", "docstring": null, "functions": [], "classes": [], "imports": []}
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/stats.py": 1},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

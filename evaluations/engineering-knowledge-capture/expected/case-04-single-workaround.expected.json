@@ -1,0 +1,7 @@
+{
+  "candidate_pattern_ids": ["workaround-explicit"],
+  "candidate_priorities": {"workaround-explicit": "MEDIUM"},
+  "expected_categories": [
+    {"category": "workaround", "keywords": ["real fix", "medium"]}
+  ]
+}

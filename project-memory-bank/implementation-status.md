@@ -20,14 +20,15 @@ Replaced/updated in place, not appended to chronologically — see
 | regression-hunter | Level 2 — Evaluated | EXPERIMENTAL | 66/66 passing (CLI test file written from the start, same discipline as Phases 5-8; +2 tests 2026-08-26 fixing L23) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eighth time — see [[12-known-limitations]] L8); see `evaluations/regression-hunter/RESULTS.md` |
 | release-readiness | Level 2 — Evaluated | EXPERIMENTAL | 82/82 passing (CLI test file written from the start, same discipline as Phases 5-9; +4 tests 2026-08-26 partially fixing L24) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, ninth time — see [[12-known-limitations]] L8); see `evaluations/release-readiness/RESULTS.md` |
 | dependency-supply-chain | Level 2 — Evaluated | EXPERIMENTAL | 46/46 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, tenth time — see [[12-known-limitations]] L8); see `evaluations/dependency-supply-chain/RESULTS.md` |
+| engineering-knowledge-capture | Level 2 — Evaluated | EXPERIMENTAL | 47/47 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eleventh time — see [[12-known-limitations]] L8); see `evaluations/engineering-knowledge-capture/RESULTS.md` |
 
-No other skill has any implementation yet. **474 total tests passing across
-all eleven skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46),
-up from 428 after Phase 11 (`dependency-supply-chain`, 2026-08-26) added the
-eleventh skill — started at the user's explicit direction, reopening the
-mentor-review pass's roadmap freeze from earlier the same day; A2/A5 remain
-UNKNOWN, this is not new external-validation evidence — see
-`12-known-limitations.md`, `11-decisions.md` (ADR-017), and
+No other skill has any implementation yet. **521 total tests passing across
+all twelve skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47),
+up from 474 after Phase 12 (`engineering-knowledge-capture`, 2026-08-26) added
+the twelfth skill — started at the user's explicit direction, a second
+one-time reopening of the mentor-review pass's roadmap freeze from the same
+date as Phase 11; A2/A5 remain UNKNOWN, this is not new external-validation
+evidence — see `12-known-limitations.md`, `11-decisions.md` (ADR-018), and
 `active-context.md`.
 
 ## codebase-intelligence — component status
@@ -227,6 +228,24 @@ UNKNOWN, this is not new external-validation evidence — see
 | Judgment-layer actual findings (`evaluations/dependency-supply-chain/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/dependency-supply-chain/`) | Done — real run against this repo's own root manifest; concretely confirmed the inherited L2 root-level-only scope gap (only 1 of the platform's real dependencies visible from repo root) |
 
+## engineering-knowledge-capture — component status
+
+| Component | Status |
+|---|---|
+| `engine/ci_report_loader.py` | Done, tested — same required-precondition pattern as every prior composing skill's loader (ADR-010, reused an eighth time); own independent copy, extracts modules + dependency_graph |
+| `engine/knowledge_patterns.py` | Done, tested — 16 patterns across 4 categories (decision/lesson/limitation/workaround), non-exhaustive |
+| `engine/knowledge_scanner.py` | Done, tested — one candidate per match, not collapsed per pattern (a narrative can describe several distinct decisions/lessons) |
+| `engine/location_resolver.py` | Done, tested — FOURTH independent copy of the word-boundary-aware containment check (L23/L24 lineage), first one built correct from the start rather than fixed after disclosure |
+| `engine/priority_scorer.py` | Done, tested — fail-closed-to-MEDIUM discipline (ADR-011/017 reuse); LOW band defined but never assigned this version (see SKILL.md Known Limitations) |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested — `--ci-report` is required (ADR-010/018); missing/malformed report is a hard failure |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, tested — CLI test file (`tests/test_cli.py`) written from the start, same discipline Phases 5-11 established |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) an eleventh time + reuses ADR-010 an eighth time + new ADR-018 (word-boundary-correct-from-day-one resolver, fail-upward priority default, first documentation-artifact-targeting skill), includes agent-driven Step 3 workflow against the new Knowledge Capture Checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment), all 8 perfect on both layers |
+| Judgment-layer actual findings (`evaluations/engineering-knowledge-capture/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/engineering-knowledge-capture/`) | Done — real narrative built from verbatim excerpts of this project's own engineering history (the L23/L24 fix, Phase 11's dropped license-detection decision), composed with a fresh codebase-intelligence report; found and disclosed a new limitation (L28) rather than confirming a known one |
+
 ## Documentation & public-facing artifacts (added after Phase 5, not a phase)
 
 | Artifact | Status |
@@ -244,9 +263,9 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 12 onward, not
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 13 onward, not
   started; the roadmap freeze from the 2026-08-26 mentor-review pass still
-  applies to any further phase beyond Phase 11 (see [[08-roadmap]]).
+  applies to any further phase beyond Phase 12 (see [[08-roadmap]]).
 - Any reusable composed-workflow infrastructure across skills
   (feature-planner, root-cause-analyzer, architecture-decision,
   refactoring-safety, regression-hunter, and release-readiness all make
@@ -286,10 +305,15 @@ this pass — test count and evaluation results are unchanged from the Phase
   decisions, not scheduled; would need real evidence of need (network
   access and installed-package-metadata inspection are both capabilities
   this project has deliberately not built).
+- A paragraph-scoped (rather than single-line-scoped) resolution window for
+  `engineering-knowledge-capture`'s `location_resolver.py` (L28) — disclosed
+  via a real dogfood run, not scheduled; would need real evidence the
+  recall gain is worth the precision risk before widening the window.
 
 ## Last updated
 
-2026-08-26 — end of Phase 11 (`dependency-supply-chain`). Started at the
-user's explicit direction, reopening the mentor-review pass's same-day
-roadmap freeze; 474 total tests passing across eleven skills (up from 428).
-A2/A5 remain UNKNOWN — this phase is not new external-validation evidence.
+2026-08-26 — end of Phase 12 (`engineering-knowledge-capture`). Started at
+the user's explicit direction, a second one-time reopening of the
+mentor-review pass's roadmap freeze from the same date as Phase 11; 521
+total tests passing across twelve skills (up from 474). A2/A5 remain
+UNKNOWN — this phase is not new external-validation evidence.

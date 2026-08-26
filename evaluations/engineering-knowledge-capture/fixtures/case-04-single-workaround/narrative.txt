@@ -1,0 +1,3 @@
+As a workaround, we pinned the CI runner's Python version until the
+upstream wheel-building issue for one of our transitive dependencies is
+actually fixed upstream.

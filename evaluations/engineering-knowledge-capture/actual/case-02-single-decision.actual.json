@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c2-1",
+      "category": "decision",
+      "description": "The narrative names a real decision (keeping CLI argument names consistent across skills over per-skill ergonomics) with a stated rationale — a genuine candidate for an ADR entry (project-memory-bank/11-decisions.md), not noise. No module or file is named nearby, so the engine cannot resolve a structural location; suggested_capture_priority correctly fails closed to MEDIUM rather than being silently downranked because there is no resolvable location to weigh. Recommendation: draft a short ADR capturing the decision and its rationale; since this appears to be a cross-cutting convention rather than a single-module change, structural blast-radius scoring would not have been meaningful here even if a location had resolved.",
+      "grounding": "knowledge_scanner.scan matches 'decision-we-decided'; location_resolver.resolve_mention returns None (no module stem present in the evidence line); priority_scorer.compute_priority(None, ci_has_warning=False) returns MEDIUM."
+    }
+  ]
+}

@@ -7,6 +7,36 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 12: Engineering Knowledge Capture — twelfth skill
+  (`skills/engineering-knowledge-capture/`): `SKILL.md` contract reusing
+  Pattern 2 (ADR-007) an eleventh time — a deterministic engine (9 modules,
+  each under 130 lines, 47 passing tests including a CLI test file written
+  from the start) that composes on a required `codebase-intelligence`
+  report (ADR-010, eighth reuse) and scans a free-text engineering
+  narrative for decision/lesson/limitation/workaround candidates (16
+  patterns, non-exhaustive), resolving any module mentioned on the matched
+  line against real fan_in/hotspot data into an advisory
+  `suggested_capture_priority` (HIGH/MEDIUM — fails closed, never silently
+  LOW); 11th-checklist agent workflow (Knowledge Capture Checklist,
+  `project-memory-bank/05-evaluation-framework.md`); an 8-fixture
+  evaluation harness (`evaluations/engineering-knowledge-capture/`, all 8
+  scored perfect on both layers); and a dogfood run
+  (`examples/engineering-knowledge-capture/`) against a narrative built
+  from genuine excerpts of this project's own engineering history that
+  found a new, disclosed-not-fixed limitation (L28: the location resolver
+  only checks the exact matched line, not the surrounding paragraph — every
+  candidate in the real run resolved to no location despite the relevant
+  module being named four times nearby). New architectural decision —
+  **ADR-018**: required composition reused an eighth time; the location
+  resolver is the fourth independent copy of the word-boundary-aware fix
+  first applied to `target_resolver.py` after L23/L24, and the first one
+  built correct from the start rather than shipped with the bug first;
+  first skill whose deterministic layer targets a documentation artifact
+  rather than a code-risk judgment. Started at the user's explicit
+  direction, a second same-day reopening of the mentor-review roadmap
+  freeze (after Phase 11); not new external-validation evidence. Platform
+  test count: 521 (up from 474).
+
 - Phase 11: Dependency / Supply Chain — eleventh skill
   (`skills/dependency-supply-chain/`): `SKILL.md` contract reusing Pattern 2
   (ADR-007) a tenth time — a deterministic engine (11 modules, each under

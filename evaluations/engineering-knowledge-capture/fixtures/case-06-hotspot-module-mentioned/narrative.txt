@@ -1,0 +1,2 @@
+We decided that the scanner module's regex table needs a periodic review
+process, since it is one of the platform's most heavily depended-on files.

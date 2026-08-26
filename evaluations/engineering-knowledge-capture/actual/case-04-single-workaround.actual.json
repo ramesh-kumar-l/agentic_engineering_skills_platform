@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c4-1",
+      "category": "workaround",
+      "description": "Names a temporary workaround (pinning the CI runner's Python version) explicitly tied to an upstream issue that is not yet fixed — a genuine candidate for a known-limitations entry that names the real fix still owed (unpin once the upstream wheel-building issue resolves), not just a note that a workaround exists. No module is named nearby, so priority fails closed to MEDIUM rather than being treated as low-priority just because it's 'only' a workaround. Recommendation: capture with an explicit trigger condition for revisiting (upstream fix ships) so this doesn't silently become permanent, undocumented technical debt.",
+      "grounding": "knowledge_scanner.scan matches 'workaround-explicit'; location_resolver.resolve_mention returns None; priority_scorer.compute_priority(None, ci_has_warning=False) returns MEDIUM."
+    }
+  ]
+}

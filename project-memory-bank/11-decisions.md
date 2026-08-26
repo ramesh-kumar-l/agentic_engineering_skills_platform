@@ -890,6 +890,79 @@ the CI report carried warnings, because a zero-dependency result is
 ambiguous (genuinely no deps, vs. deps CI's parser didn't see) rather than
 proof of a clean supply chain.
 
+---
+
+## ADR-018: `engineering-knowledge-capture` reuses ADR-010's required-composition pattern an eighth time, builds its word-boundary resolver correct from day one, and is the first skill whose deterministic layer targets a documentation artifact rather than a code-risk judgment
+
+**Decision**: `engineering-knowledge-capture` (Phase 12) requires a
+`codebase-intelligence` `report.json` as a hard precondition, the same way
+`feature-planner` (ADR-010) through `dependency-supply-chain` (ADR-017) do
+— a missing/malformed report is a failure condition, not a degraded path.
+This is a **reuse** of ADR-010's rule an EIGHTH time. Three things are new
+and explicit:
+
+1. **`location_resolver.py` is the fourth independent copy of the
+   word-boundary-aware containment check** first added to
+   `target_resolver.py` in `refactoring-safety`/`regression-hunter`/
+   `release-readiness` — but this is the FIRST copy built with the fix
+   from day one, rather than shipped with the bare-substring bug
+   ([[12-known-limitations|L23]]/[[12-known-limitations|L24]]) and fixed
+   later. Cross-referenced explicitly in the module's own docstring, not
+   presented as a novel technique.
+2. **`priority_scorer.py` reuses `security-context-guard`'s (ADR-011) and
+   `dependency-supply-chain`'s (ADR-017) fail-closed-under-uncertainty
+   discipline**, adapted for this skill's shape: an unresolved candidate,
+   or one scored against a CI report that itself carried a warning, fails
+   closed to `MEDIUM` — never silently `LOW`. Unlike those two prior
+   skills, this version's scorer additionally never assigns `LOW` at all,
+   even for a resolved-but-structurally-unremarkable candidate (real
+   module, zero fan-in, not a hotspot) — a deliberate, disclosed choice to
+   fail upward (review one extra candidate) rather than downward (miss a
+   real one), since missing a candidate for capture is this skill's worst
+   failure mode, not reviewing a low-value one.
+3. **This is the first skill in the portfolio whose deterministic layer's
+   job is to find candidates for a *documentation artifact*** (an ADR /
+   known-limitation / lessons-learned entry in this project's own memory
+   bank) rather than a code-risk or process-quality judgment. It never
+   writes into `project-memory-bank/` itself — the engine only flags
+   candidates; drafting and committing the actual entry stays a
+   human/agent-checkpointed step, the same Human Approval principle
+   [[06-security-model]] already establishes for every other advisory
+   skill's verdict.
+
+A real dogfood run (`examples/engineering-knowledge-capture/example-run.md`)
+against genuine excerpts of this project's own engineering history found a
+real, disclosed-not-fixed limitation: `location_resolver.py` only searches
+the exact matched line for a module mention, not the surrounding
+paragraph, so a real narrative that names a module in one sentence and
+states the decision/lesson in an adjacent sentence does not resolve — see
+[[12-known-limitations|L28]].
+
+- User Value: formalizes an activity this project already does informally
+  every phase (ADRs, L-numbers, lessons-learned) into a runnable first-pass
+  candidate finder, reducing the chance a real decision/lesson goes
+  uncaptured simply because writing it up was skipped under time pressure.
+- Correctness: candidates are leads, never verdicts — the agent's Step 3
+  Knowledge Capture Checklist ([[05-evaluation-framework]]) is the only
+  place a candidate becomes an actual entry.
+- Security: read-only; never writes to `project-memory-bank/`; no network
+  calls.
+- Simplicity: reuses Pattern 2 (ADR-007, eleventh reuse) and ADR-010
+  (eighth reuse) rather than inventing new architecture.
+- Maintainability: engine files land under 130 lines each (max
+  `knowledge_patterns.py` at 121), consistent with this project's
+  <300-line-per-file discipline.
+- Portability: `location_resolver.py` is an independent copy, no
+  cross-skill import, matching every prior composing skill's pattern.
+- Evidence: L8 applies an eleventh time (self-authored, single-rater
+  judgment-layer evaluation); no assumption in
+  [[16-assumptions-and-validation]] is upgraded by shipping this skill.
+- Future Evolution: the single-line resolution window (L28) and the
+  never-assigned `LOW` band are both named as candidates for future
+  refinement, not solved speculatively here without real evidence of need.
+
+**Status**: Adopted.
+
 - User Value: turns "no one looks at `requirements.txt` until something
   breaks" into three concrete, offline-checkable, verifiable-by-citation
   signals (pin status, a five-entry known-risk-name table each citing a

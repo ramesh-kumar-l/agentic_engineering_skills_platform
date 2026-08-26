@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c8-1",
+      "category": "decision",
+      "description": "Names a real decision (defer the retry-logic rewrite), but the composed codebase-intelligence report declared zero modules — the exact ambiguous-evidence case the checklist's item 7 requires flagging explicitly rather than silently proceeding. The report's own warnings field states the zero-modules condition, and suggested_capture_priority fails closed to MEDIUM rather than defaulting to LOW just because no structural signal could be computed. Recommendation: still worth drafting the ADR from the narrative alone, but explicitly note in the draft that no structural grounding was available for this decision, and re-run against a real codebase-intelligence report before treating the priority as final.",
+      "grounding": "ci_report_loader.load_ci_report returns a CiReportContext with modules=[]; report.build_report sets ci_has_warning=True and appends the zero-modules warning; priority_scorer.compute_priority(None, ci_has_warning=True) returns MEDIUM."
+    }
+  ]
+}

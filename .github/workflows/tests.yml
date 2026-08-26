@@ -18,6 +18,7 @@ jobs:
           - architecture-decision
           - codebase-intelligence
           - dependency-supply-chain
+          - engineering-knowledge-capture
           - feature-planner
           - refactoring-safety
           - regression-hunter

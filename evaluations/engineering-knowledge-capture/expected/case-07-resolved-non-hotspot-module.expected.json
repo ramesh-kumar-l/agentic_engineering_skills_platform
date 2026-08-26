@@ -1,0 +1,7 @@
+{
+  "candidate_pattern_ids": ["lesson-we-learned"],
+  "candidate_priorities": {"lesson-we-learned": "MEDIUM"},
+  "expected_categories": [
+    {"category": "lesson", "keywords": ["stats.py", "medium", "not urgent"]}
+  ]
+}

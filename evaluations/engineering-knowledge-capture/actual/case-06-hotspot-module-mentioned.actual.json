@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c6-1",
+      "category": "decision",
+      "description": "Names a decision (institute periodic review of the scanner module's regex table) that the composed codebase-intelligence report grounds in real structural data: `engine/scanner.py` resolves as an actual hotspot with fan_in=9 in this fixture's report, not just a claim in the narrative text. suggested_capture_priority correctly escalates to HIGH on that basis — this is exactly the kind of candidate worth writing up sooner rather than batching into a future cleanup pass, since the module a change here concerns is one many other modules structurally depend on. Recommendation: draft the ADR now, and cite the real fan_in/hotspot figures from the composed report as the grounding evidence, not just the narrative's own claim that it's 'heavily depended-on'.",
+      "grounding": "location_resolver.resolve_mention matches 'scanner' (word-boundary) against engine/scanner.py, which is in dependency_graph.hotspots; priority_scorer.compute_priority returns HIGH because resolved.is_hotspot is True."
+    }
+  ]
+}

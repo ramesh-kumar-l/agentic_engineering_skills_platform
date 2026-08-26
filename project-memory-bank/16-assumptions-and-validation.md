@@ -58,7 +58,11 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   reopening the freeze the mentor-review pass (same date) had put on new
   skill work pending real validation evidence. Building an eleventh skill
   is not evidence toward this assumption either way — it is stated here so
-  the record doesn't imply otherwise by omission.
+  the record doesn't imply otherwise by omission. Same date, Phase 12
+  (`engineering-knowledge-capture`) was started the same way — a second,
+  one-time user-directed exception to the same freeze, not new evidence
+  A2 moved off UNKNOWN. Building a twelfth skill does not change this
+  status either.
 - **Decision**: still required before claiming any skill is "Level 2 —
   Evaluated" *in the outcome sense* — codebase-intelligence,
   adversarial-diff-reviewer, and acceptance-test-engineer have each met the
@@ -225,9 +229,18 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   example-run.md`) again surfaced a genuine, pre-known limitation in
   practice rather than proving new judgment quality: run against this
   repo's own root, only 1 of the platform's real dependencies was visible,
-  concretely confirming the inherited L2 root-level-only scope gap. The
-  inter-rater-agreement experiment still has not been run for any of the
-  ten skills.
+  concretely confirming the inherited L2 root-level-only scope gap. Phase 12
+  (`engineering-knowledge-capture`, 2026-08-26) is the eleventh judgment-based
+  skill evaluated this way and also scored perfect precision/recall on all 8
+  fixtures (`evaluations/engineering-knowledge-capture/RESULTS.md`) — same
+  caveat, eleven for eleven now. This phase's real dogfood run
+  (`examples/engineering-knowledge-capture/example-run.md`) again surfaced a
+  genuine, newly-found limitation rather than proving new judgment quality:
+  every candidate in the real run resolved to no location at all, because
+  `location_resolver.py` only checks the exact matched line, not the
+  surrounding paragraph a real narrative's module mention typically sits in
+  (L28). The inter-rater-agreement experiment still has not been run for any
+  of the eleven skills.
 
 ### A6: Engineers will tolerate the additional workflow
 

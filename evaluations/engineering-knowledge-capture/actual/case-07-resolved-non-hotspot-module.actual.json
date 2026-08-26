@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c7-1",
+      "category": "lesson",
+      "description": "Names a confirmed bug (stats.py double-counting) and its resolution (a fixture caught it). `engine/stats.py` resolves against the composed report with fan_in=1 and is not a hotspot, so suggested_capture_priority is MEDIUM — genuinely worth capturing as a lessons-learned entry, but not urgent to write up ahead of higher-priority candidates, since the real structural blast radius here is small. This is the intended contrast with case-06: same MEDIUM band as an unresolved candidate, but for a different, more confident reason — resolution succeeded and confirmed low structural significance, rather than resolution failing to find anything at all.",
+      "grounding": "location_resolver.resolve_mention matches 'stats' against engine/stats.py (fan_in=1, not a hotspot); priority_scorer.compute_priority returns MEDIUM because neither is_hotspot nor fan_in >= HIGH_FAN_IN_THRESHOLD (3) is true."
+    }
+  ]
+}

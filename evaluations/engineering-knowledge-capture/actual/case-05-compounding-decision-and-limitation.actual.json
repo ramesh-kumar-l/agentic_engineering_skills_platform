@@ -1,0 +1,16 @@
+{
+  "cases": [
+    {
+      "id": "c5-1",
+      "category": "decision",
+      "description": "Names a real, in-process-vs-shared-service decision with an explicit rationale (no multi-replica deployment yet) — a genuine ADR candidate. Kept as its own distinct entry rather than merged with the limitation below, since a reader deciding whether to revisit this decision needs the decision and its consequence to be separately findable, not folded into one paragraph.",
+      "grounding": "knowledge_scanner.scan matches 'decision-we-decided' on the first paragraph; location_resolver.resolve_mention returns None (no module named); priority MEDIUM."
+    },
+    {
+      "id": "c5-2",
+      "category": "limitation",
+      "description": "Names the direct, disclosed consequence of the decision above (per-replica limiting breaks the moment a second replica exists) — a genuine known-limitations candidate with an explicit trigger condition already stated in the text (introducing a second replica). Surfacing both c5-1 and c5-2 as two distinct candidates, rather than one collapsed 'multiple issues' note, matches the same non-collapsing discipline dependency-supply-chain's compounding-case fixture established for this project's evaluation harnesses.",
+      "grounding": "knowledge_scanner.scan matches 'limitation-known-limitation' on the second paragraph; location_resolver.resolve_mention returns None; priority MEDIUM."
+    }
+  ]
+}

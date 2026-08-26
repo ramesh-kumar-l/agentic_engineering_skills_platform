@@ -155,7 +155,29 @@ platform's own real per-skill dependencies live one level below repo root.
 project's own progress (zero real external users after ten phases) froze
 the roadmap pending real validation evidence; Phase 11 started anyway at
 the user's explicit direction — a one-time exception, not new evidence.
-Phase 12 onward remains frozen. See
+
+**Phase 12 — Engineering Knowledge Capture** (complete): twelfth skill —
+`skills/engineering-knowledge-capture/` — reusing the same pattern an
+eleventh time to scan a free-text engineering narrative for decision/
+lesson/limitation/workaround candidates, resolving any mentioned module
+against real structural data (fan_in/hotspot), evaluated on 8 fixtures
+(all 8 scored perfect on both layers) plus a real dogfood run against a
+narrative built from genuine excerpts of this project's own engineering
+history. New this phase: **ADR-018** — composing on
+`codebase-intelligence`'s output an eighth time (ADR-010); the location
+resolver is the fourth independent copy of the word-boundary-aware fix
+first applied after L23/L24, and the first one built correct from the
+start; and this is the first skill in the portfolio whose deterministic
+layer targets a documentation artifact (an ADR/known-limitation/
+lessons-learned candidate) rather than a code-risk judgment. The real
+dogfood run found a new, disclosed-not-fixed limitation (L28): the
+resolver only checks the exact matched line for a module mention, not the
+surrounding paragraph, so every candidate in that real run resolved to no
+location despite the relevant module being named four times nearby.
+**Process note**: this is a SECOND same-day reopening of the same
+mentor-review freeze, at the user's explicit direction — again a one-time
+exception, not new evidence, and not precedent that the freeze auto-lifts
+generally. Phase 13 onward remains frozen. See
 [`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 
 ## How phases work here

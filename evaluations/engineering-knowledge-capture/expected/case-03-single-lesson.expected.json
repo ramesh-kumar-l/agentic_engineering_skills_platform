@@ -1,0 +1,7 @@
+{
+  "candidate_pattern_ids": ["lesson-turns-out"],
+  "candidate_priorities": {"lesson-turns-out": "MEDIUM"},
+  "expected_categories": [
+    {"category": "lesson", "keywords": ["lessons-learned", "medium"]}
+  ]
+}

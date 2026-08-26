@@ -22,12 +22,20 @@ reused for Phase 8" — reused an **eighth** time in Phase 9
 time and adds a new three-axis, non-blended regression-risk-scoring
 decision (ADR-015), and reused a **ninth** time in Phase 10
 (`release-readiness`), which reuses the mandatory-composition rule a sixth
-time and adds a new Release Readiness Scorecard decision (ADR-016) — see
-"Pattern 2, reused for Phase 10" below. At nine consecutive reuses without
-a new base-pattern ADR, Pattern 2 is now this project's default
-architecture for judgment-based skills, not a fresh per-skill choice each
-time — worth stating plainly rather than re-justifying from scratch every
-phase.
+time and adds a new Release Readiness Scorecard decision (ADR-016), reused
+a **tenth** time in Phase 11 (`dependency-supply-chain`), which reuses the
+mandatory-composition rule a seventh time and adds two explicit no-live-
+CVE/no-license-detection scope decisions plus an advisory/fail-closed
+reuse (ADR-017), and reused an **eleventh** time in Phase 12
+(`engineering-knowledge-capture`), which reuses the mandatory-composition
+rule an eighth time and adds a new decision (ADR-018): its deterministic
+layer is the first in this portfolio to target a *documentation artifact*
+(an ADR/known-limitation/lessons-learned candidate) rather than a
+code-risk or process-quality judgment — see ADR-018 in [[11-decisions]]
+for the full rationale. At eleven consecutive reuses without a new base-pattern ADR,
+Pattern 2 is this project's settled default architecture for judgment-based
+skills, not a fresh per-skill choice each time — worth stating plainly
+rather than re-justifying from scratch every phase.
 
 ## Pattern: SKILL.md + optional deterministic engine
 

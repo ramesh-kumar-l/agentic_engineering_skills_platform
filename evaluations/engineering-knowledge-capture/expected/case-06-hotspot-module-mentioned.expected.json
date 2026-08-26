@@ -1,0 +1,7 @@
+{
+  "candidate_pattern_ids": ["decision-we-decided"],
+  "candidate_priorities": {"decision-we-decided": "HIGH"},
+  "expected_categories": [
+    {"category": "decision", "keywords": ["hotspot", "high", "scanner"]}
+  ]
+}

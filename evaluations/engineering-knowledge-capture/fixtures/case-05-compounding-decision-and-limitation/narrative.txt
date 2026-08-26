@@ -1,0 +1,7 @@
+We decided to keep the rate limiter in-process rather than extracting a
+shared service, since none of our current deployments run more than one
+replica yet.
+
+Known limitation: this means each replica would enforce its own
+independent limit, not a global one, the moment a second replica is
+introduced.
