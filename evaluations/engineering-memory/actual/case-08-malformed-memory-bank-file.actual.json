@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c8-1",
+      "category": "corpus-drift",
+      "description": "Both `decisions.md` and `limitations.md` in this fixture are plain prose with no `## ADR-NNN: Title` or `## LNN: Title` headers at all — a stand-in for a memory-bank file that has drifted from the section-header convention `memory_bank_parser.py` expects. The engine does not crash or silently return zero records unremarked; it surfaces an explicit 'no records parsed' warning naming both file paths, so an agent gets a clear signal to check the header format rather than mistaking an empty result for 'no relevant memory exists.'",
+      "grounding": "build_report(...) returns matches=[] and warnings=[\"No records parsed from .../decisions.md / .../limitations.md — corpus is empty or the section-header format has drifted from what memory_bank_parser.py expects.\"] — parse_decisions/parse_limitations both return empty lists because no line in either file matches _ADR_HEADER_RE or _LIMITATION_HEADER_RE, and report.py's corpus-empty check fires accordingly."
+    }
+  ]
+}

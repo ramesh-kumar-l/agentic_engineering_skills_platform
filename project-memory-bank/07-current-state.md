@@ -8,10 +8,11 @@ this before any other memory file when starting new work. For finer-grained
 _Last updated: 2026-08-24 — end of Phase 10. **Superseded in part by
 2026-08-26 events (mentor-review follow-up + Phase 11,
 `dependency-supply-chain` + Phase 12, `engineering-knowledge-capture` +
-Phase 13, `context-optimizer` + Phase 14, `workflow-composer`) — see
-[[active-context.md]] for the current picture; this file's detailed
-Phase 10 walkthrough below is still accurate for Phases 1-10, but test
-counts and "Phase 11 proposed next" language are stale.**_
+Phase 13, `context-optimizer` + Phase 14, `workflow-composer` + Phase 15,
+`engineering-memory`) — see [[active-context.md]] for the current
+picture; this file's detailed Phase 10 walkthrough below is still
+accurate for Phases 1-10, but test counts and "Phase 11 proposed next"
+language are stale.**_
 
 ## Repository contents
 
@@ -31,7 +32,8 @@ skills/codebase-intelligence/       Skill 1 — SKILL.md + Python engine
 skills/adversarial-diff-reviewer/   Skill 2 — SKILL.md + Python engine + agent workflow
 skills/engineering-knowledge-capture/  Skill 12 — SKILL.md + Python engine + agent workflow (Phase 12, 2026-08-26)
 skills/context-optimizer/          Skill 13 — SKILL.md + Python engine + agent workflow (Phase 13, 2026-08-26)
-skills/workflow-composer/          Skill 14 — SKILL.md + Python engine + agent workflow, first skill executing other skills' real code, required composition (ADR-010, reused a tenth time) (Phase 14, NEW 2026-08-26)
+skills/workflow-composer/          Skill 14 — SKILL.md + Python engine + agent workflow, first skill executing other skills' real code, required composition (ADR-010, reused a tenth time) (Phase 14, 2026-08-26)
+skills/engineering-memory/         Skill 15 — SKILL.md + Python engine + agent workflow, first skill retrieving against this project's own memory bank (self-referential composition), required composition (ADR-010, reused an eleventh time) (Phase 15, NEW 2026-08-26, final skill in the originally-scoped portfolio)
 skills/acceptance-test-engineer/    Skill 3 — SKILL.md + Python engine + agent workflow
 skills/feature-planner/             Skill 4 — SKILL.md + Python engine + agent workflow, required composition (ADR-010)
 skills/security-context-guard/      Skill 5 — SKILL.md + Python engine + agent workflow, optional composition, advisory-only verdict (ADR-011)
@@ -455,14 +457,18 @@ caller-list display (L24).
 ## Immediate next decision point
 
 **Superseded** — Phase 11 (`Dependency / Supply Chain`), Phase 12
-(`Engineering Knowledge Capture`), Phase 13 (`Context Optimizer`), and
-Phase 14 (`Workflow Composer`) all shipped 2026-08-26 at the user's
-explicit direction (see [[active-context.md]] for the full account), not
-because the independent-evidence gap (L8/A5) closed — Phase 14 also
-directly overrode a named, phase-specific decision (A10) rather than only
-the general freeze. Phase 15 onward remains frozen under the same rule
-this section originally described: re-justify against real external
-validation evidence before starting, not the next portfolio item by
-default. The case for investing a phase in L8/A5 instead of a fifteenth
-skill remains at least as strong as it was at the Phase 11, Phase 12,
-Phase 13, and Phase 14 boundaries.
+(`Engineering Knowledge Capture`), Phase 13 (`Context Optimizer`), Phase
+14 (`Workflow Composer`), and Phase 15 (`Engineering Memory`) all shipped
+2026-08-26 at the user's explicit direction (see [[active-context.md]]
+for the full account), not because the independent-evidence gap (L8/A5)
+closed — Phase 14 also directly overrode a named, phase-specific decision
+(A10) rather than only the general freeze; Phase 15's own gating decision
+(A8) was satisfied simply by being reached in order, so it did not need
+that same kind of override. **Phase 15 completes the originally-scoped
+15-skill portfolio — there is no Phase 16 in [[08-roadmap]]'s list.** Any
+further skill work is a newly-proposed scope under the same rule this
+section originally described: re-justify against real external
+validation evidence before starting, not "the next portfolio item" by
+default, since there no longer is one. The case for investing a phase in
+L8/A5 instead of building further remains at least as strong as it was at
+the Phase 11 through Phase 15 boundaries.

@@ -84,7 +84,7 @@ understanding before the skill list below makes full sense:
    the evaluation framework from the start (see
    [Evaluation & Honesty](#evaluation--honesty-this-is-the-part-most-repos-skip)).
 
-## The eleven skills
+## The fifteen skills
 
 | # | Skill | What it does | Pattern | Tests | Status |
 |---|---|---|---|---|---|
@@ -102,8 +102,9 @@ understanding before the skill list below makes full sense:
 | 12 | [`engineering-knowledge-capture`](skills/engineering-knowledge-capture/) | Scans a free-text engineering narrative for decision/lesson/limitation/workaround candidates, resolves any mentioned module against real structural data — **requires** a `codebase-intelligence` report. Never writes into the memory bank itself (disclosed scope, not a bug) | Pattern 2 + mandatory composition + advisory/fail-closed | 47/47 | EXPERIMENTAL |
 | 13 | [`context-optimizer`](skills/context-optimizer/) | Scores every file in a repo for task relevance (tokenized keyword match + real fan_in/hotspot boost), tiers CORE/SUPPORTING/EXCLUDED against an optional line budget — **requires** a `codebase-intelligence` report. Fails OPEN toward inclusion under uncertainty, not closed (disclosed inversion of the usual convention, not a bug) | Pattern 2 + mandatory composition + fail-open tiering | 64/64 | EXPERIMENTAL |
 | 14 | [`workflow-composer`](skills/workflow-composer/) | Actually **executes** a small, hardcoded registry of real skill chains (not just analysis) — subprocess-runs each real skill's CLI in sequence, wiring outputs to inputs — **requires** a `codebase-intelligence` report as every chain's first step. Fails CLOSED on any step failure or a pre-execution compatibility drift (opposite default from `context-optimizer`, reconciled explicitly, not a contradiction) | Pattern 2 + mandatory composition + real cross-skill execution | 51/51 | EXPERIMENTAL |
+| 15 | [`engineering-memory`](skills/engineering-memory/) | Retrieves relevant ADRs/known-limitations from **this project's own memory bank** for a task, ranked by whole-token keyword overlap + resolved-module overlap — **requires** a `codebase-intelligence` report. Always attaches a staleness flag rather than presenting a FIXED/module-gone record as current guidance | Pattern 2 + mandatory composition + self-referential retrieval | 57/57 | EXPERIMENTAL |
 
-**636 tests passing across the platform.** Every skill also ships an
+**693 tests passing across the platform.** Every skill also ships an
 evaluation harness against hand-authored fixtures
 (`evaluations/<skill>/RESULTS.md`) and a real "dogfood" run against actual
 work, not a synthetic demo (`examples/<skill>/example-run.md`).
@@ -408,16 +409,19 @@ copy. Start anywhere; each stands alone.
 
 ## Status and roadmap
 
-**Phase 14 complete.** Fourteen skills, 636 tests, fourteen evaluation
-harnesses, fourteen real dogfood runs, zero real-world usage by anyone
-outside this project yet. Phase 11 (`dependency-supply-chain`), Phase 12
-(`engineering-knowledge-capture`), Phase 13 (`context-optimizer`), and
-Phase 14 (`workflow-composer`) each started at an explicit user request
-that reopened a same-day roadmap freeze put in place by a mentor-style
-review of this project's own progress — Phase 14 additionally overrode a
-named, phase-specific "do not build" decision on record, not just the
-general freeze. Phase 15 onward stays frozen pending real external
-validation evidence, not another skill by default. Full current snapshot:
+**Phase 15 complete — the originally-scoped 15-skill portfolio is now
+fully built.** Fifteen skills, 693 tests, fifteen evaluation harnesses,
+fifteen real dogfood runs, zero real-world usage by anyone outside this
+project yet. Phase 11 (`dependency-supply-chain`) through Phase 15
+(`engineering-memory`) each started at an explicit user request that
+reopened a same-day roadmap freeze put in place by a mentor-style review
+of this project's own progress — Phase 14 additionally overrode a named,
+phase-specific "do not build" decision on record, not just the general
+freeze; Phase 15's own gating decision was satisfied simply by being
+reached in order. There is no Phase 16 in the original portfolio list —
+any further skill work is a newly-proposed scope, and stays frozen
+pending real external validation evidence either way, not another skill
+by default. Full current snapshot:
 [`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it
 starts, never built just because it was planned): [`ROADMAP.md`](ROADMAP.md).

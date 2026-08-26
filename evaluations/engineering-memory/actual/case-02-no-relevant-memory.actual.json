@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c2-1",
+      "category": "no-fit",
+      "description": "The task (planning a company offsite retreat: venue, catering, budget) shares no real vocabulary with either corpus record (ADR-008's redaction discussion, L2's dependency-parsing discussion). The engine correctly returns an empty match list rather than forcing a low-confidence pick — this is the explicit 'no relevant memory found' case, not a bug. An agent walking the checklist should read the empty result as 'this project's own recorded history has nothing on this topic in the two files parsed,' not as a retrieval failure.",
+      "grounding": "build_report returns matches=[] with no warnings — task_description is non-empty and both files parsed at least one record each, so the empty result comes entirely from zero keyword/module overlap clearing the _MIN_SCORE_THRESHOLD, not from a corpus-parsing problem."
+    }
+  ]
+}

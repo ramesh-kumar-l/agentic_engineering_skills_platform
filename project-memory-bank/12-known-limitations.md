@@ -967,3 +967,66 @@ a compatibility/chain-failure result trustworthy) is any better than the
 fixtures suggest, especially given L30's real dogfood finding above,
 which the small hand-authored fixtures did not and could not exercise.
 See [[16-assumptions-and-validation]] A5.
+
+## L31: `engineering-memory`'s basename-exact module resolution collapses distinct same-basename files across the portfolio into one arbitrarily-chosen match
+
+- **What failed**: `engineering-memory`'s `module_resolver.py` resolves a
+  memory record's mentioned module (e.g. `` `ci_report_loader.py` ``)
+  against the current `codebase-intelligence` report by exact basename
+  equality — built this way specifically to defeat the L23/L24/L28-class
+  *substring* collision from day one (see ADR-021). A real, non-fixture
+  dogfood run against this project's own actual memory bank
+  (`examples/engineering-memory/example-run.md`) found a different, real
+  ambiguity: `ci_report_loader.py` is a real, distinct file in most
+  composing skills in this portfolio (`root-cause-analyzer`,
+  `architecture-decision`, `refactoring-safety`, `regression-hunter`,
+  `release-readiness`, `dependency-supply-chain`, `engineering-knowledge-
+  capture`, `context-optimizer`, `workflow-composer`, `engineering-memory`
+  itself, and more). `resolve_module_mentions`'s `by_basename` lookup
+  keeps only one `(path, fan_in, is_hotspot)` tuple per basename —
+  whichever module `codebase-intelligence` happened to list last — so
+  five different real records (ADR-016, L24, ADR-020, ADR-015, ADR-017),
+  each about a different skill, all resolved their `ci_report_loader.py`
+  mention to the same single `root-cause-analyzer` path in
+  `matched_modules`.
+- **Why**: exact-basename equality has no way to disambiguate two real
+  files that legitimately share a basename — it was designed to prevent a
+  *false* match (a substring collision), not to choose correctly *among
+  multiple true* matches. This project's own convention of naming a
+  composing skill's CI-report-loading module `ci_report_loader.py` in
+  nearly every skill (deliberately, for consistency — see ADR-010's reuse
+  pattern) is exactly the condition that triggers this: the more
+  consistently this portfolio names its files, the more this ambiguity
+  recurs.
+- **Impact**: does not affect *whether* a record is judged relevant —
+  `relevance_scorer.py`'s keyword scoring is independent of module
+  resolution, so this doesn't inflate or suppress a match's score, only
+  which specific file(s) its `matched_modules` list points to. An agent
+  reading a match's `matched_modules` at face value, without checking the
+  record's own `source_file`/body text, could draw a wrong conclusion
+  about which skill's code a given ADR or limitation actually concerns.
+- **Fix**: Not applied. Same "disclose, don't guess a fix from one data
+  point" discipline this project applied to L14/L18/L21/L22/L23/L24/L28/
+  L29/L30 on their first discovery. A real fix would need to disambiguate
+  using the record's own source context (e.g. does the record's body also
+  name the skill directory the mentioned file lives under?), not
+  attempted here.
+- **Regression prevention**: `examples/engineering-memory/example-run.md`
+  documents this explicitly with the real matched-module lists; `SKILL.md`
+  Known Limitations references it directly. This is a genuinely different
+  failure mode from the substring-collision class ADR-021 already defeats
+  by construction — building the first correctly did not imply the second
+  was also solved, and this L31 entry exists specifically so that
+  distinction isn't lost.
+
+## L8 update: now applying a fourteenth time, still perfect scores
+
+`engineering-memory`'s judgment-layer evaluation scored perfect
+precision/recall on all 8 fixtures. This is the fourteenth judgment-based
+skill evaluated this way; still self-authored, single-rater evidence — a
+perfect score here says nothing about whether this skill's real-world
+retrieval-relevance judgment is any better than the fixtures suggest,
+especially given L31's real dogfood finding above, which the small
+hand-authored fixtures did not and could not exercise (none of them reuse
+a basename across more than one fixture module). See
+[[16-assumptions-and-validation]] A5.

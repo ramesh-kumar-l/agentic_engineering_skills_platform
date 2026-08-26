@@ -1,0 +1,2 @@
+Reviewing the old scanner module before we delete it — any prior decision
+we should know about?

@@ -1,0 +1,7 @@
+{
+  "top_n": 2,
+  "expected_match_count": 2,
+  "expected_categories": [
+    {"category": "top-n", "keywords": ["top-n", "limit", "two"]}
+  ]
+}

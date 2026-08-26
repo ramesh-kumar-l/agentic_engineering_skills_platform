@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c4-1",
+      "category": "staleness-fixed",
+      "description": "The task (investigating why the action-classifier misses verbs under a fixed proximity window) retrieves L16 with a strong score (title hits 'action', 'classifier', 'fixed', 'proximity', 'window' — five separate title-weighted keyword matches). Because L16's own title carries the '(FIXED during Phase 5)' suffix, staleness_classifier correctly flags this match stale even though it scored highest of anything in the corpus — an agent should read this as 'this exact problem was already investigated and fixed once' rather than as live, currently-true guidance.",
+      "grounding": "build_report returns matches=[L16 score=24 stale=True] — staleness_classifier.classify_staleness sets is_stale=True with reason citing L16's own FIXED title before module_resolver is even consulted (status-derived staleness short-circuits the module-existence check), matching classify_staleness's documented precedence order."
+    }
+  ]
+}

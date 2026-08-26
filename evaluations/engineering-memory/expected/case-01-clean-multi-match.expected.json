@@ -1,0 +1,7 @@
+{
+  "expected_match_ids": ["ADR-010", "ADR-018", "L23"],
+  "expected_stale_ids": ["L23"],
+  "expected_categories": [
+    {"category": "clean-fit", "keywords": ["ADR-010", "ADR-018", "L23"]}
+  ]
+}

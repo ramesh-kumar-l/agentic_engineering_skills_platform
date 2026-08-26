@@ -1,0 +1,7 @@
+{
+  "expected_match_ids": [],
+  "expected_stale_ids": [],
+  "expected_categories": [
+    {"category": "no-fit", "keywords": ["no relevant", "empty", "offsite"]}
+  ]
+}

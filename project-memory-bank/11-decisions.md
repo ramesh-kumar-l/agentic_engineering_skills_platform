@@ -1246,3 +1246,107 @@ phase is not new external-validation evidence for any of them and is not
 presented as such. This tension is now deferred across four consecutive
 phase boundaries, the first of which overrode a decision naming the
 overridden phase by number.
+
+## ADR-021: `engineering-memory` reuses ADR-010's required-composition pattern an eleventh time, and is the first skill whose primary retrieval corpus is this project's own memory bank rather than a target repo's external artifacts
+
+**Decision**: `engineering-memory` (Phase 15) requires a
+`codebase-intelligence` `report.json` as a hard precondition (ADR-010,
+reused an ELEVENTH time — used only to resolve module mentions inside
+retrieved records, not to drive retrieval itself), but its **primary**
+input corpus is `project-memory-bank/11-decisions.md` and
+`12-known-limitations.md` — this project's own memory bank. Three things
+are new and explicit:
+
+1. **First "self-referential composition" in the portfolio.** Every prior
+   composing skill (`feature-planner` through `workflow-composer`)
+   analyzes a target repo's own code, diffs, or another skill's report
+   about that target repo. `engineering-memory` instead retrieves against
+   this project's own recorded ADRs and limitations — the corpus is about
+   the skills platform itself, not whatever repo `--ci-report` happens to
+   point at. Named explicitly as a new composition category, the same way
+   ADR-018 and ADR-020 named their own category shifts.
+2. **Word-boundary/whole-token matching applied from day one, specifically
+   because six prior disclosed limitations already proved the alternative
+   fails.** `module_resolver.py` (basename equality) and
+   `relevance_scorer.py` (tokenized set overlap, reusing
+   `context-optimizer`'s ADR-019 technique) are both built correct from
+   the first line of code — not patched in after a real dogfood run, the
+   way `refactoring-safety`/`regression-hunter`/`release-readiness`'s
+   `target_resolver.py` copies were. This is applying an *accumulated*
+   lesson (L14/L19/L21/L23/L24/L28/L29/L30), not discovering a new one —
+   and a real dogfood run still found a **different**, previously-
+   theoretical residual gap the same day: see L31 in
+   [[12-known-limitations]].
+3. **Stays on the normal fail-closed-toward-caution side, not ADR-019's
+   inversion.** A record flagged stale (a `FIXED`/`SUPERSEDED` title, or a
+   mentioned module that no longer resolves against the current CI report)
+   is still returned — never silently dropped, since an agent might judge
+   it still relevant — but always with the flag attached, never presented
+   as equivalent to an unflagged, `ACTIVE` record. This is the direct,
+   operational answer to A8's own named risk in
+   [[16-assumptions-and-validation]]: "stale/unvalidated memory could
+   actively degrade performance if treated as authoritative."
+
+A real dogfood run (`examples/engineering-memory/example-run.md`) against
+this project's own actual 50-record memory bank (20 decisions, 30
+limitations) found both staleness paths firing correctly on real data (a
+real `FIXED` title, a real missing-module mention) — and surfaced a new,
+concrete finding: `module_resolver.py`'s basename-exact resolution
+collapses every record mentioning a basename shared across many skills
+(`ci_report_loader.py` exists in most composing skills) into whichever
+single real file the CI report lists last for that basename, regardless
+of which skill's file the record actually names. Logged as **L31**,
+disclosed not fixed — the substring-collision class this resolver was
+built to defeat from day one is a genuinely different failure mode than
+this one, and building the first correctly does not imply the second is
+also solved.
+
+- User Value: closes a gap `engineering-knowledge-capture` (Phase 12)
+  named explicitly in its own Known Limitations — "the engine has no
+  access to the memory bank's actual contents" — by going the opposite
+  direction (task → retrieved existing entries, not narrative → candidate
+  new entries), the natural complement rather than a duplicate skill.
+- Correctness: every match traces to a real `record_id` and
+  `source_file:source_line`; staleness is always computed and attached,
+  never silently omitted for an ACTIVE-looking record.
+- Security: read-only against the CI report and memory-bank files; never
+  writes into `project-memory-bank/` itself; no network access.
+- Simplicity: reuses Pattern 2 (ADR-007, FOURTEENTH reuse) and ADR-010
+  (eleventh reuse) rather than inventing new architecture; corpus is
+  deliberately limited to 2 files this pass, not a general-purpose
+  markdown indexer.
+- Maintainability: engine files land under 300 lines each (max
+  `memory_bank_parser.py` at 148 lines), consistent with this project's
+  <300-line-per-file discipline, restated explicitly by the user when
+  directing this phase.
+- Portability: no cross-skill Python imports — `keyword_extractor.py` is
+  independently duplicated from `context-optimizer`'s, the same boundary
+  convention every prior composing skill's `ci_report_loader.py`-style
+  copy already established.
+- Evidence: L8 applies a FOURTEENTH time (self-authored, single-rater
+  judgment-layer evaluation, perfect scores on all 8 fixtures — see
+  [[12-known-limitations]]); building this skill does not move A8 off
+  `UNKNOWN` — it creates the retrieval capability A8 would need to be
+  tested against, nothing more (see Status below).
+- Future Evolution: L31's real-dogfood finding is a genuinely new,
+  disclosed residual gap distinct from the substring-collision class this
+  resolver was already built to defeat — a future version could
+  disambiguate same-basename mentions using the record's own
+  `source_file` path proximity to the mentioned module, not attempted
+  here.
+
+**Status**: Adopted. Note on process: this phase was started at the
+user's explicit direction on 2026-08-26, reopening the roadmap freeze a
+FIFTH time (Phase 11 through Phase 14 were the first four reopenings) —
+but unlike Phase 14, this reopening did **not** override a named,
+phase-specific "do not build" decision: A8's own gating condition
+("design only when reached") is satisfied, since Phase 15 is being
+reached in its designated order. The **general** freeze (A2/A5 both
+`UNKNOWN`, zero real external users) is still overridden by explicit user
+direction, not satisfied. A2, A5, and A8 all remain `UNKNOWN`; starting
+this phase is not new external-validation evidence for any of them and is
+not presented as such. This is now deferred across five consecutive phase
+boundaries. Completing this phase also completes the originally-scoped
+15-skill portfolio named in [[08-roadmap]] — no Phase 16 exists in that
+list; anything past this point is a newly-proposed scope, not "the next
+phase," unless and until real external validation evidence changes A2/A5.

@@ -7,6 +7,40 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 15: Engineering Memory — fifteenth and **final** skill in the
+  originally-scoped 15-skill portfolio (`skills/engineering-memory/`):
+  `SKILL.md` contract reusing Pattern 2 (ADR-007) a fourteenth time — a
+  deterministic engine (12 modules, each under 300 lines, max 148, 57
+  passing tests including a CLI test file and a real end-to-end
+  integration test written from the start) that composes on a required
+  `codebase-intelligence` report (ADR-010, eleventh reuse) to resolve
+  module mentions, but retrieves against this project's **own** memory
+  bank (`11-decisions.md`, `12-known-limitations.md`) — the first
+  "self-referential composition" in the portfolio — ranking real ADR/
+  limitation records by whole-token keyword overlap and always attaching
+  a staleness flag (a `FIXED`/`SUPERSEDED` title, or a mentioned module no
+  longer resolving); 14th-checklist agent workflow (Engineering Memory
+  Retrieval Checklist, `project-memory-bank/05-evaluation-framework.md`);
+  an 8-fixture evaluation harness (`evaluations/engineering-memory/`, all
+  8 scored perfect on both layers); and a real, non-fixture dogfood run
+  (`examples/engineering-memory/`) against this project's own actual
+  50-record memory bank that found a new, disclosed-not-fixed limitation
+  (L31: basename-exact module resolution collapses distinct real files
+  sharing a common basename, like `ci_report_loader.py`, into the same
+  single arbitrarily-chosen resolved path — a different failure mode from
+  the substring-collision class this resolver was already built to
+  defeat). New architectural decision — **ADR-021**: required composition
+  reused an eleventh time; first self-referential-corpus skill;
+  word-boundary/whole-token matching applied from day one because six
+  prior disclosed limitations already proved the alternative fails.
+  Started at the user's explicit direction, a FIFTH same-day reopening of
+  the mentor-review roadmap freeze (after Phase 11-14) — unlike Phase 14,
+  this one did not override a named phase-specific decision (A8's own
+  "design only when reached" gate was satisfied by reaching Phase 15 in
+  order); not new external-validation evidence. Completes the
+  originally-scoped 15-skill portfolio — no Phase 16 exists in
+  `project-memory-bank/08-roadmap.md`'s list.
+
 - Phase 14: Workflow Composer — fourteenth skill
   (`skills/workflow-composer/`): `SKILL.md` contract reusing Pattern 2
   (ADR-007) a thirteenth time — a deterministic engine (12 modules, each

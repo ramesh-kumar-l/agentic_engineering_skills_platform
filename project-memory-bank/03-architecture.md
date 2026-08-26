@@ -52,11 +52,21 @@ uncertainty — the opposite default from ADR-019's content-inclusion
 inversion one phase earlier, framed explicitly as the same underlying
 principle (fail toward the cheaper-to-recover-from error) pointing the
 normal direction in this domain, not a silent reversal — see ADR-020 in
-[[11-decisions]] for the full rationale. At thirteen consecutive reuses
-without a new base-pattern ADR, Pattern 2 is this project's settled
-default architecture for judgment-based skills, not a fresh per-skill
-choice each time — worth stating plainly rather than re-justifying from
-scratch every phase.
+[[11-decisions]] for the full rationale, and reused a **fourteenth** time
+in Phase 15 (`engineering-memory`), which reuses the mandatory-composition
+rule an eleventh time and adds a new decision (ADR-021): the first skill
+whose primary retrieval corpus is this project's own
+`project-memory-bank/` markdown rather than a target repo's external
+artifacts — a "self-referential composition" — and one that applies the
+word-boundary/whole-token matching technique from day one specifically
+because six prior disclosed limitations already proved the alternative
+fails, rather than discovering the need for it via a new dogfood run; a
+real dogfood run still surfaced a genuinely different residual gap (L31)
+the same day — see ADR-021 in [[11-decisions]] for the full rationale. At
+fourteen consecutive reuses without a new base-pattern ADR, Pattern 2 is
+this project's settled default architecture for judgment-based skills,
+not a fresh per-skill choice each time — worth stating plainly rather
+than re-justifying from scratch every phase.
 
 ## Pattern: SKILL.md + optional deterministic engine
 

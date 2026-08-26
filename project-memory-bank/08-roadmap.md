@@ -33,14 +33,26 @@ PHASE 13 — Context Optimizer                  ← COMPLETE (this phase; starte
                                                   direction, a THIRD
                                                   same-day-freeze reopening —
                                                   not new validation evidence)
-PHASE 14 — Workflow Composer                  ← COMPLETE (this phase; started
-                                                  at the user's explicit
+PHASE 14 — Workflow Composer                  ← COMPLETE (started at the
+                                                  user's explicit
                                                   direction, a FOURTH
                                                   same-day-freeze reopening,
                                                   the first to also override
                                                   A10 by name — not new
                                                   validation evidence)
-PHASE 15 — Engineering Memory                  ← frozen, same as before Phase 14
+PHASE 15 — Engineering Memory                  ← COMPLETE (this phase; started
+                                                  at the user's explicit
+                                                  direction, a FIFTH
+                                                  same-day-freeze reopening —
+                                                  unlike Phase 14, did not
+                                                  override a named decision;
+                                                  A8's own "design only when
+                                                  reached" gate was satisfied
+                                                  by reaching it in order —
+                                                  not new validation evidence.
+                                                  Completes the originally-
+                                                  scoped 15-skill portfolio;
+                                                  no Phase 16 exists here.)
 ```
 
 Each phase ends with a completion report and a hard STOP for user instruction
@@ -685,3 +697,63 @@ specifically should also not be read as evidence that a named,
 phase-specific "do not build" decision (like A10's) can be routinely
 overridden by request — this was recorded as a one-time exception, not a
 new standing rule.
+
+## Phase 15 — Engineering Memory (COMPLETE, 2026-08-26)
+
+Per the roadmap's own phase list and full target skill portfolio
+(`Advanced`: dependency-supply-chain-reviewer, engineering-knowledge-
+capture, context-optimizer, workflow-composer, engineering-memory), Phase
+15 was proposed as **Engineering Memory** — the fifth and final skill in
+the `Advanced` group, and the last skill in the entire originally-scoped
+15-skill portfolio.
+
+**How this actually started**: exactly as predicted in the "Phase 15
+onward" note directly above — the freeze from before Phase 11 was still
+in force, and the case for investing in L8/A5 instead of a fifteenth
+skill was not weaker. The user then explicitly directed starting Phase 15
+anyway, with their own stated exit criteria (same shape as Phase 11-14's:
+"same bar," first skill composing on `codebase-intelligence`'s output —
+not literally true, the fourteenth Pattern 2 reuse and eleventh ADR-010
+reuse, stated plainly in [[03-architecture]]/[[11-decisions]] — "scalable
+and production-level stable"). **Unlike Phase 14's reopening, this one
+does not override a named, phase-specific decision**:
+[[16-assumptions-and-validation]] A8's own gate — "do not implement
+early; design only when reached" — was satisfied simply by reaching Phase
+15 in its designated order. This is a **fifth**, one-time,
+user-authorized exception to the *general* freeze (A2/A5 both `UNKNOWN`,
+zero real external users) — not evidence A2/A5/A8 moved off `UNKNOWN`,
+recorded here honestly, the same way Phase 11-14's exceptions were,
+rather than presented as if the general freeze's conditions were newly
+met.
+
+**What shipped**: `engineering-memory` — the first skill in the portfolio
+whose primary retrieval corpus is this project's own memory bank
+(`11-decisions.md`, `12-known-limitations.md`), not a target repo's
+external artifacts. A deterministic engine parses real ADR/limitation
+section headers, resolves mentioned modules against a required
+`codebase-intelligence` report (ADR-010, eleventh reuse) via basename
+equality, scores each record's whole-token keyword overlap against a task
+description, and always attaches a staleness flag. 57 tests, 8/8
+evaluation fixtures on both layers. New ADR-021 documents the
+required-composition reuse, this skill's status as the first
+"self-referential composition," and this phase's headline architectural
+choice: applying the word-boundary/whole-token matching technique from
+day one because six prior disclosed limitations already proved the
+substring-containment alternative fails — an accumulated lesson applied,
+not a new one discovered. A real, non-fixture retrieval run against this
+project's own actual 50-record memory bank found a new,
+disclosed-not-fixed limitation (L31): `module_resolver.py`'s
+basename-exact resolution — built correct from day one specifically to
+defeat the substring-collision class — has a different, real ambiguity
+of its own: a basename shared across many real, distinct skill files
+(`ci_report_loader.py`) collapses every mention of it into the same
+single, arbitrarily-chosen resolved path.
+
+**Phase 16 onward**: there is no Phase 16 in the roadmap's own "Full
+target skill portfolio" list — Phase 15 completes it. Any further skill
+work from here is a newly-proposed scope, not the next item on a
+pre-existing list, and still requires re-justifying against real external
+validation evidence (a real user, an independent/blind eval pass, or a
+real usage-comparison run) per the freeze this project put in place before
+Phase 11 — now deferred across five consecutive phase boundaries, not
+auto-lifted by Phase 11 through Phase 15 having shipped.

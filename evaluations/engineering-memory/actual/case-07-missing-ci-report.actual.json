@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c7-1",
+      "category": "precondition-failure",
+      "description": "With no `ci_report.json` present in the fixture directory, `--ci-report` points at a path that does not exist. This is the ADR-010 hard-precondition failure mode, reused an eleventh time by this skill: the engine refuses to retrieve anything and exits non-zero with an actionable error, rather than silently treating the missing report as 'zero modules' and proceeding with module resolution disabled.",
+      "grounding": "build_report(...) raises CiReportError with message 'codebase-intelligence report not found at ...ci_report.json. Run codebase-intelligence against the target repo first: ...' — raised by ci_report_loader.load_ci_report before any memory-bank parsing or scoring occurs, matching every other composing skill's ADR-010 precondition-check ordering."
+    }
+  ]
+}

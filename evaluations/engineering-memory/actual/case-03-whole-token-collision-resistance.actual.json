@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c3-1",
+      "category": "collision-resistance",
+      "description": "The task ('improve test coverage for this module before merging the refactor') genuinely matches ADR-014 (test-coverage signal, hyphen-split into separate 'test'/'coverage' tokens) and, at a much lower score, coincidentally also matches L11 ('testability anti-pattern list') — not via a substring collision (the resolver's word-boundary discipline correctly keeps 'test' from matching inside the single token 'testability' at all), but via a genuine whole-token hit on 'test' that surfaces from L11's own body mentioning the `acceptance-test-engineer` skill name, which tokenizes into 'acceptance'/'test'/'engineer'. The important property this case actually demonstrates is that the genuine match (ADR-014, score 8) clearly outranks the coincidental one (L11, score 1) rather than being drowned out by it — the real L21/L29/L30 failure mode was a coincidental match outscoring or flooding out the genuine signal, and that does not happen here.",
+      "grounding": "build_report returns matches=[ADR-014 score=8, L11 score=1] in that order — 'testability' itself never matches keyword 'test' (tokenize keeps 'testability' as one token, no hyphen/underscore boundary inside it), confirming the module_resolver/relevance_scorer word-boundary discipline holds; L11's nonzero score traces specifically to the skill-name mention, not to any containment match."
+    }
+  ]
+}

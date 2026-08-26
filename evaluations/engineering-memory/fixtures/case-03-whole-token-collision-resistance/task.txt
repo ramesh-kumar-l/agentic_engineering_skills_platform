@@ -1,0 +1,2 @@
+We need to improve test coverage for this module before merging the
+refactor.

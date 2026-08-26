@@ -1,0 +1,6 @@
+{
+  "expect_error": true,
+  "expected_categories": [
+    {"category": "precondition-failure", "keywords": ["ci-report", "missing", "precondition"]}
+  ]
+}

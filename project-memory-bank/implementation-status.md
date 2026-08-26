@@ -23,17 +23,19 @@ Replaced/updated in place, not appended to chronologically — see
 | engineering-knowledge-capture | Level 2 — Evaluated | EXPERIMENTAL | 47/47 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eleventh time — see [[12-known-limitations]] L8); see `evaluations/engineering-knowledge-capture/RESULTS.md` |
 | context-optimizer | Level 2 — Evaluated | EXPERIMENTAL | 64/64 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, twelfth time — see [[12-known-limitations]] L8); real dogfood run found a new limitation (L29 — full-repository-scale keyword flooding); see `evaluations/context-optimizer/RESULTS.md` |
 | workflow-composer | Level 2 — Evaluated | EXPERIMENTAL | 51/51 passing (CLI test file written from the start, plus one genuinely real subprocess-based integration test) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, thirteenth time — see [[12-known-limitations]] L8); real dogfood run found a new limitation (L30 — `feature-planner`'s scorer floods too, confirming the mechanism class is cross-skill); see `evaluations/workflow-composer/RESULTS.md` |
+| engineering-memory | Level 2 — Evaluated | EXPERIMENTAL | 57/57 passing (CLI test file and a real end-to-end integration test written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, fourteenth time — see [[12-known-limitations]] L8); real dogfood run against this project's own 50-record memory bank found a new limitation (L31 — basename-exact module resolution collapses distinct same-basename files across skills into one arbitrarily-chosen match); see `evaluations/engineering-memory/RESULTS.md` |
 
-No other skill has any implementation yet. **636 total tests passing across
-all fourteen skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64 + 51),
-up from 585 after Phase 14 (`workflow-composer`, 2026-08-26) added the
-fourteenth skill — started at the user's explicit direction, a FOURTH
-one-time reopening of the mentor-review pass's roadmap freeze, and the
-first to also directly override a named, phase-specific decision (A10's
-"do not build Workflow Composer until Experiment B can be run"), now
-deferred across four consecutive phase boundaries; A2/A5/A10 remain
-UNKNOWN, this is not new external-validation evidence — see
-`12-known-limitations.md`, `11-decisions.md` (ADR-020), and
+This completes the originally-scoped 15-skill portfolio named in
+[[08-roadmap]]. **693 total tests passing across all fifteen skills**
+(24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64 + 51 + 57),
+up from 636 after Phase 15 (`engineering-memory`, 2026-08-26) added the
+fifteenth and final skill in the original portfolio list — started at the
+user's explicit direction, a FIFTH one-time reopening of the
+mentor-review pass's roadmap freeze (unlike Phase 14, this one did not
+override a named phase-specific decision — A8's own "design only when
+reached" gate was satisfied by reaching Phase 15 in order); A2/A5/A8
+remain UNKNOWN, this is not new external-validation evidence — see
+`12-known-limitations.md`, `11-decisions.md` (ADR-021), and
 `active-context.md`.
 
 ## codebase-intelligence — component status
@@ -288,6 +290,26 @@ UNKNOWN, this is not new external-validation evidence — see
 | Judgment-layer actual findings (`evaluations/workflow-composer/actual/`) | Done — this session's agent's real Workflow Composition Checklist derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/workflow-composer/`) | Done — real, non-dry-run execution of `understand-then-plan` against this repo's own current (fourteen-skill) state, using this session's own real task description; found and disclosed a new limitation (L30 — `feature-planner`'s own scorer floods too, confirming L14/L19/L21/L29's mechanism class is shared across skills, not specific to `context-optimizer`) |
 
+## engineering-memory — component status
+
+| Component | Status |
+|---|---|
+| `engine/models.py` | Done, tested — `RecordStatus` enum, `MemoryRecord`/`ModuleFlag`/`StalenessFlag`/`RelevanceMatch`/`MemoryQueryReport` |
+| `engine/ci_report_loader.py` | Done, tested — required-composition precondition (ADR-010, eleventh reuse) |
+| `engine/memory_bank_parser.py` | Done, tested — parses real `## ADR-NNN:` / `## LNN:` section headers; explicitly skips `## L8 update:` sub-entries; derives `RecordStatus` from a `(FIXED...)`/`(SUPERSEDED...)` title suffix |
+| `engine/module_resolver.py` | Done, tested — basename-EQUALITY (not containment) resolution against the real CI report's module list; see L31 for the real, disclosed residual ambiguity when multiple real files share a basename |
+| `engine/keyword_extractor.py` | Done, tested — independently duplicated tokenizer, same technique as `context-optimizer`'s (no cross-skill import) |
+| `engine/relevance_scorer.py` | Done, tested — whole-token overlap, title-weighted higher than body, plus a module-overlap boost |
+| `engine/staleness_classifier.py` | Done, tested — combines record status + module-existence into one always-attached staleness flag, operationalizing A8's own named risk |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested — orchestrates parse → resolve → score → classify → stats; fails closed toward precision (`_MIN_SCORE_THRESHOLD`) |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, tested — `--task`/`--ci-report`/`--decisions-path`/`--limitations-path` all required; `--top-n` truncates after full scoring |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) a fourteenth time + reuses ADR-010 an eleventh time + new ADR-021 (first self-referential composition, day-one word-boundary matching, normal fail-closed-toward-caution staleness default), includes agent-driven Step 3 workflow against the new Engineering Memory Retrieval Checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment), all 8 perfect on both layers; deterministic layer covers clean-fit, no-fit, whole-token collision resistance, both staleness paths, top-n truncation, the missing-report hard failure, and corpus-header-drift |
+| Judgment-layer actual findings (`evaluations/engineering-memory/actual/`) | Done — this session's agent's real Engineering Memory Retrieval Checklist derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/engineering-memory/`) | Done — real, non-fixture retrieval run against this project's own actual `11-decisions.md`/`12-known-limitations.md` (50 real records) and a freshly-generated real CI report; found and disclosed a new limitation (L31 — basename-exact resolution collapses distinct same-basename files across the portfolio into one arbitrarily-chosen match, confirmed via `ci_report_loader.py`'s real recurrence across most composing skills) |
+
 ## Documentation & public-facing artifacts (added after Phase 5, not a phase)
 
 | Artifact | Status |
@@ -305,10 +327,20 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 15
-  (`engineering-memory`) onward, not started; the roadmap freeze from the
-  2026-08-26 mentor-review pass still applies to any further phase beyond
-  Phase 14 (see [[08-roadmap]]).
+- **No further skill is next by default.** Phase 15 (`engineering-memory`)
+  completes the originally-scoped 15-skill portfolio named in
+  [[08-roadmap]] — there is no Phase 16 in that list. Any further skill
+  work is a newly-proposed scope, not "the next phase," and the roadmap
+  freeze from the 2026-08-26 mentor-review pass still applies to it (see
+  [[08-roadmap]]).
+- A generic markdown indexer for `engineering-memory`'s corpus.
+  `sprint-history/*.md`'s Lessons Learned sections are not parsed this
+  pass — a real, disclosed corpus gap (see `SKILL.md` Known Limitations),
+  not scheduled.
+- A basename-disambiguation fix for `engineering-memory`'s
+  `module_resolver.py` (L31) — disclosed via a real dogfood run, not
+  scheduled; would need real evidence of need (a wrong `matched_modules`
+  attribution actually misleading an agent) before investing in a fix.
 - A generic, arbitrary multi-skill chainer. `workflow-composer` (Phase 14)
   ships a real, execution-capable engine, but deliberately bounded to 3
   hardcoded, previously-dogfooded templates (ADR-020) — not a config-driven
@@ -360,10 +392,13 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Last updated
 
-2026-08-26 — end of Phase 14 (`workflow-composer`). Started at the user's
-explicit direction, a FOURTH one-time reopening of the mentor-review
-pass's roadmap freeze — the first to also directly override a named,
-phase-specific decision (A10) rather than only the general freeze — now
-deferred across four consecutive phase boundaries; 636 total tests
-passing across fourteen skills (up from 585). A2/A5/A10 remain UNKNOWN —
-this phase is not new external-validation evidence.
+2026-08-26 — end of Phase 15 (`engineering-memory`). Started at the
+user's explicit direction, a FIFTH one-time reopening of the
+mentor-review pass's roadmap freeze — unlike Phase 14, this reopening did
+not override a named phase-specific decision (A8's own "design only when
+reached" gate was satisfied by reaching Phase 15 in order) — now
+deferred across five consecutive phase boundaries; 693 total tests
+passing across fifteen skills (up from 636). A2/A5/A8 remain UNKNOWN —
+this phase is not new external-validation evidence. This completes the
+originally-scoped 15-skill portfolio named in [[08-roadmap]]; no Phase 16
+exists in that list.

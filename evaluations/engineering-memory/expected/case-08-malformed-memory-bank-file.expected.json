@@ -1,0 +1,7 @@
+{
+  "expected_match_ids": [],
+  "expected_warning_substring": "no records parsed",
+  "expected_categories": [
+    {"category": "corpus-drift", "keywords": ["no records parsed", "drift", "header"]}
+  ]
+}

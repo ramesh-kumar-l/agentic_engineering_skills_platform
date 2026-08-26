@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c5-1",
+      "category": "staleness-module-missing",
+      "description": "The task (reviewing the old scanner module before deleting it) retrieves ADR-002 via body-only keyword overlap ('old', 'scanner', 'module', 'before' all appear in the body, not the title) and its mentioned module `engine/old_scanner.py` fails to resolve against the fixture's codebase-intelligence report, which only lists `engine/new_scanner.py` — a different basename, not a substring collision. staleness_classifier correctly flags this ACTIVE-status record stale anyway, on the module-not-found path rather than the FIXED/SUPERSEDED-title path, and names the specific missing module in the reason text.",
+      "grounding": "build_report returns matches=[ADR-002 score=4 stale=True] — module_resolver.resolve_module_mentions returns exists=False for 'engine/old_scanner.py' (basename 'old_scanner.py' has no match in the CI report's module list), and staleness_classifier.classify_staleness falls through the FIXED/SUPERSEDED checks (status is ACTIVE) into the missing-module branch, producing a reason string that names 'engine/old_scanner.py' explicitly."
+    }
+  ]
+}

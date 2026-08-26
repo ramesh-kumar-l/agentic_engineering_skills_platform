@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c6-1",
+      "category": "top-n",
+      "description": "Five ADRs (ADR-012 through ADR-016) all genuinely match the task ('reviewing every past ADR that reuses the required-composition pattern') roughly equally strongly, since they share nearly identical title/body phrasing by design. With `--top-n 2`, only the top two by score are returned rather than all five — an agent relying on this skill needs to know the result is truncated, not exhaustive, whenever a corpus has more genuine matches than the requested top-n.",
+      "grounding": "build_report(..., top_n=2) returns exactly 2 matches (ADR-012 and ADR-013, both score=19 — a tie broken by the stable sort preserving parse order) out of 5 records that all independently score above the _MIN_SCORE_THRESHOLD; the other three (ADR-014/015/016) are computed internally but discarded by the top_n slice in report.py, not by any relevance judgment."
+    }
+  ]
+}

@@ -477,3 +477,38 @@ Context Optimization Checklist's category 2 (a check the engine
 structurally cannot perform itself — the registry has no template-fit
 scoring of its own; see `SKILL.md` Known Limitations) — it forces the
 agent to judge fit before running, not just review what ran.
+
+## Engineering Memory Retrieval Checklist
+
+Fourteenth checklist, for `engineering-memory` (Phase 15). Shaped like
+every checklist before it (a decision-gate, not a coverage-enumeration
+list) since this skill's job is deciding whether a retrieved match is
+actually worth acting on, not enumerating everything retrieved:
+
+```
+1. Retrieved records actually relevant to the task (not a coincidental
+   keyword hit) - judged, not assumed from a nonzero score
+2. Every staleness-flagged record's flag reviewed before treating it as
+   current guidance
+3. Absence of a relevant record is not proof nothing applies - corpus is
+   limited to 11-decisions.md + 12-known-limitations.md this pass
+4. A high relevance score is not authorization to act without the
+   record's own original context (source file/line always checked)
+5. This retrieval is not evidence toward A8 - it is the capability A8
+   would need to be tested against, nothing more
+```
+
+Category 1 is this checklist's version of the Workflow Composition
+Checklist's category 1 and the Context Optimization Checklist's category
+2 — a check the engine structurally cannot perform itself (the scorer has
+no semantic understanding of *why* a keyword matched, only that it did;
+see `SKILL.md` Known Limitations). Category 5 is this checklist's
+fail-under-uncertainty item, in the same shape as the Workflow
+Composition Checklist's category 6: `engineering-memory` produces real,
+scored evidence, and the single most likely misuse of that evidence is
+citing it as validating A8 rather than as the retrieval capability A8
+would need. Category 3 exists because this skill's corpus coverage is a
+disclosed, real gap (`sprint-history/*.md` lessons-learned sections are
+not yet parsed) — an empty or thin result set must never be read as "this
+project's history has nothing to say," only as "this pass's corpus didn't
+surface anything."

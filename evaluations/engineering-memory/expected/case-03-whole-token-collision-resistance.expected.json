@@ -1,0 +1,7 @@
+{
+  "expected_match_ids": ["ADR-014", "L11"],
+  "expected_rank_order": ["ADR-014", "L11"],
+  "expected_categories": [
+    {"category": "collision-resistance", "keywords": ["testability", "whole-token", "outranks"]}
+  ]
+}

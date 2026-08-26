@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c1-1",
+      "category": "clean-fit",
+      "description": "The task ('composing a new skill on top of codebase-intelligence's report, need a module resolver that matches by whole word') cleanly retrieves three genuinely relevant records: ADR-010 (the required-composition precondition itself), ADR-018 (the word-boundary-correct-from-day-one precedent), and L23 (FIXED — the exact substring-collision bug being avoided). This is exactly the clean multi-record fit case — a real task that touches this project's own recorded history in more than one place at once.",
+      "grounding": "build_report returns matches=[L23 score=19 stale=True, ADR-010 score=14, ADR-018 score=14] — L23 outranks the two ADRs because its title independently hits 'substring' and 'module' plus its body hits 'collision'/'resolver'/'composing', on top of being correctly flagged stale (status=FIXED from its own title suffix). All three surface with nonzero score and none were expected to be excluded."
+    }
+  ]
+}

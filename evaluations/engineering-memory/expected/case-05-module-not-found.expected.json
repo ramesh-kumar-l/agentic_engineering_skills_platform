@@ -1,0 +1,7 @@
+{
+  "expected_match_ids": ["ADR-002"],
+  "expected_stale_ids": ["ADR-002"],
+  "expected_categories": [
+    {"category": "staleness-module-missing", "keywords": ["old_scanner", "module", "not found"]}
+  ]
+}

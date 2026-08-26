@@ -1,0 +1,2 @@
+Reviewing every past ADR that reuses the required-composition pattern
+before we add an eleventh one.

@@ -1,0 +1,3 @@
+We're composing a new skill on top of codebase-intelligence's report; we
+need a module resolver that matches by whole word, not substring, to
+avoid the collision bug that keeps recurring across this portfolio.

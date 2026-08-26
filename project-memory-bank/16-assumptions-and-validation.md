@@ -71,7 +71,15 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   consecutive phase boundaries, and the first to also directly override a
   named, phase-specific decision (A10's "do not build Workflow Composer
   until Experiment B can be run"), not just the general freeze. Building a
-  fourteenth skill does not change this status either.
+  fourteenth skill does not change this status either. Same date, Phase 15
+  (`engineering-memory`) was started the same way — a FIFTH one-time
+  user-directed exception, now deferred across five consecutive phase
+  boundaries. Unlike Phase 14, this one did not override a named
+  phase-specific decision — A8's own "design only when reached" gate was
+  satisfied by reaching Phase 15 in order — but the general freeze was
+  still overridden by request, not satisfied by new evidence. Building a
+  fifteenth skill does not change this status either, and completes the
+  originally-scoped 15-skill portfolio named in [[08-roadmap]].
 - **Decision**: still required before claiming any skill is "Level 2 —
   Evaluated" *in the outcome sense* — codebase-intelligence,
   adversarial-diff-reviewer, and acceptance-test-engineer have each met the
@@ -270,8 +278,21 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   file above every real implementation file relevant to the task — the
   same coincidental-keyword-collision mechanism class, now confirmed
   present inside `feature-planner` itself, not just `context-optimizer`
-  (L30). The inter-rater-agreement experiment still has not been run for
-  any of the thirteen skills.
+  (L30). Phase 15 (`engineering-memory`, 2026-08-26) is the fourteenth
+  judgment-based skill evaluated this way and also scored perfect
+  precision/recall on all 8 fixtures
+  (`evaluations/engineering-memory/RESULTS.md`) — same caveat, fourteen
+  for fourteen now. This phase's real dogfood run
+  (`examples/engineering-memory/example-run.md`) again surfaced a genuine,
+  newly-found limitation rather than proving new judgment quality: real
+  module resolution against this project's own 50-record memory bank
+  collapsed every mention of a basename shared across many skills
+  (`ci_report_loader.py`) into the same single, often-wrong resolved path
+  — a different mechanism from the coincidental-keyword-collision class
+  above, but the same underlying lesson (a technique correct by
+  construction on the failure mode it was built for can still have a real,
+  different residual gap) (L31). The inter-rater-agreement experiment
+  still has not been run for any of the fourteen skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -328,9 +349,31 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
 - **Validation experiment**: deferred — Engineering Memory is Phase 15, last in
   the roadmap by design.
 - **Expected evidence**: TBD.
-- **Actual evidence**: none — not yet in scope.
-- **Status**: UNKNOWN.
-- **Decision**: do not implement early; design only when reached.
+- **Actual evidence**: none at the required rigor — no formal validation
+  experiment run. Phase 15 built the `engineering-memory` skill itself: a
+  real, non-fixture dogfood run against this project's own actual 50-record
+  memory bank (`examples/engineering-memory/example-run.md`) retrieved
+  substantively on-topic ADRs/limitations for a real task and correctly
+  flagged both real staleness signals it encountered (a `FIXED` title, a
+  genuinely-missing mentioned module) — evidence the retrieval mechanism
+  itself works end-to-end on real data, in the same shape as every prior
+  phase's dogfood evidence for other assumptions. This is **not** evidence
+  that retrieval *improves future agent performance* (A8's actual claim) —
+  no session has yet been run once with this skill's output available and
+  once without, so there is nothing to compare. Building the capability is
+  a precondition for testing A8, not a substitute for testing it.
+- **Status**: UNKNOWN — unchanged. Engineering Memory (Phase 15) is now
+  built, closing the "last in the roadmap by design" deferral this
+  assumption's own Decision line named — but building it is not the
+  validation experiment A8 calls for.
+- **Decision**: the original "do not implement early; design only when
+  reached" gate is satisfied (Phase 15 has been reached). A8 itself still
+  requires a real before/after comparison of agent performance with vs.
+  without `engineering-memory`'s retrieval available on a real task,
+  which has not been run — see [[08-roadmap]] and Section 43's warning
+  about stale memory (noted as missing from the checked-in
+  [[operating-charter]], see L27) before treating any retrieved match as
+  authoritative in the meantime.
 
 ### A9: Developers will contribute skills
 
@@ -483,4 +526,8 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   Phase 8 (L22), not just its execution reliability. Status stays
   UNKNOWN — this phase is not new evidence for or against A10, only new
   evidence that the freeze around it has now been overridden four
-  consecutive times, the last one specifically.
+  consecutive times, the last one specifically. Phase 15
+  (`engineering-memory`) does not touch A10 directly — it composes on
+  `codebase-intelligence`, not on a workflow-composer template — and is
+  recorded here only for completeness: no change to A10's status or
+  evidence from Phase 15.

@@ -7,33 +7,42 @@ appended to. Complements [[implementation-status.md]] (what's built) and
 
 ## Current phase
 
-Phase 14 (`workflow-composer`) — COMPLETE. **Phase 15 onward remains
-frozen.** 2026-08-26 (same day, six sub-events): (1) the user requested a
-mentor-style critique of the whole project, which found ten phases
-shipped, zero real external users, A2/A5 still UNKNOWN, and the L23/L24
-substring bug disclosed four times without being fixed — the user
-approved pausing new-skill work to fix that bug and scaffold a measurement
-harness instead (see "Mentor-review follow-up" below); (2) the user then
-explicitly directed starting Phase 11 anyway, with their own exit criteria
-("same bar," first skill composing on `codebase-intelligence`'s output,
-"production-level stable") — **this reopened the freeze at the user's
-explicit direction, not because A2/A5 moved off UNKNOWN**; (3) Phase 11
-shipped, and the operating charter was checked in as a documentation-only
-pass (see "Documentation check-in" below); (4) the user then explicitly
-directed starting Phase 12, with the same shape of exit criteria — **a
-second, one-time reopening of the same freeze**, and Phase 12 shipped
-(see "What Phase 12 built" below); (5) the user then explicitly directed
-starting Phase 13, with the same shape of exit criteria — **a THIRD
-one-time reopening of the same freeze**, and Phase 13 shipped (see "What
-Phase 13 built" below); (6) the user then explicitly directed starting
-Phase 14, with the same shape of exit criteria — **a FOURTH one-time
-reopening of the same freeze, and the first to also directly override a
-named, phase-specific decision** (`16-assumptions-and-validation.md` A10
-had explicitly said "do not build Workflow Composer (Phase 14) until
-Experiment B can be run"), and Phase 14 shipped (see "What Phase 14 built"
-below). The freeze remains in force for any phase beyond 14 — starting
-Phase 11, Phase 12, Phase 13, and Phase 14 were each one-time, explicit
-exceptions, not a general unfreezing.
+Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
+originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
+no Phase 16 in that list.** 2026-08-26 (same day, seven sub-events): (1)
+the user requested a mentor-style critique of the whole project, which
+found ten phases shipped, zero real external users, A2/A5 still UNKNOWN,
+and the L23/L24 substring bug disclosed four times without being fixed —
+the user approved pausing new-skill work to fix that bug and scaffold a
+measurement harness instead (see "Mentor-review follow-up" below); (2)
+the user then explicitly directed starting Phase 11 anyway, with their
+own exit criteria ("same bar," first skill composing on
+`codebase-intelligence`'s output, "production-level stable") — **this
+reopened the freeze at the user's explicit direction, not because A2/A5
+moved off UNKNOWN**; (3) Phase 11 shipped, and the operating charter was
+checked in as a documentation-only pass (see "Documentation check-in"
+below); (4) the user then explicitly directed starting Phase 12, with the
+same shape of exit criteria — **a second, one-time reopening of the same
+freeze**, and Phase 12 shipped (see "What Phase 12 built" below); (5) the
+user then explicitly directed starting Phase 13, with the same shape of
+exit criteria — **a THIRD one-time reopening of the same freeze**, and
+Phase 13 shipped (see "What Phase 13 built" below); (6) the user then
+explicitly directed starting Phase 14, with the same shape of exit
+criteria — **a FOURTH one-time reopening of the same freeze, and the
+first to also directly override a named, phase-specific decision**
+(`16-assumptions-and-validation.md` A10 had explicitly said "do not build
+Workflow Composer (Phase 14) until Experiment B can be run"), and Phase
+14 shipped (see "What Phase 14 built" below); (7) the user then
+explicitly directed starting Phase 15, with the same shape of exit
+criteria — **a FIFTH one-time reopening of the same freeze**, but unlike
+Phase 14, this one did not override a named phase-specific decision — A8's
+own "design only when reached" gate was satisfied simply by reaching
+Phase 15 in its designated order — and Phase 15 shipped (see "What Phase
+15 built" below). The freeze remains in force for any further skill
+work — starting Phase 11 through Phase 15 were each one-time, explicit
+exceptions, not a general unfreezing, and Phase 15's completion means any
+further skill is a newly-proposed scope, not "the next phase in the
+list."
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
 
@@ -48,6 +57,57 @@ rather than papered over: several existing files cite charter sections
 (39–40, 43, "First Activation") that don't exist in this version, which only
 runs through Section 11 — see [[12-known-limitations|L27]]. No code, tests,
 or roadmap changed; Phase 12+ freeze is untouched by this.
+
+## What Phase 15 built
+
+Built `engineering-memory`, the fifteenth and **final skill in the
+originally-scoped portfolio** ([[08-roadmap]]) — the first skill whose
+primary retrieval corpus is this project's own `project-memory-bank/`
+markdown, not a target repo's external artifacts: `SKILL.md` contract
+reusing Pattern 2 (ADR-007) a fourteenth time, plus new **ADR-021**. A
+deterministic engine (12 modules, each under 300 lines, max
+`memory_bank_parser.py` at 148) parses real `## ADR-NNN:` / `## LNN:`
+section headers out of `11-decisions.md`/`12-known-limitations.md`
+(explicitly skipping `## L8 update:` sub-entries), resolves any
+backtick-quoted module mentioned in a record's body against a required
+`codebase-intelligence` report (ADR-010, reused an ELEVENTH time) via
+basename-EQUALITY (not containment), scores each record against a task
+description's whole-token keyword overlap (title-weighted higher than
+body, plus a module-overlap boost), and always attaches a staleness flag
+— derived from either the record's own `(FIXED...)`/`(SUPERSEDED...)`
+title suffix or a mentioned module no longer resolving — the direct,
+operational answer to A8's own named risk about stale memory being
+treated as authoritative. Word-boundary/whole-token matching was applied
+from day one specifically because six prior disclosed limitations
+(L14/L19/L21/L23/L24/L28/L29/L30) already proved the substring-
+containment alternative fails — applying an accumulated lesson, not
+discovering a new one. New **Engineering Memory Retrieval Checklist**
+(fourteenth checklist, [[05-evaluation-framework]]). 57 passing tests
+(CLI test file and a real end-to-end integration test from the start).
+8-fixture evaluation harness, both layers scored perfect — fourteenth
+judgment-based skill scored this way, same self-authored caveat (L8);
+deterministic fixtures cover clean multi-record fit, no-fit, whole-token
+collision resistance (a genuine coincidental match ranks below, never
+drowns out, the real one), both staleness paths, `--top-n` truncation,
+the missing-CI-report hard failure, and memory-bank header-format drift.
+Real dogfood (`examples/engineering-memory/example-run.md`) — a real,
+non-fixture retrieval run against this project's own actual 50-record
+memory bank (20 decisions, 30 limitations) and a freshly-generated real
+`codebase-intelligence` report, using this session's own real Phase 15
+task description — 8/8 top matches were substantively on-topic, and both
+real staleness signals fired correctly, but found a new,
+disclosed-not-fixed limitation: **L31** — `module_resolver.py`'s
+basename-exact resolution, built correct from day one specifically to
+defeat the L23/L24/L28-class *substring* collision, has a different,
+real ambiguity once the corpus is this project's actual many-skill
+memory bank: `ci_report_loader.py` (a real, distinct file in most
+composing skills) caused five different records about five different
+skills (ADR-016, L24, ADR-020, ADR-015, ADR-017) to all resolve their
+mention to the same single `root-cause-analyzer` path — a genuinely
+different failure mode than the substring class this resolver already
+defeats, not a sign that defeat was incomplete. Platform test count rose
+from 636 to **693**, zero regressions. `.github/workflows/tests.yml`'s
+matrix updated to include the new skill.
 
 ## What Phase 14 built
 
@@ -370,32 +430,37 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Open threads / not yet decided
 
-- **2026-08-26 update: Phase 11, Phase 12, Phase 13, AND Phase 14 all
-  shipped at the user's explicit direction; Phase 15 onward is still
-  frozen.** The mentor-review critique concluded velocity of building had
+- **2026-08-26 update: Phase 11 through Phase 15 all shipped at the
+  user's explicit direction; the originally-scoped 15-skill portfolio is
+  now complete, and no further phase exists in [[08-roadmap]]'s list.**
+  The mentor-review critique concluded velocity of building had
   outpaced velocity of validating (A2/A5 both UNKNOWN after ten phases,
   zero real external users), and the user then explicitly directed
   starting Phase 11, later the same day Phase 12, later the same day
-  Phase 13, and later the same day Phase 14, anyway. Phase 14 additionally
-  overrode a named, phase-specific decision (A10) rather than only the
-  general freeze — the first phase to do so. Each is a one-time, explicit
-  exception, not new evidence and not a general unfreezing —
-  re-justifying Phase 15+ still requires real external validation
-  evidence first (a real user, an independent/blind eval pass, or a real
-  usage-comparison run via `evaluations/usage-comparison/`), not just a
-  pre-written roadmap proposal. This tension is now deferred across four
-  consecutive phase boundaries.
-- **L8 remains the most important open thread, now applying thirteen
-  times**: twelve of thirteen judgment-based skills (adversarial-diff-reviewer,
+  Phase 13, later the same day Phase 14, and later the same day Phase 15,
+  anyway. Phase 14 additionally overrode a named, phase-specific decision
+  (A10) rather than only the general freeze — the only phase to do so;
+  Phase 15's own gating decision (A8's "design only when reached") was
+  satisfied simply by reaching it in order, so it did not need that same
+  kind of override. Each is a one-time, explicit exception, not new
+  evidence and not a general unfreezing — re-justifying ANY further skill
+  work now still requires real external validation evidence first (a real
+  user, an independent/blind eval pass, or a real usage-comparison run via
+  `evaluations/usage-comparison/`), not just a pre-written roadmap
+  proposal. This tension is now deferred across five consecutive phase
+  boundaries.
+- **L8 remains the most important open thread, now applying fourteen
+  times**: thirteen of fourteen judgment-based skills (adversarial-diff-reviewer,
   acceptance-test-engineer, feature-planner, security-context-guard,
   architecture-decision, refactoring-safety, regression-hunter,
   release-readiness, dependency-supply-chain, engineering-knowledge-capture,
-  context-optimizer, workflow-composer) scored 100% precision/recall
-  against self-authored ground truth; the thirteenth (root-cause-analyzer)
-  scored 7/8 perfect and 1/8 at 0.67/0.67 (L19). All outcomes are equally
-  inconclusive about real-world quality — self-authored, single-rater
-  evidence either way. The inter-rater-agreement experiment (A5) still has
-  not been run for any of the thirteen.
+  context-optimizer, workflow-composer, engineering-memory) scored 100%
+  precision/recall against self-authored ground truth; the fourteenth
+  (root-cause-analyzer) scored 7/8 perfect and 1/8 at 0.67/0.67 (L19). All
+  outcomes are equally inconclusive about real-world quality —
+  self-authored, single-rater evidence either way. The inter-rater-
+  agreement experiment (A5) still has not been run for any of the
+  fourteen.
 - **L25/L26 (Phase 11)**: `dependency-supply-chain` has no live
   CVE/vulnerability-database lookup (L25, permanent scope decision — this
   project makes no network calls, ADR-006) and no per-dependency
@@ -433,6 +498,17 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   `context-optimizer`'s L29), now confirmed present in the oldest
   keyword-relevance engine in this portfolio (Phase 4), not just the
   newest one. Disclosed, not fixed — same standing rationale as L29.
+- **L31 (new, Phase 15)**: `engineering-memory`'s real dogfood run found a
+  DIFFERENT failure mode from the L14/L19/L21/L23/L24/L28/L29/L30
+  substring-collision class: `module_resolver.py`'s basename-EQUALITY
+  resolution (built correct from day one specifically to defeat that
+  substring class) still collapses multiple real, distinct files sharing
+  a common basename (`ci_report_loader.py`, real in most composing
+  skills) into whichever one the CI report lists last — five different
+  records about five different skills all resolved to the same
+  `root-cause-analyzer` path. Does not affect relevance scoring, only
+  which file a match's `matched_modules` list names. Disclosed, not
+  fixed — same "one real data point, don't guess a fix" discipline.
 - **The L14/L19/L21/L23/L24 substring-collision limitation class — status
   as of 2026-08-26: L23 FIXED, L24 PARTIALLY fixed, L14/L19/L21 still
   open.** `target_resolver.py`'s caller-identification bug (L23, shared
@@ -466,9 +542,9 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   deferred — revisit only if real usage shows they matter. L24 (Phase 10)
   is deferred for the same reason but flagged, above, as the strongest
   candidate yet to revisit soon.
-- No real (non-agent) engineer has used any of the fourteen skills yet —
-  Trust Status stays EXPERIMENTAL on all fourteen, and assumptions
-  A2/A3/A5/A7/A10 in [[16-assumptions-and-validation]] remain only
+- No real (non-agent) engineer has used any of the fifteen skills yet —
+  Trust Status stays EXPERIMENTAL on all fifteen, and assumptions
+  A2/A3/A5/A7/A8/A10 in [[16-assumptions-and-validation]] remain only
   partially evidenced.
 
 ## If resuming this session cold, read in this order
@@ -480,7 +556,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 3. [[implementation-status.md]]
 4. [[07-current-state]]
 5. `README.md` (root) — primary public-facing entry point
-6. `skills/workflow-composer/SKILL.md`,
+6. `skills/engineering-memory/SKILL.md`,
+   `skills/workflow-composer/SKILL.md`,
    `skills/context-optimizer/SKILL.md`,
    `skills/engineering-knowledge-capture/SKILL.md`,
    `skills/dependency-supply-chain/SKILL.md`,
@@ -492,7 +569,10 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    `skills/security-context-guard/SKILL.md`, `skills/feature-planner/SKILL.md`,
    `skills/acceptance-test-engineer/SKILL.md`,
    `skills/adversarial-diff-reviewer/SKILL.md`, `skills/codebase-intelligence/SKILL.md`
-7. `examples/workflow-composer/example-run.md` (real, non-dry-run
+7. `examples/engineering-memory/example-run.md` (real, non-fixture
+   retrieval run against this project's own actual memory bank, surfaced
+   the new L31 basename-collision-of-distinct-files finding),
+   `examples/workflow-composer/example-run.md` (real, non-dry-run
    composed execution, surfaced the new L30 cross-skill keyword-flooding
    finding), `examples/context-optimizer/example-run.md` (real dogfood,
    surfaced the new L29 full-repository-scale keyword-flooding gap),
@@ -507,12 +587,17 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Last updated
 
-2026-08-26 — Phase 14 (`workflow-composer`) shipped at the user's explicit
-direction, a FOURTH one-time reopening of the same-day mentor-review
-freeze (after Phase 11 `dependency-supply-chain`, Phase 12
-`engineering-knowledge-capture`, and Phase 13 `context-optimizer`) — the
-first to also directly override a named, phase-specific decision (A10);
-Phase 15 onward remains frozen. Test count: 636 (up from 585). Earlier the
-same day, between Phase 11 and Phase 12: the operating charter checked in
-at [[operating-charter]] (documentation only, no code/roadmap change; see
-[[12-known-limitations|L27]] for the disclosed section-numbering gap).
+2026-08-26 — Phase 15 (`engineering-memory`) shipped at the user's
+explicit direction, a FIFTH one-time reopening of the same-day
+mentor-review freeze (after Phase 11 `dependency-supply-chain`, Phase 12
+`engineering-knowledge-capture`, Phase 13 `context-optimizer`, and Phase
+14 `workflow-composer`) — unlike Phase 14, this one did not override a
+named phase-specific decision (A8's own "design only when reached" gate
+was satisfied by reaching Phase 15 in order). This completes the
+originally-scoped 15-skill portfolio; no Phase 16 exists in
+[[08-roadmap]]'s list, and any further skill work is a newly-proposed
+scope requiring real external validation evidence first. Test count: 693
+(up from 636). Earlier the same day, between Phase 11 and Phase 12: the
+operating charter checked in at [[operating-charter]] (documentation
+only, no code/roadmap change; see [[12-known-limitations|L27]] for the
+disclosed section-numbering gap).

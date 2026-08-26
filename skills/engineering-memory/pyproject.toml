@@ -1,0 +1,13 @@
+[project]
+name = "engineering-memory"
+version = "0.1.0"
+description = "Deterministic retrieval engine scoring this project's own memory-bank ADRs/limitations against a free-text task and a real codebase-intelligence report. Composes on top of codebase-intelligence's report.json (required precondition, reusing ADR-010's pattern an eleventh time); self-referential corpus per ADR-021."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

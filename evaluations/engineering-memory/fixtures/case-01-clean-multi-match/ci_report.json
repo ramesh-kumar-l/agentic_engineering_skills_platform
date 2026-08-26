@@ -1,0 +1,7 @@
+{
+  "root_path": "/repo",
+  "modules": [
+    {"path": "engine/location_resolver.py", "docstring": null, "functions": [], "classes": [], "imports": []}
+  ],
+  "dependency_graph": {"fan_in": {}, "fan_out": {}, "hotspots": []}
+}

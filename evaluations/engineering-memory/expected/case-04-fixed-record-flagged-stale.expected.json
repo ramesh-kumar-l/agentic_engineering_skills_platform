@@ -1,0 +1,7 @@
+{
+  "expected_match_ids": ["L16"],
+  "expected_stale_ids": ["L16"],
+  "expected_categories": [
+    {"category": "staleness-fixed", "keywords": ["fixed", "stale", "action-classifier"]}
+  ]
+}

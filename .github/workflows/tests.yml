@@ -20,6 +20,7 @@ jobs:
           - context-optimizer
           - dependency-supply-chain
           - engineering-knowledge-capture
+          - engineering-memory
           - feature-planner
           - refactoring-safety
           - regression-hunter
