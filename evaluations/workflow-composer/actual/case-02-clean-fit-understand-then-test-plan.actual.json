@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "c2-1",
+      "category": "template-fit",
+      "description": "Checklist item 1: the task explicitly asks for acceptance criteria before implementation — understand-then-test-plan's text-append wiring (CI excerpt appended into the requirement text, since acceptance-test-engineer has no --ci-report flag) reproduces exactly how Phase 3's real Pilot B composed these two skills.",
+      "grounding": "workflow_registry.REGISTRY['understand-then-test-plan']; acceptance-test-engineer/SKILL.md's Required Context section names codebase-intelligence as optional composed context, matching the TEXT_APPEND wiring mode declared on this step.",
+      "assumptions": ""
+    }
+  ]
+}

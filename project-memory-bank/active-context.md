@@ -7,8 +7,8 @@ appended to. Complements [[implementation-status.md]] (what's built) and
 
 ## Current phase
 
-Phase 13 (`context-optimizer`) — COMPLETE. **Phase 14 onward remains
-frozen.** 2026-08-26 (same day, five sub-events): (1) the user requested a
+Phase 14 (`workflow-composer`) — COMPLETE. **Phase 15 onward remains
+frozen.** 2026-08-26 (same day, six sub-events): (1) the user requested a
 mentor-style critique of the whole project, which found ten phases
 shipped, zero real external users, A2/A5 still UNKNOWN, and the L23/L24
 substring bug disclosed four times without being fixed — the user
@@ -25,9 +25,15 @@ second, one-time reopening of the same freeze**, and Phase 12 shipped
 (see "What Phase 12 built" below); (5) the user then explicitly directed
 starting Phase 13, with the same shape of exit criteria — **a THIRD
 one-time reopening of the same freeze**, and Phase 13 shipped (see "What
-Phase 13 built" below). The freeze remains in force for any phase beyond
-13 — starting Phase 11, Phase 12, and Phase 13 were each one-time,
-explicit exceptions, not a general unfreezing.
+Phase 13 built" below); (6) the user then explicitly directed starting
+Phase 14, with the same shape of exit criteria — **a FOURTH one-time
+reopening of the same freeze, and the first to also directly override a
+named, phase-specific decision** (`16-assumptions-and-validation.md` A10
+had explicitly said "do not build Workflow Composer (Phase 14) until
+Experiment B can be run"), and Phase 14 shipped (see "What Phase 14 built"
+below). The freeze remains in force for any phase beyond 14 — starting
+Phase 11, Phase 12, Phase 13, and Phase 14 were each one-time, explicit
+exceptions, not a general unfreezing.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
 
@@ -42,6 +48,64 @@ rather than papered over: several existing files cite charter sections
 (39–40, 43, "First Activation") that don't exist in this version, which only
 runs through Section 11 — see [[12-known-limitations|L27]]. No code, tests,
 or roadmap changed; Phase 12+ freeze is untouched by this.
+
+## What Phase 14 built
+
+Built `workflow-composer`, the fourteenth skill — the first in the
+portfolio whose deliverable is composed **execution**, not analysis:
+`SKILL.md` contract reusing Pattern 2 (ADR-007) a thirteenth time, plus
+new **ADR-020**. A deterministic engine (12 modules, each under 300
+lines, max `step_runner.py` at 152) sequences a small, hardcoded registry
+of exactly 3 workflow templates — `understand-then-plan`
+(`codebase-intelligence` -> `feature-planner`, reusing Phase 4's real
+dogfood composition), `understand-then-test-plan`
+(`codebase-intelligence` -> `acceptance-test-engineer`, reproducing Phase
+3's real Pilot B composition via a `TEXT_APPEND` wiring mode since
+`acceptance-test-engineer`'s CLI has no `--ci-report`-style flag,
+confirmed by reading its shipped `engine/cli.py`), and
+`understand-then-optimize-context` (`codebase-intelligence` ->
+`context-optimizer`, reusing Phase 13's real dogfood composition, via a
+`CLI_FLAG` wiring mode) — every template's step 1 is a required
+`codebase-intelligence` report (ADR-010, reused a TENTH time). Real
+execution subprocess-invokes each named skill's actual `engine/cli.py`;
+a `compatibility_checker.py` textual drift guard confirms each step's
+declared upstream marker still appears in the downstream skill's real
+SKILL.md before trusting the wiring; `executor.py` fails **CLOSED** on
+any step failure or a pre-execution compatibility issue — the opposite
+default from ADR-019's fail-open content-inclusion inversion one phase
+earlier, explicitly framed as the same underlying principle (fail toward
+the cheaper-to-recover-from error) pointing the normal direction because
+building on a broken step is the expensive failure here, not the cheap
+one. New **Workflow Composition Checklist** (thirteenth checklist,
+[[05-evaluation-framework]]). 51 passing tests (CLI test file from the
+start, plus one genuinely real subprocess-based integration test — no
+prior skill's test suite invokes another skill's real code). 8-fixture
+evaluation harness, both layers scored perfect — thirteenth judgment-based
+skill scored this way, same self-authored caveat (L8); deterministic
+fixtures mix real registry-template dry-runs (against a bundled
+`tests/fixtures/tiny-repo`) with fixture fake-skill runs (for
+deterministic fail-closed-path coverage: a simulated step failure, and a
+simulated compatibility drift). Real dogfood
+(`examples/workflow-composer/example-run.md`) — a real, non-dry-run
+execution of `understand-then-plan` against this repo's own current
+(fourteen-skill) state, using this session's own real Phase 14 task
+description — both real steps succeeded (2.31s total against 1,010
+scanned files, zero compatibility issues), and found a new,
+disclosed-not-fixed limitation: **L30** — `feature-planner`'s own
+relevance scorer (composed, not computed by `workflow-composer` itself)
+ranked a test file
+(`skills/workflow-composer/tests/test_real_execution.py`) as the single
+highest-scoring file in the entire repository, ahead of every real
+implementation file relevant to the task — the same coincidental-
+keyword-collision mechanism class `architecture-decision`'s L14/L19/L21
+and `context-optimizer`'s L29 already disclosed, now confirmed present
+inside `feature-planner` itself (the oldest keyword-relevance engine in
+this portfolio), not just `context-optimizer`'s scorer. `workflow-
+composer` composes with `feature-planner` as-is; it does not filter or
+improve the composed skill's own output. Platform test count rose from
+585 to **636**, zero regressions. `.github/workflows/tests.yml`'s matrix
+updated to include the new skill; `.gitignore` updated to exclude the
+evaluation harness's generated `_run/` working directory.
 
 ## What Phase 13 built
 
@@ -306,30 +370,32 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Open threads / not yet decided
 
-- **2026-08-26 update: Phase 11, Phase 12, AND Phase 13 all shipped at the
-  user's explicit direction; Phase 14 onward is still frozen.** The
-  mentor-review critique concluded velocity of building had outpaced
-  velocity of validating (A2/A5 both UNKNOWN after ten phases, zero real
-  external users), and the user then explicitly directed starting Phase
-  11, later the same day Phase 12, and later the same day Phase 13,
-  anyway. Each is a one-time, explicit exception, not new evidence and not
-  a general unfreezing — re-justifying Phase 14+ still requires real
-  external validation evidence first (a real user, an independent/blind
-  eval pass, or a real usage-comparison run via
-  `evaluations/usage-comparison/`), not just a pre-written roadmap
-  proposal. This tension is now deferred across three consecutive phase
-  boundaries.
-- **L8 remains the most important open thread, now applying twelve
-  times**: eleven of twelve judgment-based skills (adversarial-diff-reviewer,
+- **2026-08-26 update: Phase 11, Phase 12, Phase 13, AND Phase 14 all
+  shipped at the user's explicit direction; Phase 15 onward is still
+  frozen.** The mentor-review critique concluded velocity of building had
+  outpaced velocity of validating (A2/A5 both UNKNOWN after ten phases,
+  zero real external users), and the user then explicitly directed
+  starting Phase 11, later the same day Phase 12, later the same day
+  Phase 13, and later the same day Phase 14, anyway. Phase 14 additionally
+  overrode a named, phase-specific decision (A10) rather than only the
+  general freeze — the first phase to do so. Each is a one-time, explicit
+  exception, not new evidence and not a general unfreezing —
+  re-justifying Phase 15+ still requires real external validation
+  evidence first (a real user, an independent/blind eval pass, or a real
+  usage-comparison run via `evaluations/usage-comparison/`), not just a
+  pre-written roadmap proposal. This tension is now deferred across four
+  consecutive phase boundaries.
+- **L8 remains the most important open thread, now applying thirteen
+  times**: twelve of thirteen judgment-based skills (adversarial-diff-reviewer,
   acceptance-test-engineer, feature-planner, security-context-guard,
   architecture-decision, refactoring-safety, regression-hunter,
   release-readiness, dependency-supply-chain, engineering-knowledge-capture,
-  context-optimizer) scored 100% precision/recall against self-authored
-  ground truth; the twelfth (root-cause-analyzer) scored 7/8 perfect and
-  1/8 at 0.67/0.67 (L19). All outcomes are equally inconclusive about
-  real-world quality — self-authored, single-rater evidence either way.
-  The inter-rater-agreement experiment (A5) still has not been run for any
-  of the twelve.
+  context-optimizer, workflow-composer) scored 100% precision/recall
+  against self-authored ground truth; the thirteenth (root-cause-analyzer)
+  scored 7/8 perfect and 1/8 at 0.67/0.67 (L19). All outcomes are equally
+  inconclusive about real-world quality — self-authored, single-rater
+  evidence either way. The inter-rater-agreement experiment (A5) still has
+  not been run for any of the thirteen.
 - **L25/L26 (Phase 11)**: `dependency-supply-chain` has no live
   CVE/vulnerability-database lookup (L25, permanent scope decision — this
   project makes no network calls, ADR-006) and no per-dependency
@@ -356,6 +422,17 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   fixed — a real fix (TF-IDF-style down-weighting, or a
   keyword-specificity threshold) has not been evaluated against real
   evidence of need beyond this one dogfood run.
+- **L30 (new, Phase 14)**: `workflow-composer`'s real dogfood run found
+  the SAME mechanism class inside `feature-planner`'s own scorer this
+  time — composing with `feature-planner` (via `understand-then-plan`)
+  ranked a test file above every real implementation file relevant to the
+  task. `workflow-composer` itself has no keyword-scoring logic to blame;
+  it composes with `feature-planner` as-is and does not filter its
+  output. This is the THIRD real-dogfood-run instance of the same
+  mechanism class (after `architecture-decision`'s L21 and
+  `context-optimizer`'s L29), now confirmed present in the oldest
+  keyword-relevance engine in this portfolio (Phase 4), not just the
+  newest one. Disclosed, not fixed — same standing rationale as L29.
 - **The L14/L19/L21/L23/L24 substring-collision limitation class — status
   as of 2026-08-26: L23 FIXED, L24 PARTIALLY fixed, L14/L19/L21 still
   open.** `target_resolver.py`'s caller-identification bug (L23, shared
@@ -389,8 +466,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   deferred — revisit only if real usage shows they matter. L24 (Phase 10)
   is deferred for the same reason but flagged, above, as the strongest
   candidate yet to revisit soon.
-- No real (non-agent) engineer has used any of the thirteen skills yet —
-  Trust Status stays EXPERIMENTAL on all thirteen, and assumptions
+- No real (non-agent) engineer has used any of the fourteen skills yet —
+  Trust Status stays EXPERIMENTAL on all fourteen, and assumptions
   A2/A3/A5/A7/A10 in [[16-assumptions-and-validation]] remain only
   partially evidenced.
 
@@ -403,7 +480,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 3. [[implementation-status.md]]
 4. [[07-current-state]]
 5. `README.md` (root) — primary public-facing entry point
-6. `skills/context-optimizer/SKILL.md`,
+6. `skills/workflow-composer/SKILL.md`,
+   `skills/context-optimizer/SKILL.md`,
    `skills/engineering-knowledge-capture/SKILL.md`,
    `skills/dependency-supply-chain/SKILL.md`,
    `skills/release-readiness/SKILL.md`,
@@ -414,8 +492,10 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    `skills/security-context-guard/SKILL.md`, `skills/feature-planner/SKILL.md`,
    `skills/acceptance-test-engineer/SKILL.md`,
    `skills/adversarial-diff-reviewer/SKILL.md`, `skills/codebase-intelligence/SKILL.md`
-7. `examples/context-optimizer/example-run.md` (real dogfood, surfaced the
-   new L29 full-repository-scale keyword-flooding gap),
+7. `examples/workflow-composer/example-run.md` (real, non-dry-run
+   composed execution, surfaced the new L30 cross-skill keyword-flooding
+   finding), `examples/context-optimizer/example-run.md` (real dogfood,
+   surfaced the new L29 full-repository-scale keyword-flooding gap),
    `examples/engineering-knowledge-capture/example-run.md` (real dogfood,
    surfaced the new L28 line-vs-paragraph resolution gap),
    `examples/dependency-supply-chain/example-run.md` (real dogfood, confirms
@@ -427,11 +507,12 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Last updated
 
-2026-08-26 — Phase 13 (`context-optimizer`) shipped at the user's explicit
-direction, a THIRD one-time reopening of the same-day mentor-review freeze
-(after Phase 11, `dependency-supply-chain`, and Phase 12,
-`engineering-knowledge-capture`); Phase 14 onward remains frozen. Test
-count: 585 (up from 521). Earlier the same day, between Phase 11 and Phase
-12: the operating charter checked in at [[operating-charter]]
-(documentation only, no code/roadmap change; see
+2026-08-26 — Phase 14 (`workflow-composer`) shipped at the user's explicit
+direction, a FOURTH one-time reopening of the same-day mentor-review
+freeze (after Phase 11 `dependency-supply-chain`, Phase 12
+`engineering-knowledge-capture`, and Phase 13 `context-optimizer`) — the
+first to also directly override a named, phase-specific decision (A10);
+Phase 15 onward remains frozen. Test count: 636 (up from 585). Earlier the
+same day, between Phase 11 and Phase 12: the operating charter checked in
+at [[operating-charter]] (documentation only, no code/roadmap change; see
 [[12-known-limitations|L27]] for the disclosed section-numbering gap).

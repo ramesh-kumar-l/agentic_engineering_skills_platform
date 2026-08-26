@@ -1,0 +1,7 @@
+{
+  "engine_mode": "cli_unknown_template",
+  "cli_exit_code": 1,
+  "expected_categories": [
+    {"category": "unknown-template", "keywords": ["unknown template", "error", "exit"]}
+  ]
+}

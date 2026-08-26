@@ -1,0 +1,13 @@
+[project]
+name = "workflow-composer"
+version = "0.1.0"
+description = "Real-execution orchestrator backing the Workflow Composer skill. Sequences a small, hardcoded registry of previously-dogfooded skill-chain templates (each rooted in a required codebase-intelligence report, reusing ADR-010's pattern a tenth time), subprocess-invoking each downstream skill's real CLI and failing closed on any step's failure or a compatibility drift (ADR-020)."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

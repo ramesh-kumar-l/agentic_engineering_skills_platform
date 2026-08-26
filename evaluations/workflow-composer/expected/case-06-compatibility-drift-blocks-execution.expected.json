@@ -1,0 +1,9 @@
+{
+  "engine_mode": "fake_drift",
+  "dry_run": false,
+  "step_statuses": ["SKIPPED", "SKIPPED"],
+  "compatibility_issue_count": 1,
+  "expected_categories": [
+    {"category": "compatibility-drift", "keywords": ["drift", "compatibility", "blocked"]}
+  ]
+}

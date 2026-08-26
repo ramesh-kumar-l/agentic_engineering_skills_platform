@@ -65,7 +65,13 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   status either. Same date, Phase 13 (`context-optimizer`) was started
   the same way — a THIRD one-time user-directed exception to the same
   freeze, now deferred across three consecutive phase boundaries.
-  Building a thirteenth skill does not change this status either.
+  Building a thirteenth skill does not change this status either. Same
+  date, Phase 14 (`workflow-composer`) was started the same way — a
+  FOURTH one-time user-directed exception, now deferred across four
+  consecutive phase boundaries, and the first to also directly override a
+  named, phase-specific decision (A10's "do not build Workflow Composer
+  until Experiment B can be run"), not just the general freeze. Building a
+  fourteenth skill does not change this status either.
 - **Decision**: still required before claiming any skill is "Level 2 —
   Evaluated" *in the outcome sense* — codebase-intelligence,
   adversarial-diff-reviewer, and acceptance-test-engineer have each met the
@@ -253,8 +259,19 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   files whose scores were inflated purely by this project's own recurring
   documentation/evaluation-harness vocabulary, a new manifestation of the
   same coincidental-keyword-collision mechanism class `architecture-
-  decision`'s L14/L19/L21 first disclosed (L29). The inter-rater-agreement
-  experiment still has not been run for any of the twelve skills.
+  decision`'s L14/L19/L21 first disclosed (L29). Phase 14
+  (`workflow-composer`, 2026-08-26) is the thirteenth judgment-based skill
+  evaluated this way and also scored perfect precision/recall on all 8
+  fixtures (`evaluations/workflow-composer/RESULTS.md`) — same caveat,
+  thirteen for thirteen now. This phase's real dogfood run
+  (`examples/workflow-composer/example-run.md`) again surfaced a genuine,
+  newly-found limitation rather than proving new judgment quality: the
+  composed `feature-planner` step's own relevance scorer ranked a test
+  file above every real implementation file relevant to the task — the
+  same coincidental-keyword-collision mechanism class, now confirmed
+  present inside `feature-planner` itself, not just `context-optimizer`
+  (L30). The inter-rater-agreement experiment still has not been run for
+  any of the thirteen skills.
 
 ### A6: Engineers will tolerate the additional workflow
 
@@ -442,3 +459,28 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   suite being able to catch it, since each copy's tests are written
   against synthetic fixtures the same session authored. Status stays
   UNKNOWN.
+
+  **Phase 14 update (2026-08-26)**: `workflow-composer` was built anyway,
+  at the user's explicit direction, directly overriding this section's
+  own "do not build Workflow Composer (Phase 14) until Experiment B can
+  be run" decision — not because Experiment B became runnable or because
+  A2/A5 moved off `UNKNOWN`. This is the first phase in this project to
+  override a decision that named the overridden phase by number, not just
+  the general roadmap freeze; see `08-roadmap.md` and `11-decisions.md`
+  ADR-020 for the full process note. Once built, `workflow-composer`
+  produced a real, timed pilot run
+  (`examples/workflow-composer/example-run.md`): `understand-then-plan`
+  executed for real against this repo's own current state (2 real
+  subprocess steps, 2.31s total, zero compatibility issues) — genuine
+  evidence composition *executes correctly end-to-end when actually run*,
+  in the same shape as every prior phase's dogfood evidence above, and
+  per ADR-009 explicitly disclosed as a pilot, not Experiment B. The same
+  run also surfaced L30 in [[12-known-limitations]]: composing with
+  `feature-planner` inherits that skill's own keyword-flooding
+  susceptibility unfiltered (a test file outscored every relevant
+  implementation file) — a reason for the same measured caution about
+  composition's *content* reliability this section has named since
+  Phase 8 (L22), not just its execution reliability. Status stays
+  UNKNOWN — this phase is not new evidence for or against A10, only new
+  evidence that the freeze around it has now been overridden four
+  consecutive times, the last one specifically.

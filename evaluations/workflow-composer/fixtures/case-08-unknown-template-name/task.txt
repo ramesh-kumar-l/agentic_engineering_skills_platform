@@ -1,0 +1,3 @@
+Any task text — this case is about invoking the CLI with an unregistered
+template name ("not-a-real-template") and confirming it fails explicitly
+rather than silently no-op-ing.

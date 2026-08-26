@@ -1,0 +1,10 @@
+{
+  "engine_mode": "registry",
+  "template": "understand-then-plan",
+  "dry_run": true,
+  "step_statuses": ["PENDING", "PENDING"],
+  "compatibility_issue_count": 0,
+  "expected_categories": [
+    {"category": "template-fit", "keywords": ["understand-then-plan", "fits", "plan"]}
+  ]
+}

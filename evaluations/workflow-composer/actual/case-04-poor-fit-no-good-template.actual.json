@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "c4-1",
+      "category": "poor-fit",
+      "description": "Checklist item 1, applied honestly: this task (root-causing flaky CI) does not cleanly fit any of the 3 registered templates — none of them compose with root-cause-analyzer, and none produce a plan/test/context artifact this task actually needs. The engine has no template-selection logic of its own (the registry is looked up by name, not inferred), so running understand-then-plan anyway would be a forced fit. The checklist's own item 1 exists precisely to catch this: recommend running root-cause-analyzer individually instead of forcing a composition that doesn't fit.",
+      "grounding": "workflow_registry.REGISTRY only contains understand-then-plan/understand-then-test-plan/understand-then-optimize-context; none targets root-cause-analyzer, so none is a genuine fit for a root-cause investigation task.",
+      "assumptions": ""
+    }
+  ]
+}

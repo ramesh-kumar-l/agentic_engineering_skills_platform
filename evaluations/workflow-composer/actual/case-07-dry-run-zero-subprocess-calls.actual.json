@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "c7-1",
+      "category": "dry-run",
+      "description": "Checklist item 5 context (real run timing shouldn't be trusted blindly) applies in reverse here: with --dry-run, both steps report PENDING and no step output file is ever written, confirming the plan compiles (registry lookup + compatibility check) without spawning a single subprocess — useful for validating a template/task pairing cheaply before committing to a real, timed run.",
+      "grounding": "step_runner.run_step returns StepStatus.PENDING immediately when dry_run is True, before subprocess.run is ever called; verified no files exist under the case's out_dir after the run.",
+      "assumptions": ""
+    }
+  ]
+}

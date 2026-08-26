@@ -1122,3 +1122,127 @@ A5 remain `UNKNOWN`; starting this phase is not new external-validation
 evidence and is not presented as such, and this tension is now deferred
 across three consecutive phase boundaries (see
 [[16-assumptions-and-validation]]).
+
+---
+
+## ADR-020: `workflow-composer` reuses ADR-010's required-composition pattern a tenth time, is the first skill whose engine executes other skills' real code, and fails CLOSED on execution uncertainty — the opposite default from ADR-019
+
+**Decision**: `workflow-composer` (Phase 14) ships with a hardcoded
+registry of exactly 3 workflow templates
+(`understand-then-plan`, `understand-then-test-plan`,
+`understand-then-optimize-context`), every one of which requires a
+`codebase-intelligence` `report.json` as its first, mandatory step — the
+same hard-precondition discipline `feature-planner` (ADR-010) through
+`context-optimizer` (ADR-019) established. This is a **reuse** of
+ADR-010's rule a TENTH time. Four things are new and explicit:
+
+1. **First skill whose engine invokes other skills' real code.** Every
+   prior skill in this portfolio analyzes a static artifact
+   (`codebase-intelligence`'s report, a diff, a requirement, another
+   skill's own report). `workflow-composer` is the first whose
+   deliverable is composed *execution*: `step_runner.py` subprocess-runs
+   `python -m engine.cli ...` against each named skill's own directory
+   for real. Named explicitly as a new skill category, the same way
+   ADR-018 flagged `engineering-knowledge-capture`'s "documentation
+   artifact, not a code-risk judgment" category shift.
+2. **The registry is deliberately hardcoded, not a generic chainer.**
+   All 3 templates reuse a composition this project already ran for real
+   in an earlier phase's dogfood (`understand-then-plan` reuses Phase 4's;
+   `understand-then-test-plan` reproduces Phase 3's real Pilot B
+   composition, including its `TEXT_APPEND` wiring — `acceptance-test-
+   engineer`'s CLI has no `--ci-report`-style flag, confirmed by reading
+   its shipped `engine/cli.py`, not assumed; `understand-then-optimize-
+   context` reuses Phase 13's). A new template requires a code change and
+   a real dogfood run, not a config edit — this bounds the blast radius of
+   an untested composition being shipped as if validated.
+3. **`executor.py` fails CLOSED, not open — the opposite default from
+   ADR-019, on purpose.** `context-optimizer` (ADR-019, one phase earlier)
+   inverted this project's fail-closed-toward-caution convention because
+   under-recommending context was its cheaper-to-avoid failure. Here the
+   answer points back the normal direction: building further steps on top
+   of a failed or drifted upstream step is the expensive failure (wasted
+   compute, a corrupted or misleading downstream report), not the cheap
+   one — so a step's non-zero exit or malformed output stops the chain
+   immediately (remaining steps marked `SKIPPED`), and a pre-execution
+   `compatibility_checker.py` drift finding blocks all real execution
+   outright before any subprocess runs at all. Framed explicitly as the
+   *same* underlying principle as ADR-019 (fail toward whichever error is
+   cheaper to recover from) landing on the opposite default because the
+   cheaper error points the opposite way in this domain — not a silent
+   inconsistency with the phase immediately before it.
+4. **The compatibility checker is a textual drift guard, not real schema
+   validation.** It confirms the upstream skill's name still appears in
+   the downstream skill's SKILL.md Preconditions/Required Context
+   sections — cheap, real, and disclosed as unable to catch a wiring-mode
+   error (declaring `CLI_FLAG` for a skill whose CLI has no such flag) if
+   the marker string itself is still textually present; that class of bug
+   would only surface as a real subprocess failure at run time, which the
+   fail-closed executor still catches, just later than the pre-execution
+   gate would.
+
+A real dogfood run (`examples/workflow-composer/example-run.md`) against
+this repo's own current (fourteen-skill) state, using a real task
+description from this actual session, found a real, disclosed-not-fixed
+finding: `feature-planner`'s own relevance scorer (part of its real
+output, not something `workflow-composer` computes) ranked a test file
+(`skills/workflow-composer/tests/test_real_execution.py`) as the single
+highest-scoring file in the entire 1,010-file repository — ahead of every
+real engine implementation file relevant to the task. This is the same
+keyword-flooding mechanism class `architecture-decision` (L14/L19/L21)
+and `context-optimizer` (L29) already disclosed, but the first time it
+was observed directly inside `feature-planner`'s own scorer rather than
+`context-optimizer`'s — confirming the susceptibility is shared across
+every keyword-relevance engine in this portfolio, not specific to one
+skill's scorer design. `workflow-composer` composes with `feature-planner`
+as-is; it does not filter or improve the composed skill's own output —
+see [[12-known-limitations|L30]].
+
+- User Value: mechanizes a pattern this project's own engineers already
+  proved out by hand three separate times (Pilot B, Phase 4's dogfood,
+  Phase 13's dogfood) into a real, re-runnable chain, instead of a human
+  manually copying file paths between CLI invocations.
+- Correctness: every step result traces to a real subprocess exit code
+  and a real output file, never a simulated or assumed status; the
+  `--dry-run` path validates registry lookup and compatibility checking
+  without ever claiming a subprocess ran when it didn't.
+- Security: every composed skill stays read-only/advisory against the
+  target repo; this executor only ever writes report files under
+  `--out-dir`; no network calls; no shell/eval of caller-supplied
+  strings — every subprocess argv is built from typed `WorkflowStep`
+  fields.
+- Simplicity: reuses Pattern 2 (ADR-007, thirteenth reuse) and ADR-010
+  (tenth reuse) rather than inventing new architecture; the registry's
+  hardcoded scope is itself a simplicity choice over a generic composer.
+- Maintainability: engine files land under 300 lines each (max
+  `step_runner.py` at 152 lines), consistent with this project's
+  <300-line-per-file discipline, restated explicitly by the user when
+  directing this phase.
+- Portability: no cross-skill Python imports — every composed skill is
+  invoked as an isolated subprocess via its own CLI, the same boundary
+  every prior composing skill's `ci_report_loader.py`-style independent
+  copy already established, taken one step further (process isolation,
+  not just code isolation).
+- Evidence: L8 applies a thirteenth time (self-authored, single-rater
+  judgment-layer evaluation, perfect scores on all 8 fixtures — see
+  [[12-known-limitations]]); no assumption in
+  [[16-assumptions-and-validation]] is upgraded by shipping this skill —
+  A10 in particular stays `UNKNOWN` despite this phase directly overriding
+  its "do not build" decision (see Status below).
+- Future Evolution: L30's cross-skill keyword-flooding finding strengthens
+  (does not newly create) the case for eventually addressing the shared
+  mechanism class named across L14/L19/L21/L29/L30, rather than treating
+  each instance as isolated; not solved speculatively here.
+
+**Status**: Adopted. Note on process: this phase was started at the
+user's explicit direction on 2026-08-26, reopening the roadmap freeze a
+FOURTH time (Phase 11, Phase 12, and Phase 13 were the first three
+reopenings) — and, unlike those three, this reopening also directly
+overrides a **named, phase-specific** decision already on record:
+[[16-assumptions-and-validation]] A10 states "do not build Workflow
+Composer (Phase 14) until Experiment B can be run," and this ADR-009
+warns explicitly against letting an internal pilot substitute for that
+real experiment. A2, A5, and A10 all remain `UNKNOWN`; starting this
+phase is not new external-validation evidence for any of them and is not
+presented as such. This tension is now deferred across four consecutive
+phase boundaries, the first of which overrode a decision naming the
+overridden phase by number.

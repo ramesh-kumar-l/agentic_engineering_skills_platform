@@ -903,3 +903,67 @@ perfect score here says nothing about whether this skill's real-world
 recommendation quality is any better than the fixtures suggest, especially
 given L29's real dogfood finding above, which the small hand-authored
 fixtures did not and could not exercise. See [[16-assumptions-and-validation]] A5.
+
+## L30: composing with `feature-planner` inherits its keyword-flooding susceptibility unfiltered — a real dogfood run found a test file outscoring every relevant engine file in a full-repository run
+
+- **What failed**: A real dogfood run
+  (`examples/workflow-composer/example-run.md`) — `understand-then-plan`
+  executed for real against this repo's own current (fourteen-skill)
+  state, using a real task description from this actual session (Phase
+  14's own build task) — produced a real `feature-planner` report whose
+  `relevance.scores` ranked `skills/workflow-composer/tests/
+  test_real_execution.py` as the single **highest**-scoring file in the
+  entire 1,010-file repository (score 29), ahead of every real engine
+  implementation file relevant to the task, including `skills/workflow-
+  composer/engine/models.py` (score 25) and `skills/codebase-
+  intelligence/engine/models.py` (score 23).
+- **Why**: the same mechanism class as L14/L19/L21 (`architecture-
+  decision`) and L29 (`context-optimizer`) — a task description phrased
+  in this project's own recurring vocabulary ("workflow", "skill(s)",
+  "real", "CLIs", "plan", "into") scores heavily against test/doc
+  boilerplate that reuses the same words, not just against the files
+  genuinely central to the task. This is the first time this exact
+  mechanism was observed directly inside `feature-planner`'s own scorer
+  (built in Phase 4, the oldest keyword-relevance engine in this
+  portfolio) rather than `context-optimizer`'s — confirming the
+  susceptibility is shared across every keyword-relevance engine built
+  this general way in this project, not a property specific to one
+  skill's scorer design.
+- **Impact**: `workflow-composer` itself has no keyword-scoring logic of
+  its own to blame — `executor.py`/`compatibility_checker.py` worked
+  exactly as designed, the chain ran, both steps succeeded, no wiring
+  broke. But `workflow-composer` composes with `feature-planner` *as-is*;
+  it does not filter, re-rank, or otherwise improve the composed skill's
+  own output, and `WorkflowRunReport` does not currently surface a
+  reminder to also apply the composed skill's own Known Limitations
+  before trusting its content. A caller trusting `understand-then-plan`'s
+  step-2 output at face value would end up trusting a plan that leads
+  with a test file over the real implementation.
+- **Fix**: Not applied. Same "disclose, don't guess a fix from one data
+  point" discipline this project applied to L14/L18/L21/L22/L29 on first
+  discovery. This is now the THIRD real-dogfood-run instance of the same
+  underlying mechanism class (after `architecture-decision`'s L21 and
+  `context-optimizer`'s L29), which further sharpens — without yet being
+  new evidence that acting on it now is justified over the standing
+  roadmap freeze — the case for eventually addressing the shared
+  mechanism itself (TF-IDF-style corpus-common-term down-weighting)
+  rather than continuing to disclose new instances of it skill-by-skill.
+- **Regression prevention**: `examples/workflow-composer/example-run.md`
+  documents this explicitly; `SKILL.md`'s Known Limitations references it
+  under "composed skills' own known limitations pass through unfiltered."
+  A future fix to the shared mechanism (see L21/L29's own regression-
+  prevention notes) would benefit all three affected skills at once
+  (`architecture-decision`, `context-optimizer`, `feature-planner`)
+  rather than being re-solved independently per skill.
+
+## L8 update: now applying a thirteenth time, still perfect scores
+
+`workflow-composer`'s judgment-layer evaluation scored perfect
+precision/recall on all 8 fixtures. This is the thirteenth judgment-based
+skill evaluated this way; still self-authored, single-rater evidence — a
+perfect score here says nothing about whether this skill's real-world
+composition judgment (does a task actually fit a registered template, is
+a compatibility/chain-failure result trustworthy) is any better than the
+fixtures suggest, especially given L30's real dogfood finding above,
+which the small hand-authored fixtures did not and could not exercise.
+See [[16-assumptions-and-validation]] A5.

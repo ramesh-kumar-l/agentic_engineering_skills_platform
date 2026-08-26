@@ -1,0 +1,11 @@
+{
+  "engine_mode": "registry",
+  "template": "understand-then-plan",
+  "dry_run": true,
+  "step_statuses": ["PENDING", "PENDING"],
+  "compatibility_issue_count": 0,
+  "no_output_files": true,
+  "expected_categories": [
+    {"category": "dry-run", "keywords": ["dry-run", "subprocess", "no files"]}
+  ]
+}

@@ -1,0 +1,2 @@
+Define acceptance criteria for a new subtract(a, b) function before it's
+implemented, grounded in what already exists in the fixture repo.

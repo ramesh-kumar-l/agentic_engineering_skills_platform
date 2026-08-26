@@ -22,15 +22,19 @@ Replaced/updated in place, not appended to chronologically — see
 | dependency-supply-chain | Level 2 — Evaluated | EXPERIMENTAL | 46/46 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, tenth time — see [[12-known-limitations]] L8); see `evaluations/dependency-supply-chain/RESULTS.md` |
 | engineering-knowledge-capture | Level 2 — Evaluated | EXPERIMENTAL | 47/47 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eleventh time — see [[12-known-limitations]] L8); see `evaluations/engineering-knowledge-capture/RESULTS.md` |
 | context-optimizer | Level 2 — Evaluated | EXPERIMENTAL | 64/64 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, twelfth time — see [[12-known-limitations]] L8); real dogfood run found a new limitation (L29 — full-repository-scale keyword flooding); see `evaluations/context-optimizer/RESULTS.md` |
+| workflow-composer | Level 2 — Evaluated | EXPERIMENTAL | 51/51 passing (CLI test file written from the start, plus one genuinely real subprocess-based integration test) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, thirteenth time — see [[12-known-limitations]] L8); real dogfood run found a new limitation (L30 — `feature-planner`'s scorer floods too, confirming the mechanism class is cross-skill); see `evaluations/workflow-composer/RESULTS.md` |
 
-No other skill has any implementation yet. **585 total tests passing across
-all thirteen skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64),
-up from 521 after Phase 13 (`context-optimizer`, 2026-08-26) added the
-thirteenth skill — started at the user's explicit direction, a THIRD
-one-time reopening of the mentor-review pass's roadmap freeze, now deferred
-across three consecutive phase boundaries; A2/A5 remain UNKNOWN, this is not
-new external-validation evidence — see `12-known-limitations.md`,
-`11-decisions.md` (ADR-019), and `active-context.md`.
+No other skill has any implementation yet. **636 total tests passing across
+all fourteen skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64 + 51),
+up from 585 after Phase 14 (`workflow-composer`, 2026-08-26) added the
+fourteenth skill — started at the user's explicit direction, a FOURTH
+one-time reopening of the mentor-review pass's roadmap freeze, and the
+first to also directly override a named, phase-specific decision (A10's
+"do not build Workflow Composer until Experiment B can be run"), now
+deferred across four consecutive phase boundaries; A2/A5/A10 remain
+UNKNOWN, this is not new external-validation evidence — see
+`12-known-limitations.md`, `11-decisions.md` (ADR-020), and
+`active-context.md`.
 
 ## codebase-intelligence — component status
 
@@ -266,6 +270,24 @@ new external-validation evidence — see `12-known-limitations.md`,
 | Judgment-layer actual findings (`evaluations/context-optimizer/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/context-optimizer/`) | Done — real task description from this actual session, composed with a fresh codebase-intelligence report against this repo's current state; found and disclosed a new limitation (L29 — full-repository-scale keyword flooding) rather than confirming a known one |
 
+## workflow-composer — component status
+
+| Component | Status |
+|---|---|
+| `engine/models.py` | Done, tested — `WiringMode`/`StepStatus` enums, `WorkflowStep`/`WorkflowTemplate`/`StepResult`/`WorkflowRunReport`/`CompatibilityIssue` |
+| `engine/workflow_registry.py` | Done, tested — 3 hardcoded templates, each reusing a composition already run for real in an earlier phase's dogfood (Phase 4, Phase 3's Pilot B, Phase 13) |
+| `engine/skill_locator.py` | Done, tested — resolves a registry skill name to its real on-disk `engine/cli.py`; fails closed (`SkillNotFoundError`) if missing |
+| `engine/compatibility_checker.py` | Done, tested — textual drift guard: confirms the upstream skill's name still appears in the downstream skill's real SKILL.md Preconditions/Required Context sections |
+| `engine/step_runner.py` | Done, tested — owns the only `subprocess.run` call; builds each step's real CLI argv per its declared `WiringMode`; `TEXT_APPEND` mode reproduces Phase 3's real Pilot B composition (appends a CI excerpt into the requirement text, since `acceptance-test-engineer` has no `--ci-report`-style flag) |
+| `engine/executor.py` | Done, tested — sequences steps; fails CLOSED (ADR-020): a compatibility issue blocks all real execution outright, and any step's failure marks every remaining step SKIPPED |
+| `engine/stats.py` | Done, tested |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, tested — `--dry-run` validates the plan with zero subprocess calls; `--list-templates` prints the registry |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) a thirteenth time + reuses ADR-010 a tenth time + new ADR-020 (first skill executing other skills' real code, fail-closed execution default, hardcoded 3-template registry), includes agent-driven Step 4 workflow against the new Workflow Composition Checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment), all 8 perfect on both layers; deterministic layer mixes real registry-template runs (against a bundled tiny fixture repo) with fixture fake-skill runs (for deterministic fail-closed-path coverage) |
+| Judgment-layer actual findings (`evaluations/workflow-composer/actual/`) | Done — this session's agent's real Workflow Composition Checklist derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/workflow-composer/`) | Done — real, non-dry-run execution of `understand-then-plan` against this repo's own current (fourteen-skill) state, using this session's own real task description; found and disclosed a new limitation (L30 — `feature-planner`'s own scorer floods too, confirming L14/L19/L21/L29's mechanism class is shared across skills, not specific to `context-optimizer`) |
+
 ## Documentation & public-facing artifacts (added after Phase 5, not a phase)
 
 | Artifact | Status |
@@ -283,15 +305,14 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 14 onward, not
-  started; the roadmap freeze from the 2026-08-26 mentor-review pass still
-  applies to any further phase beyond Phase 13 (see [[08-roadmap]]).
-- Any reusable composed-workflow infrastructure across skills
-  (feature-planner, root-cause-analyzer, architecture-decision,
-  refactoring-safety, regression-hunter, and release-readiness all make
-  composition with codebase-intelligence mandatory at the single-skill
-  level, ADR-010/ADR-012/ADR-013/ADR-014/ADR-015/ADR-016 — this is not the
-  same as a multi-skill workflow engine, Phase 14).
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 15
+  (`engineering-memory`) onward, not started; the roadmap freeze from the
+  2026-08-26 mentor-review pass still applies to any further phase beyond
+  Phase 14 (see [[08-roadmap]]).
+- A generic, arbitrary multi-skill chainer. `workflow-composer` (Phase 14)
+  ships a real, execution-capable engine, but deliberately bounded to 3
+  hardcoded, previously-dogfooded templates (ADR-020) — not a config-driven
+  composer that can chain any two skills on demand.
 - Any UI.
 - Multi-runtime validation (only exercised via this session's agent so far).
 - Independent-rater evaluation for any of the ten judgment-based skills
@@ -330,16 +351,19 @@ this pass — test count and evaluation results are unchanged from the Phase
   via a real dogfood run, not scheduled; would need real evidence the
   recall gain is worth the precision risk before widening the window.
 - A corpus-vocabulary down-weighting fix (TF-IDF-style, or a minimum
-  keyword-specificity threshold) for `context-optimizer`'s
-  `relevance_scorer.py` (L29) — disclosed via a real dogfood run, not
-  scheduled; this is the second time this mechanism class has been hit on
-  a real dogfood run (after `architecture-decision`'s L21) without either
-  project having acted on it.
+  keyword-specificity threshold) shared across `architecture-decision`'s
+  `impact_scorer.py` (L21), `context-optimizer`'s `relevance_scorer.py`
+  (L29), and `feature-planner`'s `relevance_scorer.py` (L30) — disclosed
+  via three separate real dogfood runs now, not scheduled; the case for
+  addressing the shared mechanism class strengthens with each new
+  instance without yet being acted on.
 
 ## Last updated
 
-2026-08-26 — end of Phase 13 (`context-optimizer`). Started at the user's
-explicit direction, a THIRD one-time reopening of the mentor-review pass's
-roadmap freeze, now deferred across three consecutive phase boundaries; 585
-total tests passing across thirteen skills (up from 521). A2/A5 remain
-UNKNOWN — this phase is not new external-validation evidence.
+2026-08-26 — end of Phase 14 (`workflow-composer`). Started at the user's
+explicit direction, a FOURTH one-time reopening of the mentor-review
+pass's roadmap freeze — the first to also directly override a named,
+phase-specific decision (A10) rather than only the general freeze — now
+deferred across four consecutive phase boundaries; 636 total tests
+passing across fourteen skills (up from 585). A2/A5/A10 remain UNKNOWN —
+this phase is not new external-validation evidence.

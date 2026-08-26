@@ -41,10 +41,22 @@ deliberately inverts the fail-closed-toward-caution convention ADR-011/
 017/018 established into a fail-**open**-toward-inclusion default, since
 under-recommending context breaks a downstream task while
 over-recommending it only costs budget — see ADR-019 in [[11-decisions]]
-for the full rationale. At twelve consecutive reuses without a new
-base-pattern ADR, Pattern 2 is this project's settled default architecture
-for judgment-based skills, not a fresh per-skill choice each time — worth
-stating plainly rather than re-justifying from scratch every phase.
+for the full rationale, and reused a **thirteenth** time in Phase 14
+(`workflow-composer`), which reuses the mandatory-composition rule a
+tenth time (every registered template's first step is a required
+`codebase-intelligence` report) and adds a new decision (ADR-020): the
+first skill in this portfolio whose engine actually invokes other
+skills' real code via subprocess rather than only analyzing static
+artifacts, and one that deliberately fails **closed** on execution
+uncertainty — the opposite default from ADR-019's content-inclusion
+inversion one phase earlier, framed explicitly as the same underlying
+principle (fail toward the cheaper-to-recover-from error) pointing the
+normal direction in this domain, not a silent reversal — see ADR-020 in
+[[11-decisions]] for the full rationale. At thirteen consecutive reuses
+without a new base-pattern ADR, Pattern 2 is this project's settled
+default architecture for judgment-based skills, not a fresh per-skill
+choice each time — worth stating plainly rather than re-justifying from
+scratch every phase.
 
 ## Pattern: SKILL.md + optional deterministic engine
 

@@ -206,6 +206,38 @@ generally, now deferred across three consecutive phase boundaries. Phase
 14 onward remains frozen. See
 [`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 
+**Phase 14 — Workflow Composer** (complete): fourteenth skill —
+`skills/workflow-composer/` — reusing the same pattern a thirteenth time,
+but the first skill whose deliverable is composed **execution**, not
+analysis: subprocess-runs a small, hardcoded registry of exactly 3
+workflow templates (each reusing a composition this project already ran
+for real in an earlier phase's dogfood — Phase 4's, Phase 3's real Pilot
+B, and Phase 13's), every one rooted in a required
+`codebase-intelligence` report (ADR-010, tenth reuse), evaluated on 8
+fixtures (all 8 scored perfect on both layers) plus a real, non-dry-run
+execution against this repo's own current state. New **ADR-020** —
+composing on `codebase-intelligence`'s output a tenth time, and an
+explicit fail-**CLOSED** default on execution uncertainty (a
+compatibility-check drift blocks all real execution outright; any step's
+failure stops the chain) — the opposite default from Phase 13's ADR-019,
+reconciled explicitly as the same underlying principle landing on the
+normal side because the cheaper error points the other way in this
+domain. The real run found a new, disclosed-not-fixed limitation (L30):
+the composed `feature-planner` step's own relevance scorer ranked a test
+file above every real implementation file relevant to the task — the
+same mechanism class `architecture-decision`'s L14/L19/L21 and
+`context-optimizer`'s L29 already disclosed, now confirmed present inside
+`feature-planner` itself.
+**Process note**: this is a FOURTH same-day reopening of the same
+mentor-review freeze, at the user's explicit direction, and the FIRST to
+also directly override a named, phase-specific decision on record
+(`16-assumptions-and-validation.md` A10's "do not build Workflow Composer
+until Experiment B can be run") — again a one-time exception, not new
+evidence, and not precedent that the freeze or a named decision
+auto-lifts generally, now deferred across four consecutive phase
+boundaries. Phase 15 onward remains frozen. See
+[`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
+
 ## How phases work here
 
 Phases are executed one at a time, each ending in a completion report and a

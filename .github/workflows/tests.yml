@@ -26,6 +26,7 @@ jobs:
           - release-readiness
           - root-cause-analyzer
           - security-context-guard
+          - workflow-composer
     steps:
       - uses: actions/checkout@v4
 

@@ -1,0 +1,4 @@
+Synthetic case for the compatibility-drift guard: the fake downstream
+skill fixture has no SKILL.md at all, so the declared upstream_context_marker
+can never be found — the drift check must block all real execution before
+any subprocess runs.

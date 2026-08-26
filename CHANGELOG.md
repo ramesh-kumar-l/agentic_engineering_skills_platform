@@ -7,6 +7,44 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 14: Workflow Composer — fourteenth skill
+  (`skills/workflow-composer/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) a thirteenth time — a deterministic engine (12 modules, each
+  under 300 lines, max 152, 51 passing tests including a CLI test file
+  written from the start plus one genuinely real subprocess-based
+  integration test) that composes on a required `codebase-intelligence`
+  report (ADR-010, tenth reuse) as the first step of every one of its 3
+  hardcoded workflow templates (`understand-then-plan`,
+  `understand-then-test-plan`, `understand-then-optimize-context`, each
+  reusing a composition already run for real in an earlier phase's
+  dogfood), then actually subprocess-executes each downstream skill's
+  real CLI — the first skill in the portfolio whose deliverable is
+  composed execution, not analysis; 13th-checklist agent workflow
+  (Workflow Composition Checklist,
+  `project-memory-bank/05-evaluation-framework.md`); an 8-fixture
+  evaluation harness (`evaluations/workflow-composer/`, all 8 scored
+  perfect on both layers, mixing real registry-template runs with fixture
+  fake-skill runs for deterministic fail-closed-path coverage); and a
+  real, non-dry-run dogfood run (`examples/workflow-composer/`) executing
+  `understand-then-plan` against this repo's own current (fourteen-skill)
+  state that found a new, disclosed-not-fixed limitation (L30: the
+  composed `feature-planner` step's own relevance scorer ranked a test
+  file above every real implementation file relevant to the task,
+  confirming the same keyword-flooding mechanism class `architecture-
+  decision`'s L14/L19/L21 and `context-optimizer`'s L29 already disclosed
+  is present inside `feature-planner` itself). New architectural decision
+  — **ADR-020**: required composition reused a tenth time; first skill
+  whose engine invokes other skills' real code via subprocess; fails
+  CLOSED on execution uncertainty — the opposite default from ADR-019,
+  reconciled explicitly as the same underlying principle landing on the
+  normal side because the cheaper error points the other way in this
+  domain. Started at the user's explicit direction, a FOURTH same-day
+  reopening of the mentor-review roadmap freeze (after Phase 11, Phase
+  12, and Phase 13) and the first to also directly override a named,
+  phase-specific decision (A10's "do not build Workflow Composer until
+  Experiment B can be run"); not new external-validation evidence.
+  Platform test count: 636 (up from 585).
+
 - Phase 13: Context Optimizer — thirteenth skill
   (`skills/context-optimizer/`): `SKILL.md` contract reusing Pattern 2
   (ADR-007) a twelfth time — a deterministic engine (12 modules, each

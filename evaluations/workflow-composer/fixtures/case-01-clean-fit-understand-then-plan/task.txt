@@ -1,0 +1,2 @@
+Add a subtract(a, b) helper next to add() in main.py, then produce a feature
+plan for wiring it into the rest of the tiny fixture repo.

@@ -445,3 +445,35 @@ cannot perform itself — recognizing a *missing* file requires
 understanding the task's real intent, not just literal keyword overlap
 with what already scored above zero) — it forces the agent to actively
 look for a gap, not just review what the engine already surfaced.
+
+## Workflow Composition Checklist
+
+Thirteenth checklist, for `workflow-composer` (Phase 14). Shaped like
+every checklist before it (a decision-gate, not a coverage-enumeration
+list) since this skill's job is deciding whether a real, composed run is
+actually trustworthy, not enumerating independent findings:
+
+```
+1. Task actually fits one of the 3 registered templates (not forced)
+2. Compatibility check result reviewed - any flagged drift investigated
+   before trusting real execution
+3. Each step's own Human Checkpoints (from its SKILL.md) still apply -
+   composition doesn't imply full autonomy
+4. Chain-failure handling reviewed if any step returned FAILED/SKIPPED
+5. Real run timing/output sanity-checked, not assumed correct because the
+   chain completed
+6. Explicit reminder: this pilot's timing data is not Experiment B
+   (ADR-009) - never cite it as validating A10
+```
+
+Category 6 is this checklist's fail-under-uncertainty item, but unlike
+the Context Optimization Checklist's category 7 immediately above, it
+does not name a fail-open-vs-fail-closed default at all — it exists
+because `workflow-composer` produces real, timed evidence (ADR-020's
+subject is fail-**closed** execution safety, not a content-inclusion
+question), and the single most likely misuse of that evidence is citing
+it as more than it is. Category 1 is this checklist's version of the
+Context Optimization Checklist's category 2 (a check the engine
+structurally cannot perform itself — the registry has no template-fit
+scoring of its own; see `SKILL.md` Known Limitations) — it forces the
+agent to judge fit before running, not just review what ran.

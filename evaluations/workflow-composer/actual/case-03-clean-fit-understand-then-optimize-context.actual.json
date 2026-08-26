@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "c3-1",
+      "category": "template-fit",
+      "description": "Checklist item 1: the task is literally asking which files to load before starting work — this is context-optimizer's exact purpose, composed on a fresh codebase-intelligence report of the tiny repo via its --ci-report flag.",
+      "grounding": "workflow_registry.REGISTRY['understand-then-optimize-context']; context-optimizer/SKILL.md Preconditions names codebase-intelligence's report.json as a hard precondition, matching the CLI_FLAG wiring declared on this step.",
+      "assumptions": ""
+    }
+  ]
+}

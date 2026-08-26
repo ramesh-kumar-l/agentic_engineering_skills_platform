@@ -1,0 +1,2 @@
+Investigate why the CI pipeline has been flaky on Tuesdays for the last
+three weeks and write up a root-cause hypothesis.

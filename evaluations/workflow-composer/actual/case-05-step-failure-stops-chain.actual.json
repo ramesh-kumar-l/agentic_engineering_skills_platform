@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "c5-1",
+      "category": "chain-failure",
+      "description": "Checklist item 4 (chain-failure handling reviewed): step 2 failed (TRIGGER_FAIL in the task text causes the fake downstream fixture to exit 1), and step 3 is correctly marked SKIPPED rather than run on top of a failed step's absent output — the ADR-020 fail-closed default held. Step 1 (skill-a) is unaffected and stayed OK.",
+      "grounding": "executor.run_workflow sets chain_broken=True on the first StepStatus.FAILED result and marks every subsequent step SKIPPED without calling run_step again — verified directly against the real WorkflowRunReport.step_results for this case.",
+      "assumptions": ""
+    }
+  ]
+}

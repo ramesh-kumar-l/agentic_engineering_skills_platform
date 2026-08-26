@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "c1-1",
+      "category": "template-fit",
+      "description": "Checklist item 1 (task actually fits one of the 3 registered templates): the task asks for a feature plan for a new function, which is exactly understand-then-plan's shape — codebase-intelligence grounds feature-planner's --ci-report input in the tiny repo's real file list, not a guess. No forcing needed.",
+      "grounding": "workflow_registry.REGISTRY['understand-then-plan'].description; feature-planner's own Required Context section states composition with codebase-intelligence is a hard precondition (ADR-010), matching this task's need for a plan grounded in the real repo.",
+      "assumptions": ""
+    }
+  ]
+}

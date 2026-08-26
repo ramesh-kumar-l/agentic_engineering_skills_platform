@@ -1,0 +1,4 @@
+TRIGGER_FAIL — synthetic task text that forces the fake downstream skill
+fixture to exit non-zero, so the fail-closed chain-stopping behavior can be
+exercised deterministically without depending on a real skill actually
+failing.

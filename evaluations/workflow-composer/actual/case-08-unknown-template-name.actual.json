@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "c8-1",
+      "category": "unknown-template",
+      "description": "An unregistered template name is an explicit, actionable CLI error (exit code 1, listing the known template names) rather than a silent no-op or a crash — matching this project's standing discipline of failing loudly and specifically on invalid input rather than guessing.",
+      "grounding": "engine/cli.py: get_template(args.template) is None triggers 'error: unknown template ... (known: ...)' on stderr and returns 1.",
+      "assumptions": ""
+    }
+  ]
+}

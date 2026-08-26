@@ -1,0 +1,3 @@
+Add a subtract(a, b) helper next to add() in main.py. (Run with --dry-run —
+this case checks that dry-run compiles a valid plan without spawning any
+subprocess or writing any step output file.)

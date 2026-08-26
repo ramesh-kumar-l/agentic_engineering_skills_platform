@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "c6-1",
+      "category": "compatibility-drift",
+      "description": "Checklist item 2 (compatibility check result reviewed): the fixture's downstream skill has no SKILL.md at all, so the declared upstream_context_marker can never be confirmed present — the compatibility checker correctly flags exactly one issue, and real execution is blocked outright (both steps SKIPPED) rather than proceeding on a wiring assumption that might no longer hold. This is the case that most directly demonstrates ADR-020's fail-closed default is not just a step-failure behavior but also a pre-execution gate.",
+      "grounding": "compatibility_checker.check_template returns one CompatibilityIssue when the downstream skill's SKILL.md is missing entirely; executor.run_workflow refuses to run any step when compatibility_issues is non-empty and dry_run is False.",
+      "assumptions": ""
+    }
+  ]
+}

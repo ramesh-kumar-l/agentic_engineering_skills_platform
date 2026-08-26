@@ -1,0 +1,9 @@
+{
+  "engine_mode": "fake_failure",
+  "dry_run": false,
+  "step_statuses": ["OK", "FAILED", "SKIPPED"],
+  "compatibility_issue_count": 0,
+  "expected_categories": [
+    {"category": "chain-failure", "keywords": ["failed", "skipped", "stops"]}
+  ]
+}

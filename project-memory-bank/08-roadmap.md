@@ -33,8 +33,14 @@ PHASE 13 — Context Optimizer                  ← COMPLETE (this phase; starte
                                                   direction, a THIRD
                                                   same-day-freeze reopening —
                                                   not new validation evidence)
-PHASE 14 — Workflow Composer                  ← frozen, same as before Phase 13
-PHASE 15 — Engineering Memory
+PHASE 14 — Workflow Composer                  ← COMPLETE (this phase; started
+                                                  at the user's explicit
+                                                  direction, a FOURTH
+                                                  same-day-freeze reopening,
+                                                  the first to also override
+                                                  A10 by name — not new
+                                                  validation evidence)
+PHASE 15 — Engineering Memory                  ← frozen, same as before Phase 14
 ```
 
 Each phase ends with a completion report and a hard STOP for user instruction
@@ -613,3 +619,69 @@ future session should weigh that explicitly before starting Phase 14, and
 should not read Phase 11, Phase 12, or Phase 13 shipping as precedent that
 the freeze auto-lifts on request alone without the user again making that
 call explicitly, each time.
+
+## Phase 14 — Workflow Composer (COMPLETE, 2026-08-26)
+
+Per the roadmap's own phase list and full target skill portfolio
+(`Advanced`: dependency-supply-chain-reviewer, engineering-knowledge-
+capture, context-optimizer, workflow-composer, engineering-memory), Phase
+14 was proposed as **Workflow Composer** — the fourth skill in the
+`Advanced` group.
+
+**How this actually started**: exactly as predicted in the "Phase 14
+onward" note directly above — the freeze from before Phase 11 was still
+in force, and the case for investing in L8/A5 instead of a fourteenth
+skill was not weaker. The user then explicitly directed starting Phase 14
+anyway, with their own stated exit criteria (same shape as Phase 11's,
+12's, and 13's: "same bar," first skill composing on
+`codebase-intelligence`'s output — not literally true, the thirteenth
+Pattern 2 reuse and tenth ADR-010 reuse, stated plainly in
+[[03-architecture]]/[[11-decisions]] — "scalable and production-level
+stable"). Unlike Phase 11-13's reopenings, this one also directly
+overrides a **named, phase-specific** decision already on record:
+[[16-assumptions-and-validation]] A10 explicitly said "do not build
+Workflow Composer (Phase 14) until Experiment B can be run." This is a
+**fourth**, one-time, user-authorized exception to the freeze — and the
+first one that overrides a decision naming the overridden phase by number
+— not evidence A2/A5/A10 moved off `UNKNOWN`, recorded here honestly, the
+same way Phase 11's, 12's, and 13's exceptions were, rather than presented
+as if the freeze's or A10's conditions were newly met.
+
+**What shipped**: `workflow-composer` — the first skill in the portfolio
+whose deliverable is composed **execution**, not analysis. A deterministic
+engine subprocess-sequences a small, hardcoded registry of exactly 3
+workflow templates (`understand-then-plan`, `understand-then-test-plan`,
+`understand-then-optimize-context`), each reusing a composition this
+project already ran for real in an earlier phase's dogfood
+(Phase 4's, Phase 3's real Pilot B, and Phase 13's, respectively), every
+one rooted in a required `codebase-intelligence` report (ADR-010, tenth
+reuse). 51 tests, 8/8 evaluation fixtures on both layers. New ADR-020
+documents the required-composition reuse, this skill's status as the
+first to invoke other skills' real code, and this phase's headline
+architectural decision: failing **CLOSED** on execution uncertainty (a
+compatibility-check drift blocks all real execution outright; any step's
+failure stops the chain) — the opposite default from ADR-019's
+content-inclusion inversion one phase earlier, explicitly framed as the
+same underlying principle (fail toward the cheaper-to-recover-from error)
+landing on the normal side because the cheaper error points the other way
+in this domain. A real, non-dry-run execution against this repo's own
+current state found a new, disclosed-not-fixed limitation (L30):
+`feature-planner`'s own relevance scorer, composed via
+`understand-then-plan`, ranked a test file above every real implementation
+file relevant to the task — the same coincidental-keyword-collision
+mechanism class `architecture-decision`'s L14/L19/L21 and
+`context-optimizer`'s L29 already disclosed, now confirmed present inside
+`feature-planner` itself, not just `context-optimizer`'s scorer.
+
+**Phase 15 onward**: the freeze from before Phase 11 remains in force, now
+for a fourth consecutive phase boundary. The case for investing a phase in
+the independent-evidence gap (L8/A5) before a fifteenth skill is at least
+as strong as it was at the Phase 11, Phase 12, Phase 13, and Phase 14
+boundaries — a future session should weigh that explicitly before starting
+Phase 15, and should not read Phase 11, Phase 12, Phase 13, or Phase 14
+shipping as precedent that the freeze auto-lifts on request alone without
+the user again making that call explicitly, each time. Phase 14
+specifically should also not be read as evidence that a named,
+phase-specific "do not build" decision (like A10's) can be routinely
+overridden by request — this was recorded as a one-time exception, not a
+new standing rule.
