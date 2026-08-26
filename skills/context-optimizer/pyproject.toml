@@ -1,0 +1,13 @@
+[project]
+name = "context-optimizer"
+version = "0.1.0"
+description = "Deterministic file-relevance and context-budget engine backing the Context Optimizer skill. Given a task description and a real codebase-intelligence report, recommends which files an agent should actually load into context, ranked by relevance and structural signal, optionally within a line budget. Composes on top of codebase-intelligence's report.json (required precondition, reusing ADR-010's pattern a ninth time)."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

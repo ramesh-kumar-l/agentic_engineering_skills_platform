@@ -407,3 +407,41 @@ itself the skill's actual deliverable (drafting the entry) rather than a
 verdict about code — the checklist doesn't end at "recommend," it ends at
 "produce the artifact," reflecting ADR-018's "documentation artifact, not
 a code-risk judgment" framing.
+
+## Context Optimization Checklist
+
+Twelfth checklist, for `context-optimizer` (Phase 13). Shaped like the
+Security Decision Checklist, the Dependency Risk Checklist, and the
+Knowledge Capture Checklist (a decision-gate, not a coverage-enumeration
+list) since this skill's job is producing one recommendation per task
+(what to load), not enumerating independent findings:
+
+```
+1. Task scope stated (what is the agent about to actually do?)
+2. CORE tier reviewed for completeness - any obviously-needed file that
+   keyword matching wouldn't catch (a semantic-gap check the engine
+   cannot do itself)
+3. SUPPORTING tier reviewed for genuine value vs. noise
+4. Oversized-single-file flags reviewed - consider an excerpt/summary
+   instead of full inclusion (the modularity callback)
+5. Budget honesty check - if a budget was applied, confirm nothing
+   load-bearing was silently excluded
+6. Duplicate/redundant coverage check (two files recommended that cover
+   the same ground)
+7. Explicit uncertainty flag - a low-but-nonzero relevance score still
+   earns at least SUPPORTING, and this item says so, never silently
+   narrowing further
+```
+
+Category 7 is this checklist's fail-under-uncertainty item, same
+convention as every checklist before it — but, uniquely among this
+portfolio's checklists so far, it names a fail-**OPEN** (toward
+inclusion) default rather than a fail-closed (toward caution) one, per
+ADR-019's inversion of the ADR-011/017/018 convention: here, silently
+excluding a needed file is the worse failure, not silently including an
+unimportant one. Category 2 is this checklist's version of the
+Knowledge Capture Checklist's category 5 (a check the engine structurally
+cannot perform itself — recognizing a *missing* file requires
+understanding the task's real intent, not just literal keyword overlap
+with what already scored above zero) — it forces the agent to actively
+look for a gap, not just review what the engine already surfaced.

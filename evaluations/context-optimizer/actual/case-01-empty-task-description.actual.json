@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c1-1",
+      "category": "warning",
+      "description": "Task scope check (Checklist item 1) correctly fails: the task description is empty, so there is nothing to score keywords against. The engine produces no recommendations and an explicit warning rather than fabricating a plausible-looking file list from no real signal — the right behavior here is abstaining, not guessing.",
+      "grounding": "report.py: task_description.strip() is falsy, so build_report appends the 'Task description is empty' warning and never enters the per-file scoring loop (keywords is [] via extract_keywords(''))."
+    }
+  ]
+}

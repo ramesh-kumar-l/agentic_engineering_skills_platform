@@ -1,0 +1,18 @@
+{
+  "root_path": "/repo",
+  "files": [
+    {"path": "engine/alpha.py", "language": "python", "size_bytes": 600, "line_count": 30},
+    {"path": "engine/beta.py", "language": "python", "size_bytes": 800, "line_count": 40},
+    {"path": "engine/gamma.py", "language": "python", "size_bytes": 500, "line_count": 25}
+  ],
+  "modules": [
+    {"path": "engine/alpha.py", "docstring": null, "functions": [], "classes": [], "imports": []},
+    {"path": "engine/beta.py", "docstring": null, "functions": [], "classes": [], "imports": []},
+    {"path": "engine/gamma.py", "docstring": null, "functions": [], "classes": [], "imports": []}
+  ],
+  "dependency_graph": {
+    "fan_in": {},
+    "fan_out": {},
+    "hotspots": ["engine/alpha.py"]
+  }
+}

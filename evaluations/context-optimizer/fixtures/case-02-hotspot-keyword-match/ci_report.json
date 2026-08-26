@@ -1,0 +1,15 @@
+{
+  "root_path": "/repo",
+  "files": [
+    {"path": "engine/scanner.py", "language": "python", "size_bytes": 800, "line_count": 40}
+  ],
+  "modules": [
+    {"path": "engine/scanner.py", "docstring": "Scans the repository for known risk patterns.",
+     "functions": ["scan"], "classes": [], "imports": []}
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/scanner.py": 9},
+    "fan_out": {},
+    "hotspots": ["engine/scanner.py"]
+  }
+}

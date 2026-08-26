@@ -62,7 +62,10 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   (`engineering-knowledge-capture`) was started the same way — a second,
   one-time user-directed exception to the same freeze, not new evidence
   A2 moved off UNKNOWN. Building a twelfth skill does not change this
-  status either.
+  status either. Same date, Phase 13 (`context-optimizer`) was started
+  the same way — a THIRD one-time user-directed exception to the same
+  freeze, now deferred across three consecutive phase boundaries.
+  Building a thirteenth skill does not change this status either.
 - **Decision**: still required before claiming any skill is "Level 2 —
   Evaluated" *in the outcome sense* — codebase-intelligence,
   adversarial-diff-reviewer, and acceptance-test-engineer have each met the
@@ -239,8 +242,19 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   every candidate in the real run resolved to no location at all, because
   `location_resolver.py` only checks the exact matched line, not the
   surrounding paragraph a real narrative's module mention typically sits in
-  (L28). The inter-rater-agreement experiment still has not been run for any
-  of the eleven skills.
+  (L28). Phase 13 (`context-optimizer`, 2026-08-26) is the twelfth
+  judgment-based skill evaluated this way and also scored perfect
+  precision/recall on all 8 fixtures
+  (`evaluations/context-optimizer/RESULTS.md`) — same caveat, twelve for
+  twelve now. This phase's real dogfood run
+  (`examples/context-optimizer/example-run.md`) again surfaced a genuine,
+  newly-found limitation rather than proving new judgment quality: at
+  full-repository scale, 5 of 17 CORE-tier recommendations were unrelated
+  files whose scores were inflated purely by this project's own recurring
+  documentation/evaluation-harness vocabulary, a new manifestation of the
+  same coincidental-keyword-collision mechanism class `architecture-
+  decision`'s L14/L19/L21 first disclosed (L29). The inter-rater-agreement
+  experiment still has not been run for any of the twelve skills.
 
 ### A6: Engineers will tolerate the additional workflow
 

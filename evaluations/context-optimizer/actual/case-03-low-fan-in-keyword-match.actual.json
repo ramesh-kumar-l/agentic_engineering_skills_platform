@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c3-1",
+      "category": "supporting",
+      "description": "SUPPORTING tier review (Checklist item 3): `engine/stats.py` is a real, literal keyword match ('stats') but has low fan_in (1) and is not a hotspot, so it correctly lands as SUPPORTING rather than CORE — a genuine, if modest, signal, not noise. Nothing about this file's structural profile argues for escalating it.",
+      "grounding": "relevance_scorer.score_relevance matches 'stats' against the path only (+3, no docstring/name hit since the docstring says 'statistics' not 'stats'); structural_booster adds no boost since fan_in=1 is below HIGH_FAN_IN_THRESHOLD (3) and the file is not a hotspot; total score 3 < CORE_THRESHOLD (5)."
+    }
+  ]
+}

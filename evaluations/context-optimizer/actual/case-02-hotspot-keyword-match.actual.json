@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c2-1",
+      "category": "core",
+      "description": "CORE tier review (Checklist item 2): `engine/scanner.py` is the one real candidate, correctly promoted to CORE. The task literally names 'the scanner module', which matches the file's path; the composed codebase-intelligence report independently confirms it is a real hotspot with fan_in=9, so the structural boost is grounded in real data, not just the narrative wording. This is exactly the positive case this skill's composition on codebase-intelligence exists for.",
+      "grounding": "relevance_scorer.score_relevance matches the keyword 'scanner' against engine/scanner.py's path tokens (+3); structural_booster.apply_structural_boost adds HOTSPOT_BOOST (+3) because the path is in dependency_graph.hotspots; total score 6 >= CORE_THRESHOLD (5)."
+    }
+  ]
+}

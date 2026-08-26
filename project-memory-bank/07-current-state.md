@@ -7,10 +7,11 @@ this before any other memory file when starting new work. For finer-grained
 
 _Last updated: 2026-08-24 — end of Phase 10. **Superseded in part by
 2026-08-26 events (mentor-review follow-up + Phase 11,
-`dependency-supply-chain` + Phase 12, `engineering-knowledge-capture`) —
-see [[active-context.md]] for the current picture; this file's detailed
-Phase 10 walkthrough below is still accurate for Phases 1-10, but test
-counts and "Phase 11 proposed next" language are stale.**_
+`dependency-supply-chain` + Phase 12, `engineering-knowledge-capture` +
+Phase 13, `context-optimizer`) — see [[active-context.md]] for the current
+picture; this file's detailed Phase 10 walkthrough below is still
+accurate for Phases 1-10, but test counts and "Phase 11 proposed next"
+language are stale.**_
 
 ## Repository contents
 
@@ -28,7 +29,8 @@ blogs/                     5-post public technical blog series + index README (p
 project-memory-bank/       This memory bank (see below)
 skills/codebase-intelligence/       Skill 1 — SKILL.md + Python engine
 skills/adversarial-diff-reviewer/   Skill 2 — SKILL.md + Python engine + agent workflow
-skills/engineering-knowledge-capture/  Skill 12 — SKILL.md + Python engine + agent workflow (Phase 12, NEW 2026-08-26)
+skills/engineering-knowledge-capture/  Skill 12 — SKILL.md + Python engine + agent workflow (Phase 12, 2026-08-26)
+skills/context-optimizer/          Skill 13 — SKILL.md + Python engine + agent workflow (Phase 13, NEW 2026-08-26)
 skills/acceptance-test-engineer/    Skill 3 — SKILL.md + Python engine + agent workflow
 skills/feature-planner/             Skill 4 — SKILL.md + Python engine + agent workflow, required composition (ADR-010)
 skills/security-context-guard/      Skill 5 — SKILL.md + Python engine + agent workflow, optional composition, advisory-only verdict (ADR-011)
@@ -451,12 +453,13 @@ caller-list display (L24).
 
 ## Immediate next decision point
 
-**Superseded** — Phase 11 (`Dependency / Supply Chain`) and Phase 12
-(`Engineering Knowledge Capture`) both shipped 2026-08-26 at the user's
-explicit direction (see [[active-context.md]] for the full account), not
-because the independent-evidence gap (L8/A5) closed. Phase 13 onward
-remains frozen under the same rule this section originally described:
-re-justify against real external validation evidence before starting, not
-the next portfolio item by default. The case for investing a phase in
-L8/A5 instead of a thirteenth skill remains at least as strong as it was
-at the Phase 11 and Phase 12 boundaries.
+**Superseded** — Phase 11 (`Dependency / Supply Chain`), Phase 12
+(`Engineering Knowledge Capture`), and Phase 13 (`Context Optimizer`) all
+shipped 2026-08-26 at the user's explicit direction (see
+[[active-context.md]] for the full account), not because the
+independent-evidence gap (L8/A5) closed. Phase 14 onward remains frozen
+under the same rule this section originally described: re-justify against
+real external validation evidence before starting, not the next portfolio
+item by default. The case for investing a phase in L8/A5 instead of a
+fourteenth skill remains at least as strong as it was at the Phase 11,
+Phase 12, and Phase 13 boundaries.

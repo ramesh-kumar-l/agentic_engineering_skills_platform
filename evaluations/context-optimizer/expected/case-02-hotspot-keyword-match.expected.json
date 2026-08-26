@@ -1,0 +1,8 @@
+{
+  "recommended_paths": ["engine/scanner.py"],
+  "tiers": {"engine/scanner.py": "CORE"},
+  "oversized_alone_paths": [],
+  "expected_categories": [
+    {"category": "core", "keywords": ["hotspot", "scanner", "fan_in"]}
+  ]
+}

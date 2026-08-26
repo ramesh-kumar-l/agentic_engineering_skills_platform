@@ -23,13 +23,17 @@ PHASE 11 — Dependency / Supply Chain          ← COMPLETE (this phase; starte
                                                   direction, reopening a
                                                   same-day roadmap freeze —
                                                   not new validation evidence)
-PHASE 12 — Knowledge Capture                  ← COMPLETE (this phase; started
+PHASE 12 — Knowledge Capture                  ← COMPLETE (started at the
+                                                  user's explicit direction,
+                                                  a SECOND same-day-freeze
+                                                  reopening — not new
+                                                  validation evidence)
+PHASE 13 — Context Optimizer                  ← COMPLETE (this phase; started
                                                   at the user's explicit
-                                                  direction, a SECOND
+                                                  direction, a THIRD
                                                   same-day-freeze reopening —
                                                   not new validation evidence)
-PHASE 13 — Context Optimizer                  ← frozen, same as before Phase 12
-PHASE 14 — Workflow Composer
+PHASE 14 — Workflow Composer                  ← frozen, same as before Phase 13
 PHASE 15 — Engineering Memory
 ```
 
@@ -555,3 +559,57 @@ future session should weigh that explicitly before starting Phase 13, and
 should not read Phase 11 or Phase 12 shipping as precedent that the freeze
 auto-lifts on request alone without the user again making that call
 explicitly, each time.
+
+## Phase 13 — Context Optimizer (COMPLETE, 2026-08-26)
+
+Per the roadmap's own phase list and full target skill portfolio
+(`Advanced`: dependency-supply-chain-reviewer, engineering-knowledge-
+capture, context-optimizer, workflow-composer, engineering-memory), Phase
+13 was proposed as **Context Optimizer** — the third skill in the
+`Advanced` group.
+
+**How this actually started**: exactly as predicted in the "Phase 13
+onward" note directly above — the freeze from before Phase 11 was still in
+force, and the case for investing in L8/A5 instead of a thirteenth skill
+was not weaker. The user then explicitly directed starting Phase 13
+anyway, with their own stated exit criteria (same shape as Phase 11's and
+Phase 12's: "same bar," first skill composing on `codebase-intelligence`'s
+output — not literally true, the twelfth Pattern 2 reuse and ninth ADR-010
+reuse, stated plainly in [[03-architecture]]/[[11-decisions]] — "scalable
+and production-level stable"). This is a **third**, one-time,
+user-authorized exception to the freeze, not evidence A2/A5 moved off
+`UNKNOWN` — recorded here honestly, the same way Phase 11's and Phase 12's
+exceptions were, rather than presented as if the freeze's conditions were
+newly met.
+
+**What shipped**: `context-optimizer` — a deterministic file-relevance and
+context-budget engine: given a free-text task description and a required
+`codebase-intelligence` report (ADR-010, ninth reuse), scores every file's
+relevance via a tokenized whole-token keyword match, boosts the score with
+real fan_in/hotspot structural data, and tiers each nonzero-scoring file
+CORE/SUPPORTING/EXCLUDED, optionally against a line budget. 64 tests, 8/8
+evaluation fixtures on both layers. New ADR-019 documents the
+required-composition reuse, the relevance scorer's tokenized (not
+`\b`-regex) technique — the fifth independent copy of the L23/L24-lineage
+containment-check fix, the second built correct from day one — and this
+phase's headline architectural decision: inverting the fail-closed-toward-
+caution convention ADR-011/017/018 established into a fail-OPEN-toward-
+inclusion default, since silently excluding a needed file is this skill's
+worse failure mode, not silently including an unimportant one. A real
+dogfood run against a real task description from this actual session found
+a new, disclosed-not-fixed limitation (L29): at full-repository scale,
+keyword relevance floods with false-positive CORE recommendations when the
+task description shares this project's own recurring documentation/
+evaluation-harness vocabulary — 5 of 17 CORE recommendations in the
+dogfood run were unrelated files, not `context-optimizer` files, a new
+manifestation of the same mechanism class `architecture-decision`'s
+L14/L19/L21 already disclosed.
+
+**Phase 14 onward**: the freeze from before Phase 11 remains in force, now
+for a third consecutive phase boundary. The case for investing a phase in
+the independent-evidence gap (L8/A5) before a fourteenth skill is at least
+as strong as it was at the Phase 11, Phase 12, and Phase 13 boundaries — a
+future session should weigh that explicitly before starting Phase 14, and
+should not read Phase 11, Phase 12, or Phase 13 shipping as precedent that
+the freeze auto-lifts on request alone without the user again making that
+call explicitly, each time.

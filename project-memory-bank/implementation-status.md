@@ -21,15 +21,16 @@ Replaced/updated in place, not appended to chronologically — see
 | release-readiness | Level 2 — Evaluated | EXPERIMENTAL | 82/82 passing (CLI test file written from the start, same discipline as Phases 5-9; +4 tests 2026-08-26 partially fixing L24) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, ninth time — see [[12-known-limitations]] L8); see `evaluations/release-readiness/RESULTS.md` |
 | dependency-supply-chain | Level 2 — Evaluated | EXPERIMENTAL | 46/46 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, tenth time — see [[12-known-limitations]] L8); see `evaluations/dependency-supply-chain/RESULTS.md` |
 | engineering-knowledge-capture | Level 2 — Evaluated | EXPERIMENTAL | 47/47 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eleventh time — see [[12-known-limitations]] L8); see `evaluations/engineering-knowledge-capture/RESULTS.md` |
+| context-optimizer | Level 2 — Evaluated | EXPERIMENTAL | 64/64 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, twelfth time — see [[12-known-limitations]] L8); real dogfood run found a new limitation (L29 — full-repository-scale keyword flooding); see `evaluations/context-optimizer/RESULTS.md` |
 
-No other skill has any implementation yet. **521 total tests passing across
-all twelve skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47),
-up from 474 after Phase 12 (`engineering-knowledge-capture`, 2026-08-26) added
-the twelfth skill — started at the user's explicit direction, a second
-one-time reopening of the mentor-review pass's roadmap freeze from the same
-date as Phase 11; A2/A5 remain UNKNOWN, this is not new external-validation
-evidence — see `12-known-limitations.md`, `11-decisions.md` (ADR-018), and
-`active-context.md`.
+No other skill has any implementation yet. **585 total tests passing across
+all thirteen skills** (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64),
+up from 521 after Phase 13 (`context-optimizer`, 2026-08-26) added the
+thirteenth skill — started at the user's explicit direction, a THIRD
+one-time reopening of the mentor-review pass's roadmap freeze, now deferred
+across three consecutive phase boundaries; A2/A5 remain UNKNOWN, this is not
+new external-validation evidence — see `12-known-limitations.md`,
+`11-decisions.md` (ADR-019), and `active-context.md`.
 
 ## codebase-intelligence — component status
 
@@ -246,6 +247,25 @@ evidence — see `12-known-limitations.md`, `11-decisions.md` (ADR-018), and
 | Judgment-layer actual findings (`evaluations/engineering-knowledge-capture/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
 | Dogfood example (`examples/engineering-knowledge-capture/`) | Done — real narrative built from verbatim excerpts of this project's own engineering history (the L23/L24 fix, Phase 11's dropped license-detection decision), composed with a fresh codebase-intelligence report; found and disclosed a new limitation (L28) rather than confirming a known one |
 
+## context-optimizer — component status
+
+| Component | Status |
+|---|---|
+| `engine/ci_report_loader.py` | Done, tested — same required-precondition pattern as every prior composing skill's loader (ADR-010, reused a ninth time); own independent copy, joins `files` (real line_count) with `modules` (structural metadata) by path |
+| `engine/keyword_extractor.py` | Done, tested — stopword-filtered tokenizer, splits on `_`/`/`/`.`/`-`; shared by `relevance_scorer.py` for consistent tokenization on both sides of a match |
+| `engine/relevance_scorer.py` | Done, tested — FIFTH independent copy of a whole-token containment check (L23/L24 lineage); tokenized (not `\b`-regex), a disclosed different precision/recall tradeoff than `location_resolver.py`'s |
+| `engine/structural_booster.py` | Done, tested — hotspot/high-fan-in boost, ADR-013-style reuse |
+| `engine/size_estimator.py` | Done, tested — crude, disclosed tokens-per-line heuristic, not a real tokenizer |
+| `engine/budget_selector.py` | Done, tested — CORE/SUPPORTING/EXCLUDED tiering; fail-OPEN-toward-inclusion under uncertainty (ADR-019, inverts ADR-011/017/018's fail-closed convention) |
+| `engine/stats.py` | Done, tested |
+| `engine/report.py` | Done, tested — `--ci-report` is required (ADR-010/019); missing/malformed report is a hard failure |
+| `engine/render_json.py` / `render_markdown.py` | Done, tested |
+| `engine/cli.py` | Done, tested — CLI test file (`tests/test_cli.py`) written from the start, same discipline Phases 5-12 established; `--budget-lines` optional flag |
+| `SKILL.md` contract | Done, all canonical template sections present, reuses Pattern 2 (ADR-007) a twelfth time + reuses ADR-010 a ninth time + new ADR-019 (tokenized relevance scorer, fail-OPEN inversion, crude token-estimate disclosure), includes agent-driven Step 3 workflow against the new Context Optimization Checklist |
+| Evaluation harness (`run_evaluation.py`) | Done, 8 fixtures, two-layer scoring (deterministic + judgment), all 8 perfect on both layers |
+| Judgment-layer actual findings (`evaluations/context-optimizer/actual/`) | Done — this session's agent's real checklist derivation for each fixture, not fabricated to match ground truth |
+| Dogfood example (`examples/context-optimizer/`) | Done — real task description from this actual session, composed with a fresh codebase-intelligence report against this repo's current state; found and disclosed a new limitation (L29 — full-repository-scale keyword flooding) rather than confirming a known one |
+
 ## Documentation & public-facing artifacts (added after Phase 5, not a phase)
 
 | Artifact | Status |
@@ -263,9 +283,9 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Not yet built
 
-- Every other skill in the portfolio ([[08-roadmap]]) — Phase 13 onward, not
+- Every other skill in the portfolio ([[08-roadmap]]) — Phase 14 onward, not
   started; the roadmap freeze from the 2026-08-26 mentor-review pass still
-  applies to any further phase beyond Phase 12 (see [[08-roadmap]]).
+  applies to any further phase beyond Phase 13 (see [[08-roadmap]]).
 - Any reusable composed-workflow infrastructure across skills
   (feature-planner, root-cause-analyzer, architecture-decision,
   refactoring-safety, regression-hunter, and release-readiness all make
@@ -309,11 +329,17 @@ this pass — test count and evaluation results are unchanged from the Phase
   `engineering-knowledge-capture`'s `location_resolver.py` (L28) — disclosed
   via a real dogfood run, not scheduled; would need real evidence the
   recall gain is worth the precision risk before widening the window.
+- A corpus-vocabulary down-weighting fix (TF-IDF-style, or a minimum
+  keyword-specificity threshold) for `context-optimizer`'s
+  `relevance_scorer.py` (L29) — disclosed via a real dogfood run, not
+  scheduled; this is the second time this mechanism class has been hit on
+  a real dogfood run (after `architecture-decision`'s L21) without either
+  project having acted on it.
 
 ## Last updated
 
-2026-08-26 — end of Phase 12 (`engineering-knowledge-capture`). Started at
-the user's explicit direction, a second one-time reopening of the
-mentor-review pass's roadmap freeze from the same date as Phase 11; 521
-total tests passing across twelve skills (up from 474). A2/A5 remain
+2026-08-26 — end of Phase 13 (`context-optimizer`). Started at the user's
+explicit direction, a THIRD one-time reopening of the mentor-review pass's
+roadmap freeze, now deferred across three consecutive phase boundaries; 585
+total tests passing across thirteen skills (up from 521). A2/A5 remain
 UNKNOWN — this phase is not new external-validation evidence.

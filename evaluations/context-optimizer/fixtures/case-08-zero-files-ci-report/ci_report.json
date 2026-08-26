@@ -1,0 +1,6 @@
+{
+  "root_path": "/repo",
+  "files": [],
+  "modules": [],
+  "dependency_graph": {"fan_in": {}, "fan_out": {}, "hotspots": []}
+}

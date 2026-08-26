@@ -1,0 +1,15 @@
+{
+  "root_path": "/repo",
+  "files": [
+    {"path": "engine/stats.py", "language": "python", "size_bytes": 360, "line_count": 18}
+  ],
+  "modules": [
+    {"path": "engine/stats.py", "docstring": "Computes report-level candidate statistics.",
+     "functions": [], "classes": [], "imports": []}
+  ],
+  "dependency_graph": {
+    "fan_in": {"engine/stats.py": 1},
+    "fan_out": {},
+    "hotspots": []
+  }
+}

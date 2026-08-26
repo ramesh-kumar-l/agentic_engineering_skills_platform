@@ -1,0 +1,8 @@
+{
+  "recommended_paths": [],
+  "tiers": {},
+  "oversized_alone_paths": [],
+  "expected_categories": [
+    {"category": "warning", "keywords": ["zero files", "codebase-intelligence"]}
+  ]
+}

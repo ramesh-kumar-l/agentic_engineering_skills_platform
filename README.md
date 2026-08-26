@@ -100,8 +100,9 @@ understanding before the skill list below makes full sense:
 | 10 | [`release-readiness`](skills/release-readiness/) | Turns a diff into a per-file Release Readiness Scorecard (diff-hygiene, structural blast radius, test coverage) plus optional composed regression/security evidence, rolled into an advisory-only overall verdict — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + optional cross-skill composition | 82/82 | EXPERIMENTAL |
 | 11 | [`dependency-supply-chain`](skills/dependency-supply-chain/) | Scans declared dependencies for pin status, known-risk names, duplicate/conflicting versions, and surface area — **requires** a `codebase-intelligence` report. No live CVE lookup, no per-dependency license data (disclosed scope, not a bug) | Pattern 2 + mandatory composition + advisory/fail-closed | 46/46 | EXPERIMENTAL |
 | 12 | [`engineering-knowledge-capture`](skills/engineering-knowledge-capture/) | Scans a free-text engineering narrative for decision/lesson/limitation/workaround candidates, resolves any mentioned module against real structural data — **requires** a `codebase-intelligence` report. Never writes into the memory bank itself (disclosed scope, not a bug) | Pattern 2 + mandatory composition + advisory/fail-closed | 47/47 | EXPERIMENTAL |
+| 13 | [`context-optimizer`](skills/context-optimizer/) | Scores every file in a repo for task relevance (tokenized keyword match + real fan_in/hotspot boost), tiers CORE/SUPPORTING/EXCLUDED against an optional line budget — **requires** a `codebase-intelligence` report. Fails OPEN toward inclusion under uncertainty, not closed (disclosed inversion of the usual convention, not a bug) | Pattern 2 + mandatory composition + fail-open tiering | 64/64 | EXPERIMENTAL |
 
-**521 tests passing across the platform.** Every skill also ships an
+**585 tests passing across the platform.** Every skill also ships an
 evaluation harness against hand-authored fixtures
 (`evaluations/<skill>/RESULTS.md`) and a real "dogfood" run against actual
 work, not a synthetic demo (`examples/<skill>/example-run.md`).
@@ -406,14 +407,14 @@ copy. Start anywhere; each stands alone.
 
 ## Status and roadmap
 
-**Phase 12 complete.** Twelve skills, 521 tests, twelve evaluation
-harnesses, twelve real dogfood runs, zero real-world usage by anyone
-outside this project yet. Phase 11 (`dependency-supply-chain`) and Phase
-12 (`engineering-knowledge-capture`) each started at an explicit user
-request that reopened a same-day roadmap freeze put in place by a
-mentor-style review of this project's own progress — Phase 13
-onward stays frozen pending real external validation evidence, not another
-skill by default. Full current snapshot:
+**Phase 13 complete.** Thirteen skills, 585 tests, thirteen evaluation
+harnesses, thirteen real dogfood runs, zero real-world usage by anyone
+outside this project yet. Phase 11 (`dependency-supply-chain`), Phase 12
+(`engineering-knowledge-capture`), and Phase 13 (`context-optimizer`) each
+started at an explicit user request that reopened a same-day roadmap
+freeze put in place by a mentor-style review of this project's own
+progress — Phase 14 onward stays frozen pending real external validation
+evidence, not another skill by default. Full current snapshot:
 [`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it
 starts, never built just because it was planned): [`ROADMAP.md`](ROADMAP.md).

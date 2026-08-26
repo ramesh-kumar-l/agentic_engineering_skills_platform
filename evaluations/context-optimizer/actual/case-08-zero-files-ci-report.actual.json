@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c8-1",
+      "category": "warning",
+      "description": "Precondition-degradation check: the composed codebase-intelligence report declares zero files, so nothing can be scored — the engine reports zero recommendations plus an explicit 'codebase-intelligence report declared zero files' warning, rather than silently returning an empty-but-successful-looking report that hides the real reason nothing was recommended.",
+      "grounding": "ci_report_loader.load_ci_report returns a CiReportContext with files=[]; report.py's ci_has_warning = not ci_report.files is True, which both appends the explicit warning and short-circuits the scoring loop entirely (candidates stays [])."
+    }
+  ]
+}

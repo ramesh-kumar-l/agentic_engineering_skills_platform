@@ -32,10 +32,19 @@ rule an eighth time and adds a new decision (ADR-018): its deterministic
 layer is the first in this portfolio to target a *documentation artifact*
 (an ADR/known-limitation/lessons-learned candidate) rather than a
 code-risk or process-quality judgment — see ADR-018 in [[11-decisions]]
-for the full rationale. At eleven consecutive reuses without a new base-pattern ADR,
-Pattern 2 is this project's settled default architecture for judgment-based
-skills, not a fresh per-skill choice each time — worth stating plainly
-rather than re-justifying from scratch every phase.
+for the full rationale — and reused a **twelfth** time in Phase 13
+(`context-optimizer`), which reuses the mandatory-composition rule a
+ninth time and adds a new decision (ADR-019): its relevance scorer is the
+fifth independent copy of the whole-token-containment-check technique
+(and the second built correct from day one, after Phase 12), and it
+deliberately inverts the fail-closed-toward-caution convention ADR-011/
+017/018 established into a fail-**open**-toward-inclusion default, since
+under-recommending context breaks a downstream task while
+over-recommending it only costs budget — see ADR-019 in [[11-decisions]]
+for the full rationale. At twelve consecutive reuses without a new
+base-pattern ADR, Pattern 2 is this project's settled default architecture
+for judgment-based skills, not a fresh per-skill choice each time — worth
+stating plainly rather than re-justifying from scratch every phase.
 
 ## Pattern: SKILL.md + optional deterministic engine
 

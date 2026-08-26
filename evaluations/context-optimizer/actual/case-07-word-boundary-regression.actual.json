@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c7-1",
+      "category": "warning",
+      "description": "Boundary-correctness regression check: the task keyword 'scan' must not spuriously match `engine/testability_scanner_utils.py` just because 'scan' is a prefix-substring of the 'scanner' token inside that compound filename — and it doesn't. Zero recommendations is the correct output here, the same L23-class protection location_resolver.py established, applied to this skill's own tokenized scorer.",
+      "grounding": "relevance_scorer.score_relevance tokenizes the path into {'engine','testability','scanner','utils','py'} and checks exact token-set membership; 'scan' is not equal to any of those tokens (only 'scanner' is present), so no field matches, base_score is 0, and report.py never creates a FileRelevance entry for a zero-or-negative score."
+    }
+  ]
+}

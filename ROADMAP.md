@@ -180,6 +180,32 @@ exception, not new evidence, and not precedent that the freeze auto-lifts
 generally. Phase 13 onward remains frozen. See
 [`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 
+**Phase 13 — Context Optimizer** (complete): thirteenth skill —
+`skills/context-optimizer/` — reusing the same pattern a twelfth time to
+score every file in a required `codebase-intelligence` report against a
+free-text task description's keywords (a tokenized, not `\b`-regex,
+whole-token match — a deliberate, disclosed different technique than
+Phase 12's resolver), boosted by real fan_in/hotspot data, tiered
+CORE/SUPPORTING/EXCLUDED against an optional line budget, evaluated on 8
+fixtures (all 8 scored perfect on both layers) plus a real dogfood run
+against a task description drawn from this actual session. New **ADR-019**
+— composing on `codebase-intelligence`'s output a ninth time (ADR-010),
+and an explicit inversion of the fail-closed-toward-caution convention
+ADR-011/017/018 established into a fail-OPEN-toward-inclusion default,
+since silently excluding a needed file is this skill's worse failure
+mode. The real dogfood run found a new, disclosed-not-fixed limitation
+(L29): at full-repository scale, keyword relevance floods with
+false-positive CORE recommendations when the task description shares
+this project's own recurring documentation/evaluation-harness vocabulary
+— a new manifestation of the same mechanism class `architecture-
+decision`'s L14/L19/L21 already disclosed.
+**Process note**: this is a THIRD same-day reopening of the same
+mentor-review freeze, at the user's explicit direction — again a one-time
+exception, not new evidence, and not precedent that the freeze auto-lifts
+generally, now deferred across three consecutive phase boundaries. Phase
+14 onward remains frozen. See
+[`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
+
 ## How phases work here
 
 Phases are executed one at a time, each ending in a completion report and a

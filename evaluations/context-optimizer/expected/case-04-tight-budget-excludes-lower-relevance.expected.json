@@ -1,0 +1,13 @@
+{
+  "budget_lines": 50,
+  "recommended_paths": ["engine/alpha.py", "engine/beta.py", "engine/gamma.py"],
+  "tiers": {
+    "engine/alpha.py": "CORE",
+    "engine/beta.py": "EXCLUDED",
+    "engine/gamma.py": "EXCLUDED"
+  },
+  "oversized_alone_paths": [],
+  "expected_categories": [
+    {"category": "excluded", "keywords": ["budget", "excluded", "alpha"]}
+  ]
+}

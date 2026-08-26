@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c5-1",
+      "category": "oversized",
+      "description": "Oversized-single-file review (Checklist item 4): `engine/giant.py` alone (500 lines) exceeds the 100-line budget, but the fail-OPEN rule keeps it in the recommendation set rather than silently dropping it — it is flagged oversized_alone with a note recommending an excerpt or split before loading, the direct callback to this project's own <300-line-per-file modularity rule the user restated this session.",
+      "grounding": "budget_selector.apply_budget: giant.py's line_count (500) exceeds budget_lines (100), so it sets oversized_alone=True and appends the excerpt/split note instead of flipping the tier to EXCLUDED; it keeps its SUPPORTING tier from relevance scoring (score 3 < CORE_THRESHOLD)."
+    }
+  ]
+}

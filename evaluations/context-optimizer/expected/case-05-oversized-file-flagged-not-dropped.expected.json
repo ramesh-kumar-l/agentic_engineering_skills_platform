@@ -1,0 +1,9 @@
+{
+  "budget_lines": 100,
+  "recommended_paths": ["engine/giant.py"],
+  "tiers": {"engine/giant.py": "SUPPORTING"},
+  "oversized_alone_paths": ["engine/giant.py"],
+  "expected_categories": [
+    {"category": "oversized", "keywords": ["giant", "budget", "split"]}
+  ]
+}

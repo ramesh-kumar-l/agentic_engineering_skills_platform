@@ -7,6 +7,36 @@ All notable changes to this project are documented here. Format follows
 
 ### Added
 
+- Phase 13: Context Optimizer — thirteenth skill
+  (`skills/context-optimizer/`): `SKILL.md` contract reusing Pattern 2
+  (ADR-007) a twelfth time — a deterministic engine (12 modules, each
+  under 100 lines, 64 passing tests including a CLI test file written from
+  the start) that composes on a required `codebase-intelligence` report
+  (ADR-010, ninth reuse) and scores every file's relevance against a
+  free-text task description's tokenized keywords (path/docstring/
+  functions/classes/imports), boosted by real fan_in/hotspot data, tiered
+  CORE/SUPPORTING/EXCLUDED against an optional `--budget-lines` cap;
+  12th-checklist agent workflow (Context Optimization Checklist,
+  `project-memory-bank/05-evaluation-framework.md`); an 8-fixture
+  evaluation harness (`evaluations/context-optimizer/`, all 8 scored
+  perfect on both layers); and a dogfood run
+  (`examples/context-optimizer/`) against a real task description from
+  this actual session that found a new, disclosed-not-fixed limitation
+  (L29: at full-repository scale, keyword relevance floods with
+  false-positive CORE recommendations when the task description shares
+  this project's own recurring documentation/evaluation-harness
+  vocabulary — 5 of 17 CORE recommendations were unrelated files). New
+  architectural decision — **ADR-019**: required composition reused a
+  ninth time; the relevance scorer is the fifth independent copy of a
+  whole-token containment check in the L23/L24 lineage, using tokenization
+  rather than `location_resolver.py`'s `\b` regex (a disclosed different
+  precision/recall tradeoff); and an explicit inversion of the
+  fail-closed-toward-caution convention ADR-011/017/018 established into a
+  fail-OPEN-toward-inclusion default. Started at the user's explicit
+  direction, a THIRD same-day reopening of the mentor-review roadmap
+  freeze (after Phase 11 and Phase 12); not new external-validation
+  evidence. Platform test count: 585 (up from 521).
+
 - Phase 12: Engineering Knowledge Capture — twelfth skill
   (`skills/engineering-knowledge-capture/`): `SKILL.md` contract reusing
   Pattern 2 (ADR-007) an eleventh time — a deterministic engine (9 modules,

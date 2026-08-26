@@ -1,0 +1,8 @@
+{
+  "recommended_paths": ["engine/report.py"],
+  "tiers": {"engine/report.py": "SUPPORTING"},
+  "oversized_alone_paths": [],
+  "expected_categories": [
+    {"category": "supporting", "keywords": ["weak", "delta", "import"]}
+  ]
+}

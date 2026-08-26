@@ -1,0 +1,8 @@
+{
+  "recommended_paths": ["engine/stats.py"],
+  "tiers": {"engine/stats.py": "SUPPORTING"},
+  "oversized_alone_paths": [],
+  "expected_categories": [
+    {"category": "supporting", "keywords": ["stats", "low", "fan_in"]}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "root_path": "/repo",
+  "files": [
+    {"path": "engine/giant.py", "language": "python", "size_bytes": 10000, "line_count": 500}
+  ],
+  "modules": [
+    {"path": "engine/giant.py", "docstring": null, "functions": [], "classes": [], "imports": []}
+  ],
+  "dependency_graph": {"fan_in": {}, "fan_out": {}, "hotspots": []}
+}

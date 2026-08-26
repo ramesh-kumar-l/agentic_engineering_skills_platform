@@ -890,6 +890,64 @@ the CI report carried warnings, because a zero-dependency result is
 ambiguous (genuinely no deps, vs. deps CI's parser didn't see) rather than
 proof of a clean supply chain.
 
+- User Value: turns "no one looks at `requirements.txt` until something
+  breaks" into three concrete, offline-checkable, verifiable-by-citation
+  signals (pin status, a five-entry known-risk-name table each citing a
+  real public incident, duplicate/conflicting version declarations) plus an
+  aggregate surface-area stat — without pretending to be a vulnerability
+  scanner it isn't.
+- Correctness: `pin_checker.py`'s classification (missing/wildcard/range/
+  pinned) is unit-tested against both pip-style (`==`, `>=`) and npm-style
+  (`^`, `~`, `x`) specifiers; `risk_patterns.py`'s known-risk table matches
+  by exact lowercased name, not substring (`test_matches_are_exact_not_
+  substring` explicitly guards against a `request`/`requests` false
+  positive — the same word-boundary-precision discipline as the project's
+  L23 fix, applied here from the start rather than found via dogfooding
+  later); `duplicate_detector.py` is verified to fire only on genuinely
+  conflicting version strings, not merely repeated identical declarations.
+  8/8 evaluation fixtures score correctly on both layers (deterministic
+  flag-set + risk-level, and this session's actual judgment-layer
+  derivation) — disclosed with the same self-authored/single-rater caveat
+  as every prior judgment skill (L8, now tenth time).
+- Security: read-only; no network calls, no package-manager invocation, no
+  installation/upgrade/removal of anything. `suggested_risk_level` is
+  advisory-only per ADR-011's precedent, stated explicitly in SKILL.md's
+  Security Constraints.
+- Simplicity: 11 engine files (not the originally-planned 13 — no
+  `license_patterns.py`, and `stats.py`/`surface_area.py` stayed separate
+  as planned since they answer genuinely different questions), all under
+  100 lines, orchestrated by one `scanner.py` and one `report.py`.
+- Maintainability: each detector (`pin_checker.py`, `risk_patterns.py`,
+  `duplicate_detector.py`) is independently testable and extensible (the
+  known-risk table can grow without touching pin-status logic).
+- Portability: stdlib-only; own `ci_report_loader.py` copy, no
+  cross-package import of `codebase-intelligence` (same discipline as
+  every prior composing skill).
+- Evidence: `evaluations/dependency-supply-chain/` — 8 fixtures (clean/
+  pinned, range-unpinned, known-risk-name, wildcard, duplicate-conflict,
+  large surface area, a compounding multi-flag case, and the zero-
+  dependency fail-closed case) — all correct on both layers. Real dogfood
+  (`examples/dependency-supply-chain/example-run.md`) against this
+  repo's own root manifest concretely demonstrated the inherited L2
+  scope limitation: only 1 dependency (`pytest`) is visible from repo
+  root, because the platform's ten skills' own dependencies live one
+  level down in `skills/*/pyproject.toml`, which CI's parser doesn't
+  recursively scan.
+- Future Evolution: real CVE-lookup integration and real per-dependency
+  license detection are both named, disclosed future-evolution items, not
+  silently deferred — either would require a genuinely new capability
+  (network access, or installed-package metadata inspection) this project
+  has deliberately not built, and should be evaluated against real evidence
+  of need (an actual user hitting this gap) before being added, per this
+  project's standing adaptive-roadmap rule.
+
+**Status**: Adopted. Note on process: this phase was started at the user's
+explicit direction on 2026-08-26, reopening the roadmap freeze the
+mentor-review pass (same date, this file's context) had put in place — A2
+and A5 remain `UNKNOWN`; starting this phase is not new external-validation
+evidence and is not presented as such (see
+[[16-assumptions-and-validation]]).
+
 ---
 
 ## ADR-018: `engineering-knowledge-capture` reuses ADR-010's required-composition pattern an eighth time, builds its word-boundary resolver correct from day one, and is the first skill whose deterministic layer targets a documentation artifact rather than a code-risk judgment
@@ -961,62 +1019,106 @@ states the decision/lesson in an adjacent sentence does not resolve — see
   never-assigned `LOW` band are both named as candidates for future
   refinement, not solved speculatively here without real evidence of need.
 
-**Status**: Adopted.
+**Status**: Adopted. Note on process: this phase was started at the user's
+explicit direction on 2026-08-26, reopening the roadmap freeze the
+mentor-review pass (same date, this file's context) had put in place a
+SECOND time (Phase 11 was the first reopening) — A2 and A5 remain
+`UNKNOWN`; starting this phase is not new external-validation evidence and
+is not presented as such (see [[16-assumptions-and-validation]]).
 
-- User Value: turns "no one looks at `requirements.txt` until something
-  breaks" into three concrete, offline-checkable, verifiable-by-citation
-  signals (pin status, a five-entry known-risk-name table each citing a
-  real public incident, duplicate/conflicting version declarations) plus an
-  aggregate surface-area stat — without pretending to be a vulnerability
-  scanner it isn't.
-- Correctness: `pin_checker.py`'s classification (missing/wildcard/range/
-  pinned) is unit-tested against both pip-style (`==`, `>=`) and npm-style
-  (`^`, `~`, `x`) specifiers; `risk_patterns.py`'s known-risk table matches
-  by exact lowercased name, not substring (`test_matches_are_exact_not_
-  substring` explicitly guards against a `request`/`requests` false
-  positive — the same word-boundary-precision discipline as the project's
-  L23 fix, applied here from the start rather than found via dogfooding
-  later); `duplicate_detector.py` is verified to fire only on genuinely
-  conflicting version strings, not merely repeated identical declarations.
-  8/8 evaluation fixtures score correctly on both layers (deterministic
-  flag-set + risk-level, and this session's actual judgment-layer
-  derivation) — disclosed with the same self-authored/single-rater caveat
-  as every prior judgment skill (L8, now tenth time).
-- Security: read-only; no network calls, no package-manager invocation, no
-  installation/upgrade/removal of anything. `suggested_risk_level` is
-  advisory-only per ADR-011's precedent, stated explicitly in SKILL.md's
-  Security Constraints.
-- Simplicity: 11 engine files (not the originally-planned 13 — no
-  `license_patterns.py`, and `stats.py`/`surface_area.py` stayed separate
-  as planned since they answer genuinely different questions), all under
-  100 lines, orchestrated by one `scanner.py` and one `report.py`.
-- Maintainability: each detector (`pin_checker.py`, `risk_patterns.py`,
-  `duplicate_detector.py`) is independently testable and extensible (the
-  known-risk table can grow without touching pin-status logic).
-- Portability: stdlib-only; own `ci_report_loader.py` copy, no
-  cross-package import of `codebase-intelligence` (same discipline as
-  every prior composing skill).
-- Evidence: `evaluations/dependency-supply-chain/` — 8 fixtures (clean/
-  pinned, range-unpinned, known-risk-name, wildcard, duplicate-conflict,
-  large surface area, a compounding multi-flag case, and the zero-
-  dependency fail-closed case) — all correct on both layers. Real dogfood
-  (`examples/dependency-supply-chain/example-run.md`) against this
-  repo's own root manifest concretely demonstrated the inherited L2
-  scope limitation: only 1 dependency (`pytest`) is visible from repo
-  root, because the platform's ten skills' own dependencies live one
-  level down in `skills/*/pyproject.toml`, which CI's parser doesn't
-  recursively scan.
-- Future Evolution: real CVE-lookup integration and real per-dependency
-  license detection are both named, disclosed future-evolution items, not
-  silently deferred — either would require a genuinely new capability
-  (network access, or installed-package metadata inspection) this project
-  has deliberately not built, and should be evaluated against real evidence
-  of need (an actual user hitting this gap) before being added, per this
-  project's standing adaptive-roadmap rule.
+---
+
+## ADR-019: `context-optimizer` reuses ADR-010's required-composition pattern a ninth time, builds its relevance scorer with a tokenized (not `\b`-regex) whole-token check, and inverts the fail-closed-toward-caution convention into a fail-OPEN-toward-inclusion default
+
+**Decision**: `context-optimizer` (Phase 13) requires a
+`codebase-intelligence` `report.json` as a hard precondition, the same way
+`feature-planner` (ADR-010) through `engineering-knowledge-capture`
+(ADR-018) do — a missing/malformed report is a failure condition, not a
+degraded path. This is a **reuse** of ADR-010's rule a NINTH time. Three
+things are new and explicit:
+
+1. **`relevance_scorer.py` is the fifth independent copy of a whole-token
+   containment check** in the L23/L24 lineage — but unlike
+   `location_resolver.py` (Phase 12's fourth copy, a `\bstem\b` regex), it
+   tokenizes both sides on `_`/`/`/`.`/`-` and checks exact token-set
+   membership. This is a deliberate, disclosed departure from copying
+   `location_resolver.py` verbatim, not an oversight: `\b` never produces
+   a boundary inside a snake_case identifier (`\w` includes `_`), so it
+   would never match a single-word keyword like "resolver" against
+   `location_resolver.py` at all — too strict for a skill that scores many
+   files by relevance rather than resolving to one canonical location.
+   Tokenizing trades some of that strictness for real recall (a keyword
+   can match one real component of a compound filename), at the disclosed
+   cost that it can also match a filename where that component is only
+   part of a longer, less-related identifier — see
+   `engine/relevance_scorer.py`'s own docstring and SKILL.md Known
+   Limitations for the full reasoning.
+2. **`budget_selector.py` inverts the fail-closed-toward-caution
+   convention** ADR-011 (`security-context-guard`), ADR-017
+   (`dependency-supply-chain`), and ADR-018 (`engineering-knowledge-
+   capture`) established. Those skills fail closed toward *caution*
+   because under-flagging a risk or an unresolved candidate is the worse
+   failure. Here the worse failure runs the other way: silently
+   *excluding* a file the task actually needed breaks the downstream
+   work, while recommending one extra file only costs some budget — so
+   under uncertainty (a low-but-nonzero relevance score, or a single file
+   whose own size exceeds the budget alone) this skill fails **open**
+   toward inclusion instead. Framed explicitly as the same underlying
+   principle (fail toward whichever error is cheaper to recover from)
+   applied to a domain where the cheaper error points the other way, not
+   a silent departure from precedent.
+3. **`estimated_tokens` is a disclosed, crude line-count heuristic, not a
+   real tokenizer** — this project makes no network calls (ADR-006), so no
+   `tiktoken`-class dependency is available or appropriate. Stated as
+   order-of-magnitude only, never as an exact budget guarantee, in
+   `size_estimator.py`'s docstring and SKILL.md Known Limitations, up
+   front rather than discovered later.
+
+A real dogfood run (`examples/context-optimizer/example-run.md`) against
+this repo's own current state, using a real task description from this
+actual session, found a real, disclosed-not-fixed limitation: at
+full-repository scale, keyword relevance floods with false-positive CORE
+recommendations when the task description is phrased in this project's
+own recurring vocabulary (shared documentation/evaluation-harness
+boilerplate repeated across every skill) — 5 of 17 CORE recommendations in
+the dogfood run were unrelated files, not `context-optimizer` files. This
+is a new manifestation of the same mechanism class `architecture-
+decision`'s L14/L19/L21 already disclosed — see
+[[12-known-limitations|L29]].
+
+- User Value: turns "read everything speculatively, or guess from
+  filenames alone" into a ranked, budget-aware recommendation grounded in
+  real file/module/dependency data — directly on-theme with this
+  project's own standing <300-line-per-file modularity discipline the
+  user restated when directing this phase.
+- Correctness: recommendations are leads, never a claim of completeness —
+  the agent's Step 3 Context Optimization Checklist
+  ([[05-evaluation-framework]]) is the only place the recommended set is
+  actually judged sufficient for the task.
+- Security: read-only; never loads any file into any actual context
+  window; no network calls.
+- Simplicity: reuses Pattern 2 (ADR-007, twelfth reuse) and ADR-010 (ninth
+  reuse) rather than inventing new architecture.
+- Maintainability: engine files land under 100 lines each (max
+  `models.py` at 95), consistent with this project's <300-line-per-file
+  discipline.
+- Portability: `ci_report_loader.py` is an independent copy, no
+  cross-skill import, matching every prior composing skill's pattern.
+- Evidence: L8 applies a twelfth time (self-authored, single-rater
+  judgment-layer evaluation, still perfect scores on all 8 fixtures — see
+  [[12-known-limitations]]); no assumption in
+  [[16-assumptions-and-validation]] is upgraded by shipping this skill.
+- Future Evolution: L29's full-repository-scale keyword-flooding finding
+  and the crude token-estimate heuristic are both named as candidates for
+  future refinement (TF-IDF-style down-weighting, or a real tokenizer),
+  not solved speculatively here without real evidence of need beyond one
+  dogfood run.
 
 **Status**: Adopted. Note on process: this phase was started at the user's
 explicit direction on 2026-08-26, reopening the roadmap freeze the
-mentor-review pass (same date, this file's context) had put in place — A2
-and A5 remain `UNKNOWN`; starting this phase is not new external-validation
-evidence and is not presented as such (see
+mentor-review pass (same date, this file's context) had put in place a
+THIRD time (Phase 11 and Phase 12 were the first two reopenings) — A2 and
+A5 remain `UNKNOWN`; starting this phase is not new external-validation
+evidence and is not presented as such, and this tension is now deferred
+across three consecutive phase boundaries (see
 [[16-assumptions-and-validation]]).

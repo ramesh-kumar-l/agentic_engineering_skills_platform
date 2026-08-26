@@ -17,6 +17,7 @@ jobs:
           - adversarial-diff-reviewer
           - architecture-decision
           - codebase-intelligence
+          - context-optimizer
           - dependency-supply-chain
           - engineering-knowledge-capture
           - feature-planner

@@ -829,3 +829,77 @@ which point this entry should be marked FIXED and
   tests in `tests/test_location_resolver.py` before widening the window,
   so both the recall gain and the precision cost are visible in the same
   test suite.
+
+## L29: `context-optimizer`'s keyword relevance floods with false-positive CORE recommendations at full-repository scale, when the task description is phrased in this project's own recurring vocabulary
+
+- **What failed**: A real dogfood run
+  (`examples/context-optimizer/example-run.md`) — a fresh
+  `codebase-intelligence` report against this repo's current (thirteen-
+  skill) state, and a real task description drawn from this actual
+  session ("build a thirteenth skill... composes on codebase-
+  intelligence's report... reusing ADR-010's required-composition
+  pattern...") — produced 556 nonzero-scoring candidates, 17 of them
+  CORE. 12 of those 17 CORE recommendations were genuinely
+  `context-optimizer` files; the other 5 were unrelated files — four
+  other skills' `evaluations/*/run_evaluation.py` files (e.g.
+  `evaluations/architecture-decision/run_evaluation.py`, score 44,
+  `evaluations/regression-hunter/run_evaluation.py`,
+  `evaluations/release-readiness/run_evaluation.py`, and
+  `evaluations/feature-planner/run_evaluation.py`, score 42) plus one
+  unrelated `__init__.py` fixture file — scoring as high as or higher
+  than several of the genuinely relevant engine files (e.g.
+  `skills/context-optimizer/engine/size_estimator.py`, score 24).
+- **Why**: this is the same mechanism class as L14/L19/L21 (coincidental
+  keyword collision at full-repository scale), but a new manifestation of
+  it: not a short/common module stem, and not a shared directory-name
+  token, but this project's own extensively duplicated documentation and
+  evaluation-harness *boilerplate*. Every skill's `run_evaluation.py`
+  carries near-identical docstring language ("skill", "report", "score",
+  "task", "evaluation", "harness", "project", "memory", "bank"), and every
+  `SKILL.md`/ADR/eval-harness file repeats this project's own recurring
+  vocabulary ("adr", "composition", "codebase", "intelligence"). A task
+  description that itself uses this project's own vocabulary — which any
+  task description *about building a new skill in this portfolio*
+  necessarily does — scores dozens of unrelated files above zero purely
+  because they share that boilerplate, not because they are relevant to
+  the actual task.
+- **Impact**: `relevance_scorer.py`'s per-field weights and
+  `budget_selector.py`'s `CORE_THRESHOLD` are real, deterministic, and
+  internally consistent — but at this scale they cannot distinguish "this
+  file is about the task" from "this file's docstring/comments happen to
+  reuse this project's own recurring vocabulary everywhere." A caller
+  trusting the CORE tier at face value on a real, in-portfolio task would
+  need to manually filter out several other skills' unrelated
+  evaluation-harness files — exactly the noise-reduction judgment
+  Checklist item 3 (SUPPORTING tier reviewed for genuine value vs. noise)
+  exists to catch, but the dogfood run shows real CORE-tier noise, not
+  just SUPPORTING-tier noise.
+- **Fix**: Not applied. The same fix class L21 already named (TF-IDF-
+  style down-weighting of corpus-common terms, or a minimum
+  keyword-specificity threshold) would help here too, and was not
+  implemented there either — this is now the second time this project has
+  hit the same "keyword-only scoring cannot separate real vocabulary
+  overlap from corpus-wide vocabulary reuse" wall on a real dogfood run,
+  which sharpens the case for eventually addressing the mechanism class
+  itself rather than continuing to disclose new instances of it
+  skill-by-skill, without yet being new evidence that doing so now is
+  justified over the standing roadmap freeze.
+- **Regression prevention**: `examples/context-optimizer/example-run.md`
+  documents this explicitly as a limitation observed on real use, not
+  papered over; `SKILL.md`'s Known Limitations references it; a future fix
+  should add a full-repository-scale evaluation fixture (not just the
+  8 small, hand-authored fixtures) before attempting a down-weighting fix,
+  so the false-positive-reduction benefit and any false-negative cost are
+  both visible in the same test suite — the same discipline L21's own
+  regression-prevention note called for and that has still not been acted
+  on.
+
+## L8 update: now applying a twelfth time, still perfect scores
+
+`context-optimizer`'s judgment-layer evaluation scored perfect
+precision/recall on all 8 fixtures. This is the twelfth judgment-based
+skill evaluated this way; still self-authored, single-rater evidence — a
+perfect score here says nothing about whether this skill's real-world
+recommendation quality is any better than the fixtures suggest, especially
+given L29's real dogfood finding above, which the small hand-authored
+fixtures did not and could not exercise. See [[16-assumptions-and-validation]] A5.

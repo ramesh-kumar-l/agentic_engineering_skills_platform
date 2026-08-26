@@ -7,11 +7,11 @@ appended to. Complements [[implementation-status.md]] (what's built) and
 
 ## Current phase
 
-Phase 12 (`engineering-knowledge-capture`) — COMPLETE. **Phase 13 onward
-remains frozen.** 2026-08-26 (same day, four sub-events): (1) the user
-requested a mentor-style critique of the whole project, which found ten
-phases shipped, zero real external users, A2/A5 still UNKNOWN, and the
-L23/L24 substring bug disclosed four times without being fixed — the user
+Phase 13 (`context-optimizer`) — COMPLETE. **Phase 14 onward remains
+frozen.** 2026-08-26 (same day, five sub-events): (1) the user requested a
+mentor-style critique of the whole project, which found ten phases
+shipped, zero real external users, A2/A5 still UNKNOWN, and the L23/L24
+substring bug disclosed four times without being fixed — the user
 approved pausing new-skill work to fix that bug and scaffold a measurement
 harness instead (see "Mentor-review follow-up" below); (2) the user then
 explicitly directed starting Phase 11 anyway, with their own exit criteria
@@ -21,10 +21,13 @@ explicit direction, not because A2/A5 moved off UNKNOWN**; (3) Phase 11
 shipped, and the operating charter was checked in as a documentation-only
 pass (see "Documentation check-in" below); (4) the user then explicitly
 directed starting Phase 12, with the same shape of exit criteria — **a
-second, one-time reopening of the same freeze**, and Phase 12 shipped (see
-"What Phase 12 built" below). The freeze remains in force for any phase
-beyond 12 — starting Phase 11 and Phase 12 were each one-time, explicit
-exceptions, not a general unfreezing.
+second, one-time reopening of the same freeze**, and Phase 12 shipped
+(see "What Phase 12 built" below); (5) the user then explicitly directed
+starting Phase 13, with the same shape of exit criteria — **a THIRD
+one-time reopening of the same freeze**, and Phase 13 shipped (see "What
+Phase 13 built" below). The freeze remains in force for any phase beyond
+13 — starting Phase 11, Phase 12, and Phase 13 were each one-time,
+explicit exceptions, not a general unfreezing.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
 
@@ -39,6 +42,54 @@ rather than papered over: several existing files cite charter sections
 (39–40, 43, "First Activation") that don't exist in this version, which only
 runs through Section 11 — see [[12-known-limitations|L27]]. No code, tests,
 or roadmap changed; Phase 12+ freeze is untouched by this.
+
+## What Phase 13 built
+
+Built `context-optimizer`, the thirteenth skill: `SKILL.md` contract
+reusing Pattern 2 (ADR-007) a twelfth time — a deterministic engine (12
+modules, each under 100 lines, max `models.py` at 95) that scores every
+file in a required `codebase-intelligence` report (ADR-010, reused a
+ninth time) against a free-text task description's extracted keywords —
+matched against path/docstring/functions/classes/imports via a tokenized
+whole-token check (the FIFTH independent copy of a containment check in
+the L23/L24 lineage, and the SECOND built correct from day one, but using
+tokenization on `_`/`/`/`.`/`-` rather than `location_resolver.py`'s
+`\b`-regex, a deliberate, disclosed different precision/recall tradeoff)
+— boosts a file's score with real fan_in/hotspot structural data
+(ADR-013-style reuse), and tiers every nonzero-scoring file
+CORE/SUPPORTING/EXCLUDED, optionally against a `--budget-lines` cap. New
+**ADR-019** documents the required-composition reuse, the tokenized
+relevance scorer's tradeoff vs. Phase 12's regex approach, and — the
+headline architectural decision this phase — an explicit **inversion**
+of the fail-closed-toward-caution convention ADR-011/017/018 established:
+this skill fails **OPEN** toward inclusion under uncertainty instead
+(a low-but-nonzero score still earns at least SUPPORTING; a single file
+whose own size exceeds the budget is flagged, never silently dropped),
+because for a context-recommendation tool, silently excluding a needed
+file is the worse failure, not silently including an unimportant one.
+New **Context Optimization Checklist** (twelfth checklist,
+[[05-evaluation-framework]], decision-gate shaped like the Security,
+Dependency Risk, and Knowledge Capture checklists). 64 passing tests (CLI
+test file from the start). 8-fixture evaluation harness, both layers
+scored perfect — twelfth judgment-based skill scored this way, same
+self-authored caveat (L8). Real dogfood
+(`examples/context-optimizer/example-run.md`) — a fresh
+`codebase-intelligence` report against this repo's current (thirteen-skill)
+state, and a real task description drawn from this actual session's own
+work — found a new, disclosed-not-fixed limitation: **L29** — at
+full-repository scale, keyword relevance floods with false-positive CORE
+recommendations when the task description is phrased in this project's
+own recurring vocabulary (shared documentation/evaluation-harness
+boilerplate repeated across every skill); 5 of 17 CORE recommendations in
+the dogfood run were unrelated files (four other skills'
+`run_evaluation.py` files plus one unrelated fixture), not
+`context-optimizer` files. This is a new manifestation of the same
+coincidental-keyword-collision mechanism class `architecture-decision`'s
+L14/L19/L21 already disclosed — the second time this exact mechanism
+class has been hit on a real dogfood run without either project having
+acted on it. Platform test count rose from 521 to **585**, zero
+regressions. `.github/workflows/tests.yml`'s matrix updated to include
+the new skill.
 
 ## What Phase 12 built
 
@@ -255,27 +306,30 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Open threads / not yet decided
 
-- **2026-08-26 update: Phase 11 AND Phase 12 both shipped at the user's
-  explicit direction; Phase 13 onward is still frozen.** The mentor-review
-  critique concluded velocity of building had outpaced velocity of
-  validating (A2/A5 both UNKNOWN after ten phases, zero real external
-  users), and the user then explicitly directed starting Phase 11, and
-  later the same day Phase 12, anyway. Each is a one-time, explicit
-  exception, not new evidence and not a general unfreezing —
-  re-justifying Phase 13+ still requires real external validation evidence
-  first (a real user, an independent/blind eval pass, or a real
-  usage-comparison run via `evaluations/usage-comparison/`), not just a
-  pre-written roadmap proposal.
-- **L8 remains the most important open thread, now applying eleven
-  times**: ten of eleven judgment-based skills (adversarial-diff-reviewer,
+- **2026-08-26 update: Phase 11, Phase 12, AND Phase 13 all shipped at the
+  user's explicit direction; Phase 14 onward is still frozen.** The
+  mentor-review critique concluded velocity of building had outpaced
+  velocity of validating (A2/A5 both UNKNOWN after ten phases, zero real
+  external users), and the user then explicitly directed starting Phase
+  11, later the same day Phase 12, and later the same day Phase 13,
+  anyway. Each is a one-time, explicit exception, not new evidence and not
+  a general unfreezing — re-justifying Phase 14+ still requires real
+  external validation evidence first (a real user, an independent/blind
+  eval pass, or a real usage-comparison run via
+  `evaluations/usage-comparison/`), not just a pre-written roadmap
+  proposal. This tension is now deferred across three consecutive phase
+  boundaries.
+- **L8 remains the most important open thread, now applying twelve
+  times**: eleven of twelve judgment-based skills (adversarial-diff-reviewer,
   acceptance-test-engineer, feature-planner, security-context-guard,
   architecture-decision, refactoring-safety, regression-hunter,
-  release-readiness, dependency-supply-chain, engineering-knowledge-capture)
-  scored 100% precision/recall against self-authored ground truth; the
-  eleventh (root-cause-analyzer) scored 7/8 perfect and 1/8 at 0.67/0.67
-  (L19). All outcomes are equally inconclusive about real-world quality —
-  self-authored, single-rater evidence either way. The inter-rater-
-  agreement experiment (A5) still has not been run for any of the eleven.
+  release-readiness, dependency-supply-chain, engineering-knowledge-capture,
+  context-optimizer) scored 100% precision/recall against self-authored
+  ground truth; the twelfth (root-cause-analyzer) scored 7/8 perfect and
+  1/8 at 0.67/0.67 (L19). All outcomes are equally inconclusive about
+  real-world quality — self-authored, single-rater evidence either way.
+  The inter-rater-agreement experiment (A5) still has not been run for any
+  of the twelve.
 - **L25/L26 (Phase 11)**: `dependency-supply-chain` has no live
   CVE/vulnerability-database lookup (L25, permanent scope decision — this
   project makes no network calls, ADR-006) and no per-dependency
@@ -290,6 +344,18 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   module being named four times nearby. Disclosed, not fixed — widening
   the window risks a new false-positive class this project has no evidence
   is rarer than the false negative just found.
+- **L29 (new, Phase 13)**: `context-optimizer`'s `relevance_scorer.py`
+  floods with false-positive CORE recommendations at full-repository
+  scale when the task description is phrased in this project's own
+  recurring vocabulary — a real dogfood run found 5 of 17 CORE
+  recommendations were unrelated files (other skills' `run_evaluation.py`
+  boilerplate), not `context-optimizer` files. Same mechanism class as
+  `architecture-decision`'s L14/L19/L21, a new manifestation of it, and
+  the second time this exact mechanism class has been hit on a real
+  dogfood run without either project having acted on it. Disclosed, not
+  fixed — a real fix (TF-IDF-style down-weighting, or a
+  keyword-specificity threshold) has not been evaluated against real
+  evidence of need beyond this one dogfood run.
 - **The L14/L19/L21/L23/L24 substring-collision limitation class — status
   as of 2026-08-26: L23 FIXED, L24 PARTIALLY fixed, L14/L19/L21 still
   open.** `target_resolver.py`'s caller-identification bug (L23, shared
@@ -323,8 +389,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
   deferred — revisit only if real usage shows they matter. L24 (Phase 10)
   is deferred for the same reason but flagged, above, as the strongest
   candidate yet to revisit soon.
-- No real (non-agent) engineer has used any of the twelve skills yet —
-  Trust Status stays EXPERIMENTAL on all twelve, and assumptions
+- No real (non-agent) engineer has used any of the thirteen skills yet —
+  Trust Status stays EXPERIMENTAL on all thirteen, and assumptions
   A2/A3/A5/A7/A10 in [[16-assumptions-and-validation]] remain only
   partially evidenced.
 
@@ -337,7 +403,8 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 3. [[implementation-status.md]]
 4. [[07-current-state]]
 5. `README.md` (root) — primary public-facing entry point
-6. `skills/engineering-knowledge-capture/SKILL.md`,
+6. `skills/context-optimizer/SKILL.md`,
+   `skills/engineering-knowledge-capture/SKILL.md`,
    `skills/dependency-supply-chain/SKILL.md`,
    `skills/release-readiness/SKILL.md`,
    `skills/regression-hunter/SKILL.md`,
@@ -347,7 +414,9 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    `skills/security-context-guard/SKILL.md`, `skills/feature-planner/SKILL.md`,
    `skills/acceptance-test-engineer/SKILL.md`,
    `skills/adversarial-diff-reviewer/SKILL.md`, `skills/codebase-intelligence/SKILL.md`
-7. `examples/engineering-knowledge-capture/example-run.md` (real dogfood,
+7. `examples/context-optimizer/example-run.md` (real dogfood, surfaced the
+   new L29 full-repository-scale keyword-flooding gap),
+   `examples/engineering-knowledge-capture/example-run.md` (real dogfood,
    surfaced the new L28 line-vs-paragraph resolution gap),
    `examples/dependency-supply-chain/example-run.md` (real dogfood, confirms
    the inherited L2 scope gap concretely) and `examples/release-readiness/
@@ -358,10 +427,11 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Last updated
 
-2026-08-26 — Phase 12 (`engineering-knowledge-capture`) shipped at the
-user's explicit direction, a second one-time reopening of the same-day
-mentor-review freeze (after Phase 11, `dependency-supply-chain`); Phase 13
-onward remains frozen. Test count: 521 (up from 474). Earlier the same
-day, between Phase 11 and Phase 12: the operating charter checked in at
-[[operating-charter]] (documentation only, no code/roadmap change; see
+2026-08-26 — Phase 13 (`context-optimizer`) shipped at the user's explicit
+direction, a THIRD one-time reopening of the same-day mentor-review freeze
+(after Phase 11, `dependency-supply-chain`, and Phase 12,
+`engineering-knowledge-capture`); Phase 14 onward remains frozen. Test
+count: 585 (up from 521). Earlier the same day, between Phase 11 and Phase
+12: the operating charter checked in at [[operating-charter]]
+(documentation only, no code/roadmap change; see
 [[12-known-limitations|L27]] for the disclosed section-numbering gap).

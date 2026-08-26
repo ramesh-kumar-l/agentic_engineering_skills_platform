@@ -1,0 +1,10 @@
+{
+  "root_path": "/repo",
+  "files": [
+    {"path": "engine/testability_scanner_utils.py", "language": "python", "size_bytes": 300, "line_count": 15}
+  ],
+  "modules": [
+    {"path": "engine/testability_scanner_utils.py", "docstring": null, "functions": [], "classes": [], "imports": []}
+  ],
+  "dependency_graph": {"fan_in": {}, "fan_out": {}, "hotspots": []}
+}

@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c6-1",
+      "category": "supporting",
+      "description": "Uncertainty check (Checklist item 7): `engine/report.py` scores a weak single-field match — only its `import engine.delta` line matches the task's 'delta' keyword, worth just 1 point (the import weight). The engine still recommends it as SUPPORTING rather than applying a stricter noise-reduction cutoff — the fail-OPEN discipline this skill deliberately commits to, since dropping a real, if minor, signal risks the worse failure.",
+      "grounding": "relevance_scorer.score_relevance matches 'delta' only against import_tokens (+1, IMPORT_WEIGHT); no path/docstring/name hit; structural_booster adds no boost (fan_in=0, not a hotspot); total score 1 is still > 0, so report.py includes it as a candidate, and budget_selector.assign_relevance_tiers gives it SUPPORTING (1 < CORE_THRESHOLD) rather than dropping it for being 'too weak'."
+    }
+  ]
+}

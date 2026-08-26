@@ -1,0 +1,10 @@
+{
+  "cases": [
+    {
+      "id": "c4-1",
+      "category": "excluded",
+      "description": "Budget honesty check (Checklist item 5): with a 50-line budget, only `engine/alpha.py` (the hotspot, score 6, CORE) fits; both `engine/beta.py` and `engine/gamma.py` score equally (3, SUPPORTING) and are correctly excluded once alpha's 30 lines are already committed — neither is silently dropped, both carry an explicit 'excluded — over budget' note. Nothing load-bearing (the one CORE candidate) was excluded.",
+      "grounding": "budget_selector.apply_budget orders candidates CORE-then-SUPPORTING by descending score; alpha (CORE, line_count=30) fits under budget_lines=50 (running=30); beta and gamma (SUPPORTING, line_count 40 and 25) each would push the running total past 50, so both flip to EXCLUDED with a note, per the stable-sort tie-break on equal scores."
+    }
+  ]
+}
