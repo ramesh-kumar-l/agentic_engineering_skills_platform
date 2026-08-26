@@ -15,7 +15,9 @@ each time, per the token-efficiency protocol.
 ## Success Criteria
 
 - The 10 memory-bank files named in the charter's "First Activation" section
-  exist and are internally consistent.
+  exist and are internally consistent. Note (2026-08-26): the checked-in
+  [[operating-charter]] contains no "First Activation" section — see
+  [[12-known-limitations|L27]].
 - Root-level open-source scaffolding (README, CONTRIBUTING, SECURITY, ROADMAP,
   CHANGELOG) exists and is honest about current (near-zero) maturity.
 - No skill code, evaluation harness, or UI built — Phase 0 is documentation

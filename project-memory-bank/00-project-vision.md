@@ -1,6 +1,7 @@
 # 00 — Project Vision
 
 Stable, long-term. Update rarely, and only on deliberate strategic change.
+Distilled from [[operating-charter]] §1.
 
 ## What we are building
 

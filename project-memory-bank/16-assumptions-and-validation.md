@@ -279,7 +279,8 @@ update [[08-roadmap]] rather than forcing reality to fit the plan.
   mistakes and re-derivation of already-known facts.
 - **Risk**: stale/unvalidated memory could actively degrade performance if
   treated as authoritative (Section 43 of the charter explicitly warns about
-  this).
+  this). Note (2026-08-26): the checked-in [[operating-charter]] contains no
+  Section 43 — see [[12-known-limitations|L27]].
 - **Validation experiment**: deferred — Engineering Memory is Phase 15, last in
   the roadmap by design.
 - **Expected evidence**: TBD.

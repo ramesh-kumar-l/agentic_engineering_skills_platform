@@ -75,6 +75,8 @@ required composition, ADR-010, and manual, N=1 pilots — see
 06-security-model.md
 07-current-state.md             (this file)
 08-roadmap.md                   updated this phase (Phase 10 complete, Phase 11 proposed next)
+operating-charter.md            NEW 2026-08-26 — the previously-referenced-
+                                 but-missing source document ADR-001 adopts
 11-decisions.md                 updated this phase (ADR-016)
 12-known-limitations.md         updated this phase (L24)
 16-assumptions-and-validation.md   updated this phase (A5, A10)

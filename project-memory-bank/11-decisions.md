@@ -29,6 +29,13 @@ token-efficiency protocol) as the governing process for this project.
 
 **Status**: Adopted.
 
+**Addendum (2026-08-26)**: the operating charter this ADR adopts was, until
+today, referenced by name but never checked into the repo. It is now filed
+at [[operating-charter]], confirmed complete by the user. That version
+contains Sections 1–11 only; this file's own citations and others'
+(Section 39–40, Section 43, "First Activation") point past that range —
+see [[12-known-limitations|L27]] for the disclosed discrepancy.
+
 ---
 
 ## ADR-002: `SKILL.md` is the initial portable representation, not a permanent one

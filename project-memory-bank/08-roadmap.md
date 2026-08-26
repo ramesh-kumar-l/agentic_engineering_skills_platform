@@ -31,6 +31,8 @@ PHASE 15 — Engineering Memory
 
 Each phase ends with a completion report and a hard STOP for user instruction
 (Section 39–40 of the operating charter). No phase auto-continues into the next.
+Note (2026-08-26): the checked-in [[operating-charter]] contains no Section
+39–40 — see [[12-known-limitations|L27]].
 
 ## Full target skill portfolio (do not build all at once)
 
@@ -42,6 +44,11 @@ architecture-decision, regression-hunter, release-readiness.
 
 **Advanced**: dependency-supply-chain-reviewer, engineering-knowledge-capture,
 context-optimizer, workflow-composer, engineering-memory.
+
+Naming drift (noted 2026-08-26): the shipped Phase 11 skill is
+`dependency-supply-chain`, not `dependency-supply-chain-reviewer` as listed
+in the original [[operating-charter]] §8 portfolio. Documented as drift, not
+retroactively renamed.
 
 First milestone is 3 genuinely useful, evaluated skills used on real work — not
 all 15.

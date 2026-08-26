@@ -748,3 +748,41 @@ than silently omitting the category — `evaluations/dependency-supply-chain/`
 's `run_evaluation.py` docstring and `RESULTS.md` both restate this caveat.
 Real per-dependency license detection is named as a future-evolution item
 in ADR-017, to be built only against real evidence of need.
+
+## L27: [[operating-charter]] section-numbering discrepancy across the memory bank
+
+**Status**: Disclosed, not fabricated to match — a documentation
+inconsistency, not a code defect.
+
+Four existing files cite specific sections/subsections of "the operating
+charter" that do not exist in the version checked into the repo on
+2026-08-26 as `project-memory-bank/operating-charter.md` (confirmed
+complete by the user, not an excerpt):
+
+- `11-decisions.md` (ADR-001) and `08-roadmap.md` cite "Section 39–40"
+  (hard-STOP / Phase Completion Report guidance).
+- `02-requirements.md` and `16-assumptions-and-validation.md` cite
+  "Section 43" (Engineering Memory design warning).
+- `sprint-history/SPRINT-00.md` cites the charter's "First Activation"
+  section (the 10 memory-bank files to create first).
+
+The checked-in charter contains Sections 1–11 only (through "Canonical
+Skill Contract") and has no "First Activation" section. Rather than
+silently drop these citations or invent matching content to paper over the
+gap — which would violate this project's own no-fabricated-content
+discipline (see ADR-017's L26 rationale, applied here to documentation
+instead of a feature) — each citing file now carries a short dated
+parenthetical pointing here.
+
+**Impact**: none on shipped code or evaluated behavior — every phase's
+actual STOP-gate and Phase-Completion-Report practice, and the actual
+Engineering Memory deferral, were followed correctly throughout; only the
+*citation* to a specific charter section number is unverifiable against
+the version now in the repo.
+
+**Regression prevention**: future sessions should treat "Section N of the
+operating charter" references in older memory-bank text as informal
+pointers to intent, not literal lookups, unless/until a fuller charter
+version (covering sections beyond 11) is provided and checked in — at
+which point this entry should be marked FIXED and
+`operating-charter.md`'s "End of checked-in charter" note updated.

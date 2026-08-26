@@ -38,3 +38,5 @@ minimal starting set, not a target spec.
 - Enterprise administration, multi-tenant permissions, billing.
 - Engineering Memory implementation (design deferred — see Section 43 of the
   operating charter; will get its own memory file when actually built).
+  Note (2026-08-26): the checked-in [[operating-charter]] contains no
+  Section 43 — see [[12-known-limitations|L27]].

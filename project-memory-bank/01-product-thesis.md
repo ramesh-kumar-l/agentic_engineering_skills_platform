@@ -1,5 +1,8 @@
 # 01 — Product Thesis
 
+Distilled from [[operating-charter]] §2 (thesis), §5 (primary metric), §6
+(target users).
+
 ## The working thesis (UNPROVEN — see [[16-assumptions-and-validation]])
 
 > AI coding agents are becoming increasingly capable, but engineers and

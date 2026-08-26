@@ -22,6 +22,20 @@ shipped (see "What Phase 11 built" below). The freeze remains in force for
 any phase beyond 11 — starting Phase 11 was a one-time, explicit exception,
 not a general unfreezing.
 
+## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
+
+The user pasted the full "operating charter" (north-star vision, thesis,
+principles, target users, skill portfolio, canonical skill contract,
+assumption-tracking methodology) that ADR-001 has adopted since Phase 0 but
+that had never actually been checked into the repo. Confirmed by the user as
+complete. Filed at [[operating-charter]], cross-linked from ADR-001,
+`00-project-vision.md`, `01-product-thesis.md`, and every file that already
+cited "the operating charter" by name. One honest gap surfaced and disclosed
+rather than papered over: several existing files cite charter sections
+(39–40, 43, "First Activation") that don't exist in this version, which only
+runs through Section 11 — see [[12-known-limitations|L27]]. No code, tests,
+or roadmap changed; Phase 12+ freeze is untouched by this.
+
 ## What Phase 11 built
 
 Built `dependency-supply-chain`, the eleventh skill: `SKILL.md` contract
@@ -266,10 +280,13 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 ## If resuming this session cold, read in this order
 
 1. This file
-2. [[implementation-status.md]]
-3. [[07-current-state]]
-4. `README.md` (root) — primary public-facing entry point
-5. `skills/dependency-supply-chain/SKILL.md`,
+2. [[operating-charter]] — the source document everything else in this
+   memory bank distills (only needed for deep context; skip on a quick
+   resume)
+3. [[implementation-status.md]]
+4. [[07-current-state]]
+5. `README.md` (root) — primary public-facing entry point
+6. `skills/dependency-supply-chain/SKILL.md`,
    `skills/release-readiness/SKILL.md`,
    `skills/regression-hunter/SKILL.md`,
    `skills/refactoring-safety/SKILL.md`,
@@ -278,11 +295,11 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    `skills/security-context-guard/SKILL.md`, `skills/feature-planner/SKILL.md`,
    `skills/acceptance-test-engineer/SKILL.md`,
    `skills/adversarial-diff-reviewer/SKILL.md`, `skills/codebase-intelligence/SKILL.md`
-6. `examples/dependency-supply-chain/example-run.md` (real dogfood, confirms
+7. `examples/dependency-supply-chain/example-run.md` (real dogfood, confirms
    the inherited L2 scope gap concretely) and `examples/release-readiness/
    example-run.md` (the real diff run that disclosed L24)
-7. [[17-experiment-viability-check.md]]
-8. `blogs/` — earlier public-facing material (written before Phase 6; not
+8. [[17-experiment-viability-check.md]]
+9. `blogs/` — earlier public-facing material (written before Phase 6; not
    yet updated with Phase 6-11 posts)
 
 ## Last updated
@@ -290,4 +307,6 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 2026-08-26 — Phase 11 (`dependency-supply-chain`) shipped at the user's
 explicit direction, reopening the same-day mentor-review freeze as a
 one-time exception; Phase 12 onward remains frozen. Test count: 474 (up
-from 428).
+from 428). Same day, after Phase 11: the operating charter checked in at
+[[operating-charter]] (documentation only, no code/roadmap change; see
+[[12-known-limitations|L27]] for the disclosed section-numbering gap).
