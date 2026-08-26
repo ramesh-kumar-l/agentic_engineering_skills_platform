@@ -117,9 +117,10 @@ git diff | python -m engine.cli - --format markdown
 ```
 
 Every skill's own `README.md` has the exact copy-pasteable command for that
-skill, including the two skills that take extra input
-(`acceptance-test-engineer` wants a requirement, `feature-planner` **requires**
-a `codebase-intelligence` report — see below).
+skill. Most take extra input beyond a bare repo path — `acceptance-test-
+engineer` wants a requirement, and eleven skills (`feature-planner`
+through `engineering-memory`) **require** a `codebase-intelligence`
+report as a hard precondition, not optional context — see §7 below.
 
 **Important distinction**: the CLI you just ran is only *half* of a skill.
 It produces a deterministic "pre-processing packet" (stats + flags) — the
@@ -167,22 +168,28 @@ cd evaluations/codebase-intelligence
 python run_evaluation.py
 ```
 
-This regenerates `RESULTS.md` with real, current scores. For the four
-judgment-based skills (everything except `codebase-intelligence`), the
-harness scores two separate layers — a fully automated deterministic layer,
-and a judgment layer comparing an AI agent's actual derivation against
-ground truth. **Read the top of any `RESULTS.md` before trusting the
-number** — every one of them discloses the same honest caveat: the scores
-are self-authored/single-rater evidence, not proof of real-world quality.
+This regenerates `RESULTS.md` with real, current scores. For the fourteen
+judgment-based skills (everything except `codebase-intelligence`, which is
+fully deterministic), the harness scores two separate layers — a fully
+automated deterministic layer, and a judgment layer comparing an AI
+agent's actual derivation against ground truth. **Read the top of any
+`RESULTS.md` before trusting the number** — every one of them discloses
+the same honest caveat: the scores are self-authored/single-rater
+evidence, not proof of real-world quality.
 This is not a footnote to skim past — it's one of the more interesting
 engineering decisions in this repo. See
 [Your AI Eval Says 100%. That Should Worry You.](blogs/04-your-ai-eval-says-100-percent.md)
 
 ## 7. Composing two skills together
 
-`feature-planner` is the one skill that **requires** another skill's output
-as a hard precondition (not optional context) — see
-[ADR-010](project-memory-bank/11-decisions.md):
+`feature-planner` was the first skill to **require** another skill's
+output as a hard precondition (not optional context) — see
+[ADR-010](project-memory-bank/11-decisions.md). That rule has since been
+reused by ten more skills (`root-cause-analyzer` through
+`engineering-memory`); every one of them needs a real
+`codebase-intelligence` report before it will run. The same manual
+two-step pattern shown below works for any of them — just swap the
+second command for the skill you want:
 
 ```bash
 # 1. Generate a codebase-intelligence report first (required)
@@ -201,6 +208,17 @@ also accepts an optional `--ci-report` flag, but treats a missing one as a
 warning, not a failure — the difference between those two design choices is
 itself documented (ADR-010 vs ADR-011 in
 [`project-memory-bank/11-decisions.md`](project-memory-bank/11-decisions.md)).
+
+Two later skills compose differently, worth knowing about:
+- `workflow-composer` automates the two-step pattern above instead of you
+  running it by hand — it subprocess-invokes a named template's real
+  steps (e.g. `codebase-intelligence` → `feature-planner`) and fails
+  closed if a step breaks or a compatibility check fails. See its own
+  `README.md` for the exact command.
+- `engineering-memory` composes on a `codebase-intelligence` report the
+  same required way, but retrieves against *this project's own*
+  `project-memory-bank/` markdown rather than a target repo's code — the
+  first "self-referential" skill in the portfolio.
 
 ## 8. Where to read next, depending on what you want
 
