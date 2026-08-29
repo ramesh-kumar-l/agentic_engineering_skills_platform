@@ -1350,3 +1350,115 @@ boundaries. Completing this phase also completes the originally-scoped
 15-skill portfolio named in [[08-roadmap]] — no Phase 16 exists in that
 list; anything past this point is a newly-proposed scope, not "the next
 phase," unless and until real external validation evidence changes A2/A5.
+
+## ADR-022: `codebase-intelligence` adds Java/Kotlin support via a package-declaration FQN index, not directory-convention guessing
+
+**Decision**: Java/Kotlin import resolution (`graph.py`) is built on a real
+fully-qualified-class-name index derived from each file's actual `package`
+declaration (extracted by the new `jvm_parser.py`, shared by both
+languages) cross-referenced with its top-level type names — never guessed
+from a `src/main/java/...`-style directory convention, which would silently
+misresolve any repo with a non-standard layout. `jvm_parser.py` replaces
+Java's prior routing through `generic_parser.py`'s bare import-only regex
+(`generic_parser.py`'s "java" entry is removed as dead code, not left
+unreachable). This is not a new phase in the originally-scoped 15-skill
+portfolio (which is complete, per ADR-021) — it is new, user-directed,
+cross-cutting scope touching `codebase-intelligence` and five downstream
+skills, requested after the user asked whether the portfolio works on
+Java/Kotlin repos and a read-only audit confirmed it largely did not
+(Kotlin had zero support anywhere in the codebase; Java got import
+extraction but zero graph edges, zero entry points, zero manifest parsing).
+
+1. **Wildcard imports (`import a.b.*`) resolve to an edge for every class
+   `graph.py`'s FQN index knows about in that package** — zero, one, or
+   many edges from a single import line, a genuinely different resolver
+   shape from every prior language's single-target `_resolve_*_import`
+   functions (see `graph.py`'s new `_resolve_jvm_import`, which returns
+   `list[str]`, not `str | None`).
+2. **Unresolved imports fail open, matching every existing language's
+   convention in this file**, stated explicitly in `graph.py`'s own
+   module docstring: a JDK/stdlib class, a third-party library class, or
+   an internal class this regex parser failed to extract simply produces
+   no edge — no warning, no exception. This is not a new policy; it is
+   the existing Python/JS convention applied unchanged to a third
+   language family.
+3. **Maven (`pom.xml`, stdlib `xml.etree.ElementTree` with `{*}` wildcard-
+   namespace matching) and Gradle (`build.gradle`/`build.gradle.kts`,
+   regex) manifest parsing is added to `external_deps.py`, scoped
+   narrowly and disclosed, not guessed at full DSL fidelity**: Maven
+   parsing covers only the project's direct `<dependencies>` block (not
+   `<dependencyManagement>` or profile-scoped dependencies — the same
+   "scope to the primary block" precedent `_parse_pyproject_toml`
+   already set for `[project.dependencies]` alone); Gradle parsing covers
+   only the common single-line string-notation dependency declaration on
+   common configuration names, in the root-level build file only. Version
+   catalogs, map-notation, variable interpolation, and multi-module
+   `settings.gradle` coordination are explicitly out of scope — see new
+   entries in [[12-known-limitations]].
+4. **`pin_checker.py` gains a fourth pin-status, `"unresolved"`**, for an
+   unresolved Maven `${property}` version placeholder — a category
+   deliberately distinct from `"range"`/`"wildcard"`, since an unresolved
+   property is not a reproducibility-range problem, it is a genuinely
+   unknown literal value this engine (by design, per its own documented
+   stance on not inspecting installed-package metadata) does not resolve.
+5. **Downstream pattern tables gain additive-only Java/Kotlin entries**:
+   `adversarial-diff-reviewer`'s `risk_patterns.py` (Runtime.exec,
+   ProcessBuilder, broad catch(Exception/Throwable), JDBC string-concat
+   SQL, System.out/err.println), `release-readiness`'s
+   `hygiene_patterns.py` (System.out/err.println leftover), and
+   `regression-hunter`'s `regression_patterns.py` (`touches_def_line`
+   extended with real Java-method/Kotlin-`fun` line regexes, plus all
+   four independent `is_test_shaped_path`/`_looks_like_test_module`
+   copies across `refactoring-safety`/`regression-hunter`/
+   `release-readiness` extended with the JVM `*Test`/`*Tests`/`*Spec`
+   PascalCase suffix convention, case-sensitively, so it cannot collide
+   with an unrelated lowercase stem like "manifest"). No existing pattern
+   entry in any of these tables was modified.
+
+- User Value: closes the gap named in the originating audit — 11 of 14
+  downstream skills require a `codebase-intelligence` report as a hard
+  precondition (ADR-010), and every one of them was structurally blind to
+  any Java/Kotlin-majority repo before this change (unparsed modules, zero
+  graph edges, no entry points, no manifest-derived external dependencies).
+- Correctness: the FQN index is built from a real `package` declaration the
+  parser extracts from file content, not inferred from path structure —
+  correctly handles non-standard directory layouts where a guess-from-path
+  approach would silently misresolve every import in the repo; confirmed
+  via a real dogfood run against a small synthetic Java+Kotlin+Gradle
+  project (not just unit fixtures) — entry point detected, a wildcard
+  import correctly resolved to a same-package class, and both Gradle
+  dependencies correctly classified as `pinned`.
+- Security: no new surface — `jvm_parser.py` and the Maven/Gradle parsers
+  are read-only regex/XML scans, same posture as every existing parser in
+  this package; `xml.etree.ElementTree` is stdlib, no new dependency.
+- Simplicity: `jvm_parser.py` is one shared module for two languages rather
+  than two near-duplicate parsers, mirroring `generic_parser.py`'s own
+  "one engine, language param" shape; the JVM resolver lives inside
+  `graph.py` alongside the Python/JS resolvers rather than a new per-
+  language resolver file, matching this file's existing internal
+  structure.
+- Maintainability: `jvm_parser.py` lands at 82 lines, `graph.py`'s net new
+  code is two small functions following its existing
+  `_build_*_index`/`_resolve_*` pairing convention exactly; every touched
+  engine file stays well under this project's <300-line-per-file
+  discipline (largest touched file: `risk_patterns.py` at 162 lines).
+- Portability: no new runtime dependency — `xml.etree.ElementTree` and
+  `re` are both stdlib; every downstream skill's own independent
+  `ci_report_loader.py`/`test_coverage_scanner.py` copy is updated in
+  place (own independent copy, no cross-package import, per this
+  project's standing convention) rather than factored into a shared import.
+- Evidence: 40 new tests added across 6 skills (`codebase-intelligence`
+  24→42, `adversarial-diff-reviewer` 23→29, `dependency-supply-chain`
+  46→55, `refactoring-safety` 64→65, `regression-hunter` 66→70,
+  `release-readiness` 82→84; total 693→733), plus the real dogfood run
+  described above. The other 9 skills' test counts are unchanged —
+  confirmed via a full platform re-run, zero regressions.
+- Future Evolution: the regex-based type-declaration extraction does not
+  track brace depth, so a nested/inner type sharing a name with an
+  unrelated top-level type in the same package can silently collide in
+  the FQN index — see new entry in [[12-known-limitations]], explicitly
+  drawing the same "disclose, don't guess a fix from one data point"
+  parallel ADR-021 drew for L31 rather than claiming this phase also
+  solves that class of problem.
+
+**Status**: Adopted.

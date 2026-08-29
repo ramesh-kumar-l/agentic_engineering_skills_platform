@@ -151,8 +151,8 @@ for d in skills/*/; do
 done
 ```
 
-Expect **693 passing tests** across all fifteen skills (24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64 + 51 + 57)
-as of the most recent phase. See
+Expect **733 passing tests** across all fifteen skills (42 + 29 + 24 + 21 + 58 + 32 + 34 + 65 + 70 + 84 + 55 + 47 + 64 + 51 + 57)
+as of the most recent change. See
 [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md)
 for the current authoritative count.
 

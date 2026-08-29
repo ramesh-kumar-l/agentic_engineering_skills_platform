@@ -79,6 +79,78 @@ def test_all_occurrences_of_a_secret_pattern_on_one_line_are_redacted():
     assert redacted_line.count("<redacted>") == 2
 
 
+def test_jvm_runtime_exec_flagged():
+    diff = """diff --git a/App.java b/App.java
+--- a/App.java
++++ b/App.java
+@@ -1,1 +1,2 @@
+ public class App {
++    Runtime.getRuntime().exec(cmd);
+"""
+    flags = scan(parse_diff(diff))
+    assert any(f.pattern_id == "jvm-runtime-exec" for f in flags)
+
+
+def test_jvm_processbuilder_flagged():
+    diff = """diff --git a/App.java b/App.java
+--- a/App.java
++++ b/App.java
+@@ -1,1 +1,2 @@
+ public class App {
++    new ProcessBuilder(cmd).start();
+"""
+    flags = scan(parse_diff(diff))
+    assert any(f.pattern_id == "jvm-processbuilder" for f in flags)
+
+
+def test_jvm_broad_catch_exception_flagged():
+    diff = """diff --git a/App.java b/App.java
+--- a/App.java
++++ b/App.java
+@@ -1,1 +1,2 @@
+ try {
++} catch (Exception e) {
+"""
+    flags = scan(parse_diff(diff))
+    assert any(f.pattern_id == "jvm-broad-catch-exception" for f in flags)
+
+
+def test_jvm_broad_catch_throwable_flagged():
+    diff = """diff --git a/App.java b/App.java
+--- a/App.java
++++ b/App.java
+@@ -1,1 +1,2 @@
+ try {
++} catch (Throwable t) {
+"""
+    flags = scan(parse_diff(diff))
+    assert any(f.pattern_id == "jvm-broad-catch-throwable" for f in flags)
+
+
+def test_jvm_sql_string_concat_flagged():
+    diff = """diff --git a/Dao.java b/Dao.java
+--- a/Dao.java
++++ b/Dao.java
+@@ -1,1 +1,2 @@
+ public class Dao {
++    stmt.executeQuery("SELECT * FROM users WHERE id=" + id);
+"""
+    flags = scan(parse_diff(diff))
+    assert any(f.pattern_id == "jvm-sql-string-concat" for f in flags)
+
+
+def test_jvm_debug_println_flagged():
+    diff = """diff --git a/App.java b/App.java
+--- a/App.java
++++ b/App.java
+@@ -1,1 +1,2 @@
+ public class App {
++    System.out.println("debug");
+"""
+    flags = scan(parse_diff(diff))
+    assert any(f.pattern_id == "jvm-debug-println" for f in flags)
+
+
 def test_flags_only_scan_added_lines_not_removed():
     diff_text = """diff --git a/mod.py b/mod.py
 --- a/mod.py

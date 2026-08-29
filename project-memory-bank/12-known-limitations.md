@@ -1030,3 +1030,57 @@ especially given L31's real dogfood finding above, which the small
 hand-authored fixtures did not and could not exercise (none of them reuse
 a basename across more than one fixture module). See
 [[16-assumptions-and-validation]] A5.
+
+## L32: `jvm_parser.py`'s regex-based type extraction can mis-attribute nested/inner types as top-level, colliding in the FQN index
+
+- **What failed**: `jvm_parser.py`'s `_TYPE_DECL` regex matches any
+  `class`/`interface`/`enum`/`object` declaration line regardless of brace
+  depth (regex, not a real parser — same standing caveat as
+  `generic_parser.py`, see ADR-022). A nested or inner type sharing a name
+  with an unrelated top-level type in the same `package` will overwrite
+  that name's entry in `graph.py`'s `fqn_to_path` index (last-module-
+  processed wins) — the same last-wins collision *shape* as L31's
+  basename resolution in `engineering-memory`, but inside a different
+  mechanism (the new FQN index, built specifically to avoid the
+  directory-guessing failure mode, not this one).
+- **Why**: building a brace-depth-aware parser for Java/Kotlin would mean
+  writing a real parser, not the heuristic regex layer every non-Python
+  language in this project uses (Python alone gets a real `ast`-based
+  parser, per `python_parser.py`'s own docstring).
+- **Impact**: an edge in the dependency graph could point to the wrong
+  file when this collision occurs — rare in practice (requires a same-
+  named nested and top-level type in the same package), but not
+  structurally prevented. Not exercised by the real dogfood run performed
+  for ADR-022 (the synthetic test project had no same-named nested/
+  top-level type collision).
+- **Fix**: Not applied. Same "disclose, don't guess a fix from one data
+  point" discipline this project has applied to every prior instance of
+  this collision shape (L23/L24/L28/L31).
+- **Regression prevention**: documented in `jvm_parser.py`'s own module
+  docstring and `codebase-intelligence/SKILL.md` Known Limitations.
+
+## L33: Maven/Gradle manifest parsing is deliberately scoped to the common case, not full build-tool DSL fidelity
+
+- **What failed**: N/A (scope boundary, not a bug — same shape as
+  L2/L18's Python/npm-only and stack-trace-shape limitations).
+- **Why**: `_parse_pom_xml` only reads the project's direct
+  `<dependencies>` block (not `<dependencyManagement>`, not profile-scoped
+  dependencies) and passes an unresolved `${property}` version through
+  literally (see `pin_checker.py`'s new `"unresolved"` status);
+  `_parse_gradle` only recognizes the single-line string-notation form
+  (`configuration("group:artifact:version")`) on common configuration
+  names, in the root `build.gradle`/`build.gradle.kts` only. Gradle
+  version catalogs (`libs.versions.toml`), map-notation
+  (`group:`/`name:`/`version:` keys), variable/property interpolation, and
+  multi-module `settings.gradle` coordination are not parsed at all.
+- **Impact**: a real-world Gradle project using version catalogs or a
+  multi-module layout, or a Maven project relying on
+  `dependencyManagement`/profiles, will show an incomplete or empty
+  `external_dependencies` list for those dependencies — silently
+  incomplete, not a parse error.
+- **Fix**: Not applicable — documented boundary, the same "scope to the
+  primary/common block, disclose the rest" precedent `_parse_pyproject_toml`
+  already established for `[project.dependencies]` alone (L2).
+- **Regression prevention**: documented in `external_deps.py`'s module
+  docstring, `codebase-intelligence/SKILL.md` Known Limitations, and
+  `dependency-supply-chain/SKILL.md`'s Context Completeness section.

@@ -96,9 +96,10 @@ skills/codebase-intelligence/
     models.py           shared schema (CodebaseIntelligenceReport and friends)
     scanner.py           repo walk, exclusions, secret-file avoidance
     python_parser.py     AST-based import/def/class/docstring/entry-point extraction
-    generic_parser.py    heuristic (regex) import extraction for JS/TS/Java
-    graph.py              internal dependency graph + hotspot ranking
-    external_deps.py     requirements.txt / pyproject.toml / package.json parsing
+    jvm_parser.py         heuristic (regex) package/import/type/entry-point extraction for Java/Kotlin (ADR-022)
+    generic_parser.py    heuristic (regex) import extraction for JS/TS
+    graph.py              internal dependency graph + hotspot ranking (Python/JS by path; Java/Kotlin by package-declaration FQN index, ADR-022)
+    external_deps.py     requirements.txt / pyproject.toml / package.json / pom.xml / build.gradle[.kts] parsing
     report.py             orchestrates the above into one report
     render_json.py       full-detail machine-readable output
     render_markdown.py   condensed human/agent-readable output
@@ -114,7 +115,7 @@ on one concern only needs to read the ~100-line file for it, not a monolith.
 
 ```
 scanner.scan() -> FileInfo[]
-    -> python_parser / generic_parser -> ModuleInfo[]
+    -> python_parser / jvm_parser / generic_parser -> ModuleInfo[]
         -> graph.build_graph() -> DependencyGraph
         -> external_deps.parse_external_dependencies() -> ExternalDependency[]
     -> report.build_report() assembles CodebaseIntelligenceReport

@@ -587,6 +587,35 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Last updated
 
+2026-08-29 — ADR-022: Java/Kotlin multi-language support, added at the
+user's explicit direction after they asked whether the 15-skill portfolio
+works on Java/Kotlin repos. A read-only audit confirmed it largely did
+not (Kotlin had zero support anywhere in the codebase; Java got import
+extraction but zero graph edges, zero entry points, zero manifest
+parsing). This is **user-directed, cross-cutting scope — NOT a new
+roadmap phase**: the originally-scoped 15-skill portfolio was already
+completed by Phase 15 below, and there is still no Phase 16 in
+[[08-roadmap]]'s list. Touched `codebase-intelligence` (new
+`jvm_parser.py`; `graph.py` gains a package-declaration FQN index
+resolver for Java/Kotlin, deliberately not directory-convention guessing;
+`external_deps.py` parses Maven `pom.xml`/Gradle `build.gradle[.kts]`)
+and 5 downstream skills (`dependency-supply-chain`'s `pin_checker.py`
+gains ecosystem-aware classification; `adversarial-diff-reviewer`'s/
+`release-readiness`'s pattern tables gain additive JVM entries;
+`refactoring-safety`'s/`regression-hunter`'s/`release-readiness`'s
+`test_coverage_scanner.py` copies and `regression-hunter`'s own
+`is_test_shaped_path` recognize the JVM `*Test`/`*Tests`/`*Spec` suffix
+convention). 40 new tests (693 → 733); the other 9 skills' counts are
+unchanged, confirmed via a full platform re-run. A real dogfood run
+against a synthetic Java+Kotlin+Gradle project (not just unit fixtures)
+confirmed the full scan→parse→graph→entry-point→manifest pipeline end to
+end. Two new disclosed limitations: L32 (the regex type-extraction
+doesn't track brace depth, so a nested/inner type can collide with a
+top-level one in the new FQN index) and L33 (Maven/Gradle parsing scope
+boundary — no version catalogs, map-notation, property interpolation, or
+multi-module coordination). See [[11-decisions]] ADR-022 and
+[[12-known-limitations]] L32/L33.
+
 2026-08-26 — Phase 15 (`engineering-memory`) shipped at the user's
 explicit direction, a FIFTH one-time reopening of the same-day
 mentor-review freeze (after Phase 11 `dependency-supply-chain`, Phase 12

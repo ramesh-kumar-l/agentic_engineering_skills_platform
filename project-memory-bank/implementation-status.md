@@ -9,27 +9,34 @@ Replaced/updated in place, not appended to chronologically — see
 
 | Skill | Maturity | Trust Status | Tests | Evaluation |
 |---|---|---|---|---|
-| codebase-intelligence | Level 2 — Evaluated | EXPERIMENTAL | 24/24 passing (was 23, +1 test added in Phase 9 for a real `*.egg-info`-exclusion fix found via `regression-hunter`'s own dogfood run, see [[12-known-limitations]] and `examples/regression-hunter/example-run.md`) | 4/4 fixtures passing, see `evaluations/codebase-intelligence/RESULTS.md` |
-| adversarial-diff-reviewer | Level 2 — Evaluated | EXPERIMENTAL | 23/23 passing (was 19, +4 CLI tests added in Phase 3, see [[12-known-limitations]] L10) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored — see [[12-known-limitations]] L8); see `evaluations/adversarial-diff-reviewer/RESULTS.md` |
+| codebase-intelligence | Level 2 — Evaluated | EXPERIMENTAL | 42/42 passing (was 23, +1 test Phase 9 `*.egg-info` fix; +18 tests ADR-022 Java/Kotlin support, see [[12-known-limitations]] L32/L33) | 4/4 fixtures passing, see `evaluations/codebase-intelligence/RESULTS.md` |
+| adversarial-diff-reviewer | Level 2 — Evaluated | EXPERIMENTAL | 29/29 passing (was 19, +4 CLI tests Phase 3, see [[12-known-limitations]] L10; +6 tests ADR-022 JVM risk patterns) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored — see [[12-known-limitations]] L8); see `evaluations/adversarial-diff-reviewer/RESULTS.md` |
 | acceptance-test-engineer | Level 2 — Evaluated | EXPERIMENTAL | 24/24 passing (was 20, +4 CLI tests added in Phase 4, see [[12-known-limitations]] L13) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, same caveat as above — see [[12-known-limitations]] L8); see `evaluations/acceptance-test-engineer/RESULTS.md` |
 | feature-planner | Level 2 — Evaluated | EXPERIMENTAL | 21/21 passing | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, third time — see [[12-known-limitations]] L8); see `evaluations/feature-planner/RESULTS.md` |
 | security-context-guard | Level 2 — Evaluated | EXPERIMENTAL | 58/58 passing (CLI test file written from the start, not discovered missing later) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall (single-rater/self-authored, fourth time — see [[12-known-limitations]] L8); see `evaluations/security-context-guard/RESULTS.md` |
 | root-cause-analyzer | Level 2 — Evaluated | EXPERIMENTAL | 32/32 passing (CLI test file written from the start, same discipline as Phase 5) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 7/8 fixtures perfect precision/recall, 1/8 (case-03) at 0.67/0.67 — first non-perfect score across five judgment-based skills, disclosed as-is (see [[12-known-limitations]] L8/L19); see `evaluations/root-cause-analyzer/RESULTS.md` |
 | architecture-decision | Level 2 — Evaluated | EXPERIMENTAL | 34/34 passing (CLI test file written from the start, same discipline as Phases 5-6) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, sixth time — see [[12-known-limitations]] L8); see `evaluations/architecture-decision/RESULTS.md` |
-| refactoring-safety | Level 2 — Evaluated | EXPERIMENTAL | 64/64 passing (CLI test file written from the start, same discipline as Phases 5-7; +2 tests 2026-08-26 fixing L23) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, seventh time — see [[12-known-limitations]] L8); see `evaluations/refactoring-safety/RESULTS.md` |
-| regression-hunter | Level 2 — Evaluated | EXPERIMENTAL | 66/66 passing (CLI test file written from the start, same discipline as Phases 5-8; +2 tests 2026-08-26 fixing L23) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eighth time — see [[12-known-limitations]] L8); see `evaluations/regression-hunter/RESULTS.md` |
-| release-readiness | Level 2 — Evaluated | EXPERIMENTAL | 82/82 passing (CLI test file written from the start, same discipline as Phases 5-9; +4 tests 2026-08-26 partially fixing L24) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, ninth time — see [[12-known-limitations]] L8); see `evaluations/release-readiness/RESULTS.md` |
-| dependency-supply-chain | Level 2 — Evaluated | EXPERIMENTAL | 46/46 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, tenth time — see [[12-known-limitations]] L8); see `evaluations/dependency-supply-chain/RESULTS.md` |
+| refactoring-safety | Level 2 — Evaluated | EXPERIMENTAL | 65/65 passing (CLI test file written from the start, same discipline as Phases 5-7; +2 tests 2026-08-26 fixing L23; +1 test ADR-022 JVM test-suffix convention) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, seventh time — see [[12-known-limitations]] L8); see `evaluations/refactoring-safety/RESULTS.md` |
+| regression-hunter | Level 2 — Evaluated | EXPERIMENTAL | 70/70 passing (CLI test file written from the start, same discipline as Phases 5-8; +2 tests 2026-08-26 fixing L23; +4 tests ADR-022 JVM test-suffix convention + touches_def_line extension) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eighth time — see [[12-known-limitations]] L8); see `evaluations/regression-hunter/RESULTS.md` |
+| release-readiness | Level 2 — Evaluated | EXPERIMENTAL | 84/84 passing (CLI test file written from the start, same discipline as Phases 5-9; +4 tests 2026-08-26 partially fixing L24; +2 tests ADR-022 JVM test-suffix convention + debug-println pattern) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, ninth time — see [[12-known-limitations]] L8); see `evaluations/release-readiness/RESULTS.md` |
+| dependency-supply-chain | Level 2 — Evaluated | EXPERIMENTAL | 55/55 passing (CLI test file written from the start; +9 tests ADR-022 Maven/Gradle-aware pin classification) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, tenth time — see [[12-known-limitations]] L8); see `evaluations/dependency-supply-chain/RESULTS.md` |
 | engineering-knowledge-capture | Level 2 — Evaluated | EXPERIMENTAL | 47/47 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, eleventh time — see [[12-known-limitations]] L8); see `evaluations/engineering-knowledge-capture/RESULTS.md` |
 | context-optimizer | Level 2 — Evaluated | EXPERIMENTAL | 64/64 passing (CLI test file written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, twelfth time — see [[12-known-limitations]] L8); real dogfood run found a new limitation (L29 — full-repository-scale keyword flooding); see `evaluations/context-optimizer/RESULTS.md` |
 | workflow-composer | Level 2 — Evaluated | EXPERIMENTAL | 51/51 passing (CLI test file written from the start, plus one genuinely real subprocess-based integration test) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, thirteenth time — see [[12-known-limitations]] L8); real dogfood run found a new limitation (L30 — `feature-planner`'s scorer floods too, confirming the mechanism class is cross-skill); see `evaluations/workflow-composer/RESULTS.md` |
 | engineering-memory | Level 2 — Evaluated | EXPERIMENTAL | 57/57 passing (CLI test file and a real end-to-end integration test written from the start) | 8/8 fixtures: deterministic layer 100% correct, judgment layer 100% precision/recall on all 8 fixtures (single-rater/self-authored, fourteenth time — see [[12-known-limitations]] L8); real dogfood run against this project's own 50-record memory bank found a new limitation (L31 — basename-exact module resolution collapses distinct same-basename files across skills into one arbitrarily-chosen match); see `evaluations/engineering-memory/RESULTS.md` |
 
 This completes the originally-scoped 15-skill portfolio named in
-[[08-roadmap]]. **693 total tests passing across all fifteen skills**
-(24 + 23 + 24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64 + 51 + 57),
-up from 636 after Phase 15 (`engineering-memory`, 2026-08-26) added the
-fifteenth and final skill in the original portfolio list — started at the
+[[08-roadmap]]. **733 total tests passing across all fifteen skills**
+(42 + 29 + 24 + 21 + 58 + 32 + 34 + 65 + 70 + 84 + 55 + 47 + 64 + 51 + 57),
+up from 693 after ADR-022 (Java/Kotlin multi-language support, 2026-08-29)
+added 40 new tests across 6 skills (`codebase-intelligence`,
+`adversarial-diff-reviewer`, `dependency-supply-chain`,
+`refactoring-safety`, `regression-hunter`, `release-readiness`) — this is
+new, user-directed, cross-cutting scope, NOT a new roadmap phase: Phase 15
+(`engineering-memory`, 2026-08-26) already completed the originally-scoped
+15-skill portfolio and there is still no Phase 16 in [[08-roadmap]]. The
+other 9 skills' test counts and this file's Phase-15-era narrative below
+are otherwise unchanged — started at the
 user's explicit direction, a FIFTH one-time reopening of the
 mentor-review pass's roadmap freeze (unlike Phase 14, this one did not
 override a named phase-specific decision — A8's own "design only when
@@ -391,6 +398,17 @@ this pass — test count and evaluation results are unchanged from the Phase
   instance without yet being acted on.
 
 ## Last updated
+
+2026-08-29 — ADR-022: Java/Kotlin multi-language support. User-directed,
+cross-cutting scope (touching `codebase-intelligence` and 5 downstream
+skills), NOT a new roadmap phase — the originally-scoped 15-skill
+portfolio was already completed by Phase 15 (`engineering-memory`,
+2026-08-26; see below) and there is still no Phase 16 in [[08-roadmap]].
+733 total tests passing across fifteen skills (up from 693); the other 9
+skills' counts are unchanged, confirmed via a full platform re-run (zero
+regressions). A real dogfood run against a synthetic Java+Kotlin+Gradle
+project confirmed the full pipeline end to end. See [[11-decisions]]
+ADR-022 and [[12-known-limitations]] L32/L33.
 
 2026-08-26 — end of Phase 15 (`engineering-memory`). Started at the
 user's explicit direction, a FIFTH one-time reopening of the

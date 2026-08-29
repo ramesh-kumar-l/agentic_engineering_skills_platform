@@ -27,3 +27,36 @@ def test_build_report_on_empty_dir(tmp_path: Path):
     assert report.modules == []
     assert report.dependency_graph.edges == []
     assert report.entry_points == []
+
+
+def test_build_report_java_kotlin_pipeline(tmp_path: Path):
+    java_dir = tmp_path / "src" / "main" / "java" / "com" / "example"
+    java_dir.mkdir(parents=True)
+    (java_dir / "App.java").write_text(
+        "package com.example;\n\n"
+        "import com.example.Util;\n\n"
+        "public class App {\n"
+        "    public static void main(String[] args) {\n"
+        "        Util.doWork();\n"
+        "    }\n"
+        "}\n",
+        encoding="utf-8",
+    )
+    kotlin_dir = tmp_path / "src" / "main" / "kotlin" / "com" / "example"
+    kotlin_dir.mkdir(parents=True)
+    (kotlin_dir / "Util.kt").write_text(
+        "package com.example\n\nobject Util {\n}\n\nfun doWork() {\n}\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "build.gradle").write_text(
+        "dependencies {\n    implementation 'com.google.guava:guava:31.1-jre'\n}\n",
+        encoding="utf-8",
+    )
+
+    report = build_report(tmp_path)
+
+    assert report.language_breakdown.get("java") == 1
+    assert report.language_breakdown.get("kotlin") == 1
+    assert any(ep.reason == "public static void main(String[])" for ep in report.entry_points)
+    assert report.dependency_graph.edges  # App.java -> Util.kt via package-index resolution
+    assert any(d.name == "com.google.guava:guava" for d in report.external_dependencies)

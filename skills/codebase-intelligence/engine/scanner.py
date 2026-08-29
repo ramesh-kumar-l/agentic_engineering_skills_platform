@@ -36,6 +36,7 @@ EXTENSION_LANGUAGE = {
     ".js": "javascript", ".jsx": "javascript", ".mjs": "javascript",
     ".ts": "typescript", ".tsx": "typescript",
     ".java": "java",
+    ".kt": "kotlin", ".kts": "kotlin",
     ".go": "go",
     ".rb": "ruby",
     ".rs": "rust",

@@ -57,7 +57,10 @@ def render_markdown(report: CodebaseIntelligenceReport) -> str:
         for source, names in by_source.items():
             lines.append(f"- {source}: {', '.join(sorted(names))}")
     else:
-        lines.append("_None found (no requirements.txt / pyproject.toml / package.json)._")
+        lines.append(
+            "_None found (no requirements.txt / pyproject.toml / package.json / "
+            "pom.xml / build.gradle[.kts])._"
+        )
     lines.append("")
 
     lines.append(f"## Directories missing a README (top {TOP_N_UNDOCUMENTED_DIRS})")

@@ -81,6 +81,24 @@ def test_excludes_test_module_whose_import_merely_embeds_the_stem_substring():
     assert find_test_coverage("engine/models.py", ci_report) == []
 
 
+def test_recognizes_jvm_suffix_test_file():
+    ci_report = CiReportContext(
+        root_path="/repo",
+        modules=[
+            CiModule(path="com/example/App.java", docstring="", functions=[], classes=[], imports=[]),
+            CiModule(
+                path="com/example/AppTest.java",
+                docstring="",
+                functions=[],
+                classes=[],
+                imports=["com.example.App"],
+            ),
+        ],
+        dependency_graph=CiDependencyGraph(),
+    )
+    assert find_test_coverage("com/example/App.java", ci_report) == ["com/example/AppTest.java"]
+
+
 def test_still_finds_real_dotted_import_coverage_for_a_common_stem():
     ci_report = CiReportContext(
         root_path="/repo",

@@ -1,6 +1,6 @@
 [project]
 name = "regression-hunter"
-version = "0.1.0"
+version = "0.2.0"
 description = "Deterministic diff-pattern/structural-blast-radius/test-coverage engine backing the Regression Hunter skill. Composes on top of codebase-intelligence's report.json (required precondition, reusing ADR-010's pattern a fifth time)."
 requires-python = ">=3.10"
 dependencies = []

@@ -32,3 +32,35 @@ def test_is_unpinned():
     assert is_unpinned("wildcard") is True
     assert is_unpinned("range") is True
     assert is_unpinned("pinned") is False
+
+
+def test_maven_range_version():
+    assert classify_pin_status("[1.0,2.0)", ecosystem="maven") == "range"
+    assert classify_pin_status("[1.5,)", ecosystem="maven") == "range"
+
+
+def test_maven_exact_version_still_pinned():
+    assert classify_pin_status("31.1-jre", ecosystem="maven") == "pinned"
+
+
+def test_maven_unresolved_property():
+    assert classify_pin_status("${guava.version}", ecosystem="maven") == "unresolved"
+
+
+def test_gradle_dynamic_version():
+    assert classify_pin_status("31.+", ecosystem="gradle") == "wildcard"
+    assert classify_pin_status("3.1.+", ecosystem="gradle") == "wildcard"
+
+
+def test_gradle_exact_version_still_pinned():
+    assert classify_pin_status("31.1-jre", ecosystem="gradle") == "pinned"
+
+
+def test_generic_ecosystem_default_unaffected_by_jvm_rules():
+    # A Maven-range-shaped string under the default "generic" ecosystem
+    # classifies via the original pip/npm-style rules, not the new branch.
+    assert classify_pin_status("[1.0,2.0)") == "range"
+
+
+def test_is_unpinned_includes_unresolved():
+    assert is_unpinned("unresolved") is True

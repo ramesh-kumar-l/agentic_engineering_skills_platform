@@ -72,6 +72,19 @@ def test_flags_hardcoded_secret_shaped_literal():
     assert "hardcoded-secret-shaped" in ids
 
 
+def test_flags_jvm_debug_println_leftover():
+    diff = """diff --git a/App.java b/App.java
+--- a/App.java
++++ b/App.java
+@@ -1,1 +1,2 @@
+ public class App {
++    System.out.println("debug value: " + x);
+"""
+    flags = scan(_files(diff)[0])
+    ids = [f.pattern_id for f in flags]
+    assert "jvm-debug-println-leftover" in ids
+
+
 def test_flags_merge_conflict_marker():
     diff = """diff --git a/engine/foo.py b/engine/foo.py
 --- a/engine/foo.py

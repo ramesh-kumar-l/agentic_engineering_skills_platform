@@ -1,7 +1,7 @@
 # Adversarial Diff Reviewer
 
 ## Metadata
-- Version: 0.1.0
+- Version: 0.2.0
 - Status: EXPERIMENTAL
 - Author: Agentic Engineering Skills Platform
 - Maturity: Level 2 — Evaluated Skill (see `evaluations/adversarial-diff-reviewer/RESULTS.md`)
@@ -181,6 +181,11 @@ deterministic layer (no runtime third-party dependencies); the judgment layer
 is the invoking agent's own reasoning, not code.
 
 ## Changelog
+- 0.2.0 — JVM risk patterns (ADR-022, user-directed cross-cutting scope,
+  not a new roadmap phase): `Runtime.exec`/`ProcessBuilder`, broad
+  `catch (Exception/Throwable)`, JDBC string-concat SQL, and
+  `System.out/err.println` debug leftovers — all additive, no existing
+  pattern changed. 6 new tests (23 → 29).
 - 0.1.0 — Initial implementation: diff parser, risk pattern table (secrets,
   dangerous calls, broad except, SQL injection shapes, debug leftovers, TODO
   markers) with in-place secret redaction, diff stats, JSON/Markdown

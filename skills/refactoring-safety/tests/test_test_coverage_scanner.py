@@ -56,3 +56,21 @@ def test_ignores_non_test_modules_even_if_they_import_target():
         dependency_graph=CiDependencyGraph(),
     )
     assert find_test_coverage("engine/report.py", ci_report) == []
+
+
+def test_recognizes_jvm_suffix_test_file():
+    ci_report = CiReportContext(
+        root_path="/repo",
+        modules=[
+            CiModule(path="com/example/App.java", docstring="", functions=[], classes=[], imports=[]),
+            CiModule(
+                path="com/example/AppTest.java",
+                docstring="",
+                functions=[],
+                classes=[],
+                imports=["com.example.App"],
+            ),
+        ],
+        dependency_graph=CiDependencyGraph(),
+    )
+    assert find_test_coverage("com/example/App.java", ci_report) == ["com/example/AppTest.java"]

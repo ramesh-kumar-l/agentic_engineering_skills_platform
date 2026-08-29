@@ -26,7 +26,10 @@ class ModuleInfo:
     functions: list[str] = field(default_factory=list)
     classes: list[str] = field(default_factory=list)
     imports: list[str] = field(default_factory=list)  # raw import targets, as written
-    has_main_guard: bool = False  # top-level `if __name__ == "__main__":` — AST-verified, not text search
+    has_main_guard: bool = False  # a runnable entry point: AST-verified `if __name__ == "__main__":`
+                                   # for Python, regex-verified `public static void main`/`fun main()`
+                                   # for Java/Kotlin (see jvm_parser.py) — not text search in either case
+    package: str | None = None  # real `package` declaration (Java/Kotlin only; None elsewhere)
     parse_error: str | None = None  # set when the file couldn't be parsed
 
 

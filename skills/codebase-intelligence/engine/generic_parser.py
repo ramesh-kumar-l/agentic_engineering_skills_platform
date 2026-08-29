@@ -1,9 +1,10 @@
-"""Heuristic (regex-based) import extraction for non-Python languages.
+"""Heuristic (regex-based) import extraction for non-Python, non-JVM languages.
 
 KNOWN LIMITATION (see project-memory-bank/12-known-limitations.md): this is
-not a real parser. It pattern-matches common import syntaxes for JS/TS, Java,
-and Go. It will miss dynamic imports, re-exports, and unusual formatting.
-Treat its output as a hint, not ground truth.
+not a real parser. It pattern-matches common import syntaxes for JS/TS and
+Go. It will miss dynamic imports, re-exports, and unusual formatting. Treat
+its output as a hint, not ground truth. Java/Kotlin are parsed separately by
+jvm_parser.py, which also extracts package declarations and type names.
 """
 
 from __future__ import annotations
@@ -14,13 +15,11 @@ from pathlib import Path
 from .models import ModuleInfo
 
 _JS_IMPORT = re.compile(r"""(?:import\s+.*?from\s+|require\()\s*['"]([^'"]+)['"]""")
-_JAVA_IMPORT = re.compile(r"^\s*import\s+(?:static\s+)?([\w.]+)\s*;", re.MULTILINE)
 _GO_IMPORT = re.compile(r'"([\w./-]+)"')
 
 PATTERNS_BY_LANGUAGE = {
     "javascript": _JS_IMPORT,
     "typescript": _JS_IMPORT,
-    "java": _JAVA_IMPORT,
 }
 
 

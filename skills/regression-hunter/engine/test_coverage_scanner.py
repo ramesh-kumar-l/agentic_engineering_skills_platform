@@ -22,8 +22,15 @@ def _looks_like_test_module(path: str) -> bool:
     parts = PurePosixPath(path).parts
     if any(part in ("test", "tests") for part in parts):
         return True
-    stem = PurePosixPath(path).stem.lower()
-    return stem.startswith("test_") or stem.endswith("_test")
+    stem = PurePosixPath(path).stem
+    stem_lower = stem.lower()
+    if stem_lower.startswith("test_") or stem_lower.endswith("_test"):
+        return True
+    # JVM convention: PascalCase suffix, case-sensitive (FooTest.java,
+    # FooTests.kt, FooSpec.kt) -- case-sensitive specifically so this never
+    # matches an unrelated lowercase stem like "manifest" (which lowercased
+    # would spuriously end with "test").
+    return stem.endswith(("Test", "Tests", "Spec"))
 
 
 def find_test_coverage(resolved_module_path: str | None, ci_report: CiReportContext) -> list[str]:

@@ -5,13 +5,13 @@ what currently exists — it is replaced/updated each phase, not appended to. Re
 this before any other memory file when starting new work. For finer-grained
 "what's in flight" detail, see [[active-context.md]] and [[implementation-status.md]].
 
-_Last updated: 2026-08-26 — end of Phase 15. Fully refreshed this pass
-(the prior revision, dated 2026-08-24/end-of-Phase-10, had been running on
-a "superseded in part, see active-context.md" disclosure banner for five
-phases instead of the real rewrite this file's own stated convention
-calls for — this revision restores that convention). Phase 15
-(`engineering-memory`) completes the originally-scoped 15-skill portfolio
-named in [[08-roadmap]] — there is no Phase 16 in that list. See
+_Last updated: 2026-08-29 — ADR-022 (Java/Kotlin multi-language support).
+Phase 15 (`engineering-memory`, 2026-08-26) completed the originally-
+scoped 15-skill portfolio named in [[08-roadmap]] — there is no Phase 16
+in that list, and ADR-022 is NOT a new phase: it is user-directed,
+cross-cutting scope touching `codebase-intelligence` and 5 downstream
+skills (see [[11-decisions]] ADR-022), not a new skill. Test count rose
+from 693 to 733; the other 9 skills are unchanged. See
 [[active-context.md]] and [[implementation-status.md]] for anything more
 recent than this rewrite._
 
@@ -95,12 +95,12 @@ required composition, ADR-010, and manual, N=1 pilots — see
 08-roadmap.md                   updated through Phase 15 (Phase 15 COMPLETE; originally-scoped 15-skill portfolio now fully built, no Phase 16 in the list)
 operating-charter.md            NEW 2026-08-26 — the previously-referenced-
                                  but-missing source document ADR-001 adopts
-11-decisions.md                 updated through Phase 15 (ADR-017 through ADR-021)
-12-known-limitations.md         updated through Phase 15 (L25 through L31)
+11-decisions.md                 updated through ADR-022 (Java/Kotlin support, 2026-08-29, not a new phase)
+12-known-limitations.md         updated through L33 (ADR-022 follow-on, 2026-08-29)
 16-assumptions-and-validation.md   updated through Phase 15 (A2, A5, A8, A10)
 17-experiment-viability-check.md
-implementation-status.md        updated through Phase 15 (693 total tests, all fifteen skills)
-active-context.md               updated through Phase 15
+implementation-status.md        updated through ADR-022 (733 total tests, all fifteen skills)
+active-context.md               updated through ADR-022 (2026-08-29)
 sprint-history/SPRINT-00.md
 sprint-history/SPRINT-01.md
 sprint-history/SPRINT-02.md
@@ -256,12 +256,14 @@ external usage yet).
   engineering-memory (8 fixtures each, same deterministic-100%/judgment-
   100% pattern). All fourteen judgment-layer evaluations carry the L8
   self-authored/single-rater caveat — now applying a fourteenth time.
-- **693 total unit/integration tests** across fifteen skills (24 + 23 +
-  24 + 21 + 58 + 32 + 34 + 64 + 66 + 82 + 46 + 47 + 64 + 51 + 57), all
+- **733 total unit/integration tests** across fifteen skills (42 + 29 +
+  24 + 21 + 58 + 32 + 34 + 65 + 70 + 84 + 55 + 47 + 64 + 51 + 57), all
   passing — up from 420 as of Phase 10, after a 2026-08-26 mentor-review
-  follow-up (+8 tests fixing L23/L24) and Phases 11-15's five new skills
-  (+46, +47, +64, +51, +57 tests respectively). See
-  [[active-context.md]] for the current, authoritative breakdown.
+  follow-up (+8 tests fixing L23/L24), Phases 11-15's five new skills
+  (+46, +47, +64, +51, +57 tests respectively), and a 2026-08-29
+  cross-cutting change (ADR-022, NOT a new phase) adding Java/Kotlin
+  support to `codebase-intelligence` and 5 downstream skills (+40 tests).
+  See [[active-context.md]] for the current, authoritative breakdown.
 - **Nine real bugs/gaps found and fixed via dogfooding**, not hypothetical:
   L1 (Phase 1, false-positive entry-point detection), L5/L6 (Phase 2, two
   successive secret-redaction gaps), L10 (Phase 3, `adversarial-diff-

@@ -1,6 +1,6 @@
 [project]
 name = "adversarial-diff-reviewer"
-version = "0.1.0"
+version = "0.2.0"
 description = "Deterministic diff-parsing + risk-flagging engine backing the Adversarial Diff Reviewer skill."
 requires-python = ">=3.10"
 dependencies = []

@@ -10,10 +10,10 @@ from collections import Counter
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 
-from . import external_deps, generic_parser, graph, python_parser, scanner
+from . import external_deps, generic_parser, graph, jvm_parser, python_parser, scanner
 from .models import CodebaseIntelligenceReport, DocCoverage, EntryPoint, FileInfo, ModuleInfo
 
-PARSEABLE_LANGUAGES = {"python", "javascript", "typescript", "java"}
+PARSEABLE_LANGUAGES = {"python", "javascript", "typescript", "java", "kotlin"}
 
 
 def build_report(root: Path) -> CodebaseIntelligenceReport:
@@ -49,6 +49,8 @@ def _parse_modules(root: Path, files: list[FileInfo]) -> list[ModuleInfo]:
     for f in files:
         if f.language == "python":
             modules.append(python_parser.parse_python_file(root, f.path))
+        elif f.language in ("java", "kotlin"):
+            modules.append(jvm_parser.parse_jvm_file(root, f.path, f.language))
         elif f.language in PARSEABLE_LANGUAGES:
             modules.append(generic_parser.parse_generic_file(root, f.path, f.language))
     return modules
@@ -59,6 +61,10 @@ def _find_entry_points(root: Path, modules: list[ModuleInfo]) -> list[EntryPoint
     for m in modules:
         if m.language == "python" and m.has_main_guard:
             entry_points.append(EntryPoint(path=m.path, reason="if __name__ == '__main__'"))
+        elif m.language == "java" and m.has_main_guard:
+            entry_points.append(EntryPoint(path=m.path, reason="public static void main(String[])"))
+        elif m.language == "kotlin" and m.has_main_guard:
+            entry_points.append(EntryPoint(path=m.path, reason="fun main()"))
 
     package_json = root / "package.json"
     if package_json.exists():

@@ -1,7 +1,7 @@
 # Refactoring Safety
 
 ## Metadata
-- Version: 0.1.0
+- Version: 0.2.0
 - Status: EXPERIMENTAL
 - Author: Agentic Engineering Skills Platform
 - Maturity: Level 2 — Evaluated Skill (see `evaluations/refactoring-safety/RESULTS.md`)
@@ -305,6 +305,10 @@ import of `codebase-intelligence` itself); the judgment layer is the
 invoking agent's own reasoning, not code.
 
 ## Changelog
+- 0.2.0 — `test_coverage_scanner.py` recognizes the JVM `*Test`/`*Tests`/
+  `*Spec` PascalCase suffix convention (ADR-022, user-directed cross-cutting
+  scope, not a new roadmap phase), case-sensitively so it cannot collide
+  with an unrelated lowercase stem. 1 new test (64 → 65).
 - 0.1.0 — Initial implementation: codebase-intelligence report loader
   (independent schema, required precondition), operation/target parser
   (backtick/quote-first, bare-identifier fallback, 8 fixed operation
