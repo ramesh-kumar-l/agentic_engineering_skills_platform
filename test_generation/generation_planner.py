@@ -2,9 +2,8 @@
 (TEP Phase 5c). Every field the deterministic engine can supply -- naming
 convention, source excerpt, the scenario's own rationale -- is carried
 through untouched; the engine requests, but never authors, 1 positive +
-4 negative (this project's requested band: 3-5) test slots per scenario,
-and explicitly tells the authoring agent not to pad with fabricated cases
-a real source excerpt can't support.
+5 negative test slots per scenario, and explicitly tells the authoring
+agent not to pad with fabricated cases a real source excerpt can't support.
 """
 
 from __future__ import annotations
@@ -20,7 +19,7 @@ from .models import (
 from .scenario_loader import ScenarioPlanContext
 from .source_excerpt_reader import read_source_excerpt
 
-NEGATIVE_SLOT_COUNT = 4  # fixed mid-point of this project's requested 3-5 band
+NEGATIVE_SLOT_COUNT = 5  # fixed count of negative/edge-case slots requested per scenario
 
 _POSITIVE_INSTRUCTION = (
     "Author one positive/happy-path test exercising this scenario as "
@@ -28,7 +27,7 @@ _POSITIVE_INSTRUCTION = (
 )
 
 _NEGATIVE_INSTRUCTION_TEMPLATE = (
-    "Author negative/edge-case test {index} of a requested 3-5, grounded in "
+    "Author negative/edge-case test {index} of a requested 5, grounded in "
     "the real source excerpt above (an invalid input, boundary condition, or "
     "error path this symbol's real code plausibly supports). If the real "
     "source excerpt cannot support this many genuinely distinct negative "
