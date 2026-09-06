@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "repo_root": "D:\\ClaudeProjects\\agentic_engineering_skills_platform",
+  "ci_report_path": "examples/test-strategy/ci-report/report.json",
+  "primary_language": "python",
+  "language_breakdown": {
+    "unknown": 132,
+    "markdown": 258,
+    "json": 342,
+    "yaml": 1,
+    "python": 392,
+    "javascript": 2,
+    "toml": 17
+  },
+  "build_systems": [
+    {
+      "name": "pip",
+      "evidence": [
+        "pytest"
+      ],
+      "confidence": "dependency-confirmed"
+    }
+  ],
+  "test_frameworks": [
+    {
+      "name": "pytest",
+      "evidence": [
+        "pytest"
+      ],
+      "confidence": "dependency-confirmed"
+    }
+  ],
+  "mock_frameworks": [],
+  "coverage_tools": [],
+  "android_test_frameworks": [],
+  "android_frameworks_absent": [
+    "Espresso",
+    "JUnit",
+    "Robolectric"
+  ],
+  "unavailable": [
+    "mock_framework",
+    "coverage_tool",
+    "android_test_framework"
+  ],
+  "warnings": []
+}

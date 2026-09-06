@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "repo_root": "D:\\ClaudeProjects\\agentic_engineering_skills_platform",
+  "regression_report_path": "examples/test-strategy/ci-report/regression-hunter-report.json",
+  "profile_path": "examples/test-strategy/ci-report/test-environment-profile.json",
+  "stats": {
+    "files_considered": 1,
+    "files_already_covered": 1,
+    "targets_flagged": 0,
+    "high_priority_count": 0,
+    "medium_priority_count": 0,
+    "low_priority_count": 0
+  },
+  "targets": [],
+  "warnings": []
+}

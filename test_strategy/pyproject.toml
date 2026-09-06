@@ -1,0 +1,19 @@
+[project]
+name = "test-strategy"
+version = "0.1.0"
+description = "Test Strategy Engine: decides which changed files need a regression test, by reusing regression-hunter's risk signals and project_intelligence's TestEnvironmentProfile (TEP Phase 5a). Stdlib-only."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools]
+packages = ["test_strategy"]
+
+[tool.setuptools.package-dir]
+test_strategy = "."
+
+[tool.pytest.ini_options]
+pythonpath = [".."]
+testpaths = ["tests"]

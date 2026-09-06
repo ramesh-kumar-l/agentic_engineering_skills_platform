@@ -20,13 +20,14 @@ Phase 2 (Evidence Foundation — a new `evidence/` package, see
 new `project_intelligence/` package, see [[11-decisions|ADR-025]]), and now
 TEP Phase 4 (Test Environment Discovery, Android/JVM specifically —
 extends `project_intelligence/` with `android_test_frameworks`/
-`android_frameworks_absent`, see [[11-decisions|ADR-026]]) are all
-complete; TEP Phase 5 and beyond has not started and requires its own
-separate, explicit user instruction, per the master prompt's own hard-stop
-rule. See "What TEP Phase 1 built", "What TEP Phase 2 built", "What TEP
-Phase 3 built", and "What TEP Phase 4 built" below. This does not change
-the status of the closed 15-skill portfolio described in the rest of this
-section.
+`android_frameworks_absent`, see [[11-decisions|ADR-026]]), and now TEP
+Phase 5a (Test Strategy Engine — a new `test_strategy/` package, see
+[[11-decisions|ADR-027]]) are all complete; TEP Phase 5b and beyond has not
+started and requires its own separate, explicit user instruction, per the
+master prompt's own hard-stop rule. See "What TEP Phase 1 built", "What TEP
+Phase 2 built", "What TEP Phase 3 built", "What TEP Phase 4 built", and
+"What TEP Phase 5a built" below. This does not change the status of the
+closed 15-skill portfolio described in the rest of this section.
 
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
 originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
@@ -175,7 +176,40 @@ matching data is proven separately via 5 new unit tests
 tests were updated for the new category's effect on `unavailable`. 25
 tests total in `project_intelligence/`, all passing; largest module is now
 `profile_builder.py` at 81 lines (428 total). See [[11-decisions|ADR-026]]
-for the full decision record. TEP Phase 5 and beyond requires its own
+for the full decision record.
+
+## What TEP Phase 5a built
+
+Given "TEP Phase 5" names eleven distinct, unscoped sub-initiatives, the
+user was asked directly which to scope first; chose **Test Strategy
+Engine**. Built as a new top-level package, `test_strategy/` (flat layout,
+same packaging-fix precedent as `evidence/`/`project_intelligence/`): two
+independent lightweight loaders (`regression_report_loader.py` for a
+regression-hunter report.json, `profile_loader.py` for a
+project_intelligence test-environment-profile.json — no cross-package
+import, ADR-010 lineage), `strategy_builder.py` (the decision logic),
+`models.py`, `cli.py`. Per the contract's own "extend, not replace ... do
+not build a second, competing risk scorer" mandate, `strategy_builder.py`
+computes no risk score of its own: priority is copied directly from
+regression-hunter's `overall_risk_tier`; the only original logic is
+dropping already-covered/deleted files and attaching an environment-
+feasibility verdict from the profile's `test_frameworks`. Demonstrated on a
+real diff (the historical commit that added `evidence/cli.py`, which
+genuinely still has no dedicated test file) against a freshly-generated,
+full-repository `codebase-intelligence` report — committed at
+`examples/test-strategy/example-run.md`. The honest real result: **zero
+targets flagged**, because regression-hunter's own `test_coverage_scanner.py`
+falsely reports `evidence/cli.py` as "covered" by nine unrelated skills'
+own identically-stemmed `test_cli.py` files — a real, new instance of the
+still-open remainder of [[12-known-limitations|L24]], now propagated into
+this new consumer by design (reusing the signal rather than re-deriving
+it). Logged as [[12-known-limitations|L36]]. The positive "flagged, needs a
+test" path — which this real run's own honest data could not exercise — is
+proven separately via 8 of the 26 unit tests in `test_strategy/tests/`
+using synthetic fixtures. All 6 engine files stay under 300 lines (largest,
+`strategy_builder.py`, is 104 lines; 760 total including tests). See
+[[11-decisions|ADR-027]] and [[21-test-strategy-report-schema]] for the
+full decision record and schema. TEP Phase 5b and beyond requires its own
 separate, explicit user instruction before starting.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
@@ -720,6 +754,26 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    yet updated with Phase 6-11 posts)
 
 ## Last updated
+
+2026-09-06 — TEP Phase 5a (Test Strategy Engine) for the "Project-Aware
+Test Engineering Platform" pivot ([[11-decisions|ADR-027]]), at the user's
+explicit direction following TEP Phase 4, and the user's explicit choice of
+Test Strategy Engine among eleven unscoped TEP Phase 5 sub-initiatives.
+Built a new `test_strategy/` package that combines a real
+`regression-hunter` report (per-file risk tier + test coverage) with a real
+`project_intelligence` TestEnvironmentProfile (test-framework availability)
+to decide which changed files need a test — computing no new risk score of
+its own, per the contract's mandate. Demonstrated on a real diff (the
+historical addition of `evidence/cli.py`, still genuinely untested today)
+against a freshly-generated, full-repository `codebase-intelligence`
+report. The honest real result — zero targets flagged — surfaced a new,
+real, documented finding: reusing regression-hunter's test-coverage signal
+also means inheriting its already-disclosed cross-skill identical-stem
+false-positive gap (L24), now logged as its own instance,
+[[12-known-limitations|L36]]. See [[21-test-strategy-report-schema]] and
+"What TEP Phase 5a built" above. No existing skill's code changed;
+separate from, and does not reopen, the closed 15-skill portfolio below.
+TEP Phase 5b and beyond not started — requires its own explicit approval.
 
 2026-09-06 — TEP Phase 4 (Test Environment Discovery, Android/JVM
 specifically) for the "Project-Aware Test Engineering Platform" pivot

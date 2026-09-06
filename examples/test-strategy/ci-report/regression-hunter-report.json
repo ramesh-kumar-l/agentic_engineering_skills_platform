@@ -1,0 +1,115 @@
+{
+  "stats": {
+    "files_changed": 1,
+    "files_added": 1,
+    "files_deleted": 0,
+    "lines_added": 51,
+    "lines_removed": 0,
+    "flag_count": 1,
+    "high_risk_file_count": 0
+  },
+  "files": [
+    {
+      "file": "evidence/cli.py",
+      "is_new_file": true,
+      "is_deleted_file": false,
+      "lines_added": 51,
+      "lines_removed": 0,
+      "diff_pattern_flags": [
+        {
+          "pattern_id": "modified-signature-no-test-change",
+          "category": "diff-pattern",
+          "severity": "medium",
+          "file": "evidence/cli.py",
+          "line": 24,
+          "description": "A function/method definition line was changed in this diff, but no other changed file in the same diff looks like this file's test file by naming convention \u2014 callers relying on the old signature may not be exercised by any test change in this diff.",
+          "matched_text": ""
+        }
+      ],
+      "structural": {
+        "resolved_module_path": "evidence/cli.py",
+        "fan_in": 0,
+        "fan_out": 3,
+        "is_hotspot": false,
+        "caller_modules": [
+          {
+            "path": "evaluations/workflow-composer/run_evaluation.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "project_intelligence/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 1,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/acceptance-test-engineer/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/adversarial-diff-reviewer/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/context-optimizer/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/dependency-supply-chain/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/engineering-knowledge-capture/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/engineering-memory/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/security-context-guard/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          },
+          {
+            "path": "skills/workflow-composer/tests/test_cli.py",
+            "fan_in": 0,
+            "fan_out": 0,
+            "is_hotspot": false
+          }
+        ],
+        "structural_tier": "low"
+      },
+      "test_coverage": {
+        "test_coverage_modules": [
+          "project_intelligence/tests/test_cli.py",
+          "skills/acceptance-test-engineer/tests/test_cli.py",
+          "skills/adversarial-diff-reviewer/tests/test_cli.py",
+          "skills/context-optimizer/tests/test_cli.py",
+          "skills/dependency-supply-chain/tests/test_cli.py",
+          "skills/engineering-knowledge-capture/tests/test_cli.py",
+          "skills/engineering-memory/tests/test_cli.py",
+          "skills/security-context-guard/tests/test_cli.py",
+          "skills/workflow-composer/tests/test_cli.py"
+        ]
+      },
+      "overall_risk_tier": "low"
+    }
+  ],
+  "warnings": []
+}

@@ -1150,3 +1150,46 @@ a basename across more than one fixture module). See
   today's parser); `examples/project-intelligence/android-example/example-run.md`
   pins the honest real-repo result so it's disclosed consistently, not
   re-discovered from scratch later.
+
+## L36: `test_strategy/`'s Test Strategy Engine inherits L24's still-open cross-skill identical-stem coverage collision, by design
+
+- **What failed**: N/A (inherited limitation, propagated by an explicit
+  design choice, not a new bug — same disclosure shape as L33→L35).
+- **Why**: TEP Phase 5a's Test Strategy Engine ([[18-test-engineering-platform-contract]],
+  [[11-decisions|ADR-027]]) deliberately reuses regression-hunter's
+  `test_coverage.test_coverage_modules` signal as-is, rather than
+  re-deriving test coverage itself — the contract's own mandate is "extend,
+  not replace ... do not build a second, competing risk scorer." L24
+  already disclosed that `test_coverage_scanner.py`'s word-boundary-aware
+  stem match still produces a real, boundary-respecting false positive when
+  two unrelated skills each have their own identically-named module (e.g.
+  two different `cli.py` files) — closing that remaining gap needs a
+  repo-layout-aware fix that release-readiness's own L24 fix deliberately
+  did not attempt. Reusing the signal unchanged means the Test Strategy
+  Engine inherits exactly this remaining gap, for the first time in a *new*
+  consumer.
+- **Impact**: found via the real dogfood run
+  (`examples/test-strategy/example-run.md`) — a real, historical diff that
+  added `evidence/cli.py` (which has no dedicated test file of its own,
+  still true today) was run through a freshly-generated, full-repository
+  regression-hunter report. `test_coverage.test_coverage_modules` came back
+  non-empty — nine unrelated skills' own `tests/test_cli.py` files, each
+  merely containing the stem `cli` in its own dotted import path
+  (`from skill.cli import main`), none of which import or exercise
+  `evidence/cli.py` at all. `has_test_coverage` therefore evaluated `True`,
+  and the Test Strategy Engine correctly-per-its-own-logic, but
+  incorrectly-in-reality, reported "already covered, no action needed" for
+  a genuinely untested file.
+- **Fix**: Not fixed here — explicitly out of scope for TEP Phase 5a, whose
+  contract requires reusing regression-hunter's existing signal, not
+  re-deriving it. A real fix belongs to L24 itself (a repo-layout-aware
+  caller/coverage match, e.g. scoping to the same top-level package
+  directory as the resolved target), and would benefit every consumer of
+  `test_coverage_scanner.py`'s pattern at once, not just this one. Deferred
+  until a real user need justifies that separate, larger, cross-cutting
+  fix — same deferral rationale as L2/L33/L34/L35.
+- **Regression prevention**: `test_strategy/tests/test_strategy_builder.py::test_already_covered_file_is_never_flagged_regardless_of_tier`
+  pins the (correct, given its input) "trust the signal as given" behavior
+  with a synthetic fixture; `examples/test-strategy/example-run.md` records
+  the real run where that trust produced a false negative, so the gap is
+  disclosed consistently rather than re-discovered from scratch later.

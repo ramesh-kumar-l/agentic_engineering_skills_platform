@@ -132,14 +132,24 @@ this project has repeatedly declined to do.
   Espresso presence (or absence) on at least one real open-source
   Android repo, and explicitly reports "unavailable," never a guess, when a
   framework isn't detected.
-- **TEP Phase 5 and beyond** (Test Strategy Engine, Scenario Planner, Test
-  Generation, Independent Validation, Human Review, Engineering Memory
-  extension, Evaluation/Ablation, external validation, DX, security/
-  production hardening, public distribution) are named in the master
-  prompt's own section 36 list but **not scoped here** — each requires its
-  own Phase Execution Contract pass (read memory, define objective, define
-  exit criteria) at the time it is actually started, per the master
-  prompt's own section 38 and this project's own phase-by-phase discipline.
+- **TEP Phase 5a — Test Strategy Engine.** Exit criteria: given a real
+  `regression-hunter` report.json (per-file risk signals for a staged diff)
+  and a real `project_intelligence` `test-environment-profile.json` for the
+  same repo, produce a prioritized list of changed files that need a
+  regression test, where each entry's priority is copied directly from
+  regression-hunter's own `overall_risk_tier` (never a new, competing risk
+  score) and each entry explicitly reports whether generating a test is
+  even feasible given the detected test framework (or "unavailable," never
+  a guess) — demonstrated on at least one real, non-fixture diff and repo
+  state.
+- **TEP Phase 5b and beyond** (Scenario Planner, Test Generation,
+  Independent Validation, Human Review, Engineering Memory extension,
+  Evaluation/Ablation, external validation, DX, security/ production
+  hardening, public distribution) are named in the master prompt's own
+  section 36 list but **not scoped here** — each requires its own Phase
+  Execution Contract pass (read memory, define objective, define exit
+  criteria) at the time it is actually started, per the master prompt's own
+  section 38 and this project's own phase-by-phase discipline.
 
 ## Constraints carried over unchanged from the existing platform
 
@@ -188,7 +198,21 @@ variable/version-catalog notation almost universally, which the existing
 Gradle parser (L33) cannot resolve — so detection is correct but
 under-reports on real repos today).
 
-TEP Phase 5 and beyond has **not** started — per the master prompt's own
+TEP Phase 5a (Test Strategy Engine) is also complete as of 2026-09-06, per
+the user's explicit direction to continue past TEP Phase 4, and the user's
+explicit choice (asked directly, since "TEP Phase 5" names eleven distinct,
+unscoped sub-initiatives) of Test Strategy Engine as the one to scope and
+build first. Implemented as the new `test_strategy/` package — see
+[[21-test-strategy-report-schema]] and [[11-decisions|ADR-027]] for the
+schema and implementation decision, `examples/test-strategy/example-run.md`
+for the real, non-fixture demonstration this phase's exit criteria
+required, and [[12-known-limitations|L36]] for the real finding this run
+surfaced (the engine's deliberate reuse of regression-hunter's test-
+coverage signal, rather than re-deriving it, also means it inherits that
+signal's own already-disclosed cross-skill identical-stem false-positive
+gap, L24).
+
+TEP Phase 5b and beyond has **not** started — per the master prompt's own
 hard-stop rule (section 39) and this project's own phase-by-phase
 discipline, it requires a new, separate, explicit user instruction, not
 automatic continuation from this contract's completion.

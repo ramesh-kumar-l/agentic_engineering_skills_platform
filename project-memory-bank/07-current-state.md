@@ -736,14 +736,22 @@ TEP Phase 1 (Product Contract, [[18-test-engineering-platform-contract]]),
 TEP Phase 2 (Evidence Foundation, [[11-decisions|ADR-024]],
 [[19-evidence-provenance-schema]]), TEP Phase 3 (Project Intelligence
 extensions, [[11-decisions|ADR-025]],
-[[20-test-environment-profile-schema]]), and TEP Phase 4 (Test Environment
-Discovery, Android/JVM specifically, [[11-decisions|ADR-026]]) are now
-complete. TEP Phase 5 and beyond requires a new, separate, explicit user
-instruction before any further implementation. Android-framework
-*detection* (JUnit/Robolectric/Espresso) now exists, but real-world
-Android repos systematically under-report through it today: their
-build.gradle files almost universally version dependencies via Gradle
-variable/version-catalog interpolation, which the existing Gradle parser
-(L33) can't resolve — see [[12-known-limitations|L35]]. That parser gap,
-not the detection logic itself, remains the largest disclosed gap in
-Android readiness.
+[[20-test-environment-profile-schema]]), TEP Phase 4 (Test Environment
+Discovery, Android/JVM specifically, [[11-decisions|ADR-026]]), and TEP
+Phase 5a (Test Strategy Engine, [[11-decisions|ADR-027]],
+[[21-test-strategy-report-schema]]) are now complete. TEP Phase 5b and
+beyond requires a new, separate, explicit user instruction before any
+further implementation. Android-framework *detection* (JUnit/Robolectric/
+Espresso) exists, but real-world Android repos systematically under-report
+through it today: their build.gradle files almost universally version
+dependencies via Gradle variable/version-catalog interpolation, which the
+existing Gradle parser (L33) can't resolve — see
+[[12-known-limitations|L35]]. A new `test_strategy/` package now decides
+which changed files need a test by reusing regression-hunter's risk/
+coverage signals and project_intelligence's TestEnvironmentProfile
+unchanged; because it trusts regression-hunter's test-coverage signal as
+given, it also inherits that signal's own already-disclosed cross-skill
+identical-stem false-positive gap (L24), now logged as a new instance,
+[[12-known-limitations|L36]]. Neither gap is fixed — both remain the
+largest disclosed gaps in, respectively, Android readiness and test-
+strategy accuracy.

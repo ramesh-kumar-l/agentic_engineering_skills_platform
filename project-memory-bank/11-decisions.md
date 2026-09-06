@@ -1787,3 +1787,84 @@ manifests separately, same discipline ADR-025 already established.
 
 **Status**: Adopted. TEP Phase 4 (Test Environment Discovery, Android/JVM
 specifically) is complete as of 2026-09-06.
+
+## ADR-027: Test Strategy Engine built as a new `test_strategy/` package that consumes regression-hunter's and project_intelligence's existing outputs as files, computing zero new risk score of its own
+
+**Decision**: TEP Phase 5 is a named-but-unscoped bucket in
+[[18-test-engineering-platform-contract]] (Test Strategy Engine, Scenario
+Planner, Test Generation, Independent Validation, Human Review, Engineering
+Memory extension, Evaluation/Ablation, external validation, DX, security/
+production hardening, distribution), each requiring its own Phase Execution
+Contract pass before implementation. Per the user's explicit choice (asked
+directly, since guessing which of eleven named sub-initiatives to build
+first would have risked large wasted work), **TEP Phase 5a — Test Strategy
+Engine** is now scoped and implemented: given a `regression-hunter`
+report.json (per-file risk signals for a staged diff) and a
+`project_intelligence` `test-environment-profile.json` for the same repo,
+decide which changed files need a regression test.
+
+Implemented as a new top-level package, `test_strategy/` (flat layout,
+matching `evidence/`'s and `project_intelligence/`'s precedent): two
+independent, lightweight loaders (`regression_report_loader.py`,
+`profile_loader.py` — each an ADR-010-lineage local view of the other
+package's JSON output, no cross-package import), `strategy_builder.py`
+(the actual decision logic), `models.py`, and `cli.py`. The contract's own
+Phase 5 framing is explicit: "Extend, not replace, regression-hunter's ...
+existing risk signals ... do not build a second, competing risk scorer."
+`strategy_builder.py` honors this literally — it copies regression-hunter's
+`overall_risk_tier` vocabulary (`"high"/"medium"/"low"`) verbatim as its
+own priority field, and its only original logic is (a) dropping any file
+regression-hunter already found test coverage for, regardless of tier, and
+(b) attaching an environment-feasibility verdict sourced from
+`TestEnvironmentProfile.test_frameworks` — never re-deriving risk or
+coverage itself.
+
+- User Value: turns two already-existing, independently-produced reports
+  (a risk report and an environment profile) into one prioritized answer to
+  "which of these changed files needs a test, and can a test even be
+  written here today" — without asking the engineer to cross-reference the
+  two by hand or trust a brand-new, unvalidated risk model.
+- Correctness: demonstrated on a real, non-fixture diff and a real,
+  current, full-repository `codebase-intelligence` report — see
+  `examples/test-strategy/example-run.md`. The real result is an honest
+  **zero flagged targets**, not because the mechanism is broken but because
+  regression-hunter's own `test_coverage_scanner.py` reports the demo
+  file (`evidence/cli.py`, added with zero dedicated test file) as
+  falsely "covered" by unrelated skills' own identically-named `test_cli.py`
+  files — a new, real-world instance of the still-open remainder of
+  [[12-known-limitations|L24]] (cross-skill identical-stem collision),
+  now propagated for the first time into a new downstream consumer by
+  design (Phase 5a reuses regression-hunter's coverage signal rather than
+  re-deriving it). Logged as [[12-known-limitations|L36]]. Because the real
+  demo could not exercise the positive "flagged" path, 8 unit tests in
+  `test_strategy_builder.py` prove it directly with synthetic fixtures:
+  high/medium-tier-and-uncovered → flagged at matching priority citing the
+  exact regression-hunter signal; already-covered → never flagged
+  regardless of tier; deleted files → never flagged; zero test framework
+  detected → `generation_feasible: false` with an explicit reason, never a
+  silent guess; a detected framework → named by exact string in the
+  target's `recommended_framework`.
+- Security: no network calls, read-only against two report.json files the
+  caller already has, same trust boundary as ADR-025/ADR-026.
+- Simplicity: no new risk-scoring logic — `_PRIORITY_RANK`/`_REASON_BY_TIER`
+  are lookup tables keyed directly by regression-hunter's own tier strings,
+  not a new model. `strategy_builder.py` is 104 lines, the largest file in
+  the package.
+- Maintainability: every module in `test_strategy/` stays under 300 lines
+  (760 lines total across engine + tests, 26 tests passing).
+- Portability: stdlib-only, no new runtime dependency, continuing ADR-006.
+- Evidence: `examples/test-strategy/example-run.md`, its committed
+  `ci-report/regression-hunter-report.json` and
+  `ci-report/test-environment-profile.json` (both real, freshly generated
+  against this repo's current full state) and
+  `output/test-strategy-report.json`; `test_strategy/tests/` (26 tests,
+  all passing); [[12-known-limitations|L36]].
+- Future Evolution: this ADR authorizes only TEP Phase 5a. TEP Phase
+  5b onward (Scenario Planner, Test Generation, Independent Validation,
+  Human Review, Engineering Memory extension, Evaluation/Ablation, external
+  validation, DX, security/production hardening, distribution) remain
+  unscoped, each requiring its own explicit user instruction and Phase
+  Execution Contract pass, per the master prompt's hard-stop rule.
+
+**Status**: Adopted. TEP Phase 5a (Test Strategy Engine) is complete as of
+2026-09-06.

@@ -336,11 +336,12 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 TEP Phase 0 (repo/memory audit), TEP Phase 1 (Product Contract,
 [[18-test-engineering-platform-contract]]), TEP Phase 2 (Evidence
-Foundation), TEP Phase 3 (Project Intelligence extensions), and TEP Phase 4
-(Test Environment Discovery, Android/JVM specifically) are complete; see
-[[11-decisions|ADR-023]], [[11-decisions|ADR-024]], [[11-decisions|ADR-025]],
-[[11-decisions|ADR-026]], and `active-context.md`'s "What TEP Phase 1/2/3/4
-built".
+Foundation), TEP Phase 3 (Project Intelligence extensions), TEP Phase 4
+(Test Environment Discovery, Android/JVM specifically), and TEP Phase 5a
+(Test Strategy Engine) are complete; see [[11-decisions|ADR-023]],
+[[11-decisions|ADR-024]], [[11-decisions|ADR-025]], [[11-decisions|ADR-026]],
+[[11-decisions|ADR-027]], and `active-context.md`'s "What TEP Phase
+1/2/3/4/5a built".
 
 TEP Phase 2 shipped one new, independently-packaged component:
 
@@ -405,7 +406,37 @@ package):
   criteria). Test counts: 733 (skills) + 16 (evidence) unaffected;
   `project_intelligence/` grew from 20 to 25 tests.
 
-TEP Phase 5 and beyond is not started and needs its own explicit approval.
+TEP Phase 5a shipped one new, independently-packaged component:
+
+- **`test_strategy/`** — decides which changed files (from a
+  regression-hunter report) need a regression test, cross-checked against
+  a project_intelligence TestEnvironmentProfile for the same repo.
+  `models.py` (67 lines), `regression_report_loader.py` (71),
+  `profile_loader.py` (53), `strategy_builder.py` (104), `cli.py` (70) —
+  all under the 300-line limit (760 lines total including tests). 26
+  tests, all passing. Schema documented in
+  [[21-test-strategy-report-schema]]. Computes no risk score of its own —
+  priority is copied directly from regression-hunter's `overall_risk_tier`,
+  per the contract's "do not build a second, competing risk scorer"
+  mandate.
+- Demonstrated on a real diff (the historical commit that added
+  `evidence/cli.py`, which genuinely still has no dedicated test file
+  today) against a freshly-generated, full-repository `codebase-
+  intelligence` report — `examples/test-strategy/`. The honest real result
+  is zero targets flagged, because regression-hunter's own test-coverage
+  scanner falsely reports the file as "covered" by unrelated skills'
+  identically-stemmed `test_cli.py` files — an inherited instance of the
+  already-disclosed L24 gap, now logged separately as
+  [[12-known-limitations|L36]]. The positive "flagged" path is proven via 8
+  of the 26 unit tests using synthetic fixtures. See
+  [[11-decisions|ADR-027]].
+- No existing skill's code was touched, and neither `regression-hunter`
+  nor `project_intelligence` was modified — this package only reads their
+  existing JSON outputs. Test counts: 733 (skills) + 16 (evidence) + 25
+  (project_intelligence) unaffected; `test_strategy/`'s 26 tests are a new,
+  separate suite.
+
+TEP Phase 5b and beyond is not started and needs its own explicit approval.
 
 ## Not yet built
 
@@ -473,6 +504,21 @@ TEP Phase 5 and beyond is not started and needs its own explicit approval.
   instance without yet being acted on.
 
 ## Last updated
+
+2026-09-06 — TEP Phase 5a (Test Strategy Engine) for the Test Engineering
+Platform pivot ([[11-decisions|ADR-027]], [[21-test-strategy-report-schema]]).
+New `test_strategy/` package combines a real regression-hunter report with
+a real project_intelligence TestEnvironmentProfile to decide which changed
+files need a test, computing no risk score of its own; 26 tests, all
+passing. Demonstrated on a real diff (the historical addition of
+`evidence/cli.py`, still genuinely untested today) against a fresh,
+full-repository codebase-intelligence report; the honest result — zero
+targets flagged — surfaced a new finding (reusing regression-hunter's
+test-coverage signal inherits its already-disclosed cross-skill
+identical-stem false-positive gap, L24), logged as
+[[12-known-limitations|L36]]. No existing skill's code changed, no change
+to regression-hunter or project_intelligence. TEP Phase 5b and beyond not
+started — requires its own explicit approval.
 
 2026-09-06 — TEP Phase 4 (Test Environment Discovery, Android/JVM
 specifically) for the Test Engineering Platform pivot
