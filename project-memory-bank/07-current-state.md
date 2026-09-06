@@ -727,3 +727,12 @@ validation evidence before starting, not "the next portfolio item" by
 default, since there no longer is one. The case for investing a phase in
 L8/A5 instead of building further remains at least as strong as it was at
 the Phase 11 through Phase 15 boundaries.
+
+**2026-09-06 addendum**: a newly-proposed pivot (a broader "Project-Aware
+Test Engineering Platform" with Android/JVM test-framework support) was
+logged, per the standing rule above, as [[11-decisions|ADR-023]] —
+**Proposed, not Adopted**. Phase 0 (read-only repository/memory
+understanding, per that proposal's own governing contract) is complete;
+Phase 1 requires a new, separate, explicit user instruction before any
+implementation. See ADR-023 for the full gap analysis (Android-framework
+readiness is the largest one) before picking this up.

@@ -1462,3 +1462,104 @@ extraction but zero graph edges, zero entry points, zero manifest parsing).
   solves that class of problem.
 
 **Status**: Adopted.
+
+---
+
+## ADR-023: A "Master System Prompt — Project-Aware Test Engineering
+Platform" is logged as a proposed future direction, not yet adopted
+
+**Decision**: The user supplied an external governing system prompt that
+frames this repository's 15-skill portfolio as reusable intellectual
+capital toward a broader "AI-native engineering verification platform" —
+project-aware test generation, independent validation, an evidence/trust-
+ladder model, and Android/JVM test-framework support (JUnit, Mockito,
+Robolectric, Espresso) — and directs its own first action to be a read-only
+Phase 0 (repository and memory understanding), ending in an explicit stop
+for approval before any Phase 1 implementation. This ADR records that
+Phase 0 was executed (this entry is itself part of its "update only
+necessary memory files" step) and logs the proposed direction, per this
+project's standing rule that a major architectural decision is never made
+silently — but the decision itself is **not yet Adopted**: per
+[[16-assumptions-and-validation]] and ADR-021's own closing note, the
+originally-scoped 15-skill portfolio is complete with no Phase 16 in
+[[08-roadmap]], so any further work — including this proposed pivot — is
+newly-proposed scope requiring its own justification, not "the next
+portfolio item" by default.
+
+Phase 0 findings, confirmed by two read-only repository audits (not
+asserted from the prompt's own claims):
+
+1. **The memory bank already maps cleanly onto the prompt's expected file
+   taxonomy** — every canonical role (PROJECT_BRIEF, ARCHITECTURE,
+   CURRENT_STATE, IMPLEMENTATION_PLAN, REQUIREMENTS, CONSTRAINTS, DECISIONS,
+   TEST_STRATEGY/EVALUATION_STRATEGY, SECURITY_MODEL) has an existing,
+   reused home in this file's own numbered files, `operating-charter.md`,
+   `active-context.md`, and root `CHANGELOG.md`/`ROADMAP.md` — no
+   duplicate files were created for this reason, per the prompt's own
+   "reuse existing files" rule.
+2. **Two roles genuinely have no home today**: a curated
+   Observation→Hypothesis→Validated-pattern store (distinct from the
+   *skill* named `engineering-memory`, which retrieves, not curates) and a
+   UX/DX-principles file. Not created speculatively here — no evidence yet
+   that either is needed before Phase 1 scope is even defined.
+3. **The prompt's named building blocks (its own section on reusing
+   existing skills) already exist under those exact names**:
+   `codebase-intelligence`, `regression-hunter`, `acceptance-test-engineer`,
+   `context-optimizer`, `engineering-memory`, `workflow-composer` — this
+   is strong, independently-verified evidence that the prompt's author
+   intended this specific repository as its target, not a generic template.
+4. **JVM readiness is real but partial, and already fully attributed to
+   ADR-022** — Java/Kotlin *source* parsing (`jvm_parser.py`) and Maven/
+   Gradle manifest parsing exist; Android-*framework* readiness (JUnit,
+   Mockito, Robolectric, Espresso, AGP, variants, source sets) is zero
+   anywhere in the repository. This is a real, disclosed gap against the
+   prompt's sections on Android architecture and test-environment
+   profiles, not something ADR-022 already closes.
+5. **Evidence infrastructure is partial**: `evaluations/<skill>/actual/
+   *.json` + `expected/*.json` + `RESULTS.md` per skill are real
+   run-evidence artifacts (reused by [[05-evaluation-framework]]), but
+   carry no model/prompt-version/provenance metadata — not the full
+   run-provenance schema the prompt's evidence-architecture section
+   describes.
+6. **No mutation-testing tool, no root-level single-command test runner,
+   and no lint/type-check CI step exist** — `.github/workflows/tests.yml`
+   is a test-only 15-way matrix; "coverage" today means
+   `regression-hunter`/`refactoring-safety`/`release-readiness` checking
+   whether a changed file has a *corresponding test file*, not real code
+   coverage.
+
+- User Value: recording this now, before any code is touched, lets a
+  future session (or the user, later) evaluate the proposed pivot against
+  what actually exists rather than re-deriving the same audit.
+- Correctness: every claim above is sourced from two independent read-only
+  Explore audits of this repository's actual files (`project-memory-bank/`,
+  `skills/*/SKILL.md` and engine sources, `.github/workflows/tests.yml`,
+  `evaluations/`), not from the supplied prompt's own description of what
+  it assumes exists.
+- Security: no source code was modified to produce this entry, per the
+  prompt's own Phase 0 hard rule and this project's [[06-security-model]];
+  only this file and [[07-current-state]] are touched.
+- Simplicity: no new memory files were created to close gap #2 above —
+  per the prompt's own "only introduce additional files when justified"
+  rule, and this project's standing anti-speculation discipline (ADR-006,
+  ADR-009).
+- Maintainability: this entry follows the file's existing ADR-001..022
+  Decision/evidence-checklist/Status format exactly, so it composes with
+  `engineering-memory`'s retrieval corpus the same way every prior entry
+  does.
+- Portability: n/a — no code changed.
+- Evidence: see the two Explore audits summarized in points 1–6 above;
+  cross-referenced from [[07-current-state]]'s "Immediate next decision
+  point" section.
+- Future Evolution: a Phase 1 (the prompt's own "Product Contract" phase)
+  would need to define, and get separate explicit approval for, a scoped
+  statement of what this pivot actually commits to building — this ADR
+  does not authorize any of it; it only records that the proposal exists,
+  what already supports it, and what gaps a real Phase 1 would have to
+  address (Android framework support foremost, per point 4).
+
+**Status**: Proposed, not Adopted. Phase 0 (repository and memory
+understanding) is complete per the supplied prompt's own contract; per
+that same contract's hard-stop rule (never continue automatically), Phase 1
+requires a new, explicit user instruction before any further work —
+including before this ADR's own status can move from Proposed to Adopted.
