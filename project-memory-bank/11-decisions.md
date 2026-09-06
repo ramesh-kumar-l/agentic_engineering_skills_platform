@@ -1715,3 +1715,75 @@ documented in [[20-test-environment-profile-schema]].
 
 **Status**: Adopted. TEP Phase 3 (Project Intelligence extensions) is
 complete as of 2026-09-06.
+
+## ADR-026: Android test-environment detection (JUnit/Robolectric/Espresso) added as a dedicated `android_test_frameworks` category, not merged into Phase 3's general test-framework list
+
+**Decision**: TEP Phase 4's exit criteria ([[18-test-engineering-platform-contract]])
+— the profile correctly identifies JUnit/Robolectric/Espresso presence (or
+absence) on a real Android repo, always "unavailable," never a guess — is
+implemented entirely inside the existing `project_intelligence/` package: a
+new signature table (`ANDROID_TEST_FRAMEWORK_SIGNATURES`,
+`signatures.py`), one new detector (`detect_android_test_frameworks`,
+`detect.py`, reusing the existing exact-key `_match_signatures` helper
+unchanged), and two new `TestEnvironmentProfile` fields
+(`android_test_frameworks: list[Finding]`,
+`android_frameworks_absent: list[str]`). Kept as its own category rather
+than folded into Phase 3's `test_frameworks`/`mock_frameworks` lists,
+because the exit criteria asks about three *specific, named* frameworks —
+a category-level "some test framework exists" flag would hide exactly the
+per-framework absence the exit criteria requires reporting. No change was
+made to `codebase-intelligence`'s `external_deps.py` — the exit criteria
+explicitly requires extending existing dependency output, not re-parsing
+manifests separately, same discipline ADR-025 already established.
+
+- User Value: turns "does this Android repo have a working local/instrumented
+  test setup" from a guess into three explicitly-named, individually
+  evidenced or individually-absent answers — never a single collapsed
+  yes/no that hides which specific framework is missing.
+- Correctness: demonstrated on a real, non-fixture Android repo
+  (`android/architecture-samples`, `views` branch, `app/` module) — see
+  `examples/project-intelligence/android-example/example-run.md`. The real
+  result is "unavailable" for all three, individually named in
+  `android_frameworks_absent`, **not because the frameworks are absent from
+  the codebase** (they are genuinely declared in the module's
+  `build.gradle`, hand-verified and quoted in the example doc) but because
+  every declaration uses Gradle variable interpolation, which
+  `external_deps.py`'s literal-string-only regex (L33) cannot capture. Five
+  other real Android repos were hand-checked and found to have the same
+  characteristic — now logged as [[12-known-limitations|L35]]: this is the
+  near-universal real-world convention, not an edge case. 5 new unit tests
+  (`test_android_detection.py`) prove the detection logic itself is correct
+  using synthetic fixtures shaped exactly as `external_deps.py` would
+  produce if L33 were resolved — covering all-three-present, Espresso's
+  multiple artifact variants rolling up to one `Finding`, a non-match
+  (`com.squareup:retrofit`) never false-positiving, and partial presence
+  producing a correct, explicit `android_frameworks_absent` list. 5
+  pre-existing tests were also updated where the new category's
+  contribution to `unavailable` changed their expected assertions.
+- Security: no network calls, no change to trust boundary — read-only
+  against a report.json the caller already has, same as ADR-025.
+- Simplicity: reused the existing `_match_signatures`/`Finding`/
+  `unavailable` machinery unchanged; the only genuinely new logic is the
+  ~6-line `android_frameworks_absent` set-difference computation
+  (`profile_builder.py`), which is the minimum needed to name absences
+  explicitly rather than relying on the pre-existing category-level flag
+  alone.
+- Maintainability: every module in `project_intelligence/` stays under 300
+  lines after this change (largest is `profile_builder.py` at 81 lines,
+  428 lines total across all six modules).
+- Portability: stdlib-only, no new runtime dependency, continuing ADR-006.
+- Evidence: `examples/project-intelligence/android-example/example-run.md`,
+  its committed `ci-report/report.json` and
+  `output/test-environment-profile.json`,
+  `project_intelligence/tests/test_android_detection.py` (5 new tests, 25
+  total in the package, all passing).
+- Future Evolution: this ADR does not authorize TEP Phase 5 or beyond —
+  requires its own separate, explicit user instruction per the master
+  prompt's hard-stop rule. It also does not fix L33/L35 (Gradle variable/
+  version-catalog resolution) — that is explicitly out of scope for a phase
+  whose own exit criteria is to extend existing dependency output, not
+  rebuild the upstream parser; deferred until a real user need justifies
+  the separate, larger build L33 already flags.
+
+**Status**: Adopted. TEP Phase 4 (Test Environment Discovery, Android/JVM
+specifically) is complete as of 2026-09-06.

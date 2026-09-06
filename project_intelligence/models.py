@@ -36,6 +36,8 @@ class TestEnvironmentProfile:
     test_frameworks: list[Finding] = field(default_factory=list)
     mock_frameworks: list[Finding] = field(default_factory=list)
     coverage_tools: list[Finding] = field(default_factory=list)
+    android_test_frameworks: list[Finding] = field(default_factory=list)
+    android_frameworks_absent: list[str] = field(default_factory=list)
     unavailable: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -46,7 +48,14 @@ class TestEnvironmentProfile:
     def from_dict(data: dict) -> "TestEnvironmentProfile":
         known = set(TestEnvironmentProfile.__dataclass_fields__)
         raw = {k: v for k, v in data.items() if k in known}
-        for key in ("build_systems", "test_frameworks", "mock_frameworks", "coverage_tools"):
+        finding_list_keys = (
+            "build_systems",
+            "test_frameworks",
+            "mock_frameworks",
+            "coverage_tools",
+            "android_test_frameworks",
+        )
+        for key in finding_list_keys:
             if key in raw:
                 raw[key] = [Finding(**f) for f in raw[key]]
         return TestEnvironmentProfile(**raw)

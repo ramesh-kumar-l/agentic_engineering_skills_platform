@@ -1,10 +1,11 @@
-"""Detection signature tables for TEP Phase 3.
+"""Detection signature tables for TEP Phase 3 and TEP Phase 4.
 
-Deliberately scoped to general-purpose Python/JS/JVM ecosystems only.
-Android-specific frameworks (Robolectric, Espresso, AGP) are named in
-TEP Phase 4's own exit criteria (project-memory-bank/18-test-engineering-
-platform-contract.md) and are intentionally NOT added here — mixing them in
-now would blur two separately-scoped phases' evidence.
+General-purpose Python/JS/JVM signatures (Phase 3) plus a dedicated
+Android test-framework table (Phase 4, `ANDROID_TEST_FRAMEWORK_SIGNATURES`)
+covering exactly the trio TEP Phase 4's exit criteria names — JUnit,
+Robolectric, Espresso. Kept as its own table/category rather than merged
+into `TEST_FRAMEWORK_SIGNATURES`, so the profile can report presence/absence
+of each of the three by name, not just "some test framework exists."
 
 Matching is exact-key only (see detect.py) against either a dependency's
 full name (pip/npm style, e.g. "pytest-mock") or its artifact-id (the part
@@ -62,3 +63,23 @@ COVERAGE_TOOL_SIGNATURES: dict[str, str] = {
     "c8": "c8",
     "jacoco-maven-plugin": "JaCoCo",
 }
+
+# TEP Phase 4 — the exact trio named in the exit criteria. "junit" also
+# matches TEST_FRAMEWORK_SIGNATURES; that overlap is intentional (two
+# separate lenses over the same evidence, same as build_systems/
+# test_frameworks already can overlap on one dependency).
+ANDROID_TEST_FRAMEWORK_SIGNATURES: dict[str, str] = {
+    "junit": "JUnit",
+    "robolectric": "Robolectric",
+    "espresso-core": "Espresso",
+    "espresso-contrib": "Espresso",
+    "espresso-intents": "Espresso",
+    "espresso-idling-resource": "Espresso",
+    "espresso-web": "Espresso",
+    "espresso-remote": "Espresso",
+}
+
+# Single source of truth for the named trio, used to compute explicit
+# per-framework absence — never inferred from the signature table's keys,
+# since that table has multiple keys per label (Espresso).
+ANDROID_TARGET_FRAMEWORKS: tuple[str, ...] = ("JUnit", "Robolectric", "Espresso")

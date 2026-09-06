@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "repo_root": "C:\\Users\\Ramesh\\AppData\\Local\\Temp\\android-views\\app",
+  "ci_report_path": "examples/project-intelligence/android-example/ci-report/report.json",
+  "primary_language": "kotlin",
+  "language_breakdown": {
+    "unknown": 42,
+    "kotlin": 55
+  },
+  "build_systems": [
+    {
+      "name": "Gradle",
+      "evidence": [
+        "build.gradle"
+      ],
+      "confidence": "manifest-only"
+    }
+  ],
+  "test_frameworks": [],
+  "mock_frameworks": [],
+  "coverage_tools": [],
+  "android_test_frameworks": [],
+  "android_frameworks_absent": [
+    "Espresso",
+    "JUnit",
+    "Robolectric"
+  ],
+  "unavailable": [
+    "test_framework",
+    "mock_framework",
+    "coverage_tool",
+    "android_test_framework"
+  ],
+  "warnings": [
+    "codebase-intelligence reported zero external_dependencies for this scan root \u2014 dependency-confirmed detection is impossible here; any build-system findings below are manifest-only (see project-memory-bank/12-known-limitations.md L2/L34 for why this can under-report)."
+  ]
+}

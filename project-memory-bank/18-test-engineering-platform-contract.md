@@ -174,8 +174,21 @@ schema and implementation decision, and
 `examples/project-intelligence/example-run.md` for the real, non-fixture
 demonstration this phase's exit criteria required.
 
-TEP Phase 4 (Test Environment Discovery, Android/JVM specifically) has
-**not** started — per the master prompt's own hard-stop rule (section 39)
-and this project's own phase-by-phase discipline, it requires a new,
-separate, explicit user instruction, not automatic continuation from this
-contract's completion.
+TEP Phase 4 (Test Environment Discovery, Android/JVM specifically) is also
+complete as of 2026-09-06, per the user's explicit direction to continue
+past TEP Phase 3. Implemented inside the existing `project_intelligence/`
+package (`android_test_frameworks`/`android_frameworks_absent` fields,
+`ANDROID_TEST_FRAMEWORK_SIGNATURES`) — see
+[[20-test-environment-profile-schema]] and [[11-decisions|ADR-026]] for the
+implementation decision, `examples/project-intelligence/android-example/example-run.md`
+for the real, non-fixture Android demonstration this phase's exit criteria
+required, and [[12-known-limitations|L35]] for the real finding this run
+surfaced (real Android repos declare test dependencies via Gradle
+variable/version-catalog notation almost universally, which the existing
+Gradle parser (L33) cannot resolve — so detection is correct but
+under-reports on real repos today).
+
+TEP Phase 5 and beyond has **not** started — per the master prompt's own
+hard-stop rule (section 39) and this project's own phase-by-phase
+discipline, it requires a new, separate, explicit user instruction, not
+automatic continuation from this contract's completion.

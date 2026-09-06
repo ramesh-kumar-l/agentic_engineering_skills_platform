@@ -10,6 +10,7 @@ from __future__ import annotations
 from .ci_report_loader import CiExternalDependency, CiReportContext
 from .models import Finding
 from .signatures import (
+    ANDROID_TEST_FRAMEWORK_SIGNATURES,
     BUILD_SYSTEM_MANIFESTS,
     COVERAGE_TOOL_SIGNATURES,
     MOCK_FRAMEWORK_SIGNATURES,
@@ -54,6 +55,10 @@ def detect_mock_frameworks(ctx: CiReportContext) -> list[Finding]:
 
 def detect_coverage_tools(ctx: CiReportContext) -> list[Finding]:
     return _match_signatures(ctx.external_dependencies, COVERAGE_TOOL_SIGNATURES)
+
+
+def detect_android_test_frameworks(ctx: CiReportContext) -> list[Finding]:
+    return _match_signatures(ctx.external_dependencies, ANDROID_TEST_FRAMEWORK_SIGNATURES)
 
 
 def detect_build_systems(ctx: CiReportContext) -> list[Finding]:

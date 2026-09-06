@@ -41,7 +41,9 @@ def test_manifest_only_repo_reports_unavailable_and_warns(tmp_path):
     profile = build_profile(path)
 
     assert profile.build_systems[0].confidence == "manifest-only"
-    assert set(profile.unavailable) == {"test_framework", "mock_framework", "coverage_tool"}
+    assert set(profile.unavailable) == {
+        "test_framework", "mock_framework", "coverage_tool", "android_test_framework",
+    }
     assert any("zero external_dependencies" in w for w in profile.warnings)
 
 

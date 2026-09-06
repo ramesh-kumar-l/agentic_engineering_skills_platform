@@ -11,18 +11,21 @@ from pathlib import Path
 
 from .ci_report_loader import CiReportContext, load_ci_report
 from .detect import (
+    detect_android_test_frameworks,
     detect_build_systems,
     detect_coverage_tools,
     detect_mock_frameworks,
     detect_test_frameworks,
 )
 from .models import SCHEMA_VERSION, TestEnvironmentProfile
+from .signatures import ANDROID_TARGET_FRAMEWORKS
 
 _CATEGORY_LABELS = {
     "build_systems": "build_system",
     "test_frameworks": "test_framework",
     "mock_frameworks": "mock_framework",
     "coverage_tools": "coverage_tool",
+    "android_test_frameworks": "android_test_framework",
 }
 
 
@@ -40,11 +43,17 @@ def build_profile(ci_report_path: str | Path) -> TestEnvironmentProfile:
         "test_frameworks": detect_test_frameworks(ctx),
         "mock_frameworks": detect_mock_frameworks(ctx),
         "coverage_tools": detect_coverage_tools(ctx),
+        "android_test_frameworks": detect_android_test_frameworks(ctx),
     }
 
     unavailable = [
         _CATEGORY_LABELS[category] for category, results in findings.items() if not results
     ]
+
+    android_frameworks_absent = sorted(
+        set(ANDROID_TARGET_FRAMEWORKS)
+        - {f.name for f in findings["android_test_frameworks"]}
+    )
 
     warnings = []
     if not ctx.external_dependencies:
@@ -65,6 +74,8 @@ def build_profile(ci_report_path: str | Path) -> TestEnvironmentProfile:
         test_frameworks=findings["test_frameworks"],
         mock_frameworks=findings["mock_frameworks"],
         coverage_tools=findings["coverage_tools"],
+        android_test_frameworks=findings["android_test_frameworks"],
+        android_frameworks_absent=android_frameworks_absent,
         unavailable=unavailable,
         warnings=warnings,
     )

@@ -1,0 +1,2989 @@
+{
+  "root_path": "C:\\Users\\Ramesh\\AppData\\Local\\Temp\\android-views\\app",
+  "generated_at": "2026-09-06T03:51:42.714741+00:00",
+  "file_count": 97,
+  "language_breakdown": {
+    "unknown": 42,
+    "kotlin": 55
+  },
+  "files": [
+    {
+      "path": ".gitignore",
+      "language": "unknown",
+      "size_bytes": 8,
+      "line_count": 1
+    },
+    {
+      "path": "build.gradle",
+      "language": "unknown",
+      "size_bytes": 7765,
+      "line_count": 178
+    },
+    {
+      "path": "proguard-rules.pro",
+      "language": "unknown",
+      "size_bytes": 996,
+      "line_count": 31
+    },
+    {
+      "path": "proguardTest-rules.pro",
+      "language": "unknown",
+      "size_bytes": 535,
+      "line_count": 18
+    },
+    {
+      "path": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/AppNavigationTest.kt",
+      "language": "kotlin",
+      "size_bytes": 10021,
+      "line_count": 241
+    },
+    {
+      "path": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivityTest.kt",
+      "language": "kotlin",
+      "size_bytes": 14036,
+      "line_count": 322
+    },
+    {
+      "path": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TestUtils.kt",
+      "language": "kotlin",
+      "size_bytes": 1172,
+      "line_count": 31
+    },
+    {
+      "path": "src/main/AndroidManifest.xml",
+      "language": "unknown",
+      "size_bytes": 1632,
+      "line_count": 40
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt",
+      "language": "kotlin",
+      "size_bytes": 1900,
+      "line_count": 59
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/ScrollChildSwipeRefreshLayout.kt",
+      "language": "kotlin",
+      "size_bytes": 1512,
+      "line_count": 40
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/TodoApplication.kt",
+      "language": "kotlin",
+      "size_bytes": 1475,
+      "line_count": 40
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/ViewModelFactory.kt",
+      "language": "kotlin",
+      "size_bytes": 2439,
+      "line_count": 56
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragment.kt",
+      "language": "kotlin",
+      "size_bytes": 3292,
+      "line_count": 82
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModel.kt",
+      "language": "kotlin",
+      "size_bytes": 4546,
+      "line_count": 139
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt",
+      "language": "kotlin",
+      "size_bytes": 1466,
+      "line_count": 44
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt",
+      "language": "kotlin",
+      "size_bytes": 1739,
+      "line_count": 48
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt",
+      "language": "kotlin",
+      "size_bytes": 5850,
+      "line_count": 167
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt",
+      "language": "kotlin",
+      "size_bytes": 1633,
+      "line_count": 54
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt",
+      "language": "kotlin",
+      "size_bytes": 1679,
+      "line_count": 55
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDao.kt",
+      "language": "kotlin",
+      "size_bytes": 3236,
+      "line_count": 114
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt",
+      "language": "kotlin",
+      "size_bytes": 3728,
+      "line_count": 109
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/ToDoDatabase.kt",
+      "language": "kotlin",
+      "size_bytes": 1152,
+      "line_count": 32
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragment.kt",
+      "language": "kotlin",
+      "size_bytes": 2181,
+      "line_count": 57
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsUtils.kt",
+      "language": "kotlin",
+      "size_bytes": 1445,
+      "line_count": 38
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModel.kt",
+      "language": "kotlin",
+      "size_bytes": 2405,
+      "line_count": 63
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragment.kt",
+      "language": "kotlin",
+      "size_bytes": 4770,
+      "line_count": 126
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt",
+      "language": "kotlin",
+      "size_bytes": 4269,
+      "line_count": 120
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivity.kt",
+      "language": "kotlin",
+      "size_bytes": 2913,
+      "line_count": 71
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksAdapter.kt",
+      "language": "kotlin",
+      "size_bytes": 2875,
+      "line_count": 78
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFilterType.kt",
+      "language": "kotlin",
+      "size_bytes": 1043,
+      "line_count": 36
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragment.kt",
+      "language": "kotlin",
+      "size_bytes": 6724,
+      "line_count": 185
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksListBindings.kt",
+      "language": "kotlin",
+      "size_bytes": 1476,
+      "line_count": 41
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt",
+      "language": "kotlin",
+      "size_bytes": 9016,
+      "line_count": 247
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/EspressoIdlingResource.kt",
+      "language": "kotlin",
+      "size_bytes": 1626,
+      "line_count": 50
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/SimpleCountingIdlingResource.kt",
+      "language": "kotlin",
+      "size_bytes": 2606,
+      "line_count": 69
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/ViewExt.kt",
+      "language": "kotlin",
+      "size_bytes": 2855,
+      "line_count": 83
+    },
+    {
+      "path": "src/main/res/drawable/drawer_item_color.xml",
+      "language": "unknown",
+      "size_bytes": 933,
+      "line_count": 21
+    },
+    {
+      "path": "src/main/res/drawable/ic_add.xml",
+      "language": "unknown",
+      "size_bytes": 973,
+      "line_count": 25
+    },
+    {
+      "path": "src/main/res/drawable/ic_assignment_turned_in_24dp.xml",
+      "language": "unknown",
+      "size_bytes": 1266,
+      "line_count": 27
+    },
+    {
+      "path": "src/main/res/drawable/ic_check_circle_96dp.xml",
+      "language": "unknown",
+      "size_bytes": 1084,
+      "line_count": 26
+    },
+    {
+      "path": "src/main/res/drawable/ic_done.xml",
+      "language": "unknown",
+      "size_bytes": 988,
+      "line_count": 25
+    },
+    {
+      "path": "src/main/res/drawable/ic_edit.xml",
+      "language": "unknown",
+      "size_bytes": 1104,
+      "line_count": 25
+    },
+    {
+      "path": "src/main/res/drawable/ic_filter_list.xml",
+      "language": "unknown",
+      "size_bytes": 982,
+      "line_count": 25
+    },
+    {
+      "path": "src/main/res/drawable/ic_list.xml",
+      "language": "unknown",
+      "size_bytes": 1023,
+      "line_count": 25
+    },
+    {
+      "path": "src/main/res/drawable/ic_menu.xml",
+      "language": "unknown",
+      "size_bytes": 985,
+      "line_count": 25
+    },
+    {
+      "path": "src/main/res/drawable/ic_statistics.xml",
+      "language": "unknown",
+      "size_bytes": 1073,
+      "line_count": 25
+    },
+    {
+      "path": "src/main/res/drawable/ic_statistics_100dp.xml",
+      "language": "unknown",
+      "size_bytes": 1141,
+      "line_count": 27
+    },
+    {
+      "path": "src/main/res/drawable/ic_statistics_24dp.xml",
+      "language": "unknown",
+      "size_bytes": 1073,
+      "line_count": 25
+    },
+    {
+      "path": "src/main/res/drawable/ic_verified_user_96dp.xml",
+      "language": "unknown",
+      "size_bytes": 1129,
+      "line_count": 28
+    },
+    {
+      "path": "src/main/res/drawable/list_completed_touch_feedback.xml",
+      "language": "unknown",
+      "size_bytes": 933,
+      "line_count": 22
+    },
+    {
+      "path": "src/main/res/drawable/touch_feedback.xml",
+      "language": "unknown",
+      "size_bytes": 864,
+      "line_count": 20
+    },
+    {
+      "path": "src/main/res/font/opensans_font.xml",
+      "language": "unknown",
+      "size_bytes": 1016,
+      "line_count": 27
+    },
+    {
+      "path": "src/main/res/layout/addtask_frag.xml",
+      "language": "unknown",
+      "size_bytes": 4254,
+      "line_count": 92
+    },
+    {
+      "path": "src/main/res/layout/nav_header.xml",
+      "language": "unknown",
+      "size_bytes": 1696,
+      "line_count": 41
+    },
+    {
+      "path": "src/main/res/layout/statistics_frag.xml",
+      "language": "unknown",
+      "size_bytes": 3899,
+      "line_count": 82
+    },
+    {
+      "path": "src/main/res/layout/taskdetail_frag.xml",
+      "language": "unknown",
+      "size_bytes": 6376,
+      "line_count": 126
+    },
+    {
+      "path": "src/main/res/layout/tasks_act.xml",
+      "language": "unknown",
+      "size_bytes": 2767,
+      "line_count": 68
+    },
+    {
+      "path": "src/main/res/layout/tasks_frag.xml",
+      "language": "unknown",
+      "size_bytes": 5510,
+      "line_count": 118
+    },
+    {
+      "path": "src/main/res/layout/task_item.xml",
+      "language": "unknown",
+      "size_bytes": 2630,
+      "line_count": 61
+    },
+    {
+      "path": "src/main/res/menu/drawer_actions.xml",
+      "language": "unknown",
+      "size_bytes": 1079,
+      "line_count": 27
+    },
+    {
+      "path": "src/main/res/menu/filter_tasks.xml",
+      "language": "unknown",
+      "size_bytes": 1042,
+      "line_count": 26
+    },
+    {
+      "path": "src/main/res/menu/taskdetail_fragment_menu.xml",
+      "language": "unknown",
+      "size_bytes": 1008,
+      "line_count": 24
+    },
+    {
+      "path": "src/main/res/menu/tasks_fragment_menu.xml",
+      "language": "unknown",
+      "size_bytes": 1268,
+      "line_count": 33
+    },
+    {
+      "path": "src/main/res/navigation/nav_graph.xml",
+      "language": "unknown",
+      "size_bytes": 3502,
+      "line_count": 84
+    },
+    {
+      "path": "src/main/res/values/attrs.xml",
+      "language": "unknown",
+      "size_bytes": 862,
+      "line_count": 22
+    },
+    {
+      "path": "src/main/res/values/colors.xml",
+      "language": "unknown",
+      "size_bytes": 1089,
+      "line_count": 28
+    },
+    {
+      "path": "src/main/res/values/dimens.xml",
+      "language": "unknown",
+      "size_bytes": 1152,
+      "line_count": 29
+    },
+    {
+      "path": "src/main/res/values/strings.xml",
+      "language": "unknown",
+      "size_bytes": 3270,
+      "line_count": 65
+    },
+    {
+      "path": "src/main/res/values/styles.xml",
+      "language": "unknown",
+      "size_bytes": 1928,
+      "line_count": 40
+    },
+    {
+      "path": "src/main/res/values-v21/styles.xml",
+      "language": "unknown",
+      "size_bytes": 1142,
+      "line_count": 28
+    },
+    {
+      "path": "src/main/res/values-w820dp/dimens.xml",
+      "language": "unknown",
+      "size_bytes": 1103,
+      "line_count": 25
+    },
+    {
+      "path": "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+      "language": "kotlin",
+      "size_bytes": 3507,
+      "line_count": 94
+    },
+    {
+      "path": "src/mock/java/com/example/android/architecture/blueprints/todoapp/data/FakeTasksRemoteDataSource.kt",
+      "language": "kotlin",
+      "size_bytes": 3733,
+      "line_count": 109
+    },
+    {
+      "path": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+      "language": "kotlin",
+      "size_bytes": 3166,
+      "line_count": 86
+    },
+    {
+      "path": "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote/TasksRemoteDataSource.kt",
+      "language": "kotlin",
+      "size_bytes": 4451,
+      "line_count": 126
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt",
+      "language": "kotlin",
+      "size_bytes": 1741,
+      "line_count": 54
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragmentTest.kt",
+      "language": "kotlin",
+      "size_bytes": 5710,
+      "line_count": 132
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt",
+      "language": "kotlin",
+      "size_bytes": 4511,
+      "line_count": 135
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDaoTest.kt",
+      "language": "kotlin",
+      "size_bytes": 7023,
+      "line_count": 192
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSourceTest.kt",
+      "language": "kotlin",
+      "size_bytes": 6812,
+      "line_count": 183
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragmentTest.kt",
+      "language": "kotlin",
+      "size_bytes": 4505,
+      "line_count": 107
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragmentTest.kt",
+      "language": "kotlin",
+      "size_bytes": 4767,
+      "line_count": 102
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragmentTest.kt",
+      "language": "kotlin",
+      "size_bytes": 13241,
+      "line_count": 341
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/DataBindingIdlingResource.kt",
+      "language": "kotlin",
+      "size_bytes": 4182,
+      "line_count": 112
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/TasksRepositoryExt.kt",
+      "language": "kotlin",
+      "size_bytes": 1429,
+      "line_count": 36
+    },
+    {
+      "path": "src/sharedTest/resources/robolectric.properties",
+      "language": "unknown",
+      "size_bytes": 6,
+      "line_count": 1
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/FakeFailingTasksRemoteDataSource.kt",
+      "language": "kotlin",
+      "size_bytes": 2495,
+      "line_count": 81
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/LiveDataTestUtil.kt",
+      "language": "kotlin",
+      "size_bytes": 2413,
+      "line_count": 74
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/TestUtil.kt",
+      "language": "kotlin",
+      "size_bytes": 1196,
+      "line_count": 33
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModelTest.kt",
+      "language": "kotlin",
+      "size_bytes": 5687,
+      "line_count": 159
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepositoryTest.kt",
+      "language": "kotlin",
+      "size_bytes": 10789,
+      "line_count": 284
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeDataSource.kt",
+      "language": "kotlin",
+      "size_bytes": 2920,
+      "line_count": 87
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsUtilsTest.kt",
+      "language": "kotlin",
+      "size_bytes": 3256,
+      "line_count": 92
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModelTest.kt",
+      "language": "kotlin",
+      "size_bytes": 4761,
+      "line_count": 122
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModelTest.kt",
+      "language": "kotlin",
+      "size_bytes": 7053,
+      "line_count": 185
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModelTest.kt",
+      "language": "kotlin",
+      "size_bytes": 10100,
+      "line_count": 281
+    },
+    {
+      "path": "src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker",
+      "language": "unknown",
+      "size_bytes": 19,
+      "line_count": 1
+    }
+  ],
+  "modules": [
+    {
+      "path": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/AppNavigationTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "init",
+        "reset",
+        "registerIdlingResource",
+        "unregisterIdlingResource",
+        "drawerNavigationFromTasksToStatistics",
+        "tasksScreen_clickOnAndroidHomeIcon_OpensNavigation",
+        "statsScreen_clickOnAndroidHomeIcon_OpensNavigation",
+        "taskDetailScreen_doubleUIBackButton",
+        "taskDetailScreen_doubleBackButton"
+      ],
+      "classes": [
+        "AppNavigationTest"
+      ],
+      "imports": [
+        "android.view.Gravity",
+        "androidx.drawerlayout.widget.DrawerLayout",
+        "androidx.navigation.findNavController",
+        "androidx.test.core.app.ActivityScenario",
+        "androidx.test.core.app.ApplicationProvider.getApplicationContext",
+        "androidx.test.espresso.Espresso.onView",
+        "androidx.test.espresso.Espresso.pressBack",
+        "androidx.test.espresso.IdlingRegistry",
+        "androidx.test.espresso.action.ViewActions.click",
+        "androidx.test.espresso.assertion.ViewAssertions.matches",
+        "androidx.test.espresso.contrib.DrawerActions.open",
+        "androidx.test.espresso.contrib.DrawerMatchers.isClosed",
+        "androidx.test.espresso.contrib.DrawerMatchers.isOpen",
+        "androidx.test.espresso.contrib.NavigationViewActions.navigateTo",
+        "androidx.test.espresso.matcher.ViewMatchers.isDisplayed",
+        "androidx.test.espresso.matcher.ViewMatchers.withContentDescription",
+        "androidx.test.espresso.matcher.ViewMatchers.withId",
+        "androidx.test.espresso.matcher.ViewMatchers.withText",
+        "androidx.test.ext.junit.runners.AndroidJUnit4",
+        "androidx.test.filters.LargeTest",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.ServiceLocator",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.util.DataBindingIdlingResource",
+        "com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource",
+        "com.example.android.architecture.blueprints.todoapp.util.monitorActivity",
+        "com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking",
+        "org.junit.After",
+        "org.junit.Before",
+        "org.junit.Test",
+        "org.junit.runner.RunWith"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivityTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "init",
+        "reset",
+        "registerIdlingResource",
+        "unregisterIdlingResource",
+        "editTask",
+        "createOneTask_deleteTask",
+        "createTwoTasks_deleteOneTask",
+        "markTaskAsCompleteOnDetailScreen_taskIsCompleteInList",
+        "markTaskAsActiveOnDetailScreen_taskIsActiveInList",
+        "markTaskAsCompleteAndActiveOnDetailScreen_taskIsActiveInList",
+        "markTaskAsActiveAndCompleteOnDetailScreen_taskIsCompleteInList",
+        "createTask"
+      ],
+      "classes": [
+        "TasksActivityTest"
+      ],
+      "imports": [
+        "androidx.test.core.app.ActivityScenario",
+        "androidx.test.core.app.ApplicationProvider.getApplicationContext",
+        "androidx.test.espresso.Espresso.onView",
+        "androidx.test.espresso.IdlingRegistry",
+        "androidx.test.espresso.action.ViewActions.click",
+        "androidx.test.espresso.action.ViewActions.closeSoftKeyboard",
+        "androidx.test.espresso.action.ViewActions.replaceText",
+        "androidx.test.espresso.action.ViewActions.typeText",
+        "androidx.test.espresso.assertion.ViewAssertions.doesNotExist",
+        "androidx.test.espresso.assertion.ViewAssertions.matches",
+        "androidx.test.espresso.matcher.ViewMatchers.hasSibling",
+        "androidx.test.espresso.matcher.ViewMatchers.isChecked",
+        "androidx.test.espresso.matcher.ViewMatchers.isDisplayed",
+        "androidx.test.espresso.matcher.ViewMatchers.withContentDescription",
+        "androidx.test.espresso.matcher.ViewMatchers.withId",
+        "androidx.test.espresso.matcher.ViewMatchers.withText",
+        "androidx.test.ext.junit.runners.AndroidJUnit4",
+        "androidx.test.filters.LargeTest",
+        "androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.R.string",
+        "com.example.android.architecture.blueprints.todoapp.ServiceLocator",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.util.DataBindingIdlingResource",
+        "com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource",
+        "com.example.android.architecture.blueprints.todoapp.util.deleteAllTasksBlocking",
+        "com.example.android.architecture.blueprints.todoapp.util.monitorActivity",
+        "com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking",
+        "org.hamcrest.Matchers.allOf",
+        "org.hamcrest.core.IsNot.not",
+        "org.junit.After",
+        "org.junit.Before",
+        "org.junit.Test",
+        "org.junit.runner.RunWith"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TestUtils.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "android.app.Activity",
+        "androidx.appcompat.widget.Toolbar",
+        "androidx.test.core.app.ActivityScenario",
+        "com.example.android.architecture.blueprints.todoapp.R"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "getContentIfNotHandled",
+        "peekContent",
+        "onChanged"
+      ],
+      "classes": [
+        "Event",
+        "EventObserver"
+      ],
+      "imports": [
+        "androidx.lifecycle.Observer"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/ScrollChildSwipeRefreshLayout.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "canChildScrollUp"
+      ],
+      "classes": [
+        "ScrollChildSwipeRefreshLayout"
+      ],
+      "imports": [
+        "android.content.Context",
+        "android.util.AttributeSet",
+        "android.view.View",
+        "androidx.swiperefreshlayout.widget.SwipeRefreshLayout"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/TodoApplication.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onCreate"
+      ],
+      "classes": [
+        "TodoApplication"
+      ],
+      "imports": [
+        "android.app.Application",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "timber.log.Timber",
+        "timber.log.Timber.DebugTree"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/ViewModelFactory.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY",
+        "androidx.lifecycle.createSavedStateHandle",
+        "androidx.lifecycle.viewmodel.CreationExtras",
+        "androidx.lifecycle.viewmodel.initializer",
+        "androidx.lifecycle.viewmodel.viewModelFactory",
+        "com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskViewModel",
+        "com.example.android.architecture.blueprints.todoapp.statistics.StatisticsViewModel",
+        "com.example.android.architecture.blueprints.todoapp.taskdetail.TaskDetailViewModel",
+        "com.example.android.architecture.blueprints.todoapp.tasks.TasksViewModel"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragment.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onCreateView",
+        "onViewCreated",
+        "setupSnackbar",
+        "setupNavigation"
+      ],
+      "classes": [
+        "AddEditTaskFragment"
+      ],
+      "imports": [
+        "android.os.Bundle",
+        "android.view.LayoutInflater",
+        "android.view.View",
+        "android.view.ViewGroup",
+        "androidx.fragment.app.Fragment",
+        "androidx.fragment.app.viewModels",
+        "androidx.navigation.fragment.findNavController",
+        "androidx.navigation.fragment.navArgs",
+        "com.example.android.architecture.blueprints.todoapp.EventObserver",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.TodoViewModelFactory",
+        "com.example.android.architecture.blueprints.todoapp.databinding.AddtaskFragBinding",
+        "com.example.android.architecture.blueprints.todoapp.tasks.ADD_EDIT_RESULT_OK",
+        "com.example.android.architecture.blueprints.todoapp.util.setupRefreshLayout",
+        "com.example.android.architecture.blueprints.todoapp.util.setupSnackbar",
+        "com.google.android.material.snackbar.Snackbar"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.addedittask",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModel.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "start",
+        "onTaskLoaded",
+        "onDataNotAvailable",
+        "saveTask",
+        "createTask",
+        "updateTask"
+      ],
+      "classes": [
+        "AddEditTaskViewModel"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.MutableLiveData",
+        "androidx.lifecycle.ViewModel",
+        "androidx.lifecycle.viewModelScope",
+        "com.example.android.architecture.blueprints.todoapp.Event",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "kotlinx.coroutines.launch"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.addedittask",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "toString"
+      ],
+      "classes": [
+        "Result",
+        "Success",
+        "Error",
+        "Loading"
+      ],
+      "imports": [
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [],
+      "classes": [
+        "Task"
+      ],
+      "imports": [
+        "androidx.room.ColumnInfo",
+        "androidx.room.Entity",
+        "androidx.room.PrimaryKey",
+        "java.util.UUID"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "getTasks",
+        "refreshTasks",
+        "observeTasks",
+        "refreshTask",
+        "updateTasksFromRemoteDataSource",
+        "observeTask",
+        "updateTaskFromRemoteDataSource",
+        "getTask",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteAllTasks",
+        "deleteTask",
+        "getTaskWithId"
+      ],
+      "classes": [
+        "DefaultTasksRepository"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.util.wrapEspressoIdlingResource",
+        "kotlinx.coroutines.CoroutineDispatcher",
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.coroutineScope",
+        "kotlinx.coroutines.launch",
+        "kotlinx.coroutines.withContext"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "observeTasks",
+        "getTasks",
+        "refreshTasks",
+        "observeTask",
+        "getTask",
+        "refreshTask",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteAllTasks",
+        "deleteTask"
+      ],
+      "classes": [
+        "TasksDataSource"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Task"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "observeTasks",
+        "getTasks",
+        "refreshTasks",
+        "observeTask",
+        "getTask",
+        "refreshTask",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteAllTasks",
+        "deleteTask"
+      ],
+      "classes": [
+        "TasksRepository"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Task"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDao.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "observeTasks",
+        "observeTaskById",
+        "getTasks",
+        "getTaskById",
+        "insertTask",
+        "updateTask",
+        "updateCompleted",
+        "deleteTaskById",
+        "deleteTasks",
+        "deleteCompletedTasks"
+      ],
+      "classes": [
+        "TasksDao"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "androidx.room.Dao",
+        "androidx.room.Insert",
+        "androidx.room.OnConflictStrategy",
+        "androidx.room.Query",
+        "androidx.room.Update",
+        "com.example.android.architecture.blueprints.todoapp.data.Task"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source.local",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "observeTasks",
+        "observeTask",
+        "refreshTask",
+        "refreshTasks",
+        "getTasks",
+        "getTask",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteAllTasks",
+        "deleteTask"
+      ],
+      "classes": [
+        "TasksLocalDataSource"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.map",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Error",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource",
+        "kotlinx.coroutines.CoroutineDispatcher",
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.withContext"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source.local",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/ToDoDatabase.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [],
+      "classes": [
+        "ToDoDatabase"
+      ],
+      "imports": [
+        "androidx.room.Database",
+        "androidx.room.RoomDatabase",
+        "com.example.android.architecture.blueprints.todoapp.data.Task"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source.local",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragment.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onCreateView",
+        "onViewCreated"
+      ],
+      "classes": [
+        "StatisticsFragment"
+      ],
+      "imports": [
+        "android.os.Bundle",
+        "android.view.LayoutInflater",
+        "android.view.View",
+        "android.view.ViewGroup",
+        "androidx.databinding.DataBindingUtil",
+        "androidx.fragment.app.Fragment",
+        "androidx.fragment.app.viewModels",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.TodoViewModelFactory",
+        "com.example.android.architecture.blueprints.todoapp.databinding.StatisticsFragBinding",
+        "com.example.android.architecture.blueprints.todoapp.util.setupRefreshLayout"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.statistics",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsUtils.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "getActiveAndCompletedStats"
+      ],
+      "classes": [
+        "StatsResult"
+      ],
+      "imports": [
+        "com.example.android.architecture.blueprints.todoapp.data.Task"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.statistics",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModel.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "refresh"
+      ],
+      "classes": [
+        "StatisticsViewModel"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.MutableLiveData",
+        "androidx.lifecycle.ViewModel",
+        "androidx.lifecycle.map",
+        "androidx.lifecycle.viewModelScope",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Error",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "kotlinx.coroutines.launch"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.statistics",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragment.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onViewCreated",
+        "setupNavigation",
+        "setupFab",
+        "onCreateView",
+        "setupMenuProvider",
+        "onCreateMenu",
+        "onMenuItemSelected"
+      ],
+      "classes": [
+        "TaskDetailFragment"
+      ],
+      "imports": [
+        "android.os.Bundle",
+        "android.view.LayoutInflater",
+        "android.view.Menu",
+        "android.view.MenuInflater",
+        "android.view.MenuItem",
+        "android.view.View",
+        "android.view.ViewGroup",
+        "androidx.core.view.MenuHost",
+        "androidx.core.view.MenuProvider",
+        "androidx.fragment.app.Fragment",
+        "androidx.fragment.app.viewModels",
+        "androidx.lifecycle.Lifecycle",
+        "androidx.navigation.fragment.findNavController",
+        "androidx.navigation.fragment.navArgs",
+        "com.example.android.architecture.blueprints.todoapp.EventObserver",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.TodoViewModelFactory",
+        "com.example.android.architecture.blueprints.todoapp.databinding.TaskdetailFragBinding",
+        "com.example.android.architecture.blueprints.todoapp.tasks.DELETE_RESULT_OK",
+        "com.example.android.architecture.blueprints.todoapp.util.setupRefreshLayout",
+        "com.example.android.architecture.blueprints.todoapp.util.setupSnackbar",
+        "com.google.android.material.snackbar.Snackbar"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.taskdetail",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "deleteTask",
+        "editTask",
+        "setCompleted",
+        "start",
+        "computeResult",
+        "refresh",
+        "showSnackbarMessage"
+      ],
+      "classes": [
+        "TaskDetailViewModel"
+      ],
+      "imports": [
+        "androidx.annotation.StringRes",
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.MutableLiveData",
+        "androidx.lifecycle.ViewModel",
+        "androidx.lifecycle.map",
+        "androidx.lifecycle.switchMap",
+        "androidx.lifecycle.viewModelScope",
+        "com.example.android.architecture.blueprints.todoapp.Event",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "kotlinx.coroutines.launch"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.taskdetail",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivity.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onCreate",
+        "onSupportNavigateUp",
+        "setupNavigationDrawer"
+      ],
+      "classes": [
+        "TasksActivity"
+      ],
+      "imports": [
+        "android.app.Activity",
+        "android.os.Bundle",
+        "androidx.appcompat.app.AppCompatActivity",
+        "androidx.drawerlayout.widget.DrawerLayout",
+        "androidx.navigation.NavController",
+        "androidx.navigation.findNavController",
+        "androidx.navigation.ui.AppBarConfiguration",
+        "androidx.navigation.ui.navigateUp",
+        "androidx.navigation.ui.setupActionBarWithNavController",
+        "androidx.navigation.ui.setupWithNavController",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.google.android.material.navigation.NavigationView"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksAdapter.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onBindViewHolder",
+        "onCreateViewHolder",
+        "bind",
+        "from",
+        "areItemsTheSame",
+        "areContentsTheSame"
+      ],
+      "classes": [
+        "TasksAdapter",
+        "ViewHolder",
+        "TaskDiffCallback"
+      ],
+      "imports": [
+        "android.view.LayoutInflater",
+        "android.view.ViewGroup",
+        "androidx.recyclerview.widget.DiffUtil",
+        "androidx.recyclerview.widget.ListAdapter",
+        "androidx.recyclerview.widget.RecyclerView",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.databinding.TaskItemBinding",
+        "com.example.android.architecture.blueprints.todoapp.tasks.TasksAdapter.ViewHolder"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFilterType.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [],
+      "classes": [
+        "TasksFilterType"
+      ],
+      "imports": [],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragment.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onCreateView",
+        "onViewCreated",
+        "setupNavigation",
+        "setupSnackbar",
+        "showFilteringPopUpMenu",
+        "setupFab",
+        "navigateToAddNewTask",
+        "openTaskDetails",
+        "setupListAdapter",
+        "setupMenuProvider",
+        "onCreateMenu",
+        "onMenuItemSelected"
+      ],
+      "classes": [
+        "TasksFragment"
+      ],
+      "imports": [
+        "android.os.Bundle",
+        "android.view.LayoutInflater",
+        "android.view.Menu",
+        "android.view.MenuInflater",
+        "android.view.MenuItem",
+        "android.view.View",
+        "android.view.ViewGroup",
+        "androidx.appcompat.widget.PopupMenu",
+        "androidx.core.view.MenuHost",
+        "androidx.core.view.MenuProvider",
+        "androidx.fragment.app.Fragment",
+        "androidx.fragment.app.viewModels",
+        "androidx.lifecycle.Lifecycle",
+        "androidx.navigation.fragment.findNavController",
+        "androidx.navigation.fragment.navArgs",
+        "com.example.android.architecture.blueprints.todoapp.EventObserver",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.TodoViewModelFactory",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.databinding.TasksFragBinding",
+        "com.example.android.architecture.blueprints.todoapp.util.setupRefreshLayout",
+        "com.example.android.architecture.blueprints.todoapp.util.setupSnackbar",
+        "com.google.android.material.floatingactionbutton.FloatingActionButton",
+        "com.google.android.material.snackbar.Snackbar",
+        "timber.log.Timber"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksListBindings.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "setItems",
+        "setStyle"
+      ],
+      "classes": [],
+      "imports": [
+        "android.graphics.Paint",
+        "android.widget.TextView",
+        "androidx.databinding.BindingAdapter",
+        "androidx.recyclerview.widget.RecyclerView",
+        "com.example.android.architecture.blueprints.todoapp.data.Task"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "setFiltering",
+        "setFilter",
+        "clearCompletedTasks",
+        "completeTask",
+        "addNewTask",
+        "openTask",
+        "showEditResultMessage",
+        "showSnackbarMessage",
+        "filterTasks",
+        "loadTasks",
+        "filterItems",
+        "refresh",
+        "getSavedFilterType"
+      ],
+      "classes": [
+        "TasksViewModel"
+      ],
+      "imports": [
+        "androidx.annotation.DrawableRes",
+        "androidx.annotation.StringRes",
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.MutableLiveData",
+        "androidx.lifecycle.SavedStateHandle",
+        "androidx.lifecycle.Transformations",
+        "androidx.lifecycle.ViewModel",
+        "androidx.lifecycle.distinctUntilChanged",
+        "androidx.lifecycle.switchMap",
+        "androidx.lifecycle.viewModelScope",
+        "com.example.android.architecture.blueprints.todoapp.Event",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.ACTIVE_TASKS",
+        "com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.ALL_TASKS",
+        "com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.COMPLETED_TASKS",
+        "kotlinx.coroutines.launch"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/EspressoIdlingResource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "increment",
+        "decrement"
+      ],
+      "classes": [
+        "EspressoIdlingResource"
+      ],
+      "imports": [
+        "androidx.test.espresso.IdlingResource"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.util",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/SimpleCountingIdlingResource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "getName",
+        "isIdleNow",
+        "registerIdleTransitionCallback",
+        "increment",
+        "decrement"
+      ],
+      "classes": [
+        "SimpleCountingIdlingResource"
+      ],
+      "imports": [
+        "androidx.test.espresso.IdlingResource",
+        "java.util.concurrent.atomic.AtomicInteger"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.util",
+      "parse_error": null
+    },
+    {
+      "path": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/ViewExt.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onShown",
+        "onDismissed"
+      ],
+      "classes": [],
+      "imports": [
+        "android.view.View",
+        "androidx.core.content.ContextCompat",
+        "androidx.fragment.app.Fragment",
+        "androidx.lifecycle.LifecycleOwner",
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.Observer",
+        "com.example.android.architecture.blueprints.todoapp.Event",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.ScrollChildSwipeRefreshLayout",
+        "com.google.android.material.snackbar.Snackbar"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.util",
+      "parse_error": null
+    },
+    {
+      "path": "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "provideTasksRepository",
+        "createTasksRepository",
+        "createTaskLocalDataSource",
+        "createDataBase",
+        "resetRepository"
+      ],
+      "classes": [
+        "ServiceLocator"
+      ],
+      "imports": [
+        "android.content.Context",
+        "androidx.annotation.VisibleForTesting",
+        "androidx.room.Room",
+        "com.example.android.architecture.blueprints.todoapp.data.FakeTasksRemoteDataSource",
+        "com.example.android.architecture.blueprints.todoapp.data.source.DefaultTasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.local.TasksLocalDataSource",
+        "com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase",
+        "kotlinx.coroutines.runBlocking"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/mock/java/com/example/android/architecture/blueprints/todoapp/data/FakeTasksRemoteDataSource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "refreshTasks",
+        "refreshTask",
+        "observeTasks",
+        "observeTask",
+        "getTask",
+        "getTasks",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteTask",
+        "deleteAllTasks"
+      ],
+      "classes": [
+        "FakeTasksRemoteDataSource"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.MutableLiveData",
+        "androidx.lifecycle.map",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Error",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource",
+        "java.util.LinkedHashMap"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data",
+      "parse_error": null
+    },
+    {
+      "path": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "provideTasksRepository",
+        "createTasksRepository",
+        "createTaskLocalDataSource",
+        "createDataBase",
+        "resetRepository"
+      ],
+      "classes": [
+        "ServiceLocator"
+      ],
+      "imports": [
+        "android.content.Context",
+        "androidx.annotation.VisibleForTesting",
+        "androidx.room.Room",
+        "com.example.android.architecture.blueprints.todoapp.data.source.DefaultTasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.local.TasksLocalDataSource",
+        "com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase",
+        "com.example.android.architecture.blueprints.todoapp.data.source.remote.TasksRemoteDataSource",
+        "kotlinx.coroutines.runBlocking"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote/TasksRemoteDataSource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "refreshTasks",
+        "refreshTask",
+        "observeTasks",
+        "observeTask",
+        "getTasks",
+        "getTask",
+        "addTask",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteAllTasks",
+        "deleteTask"
+      ],
+      "classes": [
+        "TasksRemoteDataSource"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.MutableLiveData",
+        "androidx.lifecycle.map",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Error",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource",
+        "kotlinx.coroutines.delay"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source.remote",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "starting",
+        "finished"
+      ],
+      "classes": [
+        "MainCoroutineRule"
+      ],
+      "imports": [
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.test.TestDispatcher",
+        "kotlinx.coroutines.test.UnconfinedTestDispatcher",
+        "kotlinx.coroutines.test.resetMain",
+        "kotlinx.coroutines.test.setMain",
+        "org.junit.rules.TestWatcher",
+        "org.junit.runner.Description"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragmentTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "initRepository",
+        "cleanupDb",
+        "emptyTask_isNotSaved",
+        "validTask_navigatesBack",
+        "validTask_isSaved",
+        "launchFragment"
+      ],
+      "classes": [
+        "AddEditTaskFragmentTest"
+      ],
+      "imports": [
+        "android.content.Context",
+        "androidx.fragment.app.testing.launchFragmentInContainer",
+        "androidx.navigation.Navigation",
+        "androidx.navigation.testing.TestNavHostController",
+        "androidx.test.core.app.ApplicationProvider.getApplicationContext",
+        "androidx.test.espresso.Espresso.onView",
+        "androidx.test.espresso.action.ViewActions.clearText",
+        "androidx.test.espresso.action.ViewActions.click",
+        "androidx.test.espresso.action.ViewActions.replaceText",
+        "androidx.test.espresso.assertion.ViewAssertions.matches",
+        "androidx.test.espresso.matcher.ViewMatchers.isDisplayed",
+        "androidx.test.espresso.matcher.ViewMatchers.withId",
+        "androidx.test.ext.junit.runners.AndroidJUnit4",
+        "androidx.test.filters.MediumTest",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.ServiceLocator",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.util.getTasksBlocking",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "org.junit.After",
+        "org.junit.Assert.assertEquals",
+        "org.junit.Before",
+        "org.junit.Test",
+        "org.junit.runner.RunWith",
+        "org.robolectric.annotation.LooperMode",
+        "org.robolectric.annotation.TextLayoutMode"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.addedittask",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "setReturnError",
+        "refreshTasks",
+        "refreshTask",
+        "observeTasks",
+        "observeTask",
+        "getTask",
+        "getTasks",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteTask",
+        "deleteAllTasks",
+        "addTasks"
+      ],
+      "classes": [
+        "FakeRepository"
+      ],
+      "imports": [
+        "androidx.annotation.VisibleForTesting",
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.MutableLiveData",
+        "androidx.lifecycle.map",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Error",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "kotlinx.coroutines.runBlocking",
+        "java.util.LinkedHashMap"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDaoTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "initDb",
+        "closeDb",
+        "insertTaskAndGetById",
+        "insertTaskReplacesOnConflict",
+        "insertTaskAndGetTasks",
+        "updateTaskAndGetById",
+        "updateCompletedAndGetById",
+        "deleteTaskByIdAndGettingTasks",
+        "deleteTasksAndGettingTasks",
+        "deleteCompletedTasksAndGettingTasks"
+      ],
+      "classes": [
+        "TasksDaoTest"
+      ],
+      "imports": [
+        "androidx.arch.core.executor.testing.InstantTaskExecutorRule",
+        "androidx.room.Room",
+        "androidx.test.core.app.ApplicationProvider.getApplicationContext",
+        "androidx.test.ext.junit.runners.AndroidJUnit4",
+        "androidx.test.filters.SmallTest",
+        "com.example.android.architecture.blueprints.todoapp.MainCoroutineRule",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.test.runTest",
+        "org.hamcrest.CoreMatchers.notNullValue",
+        "org.hamcrest.MatcherAssert.assertThat",
+        "org.junit.After",
+        "org.junit.Before",
+        "org.junit.Rule",
+        "org.junit.Test",
+        "org.junit.runner.RunWith"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source.local",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSourceTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "setup",
+        "cleanUp",
+        "saveTask_retrievesTask",
+        "completeTask_retrievedTaskIsComplete",
+        "activateTask_retrievedTaskIsActive",
+        "clearCompletedTask_taskNotRetrievable",
+        "deleteAllTasks_emptyListOfRetrievedTask",
+        "getTasks_retrieveSavedTasks"
+      ],
+      "classes": [
+        "TasksLocalDataSourceTest"
+      ],
+      "imports": [
+        "androidx.arch.core.executor.testing.InstantTaskExecutorRule",
+        "androidx.room.Room",
+        "androidx.test.core.app.ApplicationProvider",
+        "androidx.test.ext.junit.runners.AndroidJUnit4",
+        "androidx.test.filters.MediumTest",
+        "com.example.android.architecture.blueprints.todoapp.MainCoroutineRule",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource",
+        "com.example.android.architecture.blueprints.todoapp.data.succeeded",
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.test.runTest",
+        "org.hamcrest.MatcherAssert.assertThat",
+        "org.junit.After",
+        "org.junit.Before",
+        "org.junit.Rule",
+        "org.junit.Test",
+        "org.junit.runner.RunWith"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source.local",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragmentTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "initRepository",
+        "cleanupDb",
+        "registerIdlingResource",
+        "unregisterIdlingResource",
+        "tasks_showsNonEmptyMessage"
+      ],
+      "classes": [
+        "StatisticsFragmentTest"
+      ],
+      "imports": [
+        "android.content.Context",
+        "android.os.Bundle",
+        "androidx.fragment.app.testing.launchFragmentInContainer",
+        "androidx.test.core.app.ApplicationProvider.getApplicationContext",
+        "androidx.test.espresso.Espresso.onView",
+        "androidx.test.espresso.IdlingRegistry",
+        "androidx.test.espresso.assertion.ViewAssertions.matches",
+        "androidx.test.espresso.matcher.ViewMatchers.isDisplayed",
+        "androidx.test.espresso.matcher.ViewMatchers.withId",
+        "androidx.test.espresso.matcher.ViewMatchers.withText",
+        "androidx.test.ext.junit.runners.AndroidJUnit4",
+        "androidx.test.filters.MediumTest",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.ServiceLocator",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.util.DataBindingIdlingResource",
+        "com.example.android.architecture.blueprints.todoapp.util.monitorFragment",
+        "com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "org.junit.After",
+        "org.junit.Before",
+        "org.junit.Test",
+        "org.junit.runner.RunWith"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.statistics",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragmentTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "initRepository",
+        "cleanupDb",
+        "activeTaskDetails_DisplayedInUi",
+        "completedTaskDetails_DisplayedInUi"
+      ],
+      "classes": [
+        "TaskDetailFragmentTest"
+      ],
+      "imports": [
+        "androidx.fragment.app.testing.launchFragmentInContainer",
+        "androidx.test.espresso.Espresso.onView",
+        "androidx.test.espresso.assertion.ViewAssertions.matches",
+        "androidx.test.espresso.matcher.ViewMatchers.isChecked",
+        "androidx.test.espresso.matcher.ViewMatchers.isDisplayed",
+        "androidx.test.espresso.matcher.ViewMatchers.withId",
+        "androidx.test.espresso.matcher.ViewMatchers.withText",
+        "androidx.test.ext.junit.runners.AndroidJUnit4",
+        "androidx.test.filters.MediumTest",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.ServiceLocator",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "org.hamcrest.core.IsNot.not",
+        "org.junit.After",
+        "org.junit.Before",
+        "org.junit.Test",
+        "org.junit.runner.RunWith"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.taskdetail",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragmentTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "initRepository",
+        "cleanupDb",
+        "displayTask_whenRepositoryHasData",
+        "displayActiveTask",
+        "displayCompletedTask",
+        "deleteOneTask",
+        "deleteOneOfTwoTasks",
+        "markTaskAsComplete",
+        "markTaskAsActive",
+        "showAllTasks",
+        "showActiveTasks",
+        "showCompletedTasks",
+        "clearCompletedTasks",
+        "noTasks_AllTasksFilter_AddTaskViewVisible",
+        "noTasks_CompletedTasksFilter_AddTaskViewNotVisible",
+        "noTasks_ActiveTasksFilter_AddTaskViewNotVisible",
+        "clickAddTaskButton_navigateToAddEditFragment",
+        "launchActivity",
+        "checkboxWithText"
+      ],
+      "classes": [
+        "TasksFragmentTest"
+      ],
+      "imports": [
+        "android.os.Bundle",
+        "android.view.View",
+        "androidx.fragment.app.testing.launchFragmentInContainer",
+        "androidx.navigation.Navigation",
+        "androidx.navigation.testing.TestNavHostController",
+        "androidx.recyclerview.widget.RecyclerView",
+        "androidx.test.core.app.ActivityScenario",
+        "androidx.test.core.app.ActivityScenario.launch",
+        "androidx.test.core.app.ApplicationProvider",
+        "androidx.test.espresso.Espresso.onView",
+        "androidx.test.espresso.Espresso.openContextualActionModeOverflowMenu",
+        "androidx.test.espresso.action.ViewActions.click",
+        "androidx.test.espresso.assertion.ViewAssertions.doesNotExist",
+        "androidx.test.espresso.assertion.ViewAssertions.matches",
+        "androidx.test.espresso.matcher.ViewMatchers.hasSibling",
+        "androidx.test.espresso.matcher.ViewMatchers.isDisplayed",
+        "androidx.test.espresso.matcher.ViewMatchers.withId",
+        "androidx.test.espresso.matcher.ViewMatchers.withText",
+        "androidx.test.ext.junit.runners.AndroidJUnit4",
+        "androidx.test.filters.MediumTest",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.R.id",
+        "com.example.android.architecture.blueprints.todoapp.ServiceLocator",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking",
+        "junit.framework.Assert.assertEquals",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "org.hamcrest.CoreMatchers.allOf",
+        "org.hamcrest.Matcher",
+        "org.hamcrest.core.IsNot.not",
+        "org.junit.After",
+        "org.junit.Before",
+        "org.junit.Test",
+        "org.junit.runner.RunWith",
+        "org.robolectric.annotation.LooperMode",
+        "org.robolectric.annotation.TextLayoutMode"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/DataBindingIdlingResource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "getName",
+        "isIdleNow",
+        "registerIdleTransitionCallback",
+        "getBindings"
+      ],
+      "classes": [
+        "DataBindingIdlingResource"
+      ],
+      "imports": [
+        "android.view.View",
+        "androidx.databinding.DataBindingUtil",
+        "androidx.databinding.ViewDataBinding",
+        "androidx.fragment.app.Fragment",
+        "androidx.fragment.app.FragmentActivity",
+        "androidx.fragment.app.testing.FragmentScenario",
+        "androidx.test.core.app.ActivityScenario",
+        "androidx.test.espresso.IdlingResource",
+        "java.util.UUID"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.util",
+      "parse_error": null
+    },
+    {
+      "path": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/TasksRepositoryExt.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository",
+        "kotlinx.coroutines.runBlocking"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.util",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/FakeFailingTasksRemoteDataSource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "getTasks",
+        "getTask",
+        "observeTasks",
+        "refreshTasks",
+        "observeTask",
+        "refreshTask",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteAllTasks",
+        "deleteTask"
+      ],
+      "classes": [
+        "FakeFailingTasksRemoteDataSource"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.liveData",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/LiveDataTestUtil.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "onChanged"
+      ],
+      "classes": [],
+      "imports": [
+        "androidx.annotation.VisibleForTesting",
+        "androidx.lifecycle.LiveData",
+        "androidx.lifecycle.Observer",
+        "java.util.concurrent.CountDownLatch",
+        "java.util.concurrent.TimeUnit",
+        "java.util.concurrent.TimeoutException"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/TestUtil.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "assertLiveDataEventTriggered",
+        "assertSnackbarMessage"
+      ],
+      "classes": [],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "org.junit.Assert.assertEquals"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModelTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "setupViewModel",
+        "saveNewTaskToRepository_showsSuccessMessageUi",
+        "loadTasks_loading",
+        "loadTasks_taskShown",
+        "saveNewTaskToRepository_emptyTitle_error",
+        "saveNewTaskToRepository_nullTitle_error",
+        "saveNewTaskToRepository_emptyDescription_error",
+        "saveNewTaskToRepository_nullDescription_error",
+        "saveNewTaskToRepository_nullDescriptionNullTitle_error",
+        "saveNewTaskToRepository_emptyDescriptionEmptyTitle_error",
+        "saveTaskAndAssertSnackbarError"
+      ],
+      "classes": [
+        "AddEditTaskViewModelTest"
+      ],
+      "imports": [
+        "androidx.arch.core.executor.testing.InstantTaskExecutorRule",
+        "com.example.android.architecture.blueprints.todoapp.MainCoroutineRule",
+        "com.example.android.architecture.blueprints.todoapp.R.string",
+        "com.example.android.architecture.blueprints.todoapp.assertSnackbarMessage",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository",
+        "com.example.android.architecture.blueprints.todoapp.getOrAwaitValue",
+        "com.google.common.truth.Truth.assertThat",
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.test.StandardTestDispatcher",
+        "kotlinx.coroutines.test.advanceUntilIdle",
+        "kotlinx.coroutines.test.runTest",
+        "kotlinx.coroutines.test.setMain",
+        "org.junit.Before",
+        "org.junit.Rule",
+        "org.junit.Test"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.addedittask",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepositoryTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "createRepository",
+        "getTasks_emptyRepositoryAndUninitializedCache",
+        "getTasks_repositoryCachesAfterFirstApiCall",
+        "getTasks_requestsAllTasksFromRemoteDataSource",
+        "saveTask_savesToLocalAndRemote",
+        "getTasks_WithDirtyCache_tasksAreRetrievedFromRemote",
+        "getTasks_WithDirtyCache_remoteUnavailable_error",
+        "getTasks_WithRemoteDataSourceUnavailable_tasksAreRetrievedFromLocal",
+        "getTasks_WithBothDataSourcesUnavailable_returnsError",
+        "getTasks_refreshesLocalDataSource",
+        "completeTask_completesTaskToServiceAPIUpdatesCache",
+        "completeTask_activeTaskToServiceAPIUpdatesCache",
+        "getTask_repositoryCachesAfterFirstApiCall",
+        "getTask_forceRefresh",
+        "clearCompletedTasks",
+        "deleteAllTasks",
+        "deleteSingleTask"
+      ],
+      "classes": [
+        "DefaultTasksRepositoryTest"
+      ],
+      "imports": [
+        "com.example.android.architecture.blueprints.todoapp.MainCoroutineRule",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.google.common.truth.Truth.assertThat",
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.test.runTest",
+        "org.junit.Before",
+        "org.junit.Rule",
+        "org.junit.Test"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeDataSource.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "getTasks",
+        "getTask",
+        "saveTask",
+        "completeTask",
+        "completeTask",
+        "activateTask",
+        "activateTask",
+        "clearCompletedTasks",
+        "deleteAllTasks",
+        "deleteTask",
+        "observeTasks",
+        "refreshTasks",
+        "observeTask",
+        "refreshTask"
+      ],
+      "classes": [
+        "FakeDataSource"
+      ],
+      "imports": [
+        "androidx.lifecycle.LiveData",
+        "com.example.android.architecture.blueprints.todoapp.data.Result",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Error",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.data.source",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsUtilsTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "getActiveAndCompletedStats_noCompleted",
+        "getActiveAndCompletedStats_noActive",
+        "getActiveAndCompletedStats_both",
+        "getActiveAndCompletedStats_error",
+        "getActiveAndCompletedStats_empty"
+      ],
+      "classes": [
+        "StatisticsUtilsTest"
+      ],
+      "imports": [
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "org.junit.Assert.assertThat",
+        "org.junit.Test"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.statistics",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModelTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "setupStatisticsViewModel",
+        "loadEmptyTasksFromRepository_EmptyResults",
+        "loadNonEmptyTasksFromRepository_NonEmptyResults",
+        "loadStatisticsWhenTasksAreUnavailable_CallErrorToDisplay",
+        "loadTasks_loading"
+      ],
+      "classes": [
+        "StatisticsViewModelTest"
+      ],
+      "imports": [
+        "androidx.arch.core.executor.testing.InstantTaskExecutorRule",
+        "com.example.android.architecture.blueprints.todoapp.FakeFailingTasksRemoteDataSource",
+        "com.example.android.architecture.blueprints.todoapp.MainCoroutineRule",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.DefaultTasksRepository",
+        "com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository",
+        "com.example.android.architecture.blueprints.todoapp.getOrAwaitValue",
+        "com.google.common.truth.Truth.assertThat",
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.test.StandardTestDispatcher",
+        "kotlinx.coroutines.test.advanceUntilIdle",
+        "kotlinx.coroutines.test.runTest",
+        "kotlinx.coroutines.test.setMain",
+        "org.junit.Before",
+        "org.junit.Rule",
+        "org.junit.Test"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.statistics",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModelTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "setupViewModel",
+        "getActiveTaskFromRepositoryAndLoadIntoView",
+        "completeTask",
+        "activateTask",
+        "taskDetailViewModel_repositoryError",
+        "updateSnackbar_nullValue",
+        "clickOnEditTask_SetsEvent",
+        "deleteTask",
+        "loadTask_loading"
+      ],
+      "classes": [
+        "TaskDetailViewModelTest"
+      ],
+      "imports": [
+        "androidx.arch.core.executor.testing.InstantTaskExecutorRule",
+        "com.example.android.architecture.blueprints.todoapp.MainCoroutineRule",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.assertSnackbarMessage",
+        "com.example.android.architecture.blueprints.todoapp.data.Result.Success",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository",
+        "com.example.android.architecture.blueprints.todoapp.getOrAwaitValue",
+        "com.example.android.architecture.blueprints.todoapp.observeForTesting",
+        "com.google.common.truth.Truth.assertThat",
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.test.StandardTestDispatcher",
+        "kotlinx.coroutines.test.advanceUntilIdle",
+        "kotlinx.coroutines.test.runTest",
+        "kotlinx.coroutines.test.setMain",
+        "org.junit.Assert.assertTrue",
+        "org.junit.Before",
+        "org.junit.Rule",
+        "org.junit.Test"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.taskdetail",
+      "parse_error": null
+    },
+    {
+      "path": "src/test/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModelTest.kt",
+      "language": "kotlin",
+      "docstring": null,
+      "functions": [
+        "setupViewModel",
+        "loadAllTasksFromRepository_loadingTogglesAndDataLoaded",
+        "loadActiveTasksFromRepositoryAndLoadIntoView",
+        "loadCompletedTasksFromRepositoryAndLoadIntoView",
+        "loadTasks_error",
+        "clickOnFab_showsAddTaskUi",
+        "clickOnOpenTask_setsEvent",
+        "clearCompletedTasks_clearsTasks",
+        "showEditResultMessages_editOk_snackbarUpdated",
+        "showEditResultMessages_addOk_snackbarUpdated",
+        "showEditResultMessages_deleteOk_snackbarUpdated",
+        "completeTask_dataAndSnackbarUpdated",
+        "activateTask_dataAndSnackbarUpdated",
+        "getTasksAddViewVisible"
+      ],
+      "classes": [
+        "TasksViewModelTest"
+      ],
+      "imports": [
+        "androidx.arch.core.executor.testing.InstantTaskExecutorRule",
+        "androidx.lifecycle.SavedStateHandle",
+        "com.example.android.architecture.blueprints.todoapp.MainCoroutineRule",
+        "com.example.android.architecture.blueprints.todoapp.R",
+        "com.example.android.architecture.blueprints.todoapp.assertLiveDataEventTriggered",
+        "com.example.android.architecture.blueprints.todoapp.assertSnackbarMessage",
+        "com.example.android.architecture.blueprints.todoapp.data.Task",
+        "com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository",
+        "com.example.android.architecture.blueprints.todoapp.getOrAwaitValue",
+        "com.example.android.architecture.blueprints.todoapp.observeForTesting",
+        "com.google.common.truth.Truth.assertThat",
+        "kotlinx.coroutines.Dispatchers",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.test.StandardTestDispatcher",
+        "kotlinx.coroutines.test.advanceUntilIdle",
+        "kotlinx.coroutines.test.runTest",
+        "kotlinx.coroutines.test.setMain",
+        "org.junit.Before",
+        "org.junit.Rule",
+        "org.junit.Test"
+      ],
+      "has_main_guard": false,
+      "package": "com.example.android.architecture.blueprints.todoapp.tasks",
+      "parse_error": null
+    }
+  ],
+  "entry_points": [],
+  "dependency_graph": {
+    "edges": [
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/AppNavigationTest.kt",
+        "target": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/AppNavigationTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/AppNavigationTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/AppNavigationTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/DataBindingIdlingResource.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/AppNavigationTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/EspressoIdlingResource.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivityTest.kt",
+        "target": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivityTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivityTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivityTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/DataBindingIdlingResource.kt"
+      },
+      {
+        "source": "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivityTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/EspressoIdlingResource.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/TodoApplication.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/ViewModelFactory.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModel.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/ViewModelFactory.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModel.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/ViewModelFactory.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/ViewModelFactory.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragment.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDao.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/ToDoDatabase.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsUtils.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragment.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksAdapter.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragment.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragment.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksListBindings.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/ViewExt.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt"
+      },
+      {
+        "source": "src/main/java/com/example/android/architecture/blueprints/todoapp/util/ViewExt.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/ScrollChildSwipeRefreshLayout.kt"
+      },
+      {
+        "source": "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/mock/java/com/example/android/architecture/blueprints/todoapp/data/FakeTasksRemoteDataSource.kt"
+      },
+      {
+        "source": "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt"
+      },
+      {
+        "source": "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt"
+      },
+      {
+        "source": "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt"
+      },
+      {
+        "source": "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/ToDoDatabase.kt"
+      },
+      {
+        "source": "src/mock/java/com/example/android/architecture/blueprints/todoapp/data/FakeTasksRemoteDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/ToDoDatabase.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+        "target": "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote/TasksRemoteDataSource.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote/TasksRemoteDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote/TasksRemoteDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote/TasksRemoteDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragmentTest.kt",
+        "target": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragmentTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragmentTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragmentTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDaoTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDaoTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSourceTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSourceTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSourceTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragmentTest.kt",
+        "target": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragmentTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragmentTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragmentTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragmentTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/DataBindingIdlingResource.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragmentTest.kt",
+        "target": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragmentTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragmentTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragmentTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragmentTest.kt",
+        "target": "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragmentTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragmentTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragmentTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/TasksRepositoryExt.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/TasksRepositoryExt.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/FakeFailingTasksRemoteDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/FakeFailingTasksRemoteDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/FakeFailingTasksRemoteDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModelTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModelTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModelTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepositoryTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepositoryTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepositoryTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeDataSource.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsUtilsTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModelTest.kt",
+        "target": "src/test/java/com/example/android/architecture/blueprints/todoapp/FakeFailingTasksRemoteDataSource.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModelTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModelTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModelTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModelTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModelTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModelTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModelTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModelTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModelTest.kt",
+        "target": "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt"
+      },
+      {
+        "source": "src/test/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModelTest.kt",
+        "target": "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt"
+      }
+    ],
+    "fan_in": {
+      "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt": 6,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt": 32,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt": 14,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/DataBindingIdlingResource.kt": 3,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/util/EspressoIdlingResource.kt": 2,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModel.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModel.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt": 7,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt": 13,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt": 8,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/ScrollChildSwipeRefreshLayout.kt": 1,
+      "src/mock/java/com/example/android/architecture/blueprints/todoapp/data/FakeTasksRemoteDataSource.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt": 3,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt": 2,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/ToDoDatabase.kt": 2,
+      "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote/TasksRemoteDataSource.kt": 1,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt": 8,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt": 7,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/FakeFailingTasksRemoteDataSource.kt": 1
+    },
+    "fan_out": {
+      "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/AppNavigationTest.kt": 5,
+      "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksActivityTest.kt": 5,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/TodoApplication.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/ViewModelFactory.kt": 4,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragment.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModel.kt": 3,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepository.kt": 2,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt": 2,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt": 2,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDao.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSource.kt": 3,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local/ToDoDatabase.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsUtils.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModel.kt": 3,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragment.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModel.kt": 4,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksAdapter.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragment.kt": 2,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksListBindings.kt": 1,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt": 5,
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/util/ViewExt.kt": 2,
+      "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt": 6,
+      "src/mock/java/com/example/android/architecture/blueprints/todoapp/data/FakeTasksRemoteDataSource.kt": 1,
+      "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt": 6,
+      "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote/TasksRemoteDataSource.kt": 3,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskFragmentTest.kt": 4,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt": 2,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksDaoTest.kt": 2,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local/TasksLocalDataSourceTest.kt": 3,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsFragmentTest.kt": 5,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailFragmentTest.kt": 4,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksFragmentTest.kt": 4,
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util/TasksRepositoryExt.kt": 2,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/FakeFailingTasksRemoteDataSource.kt": 3,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/addedittask/AddEditTaskViewModelTest.kt": 3,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/DefaultTasksRepositoryTest.kt": 3,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeDataSource.kt": 2,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsUtilsTest.kt": 1,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics/StatisticsViewModelTest.kt": 5,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/taskdetail/TaskDetailViewModelTest.kt": 3,
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModelTest.kt": 3
+    },
+    "hotspots": [
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Task.kt",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksRepository.kt",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/Result.kt",
+      "src/prod/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/TasksDataSource.kt",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/FakeRepository.kt",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/MainCoroutineRule.kt",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksViewModel.kt",
+      "src/mock/java/com/example/android/architecture/blueprints/todoapp/ServiceLocator.kt"
+    ]
+  },
+  "external_dependencies": [],
+  "doc_coverage": {
+    "dirs_with_readme": [],
+    "dirs_without_readme": [
+      "",
+      "src/androidTestMock/java/com/example/android/architecture/blueprints/todoapp/tasks",
+      "src/main",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/addedittask",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/data/source/local",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/statistics",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/taskdetail",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/tasks",
+      "src/main/java/com/example/android/architecture/blueprints/todoapp/util",
+      "src/main/res/drawable",
+      "src/main/res/font",
+      "src/main/res/layout",
+      "src/main/res/menu",
+      "src/main/res/navigation",
+      "src/main/res/values",
+      "src/main/res/values-v21",
+      "src/main/res/values-w820dp",
+      "src/mock/java/com/example/android/architecture/blueprints/todoapp",
+      "src/mock/java/com/example/android/architecture/blueprints/todoapp/data",
+      "src/prod/java/com/example/android/architecture/blueprints/todoapp",
+      "src/prod/java/com/example/android/architecture/blueprints/todoapp/data/source/remote",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/addedittask",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/data/source/local",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/statistics",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/taskdetail",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/tasks",
+      "src/sharedTest/java/com/example/android/architecture/blueprints/todoapp/util",
+      "src/sharedTest/resources",
+      "src/test/java/com/example/android/architecture/blueprints/todoapp",
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/addedittask",
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/data/source",
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/statistics",
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/taskdetail",
+      "src/test/java/com/example/android/architecture/blueprints/todoapp/tasks",
+      "src/test/resources/mockito-extensions"
+    ]
+  },
+  "excluded_dir_count": 0,
+  "skipped_file_count": 9,
+  "warnings": []
+}

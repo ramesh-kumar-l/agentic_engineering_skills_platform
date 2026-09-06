@@ -16,14 +16,17 @@ section's Phase 1–15 numbering — see
 [[18-test-engineering-platform-contract]]'s naming note. TEP Phase 0
 (repository/memory understanding), TEP Phase 1 (Product Contract), TEP
 Phase 2 (Evidence Foundation — a new `evidence/` package, see
-[[11-decisions|ADR-024]]), and now TEP Phase 3 (Project Intelligence
-extensions — a new `project_intelligence/` package, see
-[[11-decisions|ADR-025]]) are all complete; TEP Phase 4 (Test Environment
-Discovery, Android/JVM specifically) has not started and requires its own
+[[11-decisions|ADR-024]]), TEP Phase 3 (Project Intelligence extensions — a
+new `project_intelligence/` package, see [[11-decisions|ADR-025]]), and now
+TEP Phase 4 (Test Environment Discovery, Android/JVM specifically —
+extends `project_intelligence/` with `android_test_frameworks`/
+`android_frameworks_absent`, see [[11-decisions|ADR-026]]) are all
+complete; TEP Phase 5 and beyond has not started and requires its own
 separate, explicit user instruction, per the master prompt's own hard-stop
-rule. See "What TEP Phase 1 built", "What TEP Phase 2 built", and "What TEP
-Phase 3 built" below. This does not change the status of the closed
-15-skill portfolio described in the rest of this section.
+rule. See "What TEP Phase 1 built", "What TEP Phase 2 built", "What TEP
+Phase 3 built", and "What TEP Phase 4 built" below. This does not change
+the status of the closed 15-skill portfolio described in the rest of this
+section.
 
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
 originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
@@ -140,8 +143,40 @@ checkout (setuptools couldn't resolve automatic package discovery) — fixed
 in both `pyproject.toml`s with an explicit `[tool.setuptools] packages`
 declaration; left unfixed, both packages' CI jobs would have failed on
 every real run. See [[11-decisions|ADR-025]] for the full decision record.
-TEP Phase 4 (Test Environment Discovery, Android/JVM specifically) requires
-its own separate, explicit user instruction before starting.
+
+## What TEP Phase 4 built
+
+Extended the existing `project_intelligence/` package (no new package, no
+change to `codebase-intelligence`) with Android-specific test-framework
+detection: a new `ANDROID_TEST_FRAMEWORK_SIGNATURES` table
+(`signatures.py`), one new detector `detect_android_test_frameworks`
+(`detect.py`, reusing the existing exact-key matcher unchanged), and two
+new `TestEnvironmentProfile` fields — `android_test_frameworks:
+list[Finding]` and `android_frameworks_absent: list[str]` (an explicit,
+individually-named absence list for exactly the JUnit/Robolectric/Espresso
+trio the exit criteria names, computed as a set-difference against matched
+labels — never inferred, never guessed). Kept as its own category rather
+than merged into Phase 3's generic `test_frameworks`, since the exit
+criteria asks about three specific named frameworks individually, which a
+category-level flag alone would hide. Demonstrated on a real, non-fixture
+Android repo — `android/architecture-samples` (`views` branch), scanned at
+the `app/` module level — committed at
+`examples/project-intelligence/android-example/example-run.md`. The honest
+real result: all three report `unavailable`, **not because they're absent
+from the codebase** (the module's real `build.gradle`, quoted in the
+example doc, genuinely declares all three) but because every declaration
+uses Gradle variable interpolation, which `external_deps.py`'s
+literal-string-only regex (L33) cannot resolve. Five other real Android
+repos were hand-checked and found to have the identical characteristic —
+logged as [[12-known-limitations|L35]]: near-universal real-world
+convention, not an edge case. The detection logic's correctness once given
+matching data is proven separately via 5 new unit tests
+(`test_android_detection.py`) using synthetic fixtures; 5 pre-existing
+tests were updated for the new category's effect on `unavailable`. 25
+tests total in `project_intelligence/`, all passing; largest module is now
+`profile_builder.py` at 81 lines (428 total). See [[11-decisions|ADR-026]]
+for the full decision record. TEP Phase 5 and beyond requires its own
+separate, explicit user instruction before starting.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
 
@@ -685,6 +720,22 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    yet updated with Phase 6-11 posts)
 
 ## Last updated
+
+2026-09-06 — TEP Phase 4 (Test Environment Discovery, Android/JVM
+specifically) for the "Project-Aware Test Engineering Platform" pivot
+([[11-decisions|ADR-026]]), at the user's explicit direction following TEP
+Phase 3. Extended `project_intelligence/` with Android JUnit/Robolectric/
+Espresso detection (`android_test_frameworks`, `android_frameworks_absent`
+fields), demonstrated on a real run against a real Android repo
+(`android/architecture-samples`, `views` branch). The honest real result —
+"unavailable" for all three despite genuine source declarations — surfaced
+a new, real, documented finding: Android/Gradle repos almost universally
+version dependencies via variable interpolation, which the existing Gradle
+parser (L33) can't resolve, now logged as [[12-known-limitations|L35]]. See
+[[20-test-environment-profile-schema]] and "What TEP Phase 4 built" above.
+No existing skill's code changed; separate from, and does not reopen, the
+closed 15-skill portfolio below. TEP Phase 5 and beyond not started —
+requires its own explicit approval.
 
 2026-09-06 — TEP Phase 3 (Project Intelligence extensions) for the
 "Project-Aware Test Engineering Platform" pivot ([[11-decisions|ADR-025]]),

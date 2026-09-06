@@ -336,9 +336,10 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 TEP Phase 0 (repo/memory audit), TEP Phase 1 (Product Contract,
 [[18-test-engineering-platform-contract]]), TEP Phase 2 (Evidence
-Foundation), and TEP Phase 3 (Project Intelligence extensions) are
-complete; see [[11-decisions|ADR-023]], [[11-decisions|ADR-024]],
-[[11-decisions|ADR-025]], and `active-context.md`'s "What TEP Phase 1/2/3
+Foundation), TEP Phase 3 (Project Intelligence extensions), and TEP Phase 4
+(Test Environment Discovery, Android/JVM specifically) are complete; see
+[[11-decisions|ADR-023]], [[11-decisions|ADR-024]], [[11-decisions|ADR-025]],
+[[11-decisions|ADR-026]], and `active-context.md`'s "What TEP Phase 1/2/3/4
 built".
 
 TEP Phase 2 shipped one new, independently-packaged component:
@@ -375,8 +376,36 @@ TEP Phase 3 shipped one new, independently-packaged component:
   (evidence) unaffected; `project_intelligence/`'s 20 tests are a new,
   separate suite.
 
-TEP Phase 4 (Test Environment Discovery, Android/JVM specifically) is not
-started and needs its own explicit approval.
+TEP Phase 4 extended the same `project_intelligence/` package (no new
+package):
+
+- Added Android-specific test-framework detection: `ANDROID_TEST_FRAMEWORK_
+  SIGNATURES` (`signatures.py`), `detect_android_test_frameworks`
+  (`detect.py`), and two new `TestEnvironmentProfile` fields —
+  `android_test_frameworks: list[Finding]` and `android_frameworks_absent:
+  list[str]` (explicit, individually-named absence for the JUnit/
+  Robolectric/Espresso trio, never a guess). Module sizes after this
+  change: `models.py` (61), `signatures.py` (85), `detect.py` (73),
+  `profile_builder.py` (81), `ci_report_loader.py` (75, unchanged),
+  `cli.py` (52, unchanged) — 428 lines total, still all under the 300-line
+  limit. 25 tests total (5 new in `test_android_detection.py`, 5
+  pre-existing ones updated for the new category's effect on
+  `unavailable`), all passing.
+- Demonstrated on a real Android repo (`android/architecture-samples`,
+  `views` branch, `app/` module) — `examples/project-intelligence/
+  android-example/`. The honest real result is "unavailable" for all three
+  frameworks despite genuine source declarations, because every
+  declaration uses Gradle variable interpolation, which the existing
+  Gradle parser (L33) can't resolve — surfacing a new real finding, now
+  logged as [[12-known-limitations|L35]]: this is the near-universal
+  real-world convention on Android repos, not an edge case. See
+  [[11-decisions|ADR-026]].
+- No existing skill's code was touched, and `external_deps.py` was not
+  modified (extending existing dependency output only, per the exit
+  criteria). Test counts: 733 (skills) + 16 (evidence) unaffected;
+  `project_intelligence/` grew from 20 to 25 tests.
+
+TEP Phase 5 and beyond is not started and needs its own explicit approval.
 
 ## Not yet built
 
@@ -444,6 +473,18 @@ started and needs its own explicit approval.
   instance without yet being acted on.
 
 ## Last updated
+
+2026-09-06 — TEP Phase 4 (Test Environment Discovery, Android/JVM
+specifically) for the Test Engineering Platform pivot
+([[11-decisions|ADR-026]], [[20-test-environment-profile-schema]]).
+Extended `project_intelligence` with Android JUnit/Robolectric/Espresso
+detection; 20 → 25 tests. Demonstrated on a real Android repo
+(`android/architecture-samples`); the honest result surfaced a new finding
+(Gradle variable-versioned dependencies are near-universal on real Android
+repos and the existing parser can't resolve them), logged as
+[[12-known-limitations|L35]]. No existing skill's code changed, no change
+to `external_deps.py`. TEP Phase 5 and beyond requires separate explicit
+approval before any build starts.
 
 2026-09-06 — TEP Phase 3 (Project Intelligence extensions) for the Test
 Engineering Platform pivot ([[11-decisions|ADR-025]],

@@ -1115,3 +1115,38 @@ a basename across more than one fixture module). See
   and the real dogfood run in `examples/project-intelligence/example-run.md`
   both pin this behavior so it's disclosed consistently, not re-discovered
   from scratch later.
+
+## L35: Real Android/Gradle repos almost universally use variable-based dependency versioning, which L33's literal-string-only regex cannot capture
+
+- **What failed**: N/A (real-world convention colliding with an existing,
+  documented scope boundary — same shape as L34's discovery, not a new bug
+  in isolation).
+- **Why**: `_GRADLE_DEP` (L33) requires a single-line literal
+  `"group:artifact:version"` string. Idiomatic Android/Gradle practice
+  externalizes the version into a variable (`"junit:junit:$junitVersion"`),
+  an `ext`/`deps`-style properties object (`deps.junit`), a `buildSrc`
+  Kotlin object, or a version catalog (`libs.junit`) — never a bare
+  literal — specifically so versions can be managed centrally.
+- **Impact**: found via TEP Phase 4's Android test-framework detection
+  (project-memory-bank/18-test-engineering-platform-contract.md). Six real
+  open-source Android repos were hand-checked (`android/sunflower`,
+  `android/architecture-samples` main and `views` branches,
+  `googlesamples/android-testing`, `android/architecture-components-samples`)
+  — every one declares JUnit/Robolectric/Espresso through variable,
+  properties-object, or version-catalog notation, never the bare literal
+  form. `TestEnvironmentProfile.android_test_frameworks` reports
+  "unavailable" on all six even though the frameworks are genuinely present
+  in source — see `examples/project-intelligence/android-example/example-run.md`.
+- **Fix**: Not yet fixed — deferred, same rationale as L2/L33/L34 (resolving
+  Gradle variables/version catalogs is a real, separate build, not scoped to
+  TEP Phase 4, which extends `project_intelligence`'s consumption of
+  existing dependency output, not the upstream Gradle parser itself).
+  `project_intelligence` discloses this explicitly (`android_frameworks_absent`
+  names each missing framework, `android_test_framework` appears in
+  `unavailable`) rather than guessing presence from source-file inspection.
+- **Regression prevention**: `project_intelligence/tests/test_android_detection.py`
+  proves the detection logic is correct once given matching dependency data
+  (synthetic fixtures, since no real repo checked provides it through
+  today's parser); `examples/project-intelligence/android-example/example-run.md`
+  pins the honest real-repo result so it's disclosed consistently, not
+  re-discovered from scratch later.

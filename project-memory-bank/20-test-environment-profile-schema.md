@@ -1,4 +1,4 @@
-# 20 — TestEnvironmentProfile Schema (TEP Phase 3 — Project Intelligence extensions)
+# 20 — TestEnvironmentProfile Schema (TEP Phase 3 — Project Intelligence extensions; extended by TEP Phase 4 — Android/JVM Test Environment Discovery)
 
 Documents the schema implemented in `project_intelligence/models.py`, per
 [[18-test-engineering-platform-contract]]'s TEP Phase 3 exit criteria: a
@@ -22,7 +22,9 @@ output, never by re-parsing manifests a second time. See
 | `test_frameworks` | `external_dependencies[].name` matched against `signatures.py`'s `TEST_FRAMEWORK_SIGNATURES` | direct reuse of existing dependency output, per the exit criteria's own wording |
 | `mock_frameworks` | same, against `MOCK_FRAMEWORK_SIGNATURES` | ” |
 | `coverage_tools` | same, against `COVERAGE_TOOL_SIGNATURES` | ” |
-| `unavailable` | any of the four categories above with zero findings | explicit disclosure, never a silent empty list indistinguishable from "not checked" |
+| `android_test_frameworks` | same `external_dependencies[].name`, matched against `ANDROID_TEST_FRAMEWORK_SIGNATURES` | TEP Phase 4 — the named JUnit/Robolectric/Espresso trio, kept as its own category rather than merged into `test_frameworks` (see below) |
+| `android_frameworks_absent` | `{"JUnit","Robolectric","Espresso"} - {f.name for f in android_test_frameworks}` | explicit, individually-named absence — never inferred, never a guess |
+| `unavailable` | any of the five categories above with zero findings | explicit disclosure, never a silent empty list indistinguishable from "not checked" |
 | `warnings` | e.g. zero `external_dependencies` at all | points at the specific known limitation (L2, L34) that explains *why* a real repo can under-report, rather than leaving the reader to guess |
 
 Each finding (`Finding`) carries `name`, `evidence` (the real dependency
@@ -47,13 +49,28 @@ only** against a dependency's full name or its Maven/Gradle artifact-id
 (the part after the last `:`) — never substring containment, specifically
 to avoid `pytest-mock` partially matching a `pytest` signature key.
 
-**Deliberately excluded from Phase 3, reserved for TEP Phase 4**: Android-
-specific frameworks (Robolectric, Espresso, AGP source-set/variant
-awareness). TEP Phase 4's own exit criteria
-([[18-test-engineering-platform-contract]]) is specifically about detecting
-these, with an explicit "unavailable, never a guess" requirement — adding
-them into Phase 3's general-purpose table now would blur two separately-
-scoped phases' evidence together.
+**Deliberately excluded from Phase 3, added by TEP Phase 4**: Android-
+specific test frameworks (JUnit/Robolectric/Espresso). Implemented as
+`ANDROID_TEST_FRAMEWORK_SIGNATURES`, a dedicated table feeding the
+dedicated `android_test_frameworks`/`android_frameworks_absent` fields
+above, rather than merged into the general-purpose tables — the exit
+criteria asks about three specific named frameworks individually, which a
+category-level flag alone would not surface. AGP (build-tool/plugin
+detection) and source-set/variant awareness remain out of scope — not named
+in Phase 4's own exit criteria sentence, only in the contract's broader,
+not-yet-scoped "Scope for TEP Phase 2 onward" list.
+
+**TEP Phase 4's real finding**: on every real Android repo hand-checked
+during this phase, `android_test_frameworks` comes back empty even though
+the frameworks are genuinely declared in source — because Android/Gradle
+projects almost universally externalize dependency versions via variable
+interpolation, `ext`/`deps` properties objects, or version catalogs, none
+of which `external_deps.py`'s literal-string-only Gradle regex (L33)
+resolves. Logged as [[12-known-limitations|L35]]; demonstrated end-to-end
+in `examples/project-intelligence/android-example/example-run.md`; the
+detection logic's correctness (once given matching data) is proven
+separately via synthetic fixtures in
+`project_intelligence/tests/test_android_detection.py`.
 
 ## Storage layout
 
@@ -66,7 +83,11 @@ codebase-intelligence report's time. No `runs/`-style directory or
 The real demonstration run is committed at
 `examples/project-intelligence/` (both the input `ci-report/report.json`
 and the output `test-environment-profile.json`), following
-`examples/feature-planner/`'s exact precedent.
+`examples/feature-planner/`'s exact precedent. TEP Phase 4's Android
+demonstration is a separate, parallel run at
+`examples/project-intelligence/android-example/` (same input/output shape),
+kept distinct rather than overwriting Phase 3's example since the two runs
+target different real repos and prove different things.
 
 ## Packaging note (applies to `evidence/` too)
 

@@ -734,10 +734,16 @@ logged, per the standing rule above, as [[11-decisions|ADR-023]] —
 **Proposed, not Adopted**. TEP Phase 0 (repository/memory understanding),
 TEP Phase 1 (Product Contract, [[18-test-engineering-platform-contract]]),
 TEP Phase 2 (Evidence Foundation, [[11-decisions|ADR-024]],
-[[19-evidence-provenance-schema]]), and TEP Phase 3 (Project Intelligence
+[[19-evidence-provenance-schema]]), TEP Phase 3 (Project Intelligence
 extensions, [[11-decisions|ADR-025]],
-[[20-test-environment-profile-schema]]) are now complete. TEP Phase 4 (Test
-Environment Discovery, Android/JVM specifically) requires a new, separate,
-explicit user instruction before any further implementation.
-Android-framework readiness (JUnit/Mockito/Robolectric/Espresso) remains
-the largest disclosed gap — see ADR-023.
+[[20-test-environment-profile-schema]]), and TEP Phase 4 (Test Environment
+Discovery, Android/JVM specifically, [[11-decisions|ADR-026]]) are now
+complete. TEP Phase 5 and beyond requires a new, separate, explicit user
+instruction before any further implementation. Android-framework
+*detection* (JUnit/Robolectric/Espresso) now exists, but real-world
+Android repos systematically under-report through it today: their
+build.gradle files almost universally version dependencies via Gradle
+variable/version-catalog interpolation, which the existing Gradle parser
+(L33) can't resolve — see [[12-known-limitations|L35]]. That parser gap,
+not the detection logic itself, remains the largest disclosed gap in
+Android readiness.
