@@ -48,3 +48,13 @@ def test_missing_required_field_raises_error(tmp_path):
 
     with pytest.raises(ProfileLoadError):
         load_test_environment_profile(path)
+
+
+def test_wrong_type_test_frameworks_raises_typed_error(tmp_path):
+    path = _write(
+        tmp_path / "profile.json",
+        {"repo_root": "/tmp/target", "test_frameworks": "oops", "unavailable": []},
+    )
+
+    with pytest.raises(ProfileLoadError, match="must be a list"):
+        load_test_environment_profile(path)

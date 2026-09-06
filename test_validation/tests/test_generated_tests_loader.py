@@ -65,3 +65,42 @@ def test_recognizes_jvm_extensions(tmp_path):
     files = list_generated_tests(tmp_path)
 
     assert {f.name for f in files} == {"FooTest.java", "BarSpec.kt"}
+
+
+def test_rejects_symlinked_file_escaping_outside_root(tmp_path):
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    secret = outside / "test_secret.py"
+    secret.write_text("def test_x(): pass\n", encoding="utf-8")
+
+    generated_dir = tmp_path / "generated"
+    generated_dir.mkdir()
+    (generated_dir / "test_real.py").write_text("", encoding="utf-8")
+    link = generated_dir / "test_escape.py"
+    try:
+        link.symlink_to(secret)
+    except OSError:
+        pytest.skip("symlink creation not permitted in this environment")
+
+    files = list_generated_tests(generated_dir)
+
+    assert [f.name for f in files] == ["test_real.py"]
+
+
+def test_rejects_symlinked_directory_escaping_outside_root(tmp_path):
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (outside / "test_secret.py").write_text("def test_x(): pass\n", encoding="utf-8")
+
+    generated_dir = tmp_path / "generated"
+    generated_dir.mkdir()
+    (generated_dir / "test_real.py").write_text("", encoding="utf-8")
+    link_dir = generated_dir / "escaped"
+    try:
+        link_dir.symlink_to(outside, target_is_directory=True)
+    except OSError:
+        pytest.skip("symlink creation not permitted in this environment")
+
+    files = list_generated_tests(generated_dir)
+
+    assert [f.name for f in files] == ["test_real.py"]

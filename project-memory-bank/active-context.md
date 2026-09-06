@@ -26,13 +26,17 @@ Phase 5a (Test Strategy Engine — a new `test_strategy/` package, see
 new `scenario_planner/` package, see [[11-decisions|ADR-028]]), and now TEP
 Phase 5c's Test Generation & Independent Validation sub-initiative (two new
 packages, `test_generation/` and `test_validation/`, see
-[[11-decisions|ADR-029]]) are all complete; TEP Phase 5d and beyond has not
+[[11-decisions|ADR-029]]), and now TEP Phase 5d's Security/Production
+Hardening sub-initiative (path containment, bounded subprocess capture,
+resource caps, JSON loader type validation, and a declared `pytest`
+runtime dependency — no new package, five existing files hardened, see
+[[11-decisions|ADR-030]]) are all complete; TEP Phase 5e and beyond has not
 started and requires its own separate, explicit user instruction, per the
 master prompt's own hard-stop rule. See "What TEP Phase 1 built", "What TEP
 Phase 2 built", "What TEP Phase 3 built", "What TEP Phase 4 built", "What
-TEP Phase 5a built", "What TEP Phase 5b built", and "What TEP Phase 5c
-built" below. This does not change the status of the closed 15-skill
-portfolio described in the rest of this section.
+TEP Phase 5a built", "What TEP Phase 5b built", "What TEP Phase 5c built",
+and "What TEP Phase 5d built" below. This does not change the status of
+the closed 15-skill portfolio described in the rest of this section.
 
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
 originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
@@ -299,7 +303,48 @@ engine files across both packages stay under 300 lines (largest,
 tests, 148 total across all TEP packages). See [[11-decisions|ADR-029]],
 [[23-generation-plan-report-schema]], and
 [[24-validation-report-schema]] for the full decision record and schemas.
-TEP Phase 5d and beyond requires its own separate, explicit user
+
+## What TEP Phase 5d built
+
+The user asked to continue toward a "scalable and production level stable
+system"; `AskUserQuestion` narrowed TEP Phase 5d's 7-item unscoped bucket
+to security/production hardening specifically, with a follow-up
+confirming path-containment and resource guards around
+`test_validation`'s subprocess execution. An Explore-agent audit (file:line
+level) ran first, grounding every change in a real, cited gap.
+
+No new package — five existing files hardened, each narrowing an
+already-existing risk surface: (1) `test_validation/
+generated_tests_loader.py` and `evidence/skill_info.py` now
+resolve-and-contain candidate paths, rejecting symlink- and traversal-based
+escapes that were previously accepted with no check; (2)
+`validation_runner.py`'s `run_validation` redirects subprocess stdout/
+stderr to disk-backed `tempfile.TemporaryFile()` instead of in-memory
+`capture_output=True`, so a runaway test printing unbounded output can no
+longer exhaust parent-process memory before the existing 30s timeout
+fires; (3) `report_builder.py`/`cli.py` add `--max-test-files`/
+`--max-test-file-bytes` caps (defaults 200 files / 1 MB), skipping +
+warning rather than hard-failing; (4) five JSON loaders
+(`test_strategy/profile_loader.py`, `test_validation/environment_loader.
+py`, `scenario_planner/ci_module_loader.py`, `project_intelligence/
+ci_report_loader.py`, `test_generation/scenario_loader.py`) now reject a
+wrong-type top-level container with their own typed error instead of a
+raw `TypeError`/`AttributeError`; (5) `test_validation/pyproject.toml`
+declares `pytest` as a real runtime dependency, paired with an upfront
+`PytestUnavailableError` precondition check.
+
+No sandboxing claim is added — ADR-029's own disclosure stands unchanged;
+this pass narrows existing risk surface, it adds no new capability.
+Demonstrated by 20 new regression tests (2 of 3 new symlink tests skip
+gracefully on this Windows environment's unprivileged symlink-creation
+restriction, confirmed via `pytest -rs`, not silently ignored) plus a
+full re-run of the real `test_validation` demo post-hardening, same clean
+result as before (`exit_code: 0`, `5 passed`). Every modified file stays
+under 300 lines (largest, `validation_runner.py`, 130 lines); 166 passed,
+3 skipped across the combined TEP suite (up from 148 passed). See
+[[11-decisions|ADR-030]] for the full decision record.
+
+TEP Phase 5e and beyond requires its own separate, explicit user
 instruction before starting.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
@@ -844,6 +889,26 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    yet updated with Phase 6-11 posts)
 
 ## Last updated
+
+2026-09-06 — TEP Phase 5d's Security/Production Hardening sub-initiative
+for the "Project-Aware Test Engineering Platform" pivot
+([[11-decisions|ADR-030]]), at the user's explicit direction toward a
+"scalable and production level stable system," narrowed via
+`AskUserQuestion` to security/production hardening specifically (not
+DX/orchestration, distribution, or eval/ablation). An Explore-agent audit
+(file:line level) grounded five changes to existing files — no new
+package: path containment against symlink/traversal escapes in
+`test_validation/generated_tests_loader.py` and `evidence/skill_info.py`;
+bounded (disk-backed, not in-memory) subprocess stdout/stderr capture in
+`validation_runner.py`; file-count/file-size resource caps in
+`report_builder.py`/`cli.py`; wrong-type-container rejection in five JSON
+loaders across `test_strategy`, `test_validation`, `scenario_planner`,
+`project_intelligence`, and `test_generation`; and `pytest` declared as a
+real runtime dependency of `test_validation`. No sandboxing claim added —
+ADR-029's disclosure stands unchanged. 20 new regression tests (166
+passed, 3 skipped — Windows symlink-creation permission, not a failure);
+the real `test_validation` demo was re-run post-hardening with the same
+clean result. See "What TEP Phase 5d built" above.
 
 2026-09-06 — TEP Phase 5c's Test Generation & Independent Validation
 sub-initiative for the "Project-Aware Test Engineering Platform" pivot

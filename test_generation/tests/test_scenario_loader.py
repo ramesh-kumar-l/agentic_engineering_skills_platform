@@ -70,3 +70,23 @@ def test_scenario_entry_missing_field_raises_error(tmp_path):
 
     with pytest.raises(ScenarioPlanError):
         load_scenario_plan(path)
+
+
+def test_wrong_type_plans_raises_error(tmp_path):
+    path = _write(tmp_path / "scenario.json", {"repo_root": "/tmp/target", "plans": "oops"})
+
+    with pytest.raises(ScenarioPlanError, match="must be a list"):
+        load_scenario_plan(path)
+
+
+def test_wrong_type_scenarios_raises_error(tmp_path):
+    bad_report = {
+        "repo_root": "/tmp/target",
+        "plans": [
+            {"file": "pkg/module.py", "recommended_framework": "pytest", "scenarios": "oops"}
+        ],
+    }
+    path = _write(tmp_path / "scenario.json", bad_report)
+
+    with pytest.raises(ScenarioPlanError, match="must be a list"):
+        load_scenario_plan(path)

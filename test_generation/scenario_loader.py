@@ -52,6 +52,12 @@ def load_scenario_plan(path: str | Path) -> ScenarioPlanContext:
             "scenario-plan-report.json"
         ) from exc
 
+    if not isinstance(plans_raw, list):
+        raise ScenarioPlanError(
+            f"{p} field 'plans' must be a list, got "
+            f"{type(plans_raw).__name__} — not a scenario-plan-report.json"
+        )
+
     candidates: list[ScenarioCandidateSummary] = []
     for plan in plans_raw:
         try:
@@ -63,6 +69,12 @@ def load_scenario_plan(path: str | Path) -> ScenarioPlanContext:
                 f"{p} has a plan entry missing required field {exc} — "
                 "not a scenario-plan-report.json"
             ) from exc
+
+        if not isinstance(scenarios_raw, list):
+            raise ScenarioPlanError(
+                f"{p} field 'scenarios' must be a list, got "
+                f"{type(scenarios_raw).__name__} — not a scenario-plan-report.json"
+            )
 
         for s in scenarios_raw:
             try:

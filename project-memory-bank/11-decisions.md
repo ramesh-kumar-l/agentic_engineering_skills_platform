@@ -2072,3 +2072,131 @@ Implemented as two new top-level packages:
 
 **Status**: Adopted. TEP Phase 5c's Test Generation & Independent
 Validation sub-initiative is complete as of 2026-09-06.
+
+## ADR-030: Security/production hardening pass over `test_validation`'s execution path, five JSON loaders, and one path-join in `evidence` — narrows existing risk surface, adds no new capability
+
+**Decision**: TEP Phase 5d is the remainder of the bucket ADR-029 left
+open (Human Review, Engineering Memory extension, Evaluation/Ablation,
+external validation, DX, security/production hardening, distribution).
+Per the user's explicit choice (a fourth round of the same disambiguation
+discipline as Phases 5a/5b/5c — the user asked to continue toward a
+"scalable and production level stable system," and `AskUserQuestion`
+narrowed that to security/production hardening specifically, with a
+follow-up confirming path-containment and resource guards around
+`test_validation`'s subprocess execution), **TEP Phase 5d — Security/
+Production Hardening** is now scoped and implemented. An Explore-agent
+audit (file:line level) ran first to ground every change in a real,
+cited gap rather than generic best practice.
+
+Five changes, all narrowing an already-existing risk surface rather than
+adding new capability:
+
+1. **Path containment**: `test_validation/generated_tests_loader.py`'s
+   `_is_real_candidate` and `evidence/skill_info.py`'s
+   `resolve_skill_dir` now resolve the candidate path and reject anything
+   that escapes the intended root via `Path.is_relative_to` — closing a
+   real gap where a symlinked file/directory inside `generated_tests_dir`,
+   or a `..`/absolute `skill_name`, was accepted with no check at all.
+2. **Bounded subprocess capture**: `validation_runner.py`'s
+   `run_validation` now redirects the child's stdout/stderr to
+   `tempfile.TemporaryFile()` (disk-backed) instead of `capture_output=
+   True` (in-memory), reading back only the tail bytes needed for the
+   existing 2000-char excerpt — a runaway test printing unbounded output
+   before the 30s timeout fires can no longer exhaust parent-process
+   memory. Disk-level exhaustion within the same timeout window remains a
+   known, unaddressed, unchanged residual risk (no `resource`-module
+   rlimits — POSIX-only, this platform also runs on Windows).
+3. **Resource caps**: `report_builder.py` adds `DEFAULT_MAX_TEST_FILES`
+   (200) and `DEFAULT_MAX_TEST_FILE_BYTES` (1 MB), both overridable via
+   new `cli.py` flags (`--max-test-files`, `--max-test-file-bytes`,
+   mirroring the existing `--timeout` pattern). Enforcement is skip/
+   truncate + warn, never hard-fail, using the existing `warnings: list[
+   str]` pattern already on `ValidationReport` — an unbounded directory of
+   agent-authored files can no longer cause unbounded sequential
+   subprocess spawning in one run.
+4. **JSON loader type validation**: `test_strategy/profile_loader.py`,
+   `test_validation/environment_loader.py`, `scenario_planner/
+   ci_module_loader.py`, `project_intelligence/ci_report_loader.py`, and
+   `test_generation/scenario_loader.py` already caught malformed-JSON and
+   missing-key cases with their own typed error; none guarded against a
+   wrong *container* type (e.g. `"test_frameworks": "oops"`), which
+   degraded to a raw, confusing `TypeError`/`AttributeError`. Each now
+   raises its own package-specific error on that case too — a per-package
+   duplicated helper, per ADR-010, not a shared validator.
+5. **`pytest` runtime dependency**: `test_validation/pyproject.toml` moves
+   `pytest>=7.0` from `dev` to `dependencies` (it's shelled out to at
+   runtime, not just a test-suite tool), paired with an upfront
+   `ensure_pytest_available()` precondition check raising a clear
+   `PytestUnavailableError` instead of a missing-pytest failure surfacing
+   buried inside `stderr_excerpt`.
+
+Explicitly deferred, named rather than silently skipped: the broader
+`target_repo_root`/`--out` path-containment gap present in all 6 TEP
+CLIs (real, but outside this pass's narrowed scope); per-leaf-element
+JSON type checks and a size cap on report files before `read_text()`/
+`json.loads()` (these reports are same-machine pipeline output, not
+attacker/network-controlled input — materially lower risk class).
+
+- User Value: makes the platform's one execution capability
+  (`test_validation`) and its file-boundary/input-validation edges
+  concretely harder to trigger a resource-exhaustion or path-escape
+  failure against, without weakening any existing disclosure or adding
+  new capability that would need its own trust-boundary review.
+- Correctness: demonstrated by 20 new regression tests (symlink-escape
+  rejection for both path-containment fixes — 2 of the 3 new symlink
+  tests skip gracefully on this Windows environment, which does not
+  permit unprivileged symlink creation, confirmed via a real
+  `pytest -rs` run, not silently ignored; large/failing-test stdout
+  bounded to the 2000-char excerpt; a killed-on-timeout process not
+  crashing the tempfile-based excerpt read; file-count and file-size caps
+  truncating/skipping with a warning; `PytestUnavailableError` raised
+  when `.py` files are present and pytest is monkeypatched unavailable;
+  wrong-type-container rejection for all 5 loaders). Re-ran the real
+  `test_validation` demo end-to-end after all five changes
+  (`examples/test-validation/`'s real synthetic-but-real
+  `test_classify.py` fixture) — same clean result as TEP Phase 5c's own
+  real run (`exit_code: 0`, `5 passed in 0.02s`), confirming no
+  regression to the actual pipeline invocation.
+- Security: this hardens the edges of `test_validation`'s already-
+  disclosed execution capability (ADR-029) without adding or claiming a
+  sandbox — that non-goal stands unchanged. Each of the 5 changes above
+  narrows an existing risk surface; none introduces new attack surface.
+  Disk-level exhaustion within the existing 30s timeout, and the broader
+  CLI-argument path-containment gap outside `test_validation`/`evidence`,
+  remain named, unaddressed residual risks, not silently hidden.
+- Simplicity: rejected a `subprocess.Popen`+`selectors`/threaded-read
+  design for bounding output capture (textbook-correct but disproportionate
+  complexity for a parent-memory-exhaustion fix, not a sandboxing
+  requirement) and a `tempfile.SpooledTemporaryFile` (would raise
+  `io.UnsupportedOperation` on `Popen`'s `.fileno()` call for any
+  small-output run, under its in-memory threshold) in favor of a plain
+  disk-backed `tempfile.TemporaryFile()` — no threads, no new failure mode.
+  JSON type-checking is scoped only to containers actually indexed/
+  iterated by each loader, not a general per-leaf-field schema validator.
+- Maintainability: every modified file stays well under 300 lines (largest:
+  `validation_runner.py` 130, `test_generation/scenario_loader.py` 98);
+  20 new regression tests added across 10 files, 166 passed + 3 skipped
+  (up from 148 passed at the end of TEP Phase 5c).
+- Portability: no new runtime dependency introduced (`pytest` was already
+  a transitive requirement for `test_validation`, now declared honestly);
+  `Path.is_relative_to` is 3.9+, safe under this package's `>=3.10` floor;
+  `tempfile.TemporaryFile()` is supported cross-platform, including
+  Windows, for the file-object-handed-to-a-subprocess use here.
+- Evidence: `test_validation/tests/`, `evidence/tests/test_skill_info.py`,
+  `test_strategy/tests/test_profile_loader.py`,
+  `scenario_planner/tests/test_ci_module_loader.py`,
+  `project_intelligence/tests/test_ci_report_loader.py`,
+  `test_generation/tests/test_scenario_loader.py` (20 new tests total);
+  re-run of `examples/test-validation/`'s real demo post-hardening.
+- Future Evolution: this ADR authorizes only TEP Phase 5d's security/
+  production-hardening sub-initiative. The remaining TEP Phase 5d items
+  (Human Review, Engineering Memory extension, Evaluation/Ablation,
+  external validation, DX/orchestration, public distribution) remain
+  unscoped, each requiring its own explicit user instruction and Phase
+  Execution Contract pass, per the master prompt's hard-stop rule. The
+  broader CLI-argument path-containment gap (all 6 TEP CLIs'
+  `target_repo_root`/`--out` args) named above but deferred is a
+  candidate for a future, separately-scoped pass.
+
+**Status**: Adopted. TEP Phase 5d's Security/Production Hardening
+sub-initiative is complete as of 2026-09-06.

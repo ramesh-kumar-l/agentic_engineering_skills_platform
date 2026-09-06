@@ -41,8 +41,19 @@ def load_ci_modules(path: str | Path) -> dict[str, ModuleSummary]:
             "codebase-intelligence report.json"
         ) from exc
 
+    if not isinstance(modules_raw, list):
+        raise CiModuleLoadError(
+            f"{p} field 'modules' must be a list, got "
+            f"{type(modules_raw).__name__} — not a codebase-intelligence report.json"
+        )
+
     modules: dict[str, ModuleSummary] = {}
     for entry in modules_raw:
+        if not isinstance(entry, dict):
+            raise CiModuleLoadError(
+                f"{p} has a module entry that is not an object (got "
+                f"{type(entry).__name__}) — not a codebase-intelligence report.json"
+            )
         try:
             modules[entry["path"]] = ModuleSummary(
                 functions=entry.get("functions", []),

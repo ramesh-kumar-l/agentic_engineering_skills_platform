@@ -20,8 +20,12 @@ from pathlib import Path
 
 from .environment_loader import ProfileLoadError, load_test_environment_profile
 from .generated_tests_loader import GeneratedTestsError
-from .report_builder import build_validation_report
-from .validation_runner import DEFAULT_TIMEOUT_SECONDS
+from .report_builder import (
+    DEFAULT_MAX_TEST_FILE_BYTES,
+    DEFAULT_MAX_TEST_FILES,
+    build_validation_report,
+)
+from .validation_runner import DEFAULT_TIMEOUT_SECONDS, PytestUnavailableError
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -37,6 +41,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--timeout", type=int, default=DEFAULT_TIMEOUT_SECONDS,
         help=f"Per-file subprocess timeout in seconds (default: {DEFAULT_TIMEOUT_SECONDS})",
+    )
+    parser.add_argument(
+        "--max-test-files", type=int, default=DEFAULT_MAX_TEST_FILES,
+        help=f"Max test files executed per run (default: {DEFAULT_MAX_TEST_FILES})",
+    )
+    parser.add_argument(
+        "--max-test-file-bytes", type=int, default=DEFAULT_MAX_TEST_FILE_BYTES,
+        help=f"Max size in bytes of a single test file executed (default: {DEFAULT_MAX_TEST_FILE_BYTES})",
     )
     parser.add_argument(
         "--out", type=Path, default=None,
@@ -57,8 +69,10 @@ def main(argv: list[str] | None = None) -> int:
             repo_root=str(args.target_repo_root),
             test_environment_profile_path=str(args.profile),
             timeout_seconds=args.timeout,
+            max_test_files=args.max_test_files,
+            max_test_file_bytes=args.max_test_file_bytes,
         )
-    except GeneratedTestsError as exc:
+    except (GeneratedTestsError, PytestUnavailableError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 

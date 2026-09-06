@@ -15,6 +15,15 @@ class ProfileLoadError(Exception):
     """Raised when a path does not contain a valid test-environment-profile.json."""
 
 
+def _require_list(value, field_name: str, p: Path) -> list:
+    if not isinstance(value, list):
+        raise ProfileLoadError(
+            f"{p} field {field_name!r} must be a list, got "
+            f"{type(value).__name__} — not a test-environment-profile.json"
+        )
+    return value
+
+
 @dataclass
 class TestEnvironmentSummary:
     __test__ = False  # not a pytest test class, despite the name prefix
@@ -42,6 +51,14 @@ def load_test_environment_profile(path: str | Path) -> TestEnvironmentSummary:
             f"{p} is missing required field {exc} — not a "
             "test-environment-profile.json"
         ) from exc
+
+    test_frameworks = _require_list(test_frameworks, "test_frameworks", p)
+    unavailable = _require_list(unavailable, "unavailable", p)
+    if test_frameworks and not isinstance(test_frameworks[0], dict):
+        raise ProfileLoadError(
+            f"{p} field 'test_frameworks[0]' must be an object, got "
+            f"{type(test_frameworks[0]).__name__} — not a test-environment-profile.json"
+        )
 
     primary_test_framework = test_frameworks[0]["name"] if test_frameworks else None
 

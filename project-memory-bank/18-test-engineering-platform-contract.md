@@ -167,13 +167,30 @@ this project has repeatedly declined to do.
   loader/composition logic, with the positive end-to-end path (non-empty
   specs → an authored file → a real executed pass/fail) proven via
   synthetic fixtures.
-- **TEP Phase 5d and beyond** (Human Review, Engineering Memory extension,
-  Evaluation/Ablation, external validation, DX, security/ production
-  hardening, public distribution) are named in the master prompt's own
-  section 36 list but **not scoped here** — each requires its own Phase
-  Execution Contract pass (read memory, define objective, define exit
-  criteria) at the time it is actually started, per the master prompt's
-  own section 38 and this project's own phase-by-phase discipline.
+- **TEP Phase 5d — Security/Production Hardening**: given the platform's
+  existing execution surface (`test_validation`) and its existing CLI/
+  loader boundaries, (a) reject symlink- and traversal-based path escapes
+  in `generated_tests_loader.py` and `evidence/skill_info.py`; (b) bound
+  subprocess stdout/stderr capture to disk rather than unbounded
+  parent-process memory; (c) cap the number and per-file size of test
+  files executed per `test_validation` run, skipping + warning rather
+  than silently dropping or hard-failing; (d) `test_strategy/
+  profile_loader.py`, `test_validation/environment_loader.py`,
+  `scenario_planner/ci_module_loader.py`, `project_intelligence/
+  ci_report_loader.py`, and `test_generation/scenario_loader.py` raise
+  their own typed error on a wrong-type top-level container instead of a
+  raw `TypeError`/`AttributeError`; (e) `pytest` is declared as a real
+  runtime dependency of `test_validation`, with an upfront, clear
+  precondition error when it's missing. All five demonstrated by real
+  (non-fixture-only) regression tests, full combined suite green, no file
+  over 300 lines.
+- **TEP Phase 5e and beyond** (Human Review, Engineering Memory extension,
+  Evaluation/Ablation, external validation, DX/orchestration, public
+  distribution) are named in the master prompt's own section 36 list but
+  **not scoped here** — each requires its own Phase Execution Contract
+  pass (read memory, define objective, define exit criteria) at the time
+  it is actually started, per the master prompt's own section 38 and this
+  project's own phase-by-phase discipline.
 
 ## Constraints carried over unchanged from the existing platform
 
@@ -268,7 +285,24 @@ relative-path resolution error and an unfiltered `.pytest_cache` artifact
 being reported as a generated test) that the 51 unit tests written before
 it, using only `tmp_path` fixtures, did not surface.
 
-TEP Phase 5d and beyond has **not** started — per the master prompt's own
+TEP Phase 5d — Security/Production Hardening is also complete: an
+Explore-agent audit (file:line level) grounded five changes, all
+narrowing existing risk surface rather than adding new capability — path
+containment against symlink/traversal escapes in
+`generated_tests_loader.py` and `evidence/skill_info.py`; bounded
+(disk-backed, not in-memory) subprocess stdout/stderr capture in
+`validation_runner.py`; file-count/file-size resource caps in
+`report_builder.py`/`cli.py`; wrong-type-container rejection in five JSON
+loaders across `test_strategy`, `test_validation`, `scenario_planner`,
+`project_intelligence`, and `test_generation`; and `pytest` declared as a
+real runtime dependency of `test_validation`. See [[11-decisions|ADR-030]]
+for the full decision and its explicit Security field. 20 new regression
+tests added (166 passed, 3 skipped — Windows-environment symlink-creation
+permission, not a failure — up from 148 passed at the end of TEP Phase
+5c); the real `test_validation` demo was re-run end-to-end post-hardening
+with the same clean result as before (`exit_code: 0`, `5 passed`).
+
+TEP Phase 5e and beyond has **not** started — per the master prompt's own
 hard-stop rule (section 39) and this project's own phase-by-phase
 discipline, it requires a new, separate, explicit user instruction, not
 automatic continuation from this contract's completion.

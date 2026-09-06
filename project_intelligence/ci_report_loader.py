@@ -54,12 +54,33 @@ def load_ci_report(path: str | Path) -> CiReportContext:
     try:
         root_path = raw["root_path"]
         language_breakdown = raw["language_breakdown"]
+        external_dependencies_raw = raw["external_dependencies"]
+        files_raw = raw["files"]
+    except KeyError as exc:
+        raise CiReportError(
+            f"codebase-intelligence report at {report_path} is missing expected "
+            f"field {exc} — does not match the CodebaseIntelligenceReport schema."
+        ) from exc
+
+    if not isinstance(external_dependencies_raw, list):
+        raise CiReportError(
+            f"codebase-intelligence report at {report_path} field "
+            f"'external_dependencies' must be a list, got "
+            f"{type(external_dependencies_raw).__name__}."
+        )
+    if not isinstance(files_raw, list):
+        raise CiReportError(
+            f"codebase-intelligence report at {report_path} field 'files' must "
+            f"be a list, got {type(files_raw).__name__}."
+        )
+
+    try:
         external_dependencies = [
             CiExternalDependency(name=d["name"], source_file=d["source_file"])
-            for d in raw["external_dependencies"]
+            for d in external_dependencies_raw
         ]
         top_level_filenames = [
-            f["path"] for f in raw["files"] if "/" not in f["path"] and "\\" not in f["path"]
+            f["path"] for f in files_raw if "/" not in f["path"] and "\\" not in f["path"]
         ]
     except KeyError as exc:
         raise CiReportError(

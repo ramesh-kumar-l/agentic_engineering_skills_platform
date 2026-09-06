@@ -52,3 +52,23 @@ def test_loads_profile_with_no_test_framework(tmp_path):
     summary = load_test_environment_profile(path)
 
     assert summary.primary_test_framework is None
+
+
+def test_wrong_type_test_frameworks_raises_typed_error(tmp_path):
+    profile = dict(_VALID_PROFILE)
+    profile["test_frameworks"] = "oops"
+    path = tmp_path / "profile.json"
+    path.write_text(json.dumps(profile), encoding="utf-8")
+
+    with pytest.raises(ProfileLoadError, match="must be a list"):
+        load_test_environment_profile(path)
+
+
+def test_wrong_type_test_frameworks_entry_raises_typed_error(tmp_path):
+    profile = dict(_VALID_PROFILE)
+    profile["test_frameworks"] = ["pytest"]
+    path = tmp_path / "profile.json"
+    path.write_text(json.dumps(profile), encoding="utf-8")
+
+    with pytest.raises(ProfileLoadError, match="must be an object"):
+        load_test_environment_profile(path)

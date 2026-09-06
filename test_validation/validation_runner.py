@@ -12,9 +12,11 @@ isolation is added.
 
 from __future__ import annotations
 
+import importlib.util
 import os
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -22,9 +24,31 @@ from .models import ValidationOutcome
 
 DEFAULT_TIMEOUT_SECONDS = 30
 _EXCERPT_CHARS = 2000
+_TAIL_READ_BYTES = _EXCERPT_CHARS * 4  # utf-8 multi-byte margin before the char slice
 
 _PYTEST_EXTENSIONS = {".py"}
 _JVM_EXTENSIONS = {".java", ".kt"}
+
+
+class PytestUnavailableError(Exception):
+    """Raised when pytest is not importable by sys.executable but a .py test needs it."""
+
+
+def ensure_pytest_available() -> None:
+    if importlib.util.find_spec("pytest") is None:
+        raise PytestUnavailableError(
+            f"pytest is not installed for this interpreter ({sys.executable}) — "
+            "required at runtime to execute .py test files"
+        )
+
+
+def _tail_text(f) -> str:
+    # Read back only the tail bytes needed for the excerpt, not the whole
+    # file -- keeps excerpt extraction itself memory-bounded too.
+    f.seek(0, os.SEEK_END)
+    size = f.tell()
+    f.seek(max(0, size - _TAIL_READ_BYTES))
+    return f.read().decode("utf-8", errors="replace")[-_EXCERPT_CHARS:]
 
 
 def _build_command(test_file: Path) -> list[str] | None:
@@ -73,37 +97,34 @@ def run_validation(
     env["PYTHONPATH"] = repo_root + os.pathsep + env.get("PYTHONPATH", "")
 
     start = time.monotonic()
-    try:
-        result = subprocess.run(
-            command,
-            cwd=str(test_file.parent),
-            env=env,
-            capture_output=True,
-            text=True,
-            timeout=timeout_seconds,
-        )
+    # stdout/stderr are redirected to disk-backed temp files rather than
+    # captured in memory (capture_output=True) -- a runaway test printing
+    # unbounded output before the timeout fires would otherwise exhaust
+    # parent-process memory. By the time TimeoutExpired is raised the
+    # child has already been killed and reaped, so these files safely
+    # hold whatever was written before the kill.
+    with tempfile.TemporaryFile() as out_f, tempfile.TemporaryFile() as err_f:
+        try:
+            result = subprocess.run(
+                command,
+                cwd=str(test_file.parent),
+                env=env,
+                stdout=out_f,
+                stderr=err_f,
+                timeout=timeout_seconds,
+            )
+            timed_out, exit_code = False, result.returncode
+        except subprocess.TimeoutExpired:
+            timed_out, exit_code = True, None
+
         return ValidationOutcome(
             test_file=str(test_file),
             framework=framework,
             command=command,
-            exit_code=result.returncode,
-            passed=result.returncode == 0,
-            timed_out=False,
-            stdout_excerpt=result.stdout[-_EXCERPT_CHARS:],
-            stderr_excerpt=result.stderr[-_EXCERPT_CHARS:],
-            duration_ms=int((time.monotonic() - start) * 1000),
-        )
-    except subprocess.TimeoutExpired as exc:
-        stdout = exc.stdout if isinstance(exc.stdout, str) else ""
-        stderr = exc.stderr if isinstance(exc.stderr, str) else ""
-        return ValidationOutcome(
-            test_file=str(test_file),
-            framework=framework,
-            command=command,
-            exit_code=None,
-            passed=False,
-            timed_out=True,
-            stdout_excerpt=stdout[-_EXCERPT_CHARS:],
-            stderr_excerpt=stderr[-_EXCERPT_CHARS:],
+            exit_code=exit_code,
+            passed=(not timed_out and exit_code == 0),
+            timed_out=timed_out,
+            stdout_excerpt=_tail_text(out_f),
+            stderr_excerpt=_tail_text(err_f),
             duration_ms=int((time.monotonic() - start) * 1000),
         )

@@ -20,7 +20,16 @@ class UnknownSkillError(Exception):
 
 
 def resolve_skill_dir(skills_root: Path, skill_name: str) -> Path:
-    skill_dir = skills_root / skill_name
+    # skill_name is a CLI arg; reject `..` traversal, an absolute override
+    # (which would silently discard skills_root under pathlib's join
+    # semantics), or a symlink escape -- a resolve+containment check
+    # catches all three in one place.
+    resolved_root = Path(skills_root).resolve()
+    skill_dir = (Path(skills_root) / skill_name).resolve()
+    if not skill_dir.is_relative_to(resolved_root):
+        raise UnknownSkillError(
+            f"{skill_name!r} resolves outside {skills_root} — not a valid skill name"
+        )
     cli_module = skill_dir / "engine" / "cli.py"
     if not cli_module.is_file():
         raise UnknownSkillError(

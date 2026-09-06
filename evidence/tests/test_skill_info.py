@@ -39,3 +39,35 @@ def test_get_skill_version_missing_pyproject_returns_none(tmp_path: Path):
     skill_dir = _make_skill(tmp_path, "fake-skill", None)
 
     assert get_skill_version(skill_dir) is None
+
+
+def test_resolve_skill_dir_rejects_dot_dot_traversal(tmp_path: Path):
+    skills_root = tmp_path / "skills"
+    skills_root.mkdir()
+    _make_skill(tmp_path, "secret", "0.0.1")  # sibling of skills_root, not under it
+
+    with pytest.raises(UnknownSkillError):
+        resolve_skill_dir(skills_root, "../secret")
+
+
+def test_resolve_skill_dir_rejects_absolute_path_skill_name(tmp_path: Path):
+    skills_root = tmp_path / "skills"
+    skills_root.mkdir()
+    secret_dir = _make_skill(tmp_path, "secret", "0.0.1")
+
+    with pytest.raises(UnknownSkillError):
+        resolve_skill_dir(skills_root, str(secret_dir))
+
+
+def test_resolve_skill_dir_rejects_symlink_escape(tmp_path: Path):
+    skills_root = tmp_path / "skills"
+    skills_root.mkdir()
+    secret_dir = _make_skill(tmp_path, "secret", "0.0.1")
+    link = skills_root / "linked-skill"
+    try:
+        link.symlink_to(secret_dir, target_is_directory=True)
+    except OSError:
+        pytest.skip("symlink creation not permitted in this environment")
+
+    with pytest.raises(UnknownSkillError):
+        resolve_skill_dir(skills_root, "linked-skill")

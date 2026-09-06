@@ -47,3 +47,19 @@ def test_module_missing_path_raises_ci_module_load_error(tmp_path):
 
     with pytest.raises(CiModuleLoadError):
         load_ci_modules(path)
+
+
+def test_wrong_type_modules_raises_ci_module_load_error(tmp_path):
+    path = tmp_path / "ci.json"
+    path.write_text(json.dumps({"modules": "oops"}), encoding="utf-8")
+
+    with pytest.raises(CiModuleLoadError, match="must be a list"):
+        load_ci_modules(path)
+
+
+def test_non_dict_module_entry_raises_ci_module_load_error(tmp_path):
+    path = tmp_path / "ci.json"
+    path.write_text(json.dumps({"modules": ["pkg/module.py"]}), encoding="utf-8")
+
+    with pytest.raises(CiModuleLoadError, match="not an object"):
+        load_ci_modules(path)

@@ -744,8 +744,12 @@ sub-initiative (a new `scenario_planner/` package, [[11-decisions|ADR-028]],
 [[22-scenario-plan-report-schema]]), and TEP Phase 5c's Test Generation &
 Independent Validation sub-initiative (two new packages, `test_generation/`
 and `test_validation/`, [[11-decisions|ADR-029]],
-[[23-generation-plan-report-schema]], [[24-validation-report-schema]]) are
-now complete. TEP Phase 5d and beyond requires a new, separate, explicit
+[[23-generation-plan-report-schema]], [[24-validation-report-schema]]),
+and TEP Phase 5d's Security/Production Hardening sub-initiative (no new
+package — path containment, bounded subprocess capture, resource caps,
+JSON loader type validation, and a declared `pytest` runtime dependency
+across five existing files, [[11-decisions|ADR-030]]) are now complete.
+TEP Phase 5e and beyond requires a new, separate, explicit
 user instruction before any further implementation. Android-framework *detection* (JUnit/Robolectric/
 Espresso) exists, but real-world Android repos systematically under-report
 through it today: their build.gradle files almost universally version
@@ -773,6 +777,13 @@ further downstream still (an honest zero-result), and separately proved
 the positive path against a real symbol in this repo — a run that itself
 found and fixed two real bugs (relative-path resolution, an unfiltered
 `.pytest_cache` artifact) that the unit tests written beforehand did not
-catch. None of the disclosed detection/accuracy gaps is fixed — L35/L24
-remain the largest disclosed gaps in, respectively, Android readiness and
-test-strategy accuracy.
+catch. A subsequent security/production-hardening pass added path
+containment (rejecting symlink/traversal escapes in
+`generated_tests_loader.py` and `evidence/skill_info.py`), bounded
+(disk-backed) subprocess output capture, file-count/file-size execution
+caps, wrong-type-container rejection in five JSON loaders, and a declared
+`pytest` runtime dependency — narrowing existing risk surface around this
+platform's one execution capability without adding a sandboxing claim
+ADR-029 never made. None of the disclosed detection/accuracy gaps is
+fixed — L35/L24 remain the largest disclosed detection/accuracy gaps in,
+respectively, Android readiness and test-strategy accuracy.

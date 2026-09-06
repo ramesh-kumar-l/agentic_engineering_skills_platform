@@ -79,6 +79,55 @@ def test_relative_test_file_and_repo_root_still_resolve_correctly(tmp_path, monk
     assert outcome.exit_code == 0
 
 
+def test_large_stdout_is_bounded_to_excerpt_length(tmp_path):
+    # Regression test for the memory-exhaustion fix: stdout/stderr are now
+    # captured to disk-backed temp files, not buffered fully in memory, and
+    # only the tail excerpt is read back. pytest only echoes a passing
+    # test's prints if the test fails (its "Captured stdout call" section),
+    # so this test fails on purpose after printing a large amount, to
+    # actually exercise a large real subprocess stdout stream.
+    test_file = tmp_path / "test_noisy.py"
+    test_file.write_text(
+        "def test_noisy():\n"
+        "    for _ in range(20000):\n"
+        "        print('x' * 40)\n"
+        "    assert False\n",
+        encoding="utf-8",
+    )
+
+    outcome = run_validation(test_file, repo_root=str(tmp_path), framework="pytest")
+
+    assert outcome.timed_out is False
+    assert outcome.exit_code == 1
+    assert len(outcome.stdout_excerpt) <= 2000
+
+
+def test_timeout_does_not_crash_when_child_wrote_output_before_being_killed(tmp_path):
+    # The tempfile-backed stdout/stderr redirection must not raise or hang
+    # itself when reading back an excerpt from a process that was killed
+    # mid-write. (pytest's own internal output capturing means the child's
+    # print() never reaches the real fd before a hard kill either way, so
+    # this checks robustness, not content preservation.)
+    test_file = tmp_path / "test_slow_with_output.py"
+    test_file.write_text(
+        "import sys, time\n\n\n"
+        "def test_slow():\n"
+        "    print('partial output before timeout')\n"
+        "    sys.stdout.flush()\n"
+        "    time.sleep(5)\n",
+        encoding="utf-8",
+    )
+
+    outcome = run_validation(
+        test_file, repo_root=str(tmp_path), framework="pytest", timeout_seconds=1
+    )
+
+    assert outcome.timed_out is True
+    assert outcome.exit_code is None
+    assert isinstance(outcome.stdout_excerpt, str)
+    assert isinstance(outcome.stderr_excerpt, str)
+
+
 def test_pytest_process_can_import_target_repo_via_pythonpath(tmp_path):
     pkg_dir = tmp_path / "pkg"
     pkg_dir.mkdir()

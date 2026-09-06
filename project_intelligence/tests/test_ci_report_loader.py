@@ -44,3 +44,23 @@ def test_loads_valid_report(tmp_path):
     assert ctx.language_breakdown == {"python": 3}
     assert ctx.external_dependencies[0].name == "pytest"
     assert ctx.top_level_filenames == ["pyproject.toml"]
+
+
+def test_wrong_type_external_dependencies_raises_ci_report_error(tmp_path):
+    bad_report = dict(_VALID_REPORT)
+    bad_report["external_dependencies"] = "oops"
+    path = tmp_path / "report.json"
+    path.write_text(json.dumps(bad_report), encoding="utf-8")
+
+    with pytest.raises(CiReportError, match="must be a list"):
+        load_ci_report(path)
+
+
+def test_wrong_type_files_raises_ci_report_error(tmp_path):
+    bad_report = dict(_VALID_REPORT)
+    bad_report["files"] = "oops"
+    path = tmp_path / "report.json"
+    path.write_text(json.dumps(bad_report), encoding="utf-8")
+
+    with pytest.raises(CiReportError, match="must be a list"):
+        load_ci_report(path)

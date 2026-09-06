@@ -7,7 +7,14 @@ from __future__ import annotations
 from .environment_loader import TestEnvironmentSummary
 from .generated_tests_loader import list_generated_tests
 from .models import SCHEMA_VERSION, ValidationReport, ValidationStats
-from .validation_runner import DEFAULT_TIMEOUT_SECONDS, run_validation
+from .validation_runner import (
+    DEFAULT_TIMEOUT_SECONDS,
+    ensure_pytest_available,
+    run_validation,
+)
+
+DEFAULT_MAX_TEST_FILES = 200
+DEFAULT_MAX_TEST_FILE_BYTES = 1_000_000  # 1 MB; agent-authored test files are small
 
 
 def build_validation_report(
@@ -16,19 +23,40 @@ def build_validation_report(
     repo_root: str,
     test_environment_profile_path: str,
     timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS,
+    max_test_files: int = DEFAULT_MAX_TEST_FILES,
+    max_test_file_bytes: int = DEFAULT_MAX_TEST_FILE_BYTES,
 ) -> ValidationReport:
     test_files = list_generated_tests(generated_tests_dir)
-
-    outcomes = [
-        run_validation(f, repo_root, profile.primary_test_framework, timeout_seconds)
-        for f in test_files
-    ]
-
     warnings: list[str] = []
+
     if not test_files:
         warnings.append(
             "no agent-authored test files found under "
             f"{generated_tests_dir} — nothing to validate"
+        )
+
+    if len(test_files) > max_test_files:
+        warnings.append(
+            f"found {len(test_files)} test files, exceeding "
+            f"max_test_files={max_test_files} — only the first "
+            f"{max_test_files} (sorted) were run"
+        )
+        test_files = test_files[:max_test_files]
+
+    if any(f.suffix == ".py" for f in test_files):
+        ensure_pytest_available()
+
+    outcomes = []
+    for f in test_files:
+        size = f.stat().st_size
+        if size > max_test_file_bytes:
+            warnings.append(
+                f"skipped {f} — {size} bytes exceeds "
+                f"max_test_file_bytes={max_test_file_bytes}"
+            )
+            continue
+        outcomes.append(
+            run_validation(f, repo_root, profile.primary_test_framework, timeout_seconds)
         )
 
     stats = ValidationStats(
