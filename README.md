@@ -3,7 +3,7 @@
 [![tests](https://github.com/ramesh-kumar-l/agentic_engineering_skills_platform/actions/workflows/tests.yml/badge.svg)](https://github.com/ramesh-kumar-l/agentic_engineering_skills_platform/actions/workflows/tests.yml)
 ![Status](https://img.shields.io/badge/status-Phase%2015%20complete-blue)
 ![Skills](https://img.shields.io/badge/skills-15-informational)
-![Tests](https://img.shields.io/badge/tests-693%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-733%20passing-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero-brightgreen)
 ![Trust status](https://img.shields.io/badge/trust%20status-EXPERIMENTAL-yellow)
@@ -88,23 +88,23 @@ understanding before the skill list below makes full sense:
 
 | # | Skill | What it does | Pattern | Tests | Status |
 |---|---|---|---|---|---|
-| 1 | [`codebase-intelligence`](skills/codebase-intelligence/) | Deterministic structural map of a repo — imports, defs, dependency graph, hotspots | Pattern 1 (fully deterministic) | 24/24 | EXPERIMENTAL |
-| 2 | [`adversarial-diff-reviewer`](skills/adversarial-diff-reviewer/) | Flags mechanical risk patterns in a diff, then an agent performs an adversarial review against a 10-category failure-first checklist | Pattern 2 | 23/23 | EXPERIMENTAL |
+| 1 | [`codebase-intelligence`](skills/codebase-intelligence/) | Deterministic structural map of a repo — imports, defs, dependency graph, hotspots. Java/Kotlin supported via a package-declaration FQN index (ADR-022), alongside Python/JS | Pattern 1 (fully deterministic) | 42/42 | EXPERIMENTAL |
+| 2 | [`adversarial-diff-reviewer`](skills/adversarial-diff-reviewer/) | Flags mechanical risk patterns in a diff, then an agent performs an adversarial review against a 10-category failure-first checklist | Pattern 2 | 29/29 | EXPERIMENTAL |
 | 3 | [`acceptance-test-engineer`](skills/acceptance-test-engineer/) | Turns a vague requirement into structured, testable acceptance cases via a 10-category coverage checklist | Pattern 2 | 24/24 | EXPERIMENTAL |
 | 4 | [`feature-planner`](skills/feature-planner/) | Turns a task description into a grounded, structured plan — **requires** a `codebase-intelligence` report as a hard precondition | Pattern 2 + mandatory composition | 21/21 | EXPERIMENTAL |
 | 5 | [`security-context-guard`](skills/security-context-guard/) | Classifies content/actions for secrets, PII, sensitive paths, and high-risk actions; recommends — never self-authorizes — human approval | Pattern 2 + advisory-only by hard rule | 58/58 | EXPERIMENTAL |
 | 6 | [`root-cause-analyzer`](skills/root-cause-analyzer/) | Turns a bug report (with or without a stack trace) into ranked, evidence-tiered candidate root-cause locations — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + tiered evidence | 32/32 | EXPERIMENTAL |
 | 7 | [`architecture-decision`](skills/architecture-decision/) | Turns a decision description into per-option, blast-radius-scored impact against a real dependency graph — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + blast-radius tiering | 34/34 | EXPERIMENTAL |
-| 8 | [`refactoring-safety`](skills/refactoring-safety/) | Turns a refactoring description into per-target risk assessment (real callers + hotspot status) plus an independent test-coverage signal — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + risk/coverage split | 64/64 | EXPERIMENTAL |
-| 9 | [`regression-hunter`](skills/regression-hunter/) | Turns a unified git diff into per-file regression risk from three non-blended signals (diff-pattern flags, structural blast radius, test-coverage status) — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + three-axis risk scoring | 66/66 | EXPERIMENTAL |
-| 10 | [`release-readiness`](skills/release-readiness/) | Turns a diff into a per-file Release Readiness Scorecard (diff-hygiene, structural blast radius, test coverage) plus optional composed regression/security evidence, rolled into an advisory-only overall verdict — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + optional cross-skill composition | 82/82 | EXPERIMENTAL |
-| 11 | [`dependency-supply-chain`](skills/dependency-supply-chain/) | Scans declared dependencies for pin status, known-risk names, duplicate/conflicting versions, and surface area — **requires** a `codebase-intelligence` report. No live CVE lookup, no per-dependency license data (disclosed scope, not a bug) | Pattern 2 + mandatory composition + advisory/fail-closed | 46/46 | EXPERIMENTAL |
+| 8 | [`refactoring-safety`](skills/refactoring-safety/) | Turns a refactoring description into per-target risk assessment (real callers + hotspot status) plus an independent test-coverage signal (recognizes JVM `*Test`/`*Spec` suffixes too) — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + risk/coverage split | 65/65 | EXPERIMENTAL |
+| 9 | [`regression-hunter`](skills/regression-hunter/) | Turns a unified git diff into per-file regression risk from three non-blended signals (diff-pattern flags, structural blast radius, test-coverage status) — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + three-axis risk scoring | 70/70 | EXPERIMENTAL |
+| 10 | [`release-readiness`](skills/release-readiness/) | Turns a diff into a per-file Release Readiness Scorecard (diff-hygiene, structural blast radius, test coverage) plus optional composed regression/security evidence, rolled into an advisory-only overall verdict — **requires** a `codebase-intelligence` report | Pattern 2 + mandatory composition + optional cross-skill composition | 84/84 | EXPERIMENTAL |
+| 11 | [`dependency-supply-chain`](skills/dependency-supply-chain/) | Scans declared dependencies for pin status, known-risk names, duplicate/conflicting versions, and surface area — **requires** a `codebase-intelligence` report. Maven/Gradle-aware pin classification (ADR-022) alongside pip/npm. No live CVE lookup, no per-dependency license data (disclosed scope, not a bug) | Pattern 2 + mandatory composition + advisory/fail-closed | 55/55 | EXPERIMENTAL |
 | 12 | [`engineering-knowledge-capture`](skills/engineering-knowledge-capture/) | Scans a free-text engineering narrative for decision/lesson/limitation/workaround candidates, resolves any mentioned module against real structural data — **requires** a `codebase-intelligence` report. Never writes into the memory bank itself (disclosed scope, not a bug) | Pattern 2 + mandatory composition + advisory/fail-closed | 47/47 | EXPERIMENTAL |
 | 13 | [`context-optimizer`](skills/context-optimizer/) | Scores every file in a repo for task relevance (tokenized keyword match + real fan_in/hotspot boost), tiers CORE/SUPPORTING/EXCLUDED against an optional line budget — **requires** a `codebase-intelligence` report. Fails OPEN toward inclusion under uncertainty, not closed (disclosed inversion of the usual convention, not a bug) | Pattern 2 + mandatory composition + fail-open tiering | 64/64 | EXPERIMENTAL |
 | 14 | [`workflow-composer`](skills/workflow-composer/) | Actually **executes** a small, hardcoded registry of real skill chains (not just analysis) — subprocess-runs each real skill's CLI in sequence, wiring outputs to inputs — **requires** a `codebase-intelligence` report as every chain's first step. Fails CLOSED on any step failure or a pre-execution compatibility drift (opposite default from `context-optimizer`, reconciled explicitly, not a contradiction) | Pattern 2 + mandatory composition + real cross-skill execution | 51/51 | EXPERIMENTAL |
 | 15 | [`engineering-memory`](skills/engineering-memory/) | Retrieves relevant ADRs/known-limitations from **this project's own memory bank** for a task, ranked by whole-token keyword overlap + resolved-module overlap — **requires** a `codebase-intelligence` report. Always attaches a staleness flag rather than presenting a FIXED/module-gone record as current guidance | Pattern 2 + mandatory composition + self-referential retrieval | 57/57 | EXPERIMENTAL |
 
-**693 tests passing across the platform.** Every skill also ships an
+**733 tests passing across the platform.** Every skill also ships an
 evaluation harness against hand-authored fixtures
 (`evaluations/<skill>/RESULTS.md`) and a real "dogfood" run against actual
 work, not a synthetic demo (`examples/<skill>/example-run.md`).
@@ -387,7 +387,12 @@ documented design tradeoffs — L21, L22, L24 [mitigated alongside L23's
 fix but not fully closed], L25, L26, L28, L29, L30, L31 below), cataloged
 transparently in
 [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md)
-rather than quietly patched and forgotten:
+rather than quietly patched and forgotten. Two more followed a 2026-08-29
+cross-cutting change (ADR-022, Java/Kotlin support — not a new phase, so
+not counted in the sixteen above): L32, a same-shape FQN-index collision
+risk anticipated by design rather than dogfood-discovered (the real
+dogfood run performed for ADR-022 didn't happen to trigger it), and L33, a
+disclosed Maven/Gradle parsing scope boundary.
 
 | ID | Skill | What a synthetic fixture would have missed |
 |---|---|---|
@@ -528,7 +533,7 @@ copy. Start anywhere; each stands alone.
 ## Status and roadmap
 
 **Phase 15 complete — the originally-scoped 15-skill portfolio is now
-fully built.** Fifteen skills, 693 tests, fifteen evaluation harnesses,
+fully built.** Fifteen skills, 733 tests, fifteen evaluation harnesses,
 fifteen real dogfood runs, zero real-world usage by anyone outside this
 project yet. Phase 11 (`dependency-supply-chain`) through Phase 15
 (`engineering-memory`) each started at an explicit user request that
@@ -539,7 +544,11 @@ freeze; Phase 15's own gating decision was satisfied simply by being
 reached in order. There is no Phase 16 in the original portfolio list —
 any further skill work is a newly-proposed scope, and stays frozen
 pending real external validation evidence either way, not another skill
-by default. Full current snapshot:
+by default. **2026-08-29 (ADR-022, not a new phase):** at the user's
+request, `codebase-intelligence` and 5 downstream skills gained real
+Java/Kotlin support (package-declaration FQN index for import resolution,
+Maven/Gradle manifest parsing, JVM-aware risk/test-coverage patterns) —
+40 new tests, 693 → 733. Full current snapshot:
 [`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it
 starts, never built just because it was planned): [`ROADMAP.md`](ROADMAP.md).

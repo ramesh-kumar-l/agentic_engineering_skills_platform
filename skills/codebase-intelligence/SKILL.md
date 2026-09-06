@@ -1,7 +1,7 @@
 # Codebase Intelligence
 
 ## Metadata
-- Version: 0.1.0
+- Version: 0.2.0
 - Status: EXPERIMENTAL
 - Author: Agentic Engineering Skills Platform
 - Maturity: Level 2 — Evaluated Skill (see `evaluations/codebase-intelligence/RESULTS.md`)
@@ -129,7 +129,12 @@ See `project-memory-bank/12-known-limitations.md`. Summary: non-Python import
 extraction is regex-based, not a real parser, and will miss dynamic imports and
 re-exports; no cross-file type resolution; no semantic/business-logic
 understanding; dependency graph resolution for JS is limited to relative
-(`./`, `../`) specifiers, not bundler path aliases.
+(`./`, `../`) specifiers, not bundler path aliases; Java/Kotlin's
+`jvm_parser.py` does not track brace depth, so a nested/inner type sharing a
+name with an unrelated top-level type in the same package can collide in the
+FQN index (L32); Maven/Gradle manifest parsing is scoped to the common case
+only — no version catalogs, map-notation, property interpolation, or
+multi-module coordination (L33).
 
 ## Examples
 See `examples/codebase-intelligence/example-run.md` for a real run of this
@@ -146,3 +151,10 @@ third-party dependencies) for portability (NFR1).
   heuristic parser, internal dependency graph with hotspot detection, external
   dependency parsing (requirements.txt/pyproject.toml/package.json), JSON and
   Markdown renderers, CLI, evaluation harness with 4 fixtures.
+- 0.2.0 — Java/Kotlin support (ADR-022, user-directed cross-cutting scope,
+  not a new roadmap phase): `jvm_parser.py` replaces Java's prior
+  `generic_parser.py` routing and adds real Kotlin support (package/import/
+  type/entry-point extraction); `graph.py` resolves Java/Kotlin imports via
+  a package-declaration FQN index (not directory-convention guessing);
+  `external_deps.py` parses Maven `pom.xml` and Gradle
+  `build.gradle[.kts]`. 18 new tests (24 → 42).

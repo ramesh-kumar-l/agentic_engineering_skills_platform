@@ -57,6 +57,65 @@ def test_ignores_bare_js_specifier():
     assert g.edges == []
 
 
+def test_resolves_jvm_import_via_package_index():
+    modules = [
+        ModuleInfo(path="src/main/java/com/example/App.java", language="java", docstring=None,
+                   package="com.example", classes=["App"], imports=["com.example.Helper"]),
+        ModuleInfo(path="src/main/java/com/example/Helper.java", language="java", docstring=None,
+                   package="com.example", classes=["Helper"], imports=[]),
+    ]
+
+    g = graph.build_graph(modules)
+
+    assert len(g.edges) == 1
+    assert g.edges[0].source == "src/main/java/com/example/App.java"
+    assert g.edges[0].target == "src/main/java/com/example/Helper.java"
+
+
+def test_resolves_jvm_import_regardless_of_directory_layout():
+    # Package-declaration index (ADR-022) must resolve correctly even when
+    # the on-disk path does NOT mirror the package -- the exact failure mode
+    # a directory-convention-guessing resolver would get wrong.
+    modules = [
+        ModuleInfo(path="weird/location/App.java", language="java", docstring=None,
+                   package="com.example", classes=["App"], imports=["com.example.Helper"]),
+        ModuleInfo(path="another/odd/spot/Helper.kt", language="kotlin", docstring=None,
+                   package="com.example", classes=["Helper"], imports=[]),
+    ]
+
+    g = graph.build_graph(modules)
+
+    assert len(g.edges) == 1
+    assert g.edges[0].target == "another/odd/spot/Helper.kt"
+
+
+def test_resolves_jvm_wildcard_import_to_every_class_in_package():
+    modules = [
+        ModuleInfo(path="App.java", language="java", docstring=None,
+                   package="com.example", classes=["App"], imports=["com.example.models.*"]),
+        ModuleInfo(path="models/Foo.java", language="java", docstring=None,
+                   package="com.example.models", classes=["Foo"], imports=[]),
+        ModuleInfo(path="models/Bar.kt", language="kotlin", docstring=None,
+                   package="com.example.models", classes=["Bar"], imports=[]),
+    ]
+
+    g = graph.build_graph(modules)
+
+    targets = {e.target for e in g.edges}
+    assert targets == {"models/Foo.java", "models/Bar.kt"}
+
+
+def test_ignores_unresolved_jvm_import():
+    modules = [
+        ModuleInfo(path="App.java", language="java", docstring=None,
+                   package="com.example", classes=["App"], imports=["java.util.List"]),
+    ]
+
+    g = graph.build_graph(modules)
+
+    assert g.edges == []
+
+
 def test_hotspots_ranks_by_combined_degree():
     modules = [
         ModuleInfo(path="core.py", language="python", docstring=None, imports=[]),

@@ -1,7 +1,7 @@
 # Release Readiness
 
 ## Metadata
-- Version: 0.1.0
+- Version: 0.2.0
 - Status: EXPERIMENTAL
 - Author: Agentic Engineering Skills Platform
 - Maturity: Level 2 — Evaluated Skill (see `evaluations/release-readiness/RESULTS.md`)
@@ -347,6 +347,10 @@ import of any other skill in this portfolio); the judgment layer is the
 invoking agent's own reasoning, not code.
 
 ## Changelog
+- 0.2.0 — JVM support (ADR-022, user-directed cross-cutting scope, not a
+  new roadmap phase): `test_coverage_scanner.py` recognizes the JVM
+  `*Test`/`*Tests`/`*Spec` suffix convention; `hygiene_patterns.py` gains
+  a `System.out/err.println()` debug-leftover pattern. 2 new tests (82 → 84).
 - 0.1.0 — Initial implementation: codebase-intelligence report loader
   (independent schema, required precondition, sixth reuse of ADR-010),
   unified-diff parser (independent copy of regression-hunter's/

@@ -59,21 +59,44 @@ LARGE_DELETION_THRESHOLD = 10
 
 _DEF_LINE = re.compile(r"^\s*(def |function |func )\w")
 
+# Java method signature -- requires an access modifier to keep false
+# positives low (a disclosed miss: package-private methods with no
+# modifier at all). Kotlin's `fun` is handled separately since it commonly
+# carries its own modifier/override/suspend prefixes that don't fit
+# _DEF_LINE's simple "keyword + space" shape.
+_JVM_METHOD_LINE = re.compile(
+    r"^\s*(?:public|private|protected)\s+"
+    r"(?:static\s+|final\s+|abstract\s+|synchronized\s+|override\s+)*"
+    r"[\w<>\[\],.?]+\s+\w+\s*\([^)]*\)\s*\{?\s*$"
+)
+_KOTLIN_FUN_LINE = re.compile(
+    r"^\s*(?:public\s+|private\s+|internal\s+|protected\s+|override\s+|"
+    r"suspend\s+|inline\s+|open\s+)*fun\s+\w"
+)
+
 
 def is_test_shaped_path(path: str) -> bool:
     """Same path-convention heuristic every test-coverage-aware module in
     this project uses (a `tests/` directory segment, or a `test_*`/`*_test`
-    filename) — a small, defensible, explicitly-heuristic check, not a
-    stronger claim than a static diff can support."""
+    filename, or — ADR-022 — a JVM `*Test`/`*Tests`/`*Spec` suffix) — a
+    small, defensible, explicitly-heuristic check, not a stronger claim
+    than a static diff can support."""
     parts = PurePosixPath(path).parts
     if any(part in ("test", "tests") for part in parts):
         return True
-    stem = PurePosixPath(path).stem.lower()
-    return stem.startswith("test_") or stem.endswith("_test")
+    stem = PurePosixPath(path).stem
+    stem_lower = stem.lower()
+    if stem_lower.startswith("test_") or stem_lower.endswith("_test"):
+        return True
+    return stem.endswith(("Test", "Tests", "Spec"))
 
 
 def touches_def_line(content: str) -> bool:
-    return bool(_DEF_LINE.match(content))
+    return (
+        bool(_DEF_LINE.match(content))
+        or bool(_JVM_METHOD_LINE.match(content))
+        or bool(_KOTLIN_FUN_LINE.match(content))
+    )
 
 
 def is_assertion_line(content: str) -> bool:

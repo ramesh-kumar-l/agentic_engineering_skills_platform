@@ -66,3 +66,6 @@ def test_detect_language():
     assert scanner.detect_language(Path("a.py")) == "python"
     assert scanner.detect_language(Path("a.ts")) == "typescript"
     assert scanner.detect_language(Path("a.xyz")) == "unknown"
+    assert scanner.detect_language(Path("a.kt")) == "kotlin"
+    assert scanner.detect_language(Path("a.kts")) == "kotlin"
+    assert scanner.detect_language(Path("a.java")) == "java"

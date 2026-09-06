@@ -110,4 +110,53 @@ PATTERNS: list[RiskPattern] = [
         regex=re.compile(r"(?:#|//)\s*(TODO|FIXME|XXX)\b"),
         description="TODO/FIXME/XXX left in new code — possibly incomplete requirement.",
     ),
+    # Java/Kotlin analogues of the Python-specific patterns above (ADR-022).
+    # Additive only — none of the patterns above were changed.
+    RiskPattern(
+        pattern_id="jvm-runtime-exec",
+        category="security-issue",
+        severity="high",
+        regex=re.compile(r"\bRuntime\s*\.\s*getRuntime\s*\(\s*\)\s*\.\s*exec\s*\("),
+        description="Runtime.exec() on added line — arbitrary OS command execution risk "
+                     "(Java/Kotlin analogue of os.system/subprocess).",
+    ),
+    RiskPattern(
+        pattern_id="jvm-processbuilder",
+        category="security-issue",
+        severity="high",
+        regex=re.compile(r"\bProcessBuilder\s*\("),
+        description="ProcessBuilder() on added line — spawns an OS process; injection risk "
+                     "if arguments are unsanitized.",
+    ),
+    RiskPattern(
+        pattern_id="jvm-broad-catch-exception",
+        category="subtle-bug",
+        severity="low",
+        regex=re.compile(r"\bcatch\s*\(\s*(?:final\s+)?Exception\s+\w+\s*\)"),
+        description="Broad catch (Exception e) may hide unrelated errors "
+                     "(Java/Kotlin analogue of broad-except-exception).",
+    ),
+    RiskPattern(
+        pattern_id="jvm-broad-catch-throwable",
+        category="subtle-bug",
+        severity="medium",
+        regex=re.compile(r"\bcatch\s*\(\s*(?:final\s+)?Throwable\s+\w+\s*\)"),
+        description="catch (Throwable t) swallows Errors too (OutOfMemoryError, "
+                     "StackOverflowError), not just Exceptions.",
+    ),
+    RiskPattern(
+        pattern_id="jvm-sql-string-concat",
+        category="security-issue",
+        severity="high",
+        regex=re.compile(r'(?i)\b(executeQuery|executeUpdate|execute)\s*\(\s*"[^"]*"\s*\+'),
+        description="SQL built via string concatenation before a JDBC execute*() call — "
+                     "injection risk (Java/Kotlin analogue of sql-string-concat).",
+    ),
+    RiskPattern(
+        pattern_id="jvm-debug-println",
+        category="correct-but-unusual",
+        severity="low",
+        regex=re.compile(r"^\s*System\.(out|err)\.println\s*\("),
+        description="System.out/err.println() left in added code — likely leftover debug output.",
+    ),
 ]

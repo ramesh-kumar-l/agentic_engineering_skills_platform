@@ -1,7 +1,7 @@
 # Dependency / Supply Chain
 
 ## Metadata
-- Version: 0.1.0
+- Version: 0.2.0
 - Status: EXPERIMENTAL
 - Author: Agentic Engineering Skills Platform
 - Maturity: Level 2 — Evaluated Skill (see `evaluations/dependency-supply-chain/RESULTS.md`)
@@ -83,14 +83,22 @@ grounding surface; the engine derives nothing about the target repo beyond
 that field.
 
 ## Context Completeness
-`codebase-intelligence`'s `external_deps.py` only parses root-level
+`codebase-intelligence`'s `external_deps.py` parses root-level
 `requirements.txt`, `pyproject.toml` (`[project.dependencies]` block only),
-and `package.json` (`dependencies`/`devDependencies`) — see
-[[12-known-limitations]] L2. This engine inherits that scope exactly: no
-transitive/lockfile resolution, no non-root manifests, no `Pipfile` or
-poetry-native `[tool.poetry.dependencies]` support. A zero-dependency result
-triggers an explicit warning rather than being treated as a clean bill of
-health.
+`package.json` (`dependencies`/`devDependencies`), and — since ADR-022 —
+root-level Maven `pom.xml` (direct `<dependencies>` block only, not
+`<dependencyManagement>` or profile-scoped dependencies) and Gradle
+`build.gradle`/`build.gradle.kts` (common single-line string-notation
+dependency declarations only) — see [[12-known-limitations]] L2, L33. This
+engine inherits that scope exactly: no transitive/lockfile resolution, no
+non-root manifests, no `Pipfile` or poetry-native
+`[tool.poetry.dependencies]` support, no Gradle version catalogs or
+map-notation. `classify_pin_status` additionally recognizes Maven version
+ranges, Gradle dynamic versions, and unresolved Maven `${property}`
+placeholders (a fourth pin-status, `"unresolved"`, distinct from
+range/wildcard) when the source manifest is `pom.xml`/`build.gradle[.kts]`.
+A zero-dependency result triggers an explicit warning rather than being
+treated as a clean bill of health.
 
 ## Security Constraints
 - Read-only. Never installs, upgrades, removes, or executes any dependency.
@@ -179,3 +187,7 @@ user's explicit direction, not because A2/A5 moved off `UNKNOWN`.
 
 ## Changelog
 - 0.1.0 (2026-08-26): Initial release.
+- 0.2.0: Maven/Gradle-aware pin-status classification (ADR-022, user-directed
+  cross-cutting scope, not a new roadmap phase) — `classify_pin_status` gains
+  an `ecosystem` parameter and a fourth status, `"unresolved"`, for an
+  unresolved Maven `${property}` version. 9 new tests (46 → 55).

@@ -66,6 +66,12 @@ ADDED_LINE_PATTERNS: list[HygienePattern] = [
         "independent copy of security-context-guard's generic-credential-"
         "assignment pattern, in miniature; a lead, not proof of a real leak.",
     ),
+    HygienePattern(
+        "jvm-debug-println-leftover", "debug-leftover", "medium",
+        re.compile(r"^\s*System\.(out|err)\.println\s*\("),
+        "System.out/err.println() left in added code — likely leftover from "
+        "local debugging (Java/Kotlin analogue of debug-print-leftover; ADR-022).",
+    ),
 ]
 
 # Matched against every line of the hunk (not just added) — a literal,

@@ -1,7 +1,7 @@
 # Regression Hunter
 
 ## Metadata
-- Version: 0.1.0
+- Version: 0.2.0
 - Status: EXPERIMENTAL
 - Author: Agentic Engineering Skills Platform
 - Maturity: Level 2 — Evaluated Skill (see `evaluations/regression-hunter/RESULTS.md`)
@@ -309,6 +309,11 @@ import of `codebase-intelligence` or `adversarial-diff-reviewer`); the
 judgment layer is the invoking agent's own reasoning, not code.
 
 ## Changelog
+- 0.2.0 — JVM support (ADR-022, user-directed cross-cutting scope, not a
+  new roadmap phase): `test_coverage_scanner.py` and `is_test_shaped_path`
+  both recognize the JVM `*Test`/`*Tests`/`*Spec` suffix convention;
+  `touches_def_line` extended with real Java-method/Kotlin-`fun` line
+  regexes. 4 new tests (66 → 70).
 - 0.1.0 — Initial implementation: codebase-intelligence report loader
   (independent schema, required precondition, fifth reuse of ADR-010),
   unified-diff parser (independent copy of adversarial-diff-reviewer's

@@ -42,3 +42,15 @@ def test_scan_produces_no_flags_for_clean_pinned_dependency():
     deps = [CiExternalDependency(name="totally-fine", version="1.0.0", source_file="requirements.txt")]
     _, flags = scan(deps)
     assert flags == []
+
+
+def test_build_dependency_records_classifies_maven_range_via_ecosystem():
+    deps = [CiExternalDependency(name="com.example:lib", version="[1.0,2.0)", source_file="pom.xml")]
+    records = build_dependency_records(deps)
+    assert records[0].pin_status == "range"
+
+
+def test_build_dependency_records_classifies_gradle_dynamic_via_ecosystem():
+    deps = [CiExternalDependency(name="com.example:lib", version="31.+", source_file="build.gradle")]
+    records = build_dependency_records(deps)
+    assert records[0].pin_status == "wildcard"

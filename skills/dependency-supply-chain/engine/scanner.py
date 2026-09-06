@@ -21,13 +21,21 @@ from .pin_checker import classify_pin_status, is_unpinned
 from .risk_patterns import match_known_risk
 
 
+def _ecosystem_for(source_file: str) -> str:
+    if source_file == "pom.xml":
+        return "maven"
+    if source_file in ("build.gradle", "build.gradle.kts"):
+        return "gradle"
+    return "generic"
+
+
 def build_dependency_records(dependencies: list[CiExternalDependency]) -> list[DependencyRecord]:
     return [
         DependencyRecord(
             name=dep.name,
             version=dep.version,
             source_file=dep.source_file,
-            pin_status=classify_pin_status(dep.version),
+            pin_status=classify_pin_status(dep.version, ecosystem=_ecosystem_for(dep.source_file)),
         )
         for dep in dependencies
     ]

@@ -1,6 +1,6 @@
 [project]
 name = "codebase-intelligence"
-version = "0.1.0"
+version = "0.2.0"
 description = "Deterministic, stdlib-only structural analysis engine for the Codebase Intelligence skill."
 requires-python = ">=3.10"
 dependencies = []

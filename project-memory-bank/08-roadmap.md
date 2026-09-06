@@ -757,3 +757,18 @@ validation evidence (a real user, an independent/blind eval pass, or a
 real usage-comparison run) per the freeze this project put in place before
 Phase 11 — now deferred across five consecutive phase boundaries, not
 auto-lifted by Phase 11 through Phase 15 having shipped.
+
+## 2026-08-29: ADR-022 (Java/Kotlin support) — cross-cutting change, not a new phase
+
+The user asked whether the 15-skill portfolio works on Java/Kotlin repos.
+A read-only audit found it largely did not, and the user directed adding
+real multi-language support (see [[11-decisions]] ADR-022). This is
+**explicitly not a new skill and not "Phase 16"**: no new skill directory
+was added to the portfolio; the roadmap's "Full target skill portfolio"
+list still ends at `engineering-memory`, unchanged. ADR-022 instead
+upgraded `codebase-intelligence` (the foundational skill 11 others require
+as a hard precondition, ADR-010) and 5 downstream skills' engines to
+handle Java/Kotlin alongside the existing Python/JS support. The freeze
+language above still applies unchanged to any future **new skill**
+proposal — this entry exists only so a future reader doesn't mistake
+ADR-022 for an unlogged phase.
