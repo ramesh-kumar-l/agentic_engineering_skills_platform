@@ -151,14 +151,29 @@ this project has repeatedly declined to do.
   structural listing) — never a new risk score, and never a claim about
   which specific function a diff touched when no line-range data exists to
   support that claim — demonstrated on at least one real, non-fixture run.
-- **TEP Phase 5c and beyond** (Test Generation, Independent Validation,
-  Human Review, Engineering Memory extension, Evaluation/Ablation, external
-  validation, DX, security/ production hardening, public distribution) are
-  named in the master prompt's own section 36 list but **not scoped here**
-  — each requires its own Phase Execution Contract pass (read memory, define
-  objective, define exit criteria) at the time it is actually started, per
-  the master prompt's own section 38 and this project's own phase-by-phase
-  discipline.
+- **TEP Phase 5c — Test Generation & Independent Validation.** Exit
+  criteria: given a real `scenario_planner` report and the real
+  `codebase-intelligence`/`test_strategy`/`project_intelligence` reports it
+  derives from, (a) produce a deterministic `GenerationPlanReport` naming
+  exactly which positive + 3–5 negative test slots to author per target,
+  each carrying a real source excerpt and the project's own
+  inferred-or-overridden naming convention, never authoring test code
+  inside the deterministic engine itself; (b) after an agent authors the
+  actual test files under `--out/generated-tests/`, independently execute
+  them against the target repo via subprocess with a strict timeout and
+  produce a `ValidationReport` recording real pass/fail/exit-code/output
+  per file, with the no-sandboxing limitation disclosed, not hidden.
+  Demonstrated on at least one real, non-fixture run of the
+  loader/composition logic, with the positive end-to-end path (non-empty
+  specs → an authored file → a real executed pass/fail) proven via
+  synthetic fixtures.
+- **TEP Phase 5d and beyond** (Human Review, Engineering Memory extension,
+  Evaluation/Ablation, external validation, DX, security/ production
+  hardening, public distribution) are named in the master prompt's own
+  section 36 list but **not scoped here** — each requires its own Phase
+  Execution Contract pass (read memory, define objective, define exit
+  criteria) at the time it is actually started, per the master prompt's
+  own section 38 and this project's own phase-by-phase discipline.
 
 ## Constraints carried over unchanged from the existing platform
 
@@ -233,7 +248,27 @@ demonstration this phase's exit criteria required (an honest zero-plans
 result, inherited from TEP Phase 5a's own [[12-known-limitations|L36]]
 finding, with the positive path proven separately via unit tests).
 
-TEP Phase 5c and beyond has **not** started — per the master prompt's own
+TEP Phase 5c's Test Generation & Independent Validation sub-initiative is
+also complete as of 2026-09-06, per the user's explicit direction to
+continue past TEP Phase 5b, and the user's explicit choice (a third
+disambiguation round, following a direct question about what Test
+Generation would produce and whether it was needed) to pair it with
+Independent Validation as one phase rather than build generation alone.
+Implemented as two new packages, `test_generation/` and `test_validation/`
+— see [[23-generation-plan-report-schema]], [[24-validation-report-schema]],
+and [[11-decisions|ADR-029]] for the schema and implementation decision,
+and `examples/test-generation/example-run.md` /
+`examples/test-validation/example-run.md` for the real, non-fixture
+demonstrations this phase's exit criteria required: an honest zero-result
+run inheriting TEP Phase 5b's own [[12-known-limitations|L36]] chain, and a
+real positive run against an actual symbol in this repository that produced
+a real agent-authored test file, actually executed via subprocess, that
+actually passed. That same real run found and fixed two real bugs (a
+relative-path resolution error and an unfiltered `.pytest_cache` artifact
+being reported as a generated test) that the 51 unit tests written before
+it, using only `tmp_path` fixtures, did not surface.
+
+TEP Phase 5d and beyond has **not** started — per the master prompt's own
 hard-stop rule (section 39) and this project's own phase-by-phase
 discipline, it requires a new, separate, explicit user instruction, not
 automatic continuation from this contract's completion.

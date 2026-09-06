@@ -22,15 +22,17 @@ TEP Phase 4 (Test Environment Discovery, Android/JVM specifically —
 extends `project_intelligence/` with `android_test_frameworks`/
 `android_frameworks_absent`, see [[11-decisions|ADR-026]]), and now TEP
 Phase 5a (Test Strategy Engine — a new `test_strategy/` package, see
-[[11-decisions|ADR-027]]), and now TEP Phase 5b's Scenario Planner
-sub-initiative (a new `scenario_planner/` package, see
-[[11-decisions|ADR-028]]) are all complete; TEP Phase 5c and beyond has not
+[[11-decisions|ADR-027]]), TEP Phase 5b's Scenario Planner sub-initiative (a
+new `scenario_planner/` package, see [[11-decisions|ADR-028]]), and now TEP
+Phase 5c's Test Generation & Independent Validation sub-initiative (two new
+packages, `test_generation/` and `test_validation/`, see
+[[11-decisions|ADR-029]]) are all complete; TEP Phase 5d and beyond has not
 started and requires its own separate, explicit user instruction, per the
 master prompt's own hard-stop rule. See "What TEP Phase 1 built", "What TEP
 Phase 2 built", "What TEP Phase 3 built", "What TEP Phase 4 built", "What
-TEP Phase 5a built", and "What TEP Phase 5b built" below. This does not
-change the status of the closed 15-skill portfolio described in the rest
-of this section.
+TEP Phase 5a built", "What TEP Phase 5b built", and "What TEP Phase 5c
+built" below. This does not change the status of the closed 15-skill
+portfolio described in the rest of this section.
 
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
 originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
@@ -248,6 +250,57 @@ using synthetic fixtures. All 6 engine files stay under 300 lines (largest,
 [[11-decisions|ADR-028]] and [[22-scenario-plan-report-schema]] for the
 full decision record and schema. TEP Phase 5c and beyond requires its own
 separate, explicit user instruction before starting.
+
+## What TEP Phase 5c built
+
+The user asked directly what Test Generation would even produce and
+whether it was needed; the honest answer (generating unexecuted test code
+contradicts the contract's own non-goal on unverified reliability claims)
+led to a third disambiguation round, choosing to pair Test Generation with
+**Independent Validation** as one phase rather than build generation alone.
+Two Explore-agent research passes confirmed codebase-intelligence has no
+parameter/type data to derive negative cases from, and that
+`project-memory-bank/` is the wrong place for a per-target-repo naming
+convention (even the two memory-capture skills never auto-write there).
+
+Built as two new top-level packages. `test_generation/` (`scenario_loader.
+py`, `naming_convention.py`, `source_excerpt_reader.py`,
+`generation_planner.py`, `models.py`, `cli.py`) never authors test code
+itself — codebase-intelligence's name-only structural data can't support
+deriving real negative conditions, so this engine produces a plan (real
+source excerpt, inferred-or-overridden naming convention, 1 positive + 4
+negative slot requests) for the calling agent to author from, writing files
+under `--out/generated-tests/`, never into the target repo. The naming
+convention is inferred fresh each run (majority vote over the target repo's
+real test files, reusing regression-hunter's own file-recognition
+heuristic) or supplied via `--naming-convention-file` pointing at a prior
+run's own output — an explicit config file, not a hidden cache.
+`test_validation/` (`generated_tests_loader.py`, `environment_loader.py`,
+`validation_runner.py`, `report_builder.py`, `models.py`, `cli.py`) executes
+those agent-authored files via subprocess with a strict timeout — this
+platform's first execution capability; every prior skill and TEP package is
+pure static analysis. Disclosed explicitly: no filesystem/network
+sandboxing beyond the timeout is claimed.
+
+Demonstrated twice: once reusing TEP Phase 5b's exact real (zero-candidate)
+output, honestly reproducing the same inherited zero result; once against a
+synthetic-but-real scenario-plan-report.json naming an actual symbol in
+this repo (`test_generation/naming_convention.py`'s `_classify`), producing
+a real plan with a real source excerpt, from which an agent authored a real
+5-test file (1 positive + 4 negative, all genuinely distinct), which
+`test_validation` then actually executed via subprocess and reported
+passing. That real run found and fixed two real bugs — a relative-path
+resolution error in `validation_runner.py` and an unfiltered
+`.pytest_cache` artifact in `generated_tests_loader.py` — that the 51 unit
+tests written before it (all using absolute `tmp_path` fixtures) did not
+surface; both fixed with new regression tests, not just disclosed. All 12
+engine files across both packages stay under 300 lines (largest,
+`validation_runner.py`, is 109 lines; 906 engine lines total; 54 new
+tests, 148 total across all TEP packages). See [[11-decisions|ADR-029]],
+[[23-generation-plan-report-schema]], and
+[[24-validation-report-schema]] for the full decision record and schemas.
+TEP Phase 5d and beyond requires its own separate, explicit user
+instruction before starting.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
 
@@ -791,6 +844,29 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    yet updated with Phase 6-11 posts)
 
 ## Last updated
+
+2026-09-06 — TEP Phase 5c's Test Generation & Independent Validation
+sub-initiative for the "Project-Aware Test Engineering Platform" pivot
+([[11-decisions|ADR-029]]), at the user's explicit direction following TEP
+Phase 5b, and the user's explicit choice to pair Test Generation with
+Independent Validation as one phase (asked directly, after the user
+questioned what Test Generation alone would even produce). Built two new
+packages: `test_generation/`, which never authors test code itself — it
+produces a plan (real source excerpt, naming convention, 1 positive + 4
+negative slot requests) for an agent to author from — and `test_validation/`,
+which executes those agent-authored files via subprocess with a strict
+timeout, this platform's first execution capability, with no filesystem/
+network sandboxing beyond that timeout explicitly disclosed. Demonstrated
+twice: an honest zero-result run inheriting TEP Phase 5b's own
+[[12-known-limitations|L36]] chain, and a real positive run against an
+actual symbol in this repo that produced a real agent-authored test file,
+actually executed, that actually passed — which itself found and fixed two
+real bugs (a relative-path resolution error, an unfiltered `.pytest_cache`
+artifact) that the unit tests written before it did not catch. See
+[[23-generation-plan-report-schema]], [[24-validation-report-schema]], and
+"What TEP Phase 5c built" above. No existing skill's code changed;
+separate from, and does not reopen, the closed 15-skill portfolio below.
+TEP Phase 5d and beyond not started — requires its own explicit approval.
 
 2026-09-06 — TEP Phase 5b's Scenario Planner sub-initiative for the
 "Project-Aware Test Engineering Platform" pivot ([[11-decisions|ADR-028]]),

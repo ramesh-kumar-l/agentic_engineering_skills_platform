@@ -338,11 +338,12 @@ TEP Phase 0 (repo/memory audit), TEP Phase 1 (Product Contract,
 [[18-test-engineering-platform-contract]]), TEP Phase 2 (Evidence
 Foundation), TEP Phase 3 (Project Intelligence extensions), TEP Phase 4
 (Test Environment Discovery, Android/JVM specifically), TEP Phase 5a
-(Test Strategy Engine), and TEP Phase 5b's Scenario Planner sub-initiative
-are complete; see [[11-decisions|ADR-023]], [[11-decisions|ADR-024]],
+(Test Strategy Engine), TEP Phase 5b's Scenario Planner sub-initiative, and
+TEP Phase 5c's Test Generation & Independent Validation sub-initiative are
+complete; see [[11-decisions|ADR-023]], [[11-decisions|ADR-024]],
 [[11-decisions|ADR-025]], [[11-decisions|ADR-026]], [[11-decisions|ADR-027]],
-[[11-decisions|ADR-028]], and `active-context.md`'s "What TEP Phase
-1/2/3/4/5a/5b built".
+[[11-decisions|ADR-028]], [[11-decisions|ADR-029]], and
+`active-context.md`'s "What TEP Phase 1/2/3/4/5a/5b/5c built".
 
 TEP Phase 2 shipped one new, independently-packaged component:
 
@@ -467,7 +468,53 @@ independently-packaged component:
   (skills) + 16 (evidence) + 25 (project_intelligence) + 26 (test_strategy)
   unaffected; `scenario_planner/`'s 26 tests are a new, separate suite.
 
-TEP Phase 5c and beyond is not started and needs its own explicit approval.
+TEP Phase 5c's Test Generation & Independent Validation sub-initiative
+shipped two new, independently-packaged components:
+
+- **`test_generation/`** — turns a real `scenario_planner` candidate list
+  into a deterministic plan (real source excerpt, inferred/overridden
+  naming convention, 1 positive + 4 negative slot requests) for an agent
+  to author actual test files from. `models.py` (95 lines),
+  `scenario_loader.py` (86), `source_excerpt_reader.py` (48),
+  `naming_convention.py` (101), `generation_planner.py` (106), `cli.py`
+  (81) — all under the 300-line limit (521 engine lines total). 30 tests,
+  all passing. Schema documented in [[23-generation-plan-report-schema]].
+  Never authors test code itself, per this phase's core design decision:
+  codebase-intelligence's name-only structural listing can't support
+  deriving real negative conditions, so that reasoning is left to the
+  AI-judgment half of the deterministic-engine-plus-agent-judgment split.
+- **`test_validation/`** — executes agent-authored test files against the
+  target repo via subprocess and records real pass/fail evidence.
+  `models.py` (61), `generated_tests_loader.py` (37),
+  `environment_loader.py` (52), `validation_runner.py` (109),
+  `report_builder.py` (49), `cli.py` (78) — all under the 300-line limit
+  (386 engine lines total). 24 tests, all passing (6 real, non-mocked
+  subprocess-execution tests, not just unit tests against stubs). Schema
+  documented in [[24-validation-report-schema]]. This platform's first
+  execution capability — every prior skill and TEP package is pure static
+  analysis; disclosed explicitly, no filesystem/network sandboxing beyond
+  a strict per-file timeout.
+- Demonstrated twice, both real (`examples/test-generation/`,
+  `examples/test-validation/`): once reusing TEP Phase 5b's exact real
+  zero-candidate output, honestly reproducing that same inherited zero
+  result; once against a synthetic-but-real scenario-plan-report.json
+  naming an actual symbol in this repo, producing a real plan, a real
+  agent-authored 5-test file (1 positive + 4 negative), and a real
+  subprocess execution that actually passed. That real run found and
+  fixed two real bugs — a relative-path resolution error in
+  `validation_runner.py`, and an unfiltered `.pytest_cache` artifact being
+  reported as a generated test in `generated_tests_loader.py` — that the
+  51 unit tests written before it (all using absolute `tmp_path` fixtures)
+  did not catch; both fixed with new regression tests. See
+  [[11-decisions|ADR-029]].
+- No existing skill's code was touched, and neither `scenario_planner` nor
+  `project_intelligence` was modified — these packages only read their
+  existing JSON outputs. Test counts: 733 (skills) + 16 (evidence) + 25
+  (project_intelligence) + 26 (test_strategy) + 26 (scenario_planner)
+  unaffected; `test_generation/`'s 30 tests and `test_validation/`'s 24
+  tests are new, separate suites (148 total across every TEP package).
+
+TEP Phase 5d and beyond is not started and needs its own explicit approval.
 
 ## Not yet built
 
@@ -535,6 +582,25 @@ TEP Phase 5c and beyond is not started and needs its own explicit approval.
   instance without yet being acted on.
 
 ## Last updated
+
+2026-09-06 — TEP Phase 5c's Test Generation & Independent Validation
+sub-initiative for the Test Engineering Platform pivot
+([[11-decisions|ADR-029]], [[23-generation-plan-report-schema]],
+[[24-validation-report-schema]]). Two new packages: `test_generation/`
+produces a deterministic plan (real source excerpt, naming convention, 1
+positive + 4 negative slot requests) for an agent to author test files
+from — it never authors code itself; `test_validation/` executes those
+files via subprocess with a strict timeout, this platform's first
+execution capability, with no filesystem/network sandboxing beyond that
+timeout disclosed explicitly. 30 + 24 = 54 new tests, all passing (148
+total across every TEP package). Demonstrated twice: an honest zero-result
+run inheriting TEP Phase 5b's own L36 chain, and a real positive run
+against an actual symbol in this repo that produced a real, agent-authored,
+actually-executed, actually-passing test file — which itself found and
+fixed two real bugs (a relative-path resolution error, an unfiltered
+`.pytest_cache` artifact reported as a generated test) that the unit tests
+written beforehand did not catch. TEP Phase 5d and beyond not started —
+requires its own explicit approval.
 
 2026-09-06 — TEP Phase 5b's Scenario Planner sub-initiative for the Test
 Engineering Platform pivot ([[11-decisions|ADR-028]],

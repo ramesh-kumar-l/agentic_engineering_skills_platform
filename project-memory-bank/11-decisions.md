@@ -1948,3 +1948,127 @@ produced anything for a target.
 
 **Status**: Adopted. TEP Phase 5b's Scenario Planner sub-initiative is
 complete as of 2026-09-06.
+
+## ADR-029: Test Generation & Independent Validation built as two new packages (`test_generation/`, `test_validation/`) — the deterministic engine never authors test code itself, and execution is this platform's first capability beyond static analysis
+
+**Decision**: TEP Phase 5c is the remainder of the bucket ADR-028 left open.
+Per the user's explicit choice (a third round of the same disambiguation
+discipline as Phases 5a/5b, following a direct question-and-answer exchange
+about what Test Generation would even produce and whether it was needed),
+**TEP Phase 5c — Test Generation & Independent Validation** is now scoped
+and implemented as one paired phase, not Test Generation alone — so no
+unexecuted, unverified test code ships as "done," honoring this contract's
+own non-goal ("no claim that a generated test is 'verified useful' below
+Trust Ladder Level 4").
+
+Two Explore-agent research passes, run before implementation, confirmed:
+`codebase-intelligence`'s structural output is names-only (no parameter/
+type/exception data in either the Python or JVM parser) and no existing
+skill generates code or detects naming conventions — and that
+`project-memory-bank/` is the wrong place to store a per-target-repo
+naming convention, since even `engineering-memory`/`engineering-knowledge-
+capture` (the two skills built for memory capture) explicitly never
+auto-write there.
+
+Implemented as two new top-level packages:
+
+- **`test_generation/`** (`generation-plan-report.json`): independent
+  loaders (`scenario_loader.py` — ADR-010 lineage, no cross-package
+  import), `naming_convention.py` (majority-vote inference over the target
+  repo's real test files, reusing regression-hunter's own "looks like a
+  test file" heuristic rather than reinventing it; an explicit
+  `--naming-convention-file` override short-circuits inference — the
+  chosen persistence mechanism is an explicit config file emitted into a
+  run's own `--out`, read back via that flag on a later run, not a new
+  hidden cache), `source_excerpt_reader.py` (a best-effort, non-parsing
+  line-scan excerpt of real source — "a hint, not ground truth," same
+  standard as `jvm_parser.py`), `generation_planner.py`, `models.py`,
+  `cli.py`. Given codebase-intelligence has no type/signature data,
+  deciding what a plausible negative case even is requires reading real
+  source and reasoning about it — the AI-judgment half of this project's
+  standing deterministic-engine-plus-agent-judgment split (ADR-005/007).
+  So this engine **never authors test code itself**: it produces a plan
+  (file, symbol, naming convention, source excerpt, 1 positive + 4
+  negative slot requests — this project's requested 3–5 band) that the
+  calling agent authors the actual file content from. Generated files are
+  written under `--out/generated-tests/`, never into the target repo
+  (unchanged read-only-target-repo rule).
+- **`test_validation/`** (`validation-report.json`): independent loaders
+  (`generated_tests_loader.py`, `environment_loader.py` — mirrors
+  `test_strategy/profile_loader.py` exactly), `validation_runner.py`
+  (executes an agent-authored test file via subprocess with a strict
+  per-file timeout, `PYTHONPATH` injection so the target repo is imported,
+  never written), `report_builder.py`, `models.py`, `cli.py`.
+
+- User Value: closes the gap the user surfaced directly — a generated test
+  that's never executed is a file that looks done but isn't. This phase
+  produces real, agent-authored test files *and* real, subprocess-executed
+  pass/fail evidence for them, not just a plan.
+- Correctness: demonstrated on this platform's own real repo state twice —
+  once reusing TEP Phase 5b's exact real (zero-candidate, L24/L36-inherited)
+  output, honestly reproducing the same zero result one level further
+  downstream; once against a synthetic-but-real scenario-plan-report.json
+  naming an actual symbol in this repo (`test_generation/naming_convention.
+  py`'s `_classify`), which produced a real generation plan with a real
+  source excerpt, from which an agent authored a real 5-test file (1
+  positive + 4 negative, all genuinely distinct — no padding needed), which
+  `test_validation` then actually executed via subprocess and reported as
+  passing (`exit_code: 0`, `5 passed in 0.02s`). See
+  `examples/test-generation/example-run.md` and
+  `examples/test-validation/example-run.md`.
+- **Two real bugs found and fixed by this dogfood run, not by the 51 unit
+  tests written before it** (both used only `tmp_path` fixtures, which are
+  always absolute — the real run used relative paths, as a normal CLI
+  invocation from a repo root does): (1) `run_validation` set the
+  subprocess `cwd` to the test file's own directory, so a relative
+  `test_file`/`repo_root` silently resolved against the *new* cwd instead
+  of the caller's — fixed by resolving both to absolute paths up front,
+  with a `monkeypatch.chdir`-based regression test added; (2)
+  `list_generated_tests` had no filter, so a prior run's own
+  `.pytest_cache/` was itself listed and reported as four bogus "generated
+  test" outcomes — fixed by restricting to recognized source extensions
+  and excluding hidden/`__pycache__` path components, with three new unit
+  tests. Both logged in the example-run write-up per this project's
+  disclose-don't-hide discipline, not silently patched.
+- Security: **this is this platform's first execution capability** — every
+  one of the 15 portfolio skills and every TEP package before this one
+  (evidence, project_intelligence, test_strategy, scenario_planner,
+  test_generation's own plan-only half) is pure static analysis;
+  `test_validation` runs real code via `subprocess.run`. Explicit
+  disclosure, not a claim of secure isolation: a strict per-file timeout is
+  enforced, but there is **no filesystem or network sandboxing** beyond
+  what the OS-level test runner itself provides — executing a generated
+  test here carries exactly the same risk as running that file inside the
+  target repo's own CI. No new attack surface beyond that is introduced
+  (no network calls, no writes into the target repo, no privilege
+  escalation), but this real risk-class change is named explicitly here
+  rather than folded silently into "just another static-analysis package."
+- Simplicity: no second, competing structural parser — `test_generation`
+  hands the agent a real source excerpt to read instead of extending
+  codebase-intelligence with parameter/type capture (a real, separate
+  build this ADR deliberately does not attempt). `test_validation` attempts
+  no build-system (Maven/Gradle) invocation for JVM files — an explicit
+  "no supported runner" outcome instead of a guessed command.
+- Maintainability: every module in both packages stays under 300 lines
+  (`test_generation/` 521 engine lines across 6 files, largest 106;
+  `test_validation/` 385 engine lines across 6 files, largest 109); 30 +
+  24 = 54 tests, all passing, alongside the pre-existing 93 (148 total).
+- Portability: stdlib-only for `test_generation`; `test_validation` shells
+  out to `pytest` (already a dev dependency across this portfolio) via
+  `sys.executable`, no new runtime dependency beyond that, continuing
+  ADR-006.
+- Evidence: `examples/test-generation/example-run.md` and
+  `examples/test-validation/example-run.md` with their committed output
+  JSON; `test_generation/tests/` (30 tests) and `test_validation/tests/`
+  (24 tests, including 6 real, non-mocked subprocess-execution tests);
+  [[23-generation-plan-report-schema]]; [[24-validation-report-schema]].
+- Future Evolution: this ADR authorizes only TEP Phase 5c's Test
+  Generation & Independent Validation sub-initiative. The remaining TEP
+  Phase 5c items (Human Review, Engineering Memory extension, Evaluation/
+  Ablation, external validation, DX, security/production hardening,
+  distribution) remain unscoped, each requiring its own explicit user
+  instruction and Phase Execution Contract pass, per the master prompt's
+  hard-stop rule.
+
+**Status**: Adopted. TEP Phase 5c's Test Generation & Independent
+Validation sub-initiative is complete as of 2026-09-06.

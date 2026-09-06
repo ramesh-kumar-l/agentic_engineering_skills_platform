@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "repo_root": ".",
+  "scenario_plan_report_path": "examples/scenario-planner/output/scenario-plan-report.json",
+  "naming_convention": {
+    "pattern": "test_*.py",
+    "example": "test_foo.py",
+    "source": "inferred"
+  },
+  "stats": {
+    "scenarios_considered": 0,
+    "specs_produced": 0,
+    "specs_with_source_excerpt": 0,
+    "negative_slots_requested": 0
+  },
+  "specs": [],
+  "warnings": [
+    "scenario-plan report contained zero candidate scenarios \u2014 nothing to plan test generation for"
+  ]
+}

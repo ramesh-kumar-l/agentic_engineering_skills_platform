@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "repo_root": "D:\\ClaudeProjects\\agentic_engineering_skills_platform",
+  "test_strategy_report_path": "synthetic",
+  "regression_report_path": "synthetic",
+  "ci_report_path": "examples/test-generation/synthetic-ci-report/report.json",
+  "stats": {
+    "targets_considered": 1,
+    "targets_with_structural_detail": 1,
+    "targets_missing_structural_detail": 0,
+    "scenarios_generated": 1
+  },
+  "plans": [
+    {
+      "file": "test_generation/naming_convention.py",
+      "priority": "medium",
+      "generation_feasible": true,
+      "recommended_framework": "pytest",
+      "structural_detail_available": true,
+      "scenarios": [
+        {
+          "scenario_name": "exercise function `_classify`",
+          "symbol_kind": "function",
+          "rationale": "`_classify` is a small pure function mapping a relative test-file path to one of a fixed set of naming-convention patterns, or None when unrecognized -- a real, self-contained target for demonstrating the positive+negative generation-plan mechanism.",
+          "source": "structural-listing",
+          "target_symbol": "_classify"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

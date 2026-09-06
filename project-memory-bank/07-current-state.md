@@ -741,9 +741,12 @@ Discovery, Android/JVM specifically, [[11-decisions|ADR-026]]), and TEP
 Phase 5a (Test Strategy Engine, [[11-decisions|ADR-027]],
 [[21-test-strategy-report-schema]]), and TEP Phase 5b's Scenario Planner
 sub-initiative (a new `scenario_planner/` package, [[11-decisions|ADR-028]],
-[[22-scenario-plan-report-schema]]) are now complete. TEP Phase 5c and
-beyond requires a new, separate, explicit user instruction before any
-further implementation. Android-framework *detection* (JUnit/Robolectric/
+[[22-scenario-plan-report-schema]]), and TEP Phase 5c's Test Generation &
+Independent Validation sub-initiative (two new packages, `test_generation/`
+and `test_validation/`, [[11-decisions|ADR-029]],
+[[23-generation-plan-report-schema]], [[24-validation-report-schema]]) are
+now complete. TEP Phase 5d and beyond requires a new, separate, explicit
+user instruction before any further implementation. Android-framework *detection* (JUnit/Robolectric/
 Espresso) exists, but real-world Android repos systematically under-report
 through it today: their build.gradle files almost universally version
 dependencies via Gradle variable/version-catalog interpolation, which the
@@ -759,6 +762,17 @@ stem false-positive gap (L24), now logged as a new instance,
 in regression-hunter's flag descriptions and codebase-intelligence's
 structural listing, computing no risk score and no line-level diff
 attribution; it inherits the same L36 chain one level further downstream
-by design (no new limitation entry needed). None of these gaps is fixed —
-L35/L24 remain the largest disclosed gaps in, respectively, Android
-readiness and test-strategy accuracy.
+by design (no new limitation entry needed). `test_generation/` and
+`test_validation/` now turn those candidate scenarios into a deterministic
+plan (never authoring test code itself) and then real, subprocess-executed
+pass/fail evidence for whatever an agent authors from that plan — this
+platform's first execution capability, with no filesystem/network
+sandboxing beyond a strict per-file timeout, disclosed explicitly rather
+than claimed away. That real run inherited the same L36 chain one level
+further downstream still (an honest zero-result), and separately proved
+the positive path against a real symbol in this repo — a run that itself
+found and fixed two real bugs (relative-path resolution, an unfiltered
+`.pytest_cache` artifact) that the unit tests written beforehand did not
+catch. None of the disclosed detection/accuracy gaps is fixed — L35/L24
+remain the largest disclosed gaps in, respectively, Android readiness and
+test-strategy accuracy.

@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "repo_root": ".",
+  "scenario_plan_report_path": "examples/test-generation/synthetic-scenario-plan-report.json",
+  "naming_convention": {
+    "pattern": "test_*.py",
+    "example": "test_foo.py",
+    "source": "inferred"
+  },
+  "stats": {
+    "scenarios_considered": 1,
+    "specs_produced": 1,
+    "specs_with_source_excerpt": 1,
+    "negative_slots_requested": 4
+  },
+  "specs": [
+    {
+      "file": "test_generation/naming_convention.py",
+      "target_symbol": "_classify",
+      "symbol_kind": "function",
+      "scenario_name": "exercise function `_classify`",
+      "scenario_rationale": "`_classify` is a small pure function mapping a relative test-file path to one of a fixed set of naming-convention patterns, or None when unrecognized -- a real, self-contained target for demonstrating the positive+negative generation-plan mechanism.",
+      "scenario_source": "structural-listing",
+      "recommended_framework": "pytest",
+      "naming_convention": {
+        "pattern": "test_*.py",
+        "example": "test_foo.py",
+        "source": "inferred"
+      },
+      "source_excerpt": "def _classify(rel_path: Path) -> str | None:\n    stem = rel_path.stem\n    suffix = rel_path.suffix\n    if suffix == \".py\" and stem.lower().startswith(\"test_\"):\n        return \"test_*.py\"\n    if suffix == \".py\" and stem.lower().endswith(\"_test\"):\n        return \"*_test.py\"\n    if suffix in (\".java\", \".kt\") and stem.endswith(\"Test\"):\n        return \"*Test.java\"\n    if suffix in (\".java\", \".kt\") and stem.endswith(\"Tests\"):\n        return \"*Tests.java\"\n    if suffix == \".kt\" and stem.endswith(\"Spec\"):\n        return \"*Spec.kt\"\n    return None\n\n\ndef load_naming_convention_override(path: str | Path) -> NamingConvention:\n    p = Path(path)\n    try:\n        raw = json.loads(p.read_text(encoding=\"utf-8\"))\n    except (OSError, json.JSONDecodeError) as exc:\n        raise NamingConventionError(\n            f\"cannot read naming-convention override at {p}: {exc}\"\n        ) from exc\n    try:\n        return NamingConvention(\n            pattern=raw[\"pattern\"], example=raw[\"example\"], source=\"override\"\n        )\n    except KeyError as exc:\n        raise NamingConventionError(\n            f\"{p} is missing required field {exc} \u2014 not a naming-convention \"\n            \"override file\"\n        ) from exc\n\n\ndef infer_naming_convention(repo_root: str) -> NamingConvention:\n    counts: dict[str, int] = {}\n    root = Path(repo_root)\n    if root.exists():\n        for path in root.rglob(\"*\"):",
+      "source_excerpt_available": true,
+      "positive_slot": {
+        "kind": "positive",
+        "slot_index": 0,
+        "instruction": "Author one positive/happy-path test exercising this scenario as described in scenario_rationale, following the naming convention above."
+      },
+      "negative_slots": [
+        {
+          "kind": "negative",
+          "slot_index": 1,
+          "instruction": "Author negative/edge-case test 1 of a requested 3-5, grounded in the real source excerpt above (an invalid input, boundary condition, or error path this symbol's real code plausibly supports). If the real source excerpt cannot support this many genuinely distinct negative conditions, author fewer and say so in a comment rather than duplicate a case."
+        },
+        {
+          "kind": "negative",
+          "slot_index": 2,
+          "instruction": "Author negative/edge-case test 2 of a requested 3-5, grounded in the real source excerpt above (an invalid input, boundary condition, or error path this symbol's real code plausibly supports). If the real source excerpt cannot support this many genuinely distinct negative conditions, author fewer and say so in a comment rather than duplicate a case."
+        },
+        {
+          "kind": "negative",
+          "slot_index": 3,
+          "instruction": "Author negative/edge-case test 3 of a requested 3-5, grounded in the real source excerpt above (an invalid input, boundary condition, or error path this symbol's real code plausibly supports). If the real source excerpt cannot support this many genuinely distinct negative conditions, author fewer and say so in a comment rather than duplicate a case."
+        },
+        {
+          "kind": "negative",
+          "slot_index": 4,
+          "instruction": "Author negative/edge-case test 4 of a requested 3-5, grounded in the real source excerpt above (an invalid input, boundary condition, or error path this symbol's real code plausibly supports). If the real source excerpt cannot support this many genuinely distinct negative conditions, author fewer and say so in a comment rather than duplicate a case."
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

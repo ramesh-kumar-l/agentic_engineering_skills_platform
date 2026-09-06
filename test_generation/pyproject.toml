@@ -1,0 +1,19 @@
+[project]
+name = "test-generation"
+version = "0.1.0"
+description = "Test Generation: turns Scenario Planner's candidate scenarios into a deterministic plan (naming convention, source excerpt, positive+negative slot requests) for an agent to author real test files from (TEP Phase 5c). Stdlib-only."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools]
+packages = ["test_generation"]
+
+[tool.setuptools.package-dir]
+test_generation = "."
+
+[tool.pytest.ini_options]
+pythonpath = [".."]
+testpaths = ["tests"]

@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "repo_root": ".",
+  "generated_tests_dir": "examples/test-generation/synthetic-output/generated-tests",
+  "test_environment_profile_path": "examples/test-generation/synthetic-profile/test-environment-profile.json",
+  "stats": {
+    "test_files_considered": 1,
+    "passed": 1,
+    "failed": 0,
+    "timed_out": 0
+  },
+  "outcomes": [
+    {
+      "test_file": "D:\\ClaudeProjects\\agentic_engineering_skills_platform\\examples\\test-generation\\synthetic-output\\generated-tests\\test_classify.py",
+      "framework": "pytest",
+      "command": [
+        "C:\\Users\\Ramesh\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-m",
+        "pytest",
+        "D:\\ClaudeProjects\\agentic_engineering_skills_platform\\examples\\test-generation\\synthetic-output\\generated-tests\\test_classify.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "timed_out": false,
+      "stdout_excerpt": ".....                                                                    [100%]\n5 passed in 0.02s\n",
+      "stderr_excerpt": "",
+      "duration_ms": 1688
+    }
+  ],
+  "warnings": []
+}
