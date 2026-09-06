@@ -7,6 +7,20 @@ appended to. Complements [[implementation-status.md]] (what's built) and
 
 ## Current phase
 
+**2026-09-06 update**: a newly-proposed pivot (a broader "Project-Aware
+Test Engineering Platform" per an externally-supplied master system
+prompt, logged as [[11-decisions|ADR-023]]) is now underway, at the user's
+explicit direction, **separately from** the closed 15-skill portfolio
+below. Its own phase sequence ("TEP Phase N") is unrelated to this
+section's Phase 1–15 numbering — see
+[[18-test-engineering-platform-contract]]'s naming note. TEP Phase 0
+(repository/memory understanding) and TEP Phase 1 (Product Contract) are
+both complete; TEP Phase 2 (Evidence Foundation) has not started and
+requires its own separate, explicit user instruction, per the master
+prompt's own hard-stop rule. See "What TEP Phase 1 built" below. This does
+not change the status of the closed 15-skill portfolio described in the
+rest of this section.
+
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
 originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
 no Phase 16 in that list.** 2026-08-26 (same day, seven sub-events): (1)
@@ -43,6 +57,27 @@ work — starting Phase 11 through Phase 15 were each one-time, explicit
 exceptions, not a general unfreezing, and Phase 15's completion means any
 further skill is a newly-proposed scope, not "the next phase in the
 list."
+
+## What TEP Phase 1 built
+
+Wrote [[18-test-engineering-platform-contract]] — the Product Contract for
+the master-prompt-directed pivot ([[11-decisions|ADR-023]]): mission,
+problem, target user, JTBD, a thesis restated as continuous with this
+project's existing ADR-005/007 deterministic-plus-judgment architecture
+(not a new philosophy), explicit scope/non-goals, an honest current-maturity
+baseline reusing TEP Phase 0's audit (generation and independent validation
+both genuinely don't exist yet; Android-framework readiness is zero;
+evidence/provenance schema doesn't exist), a proposed-only north-star
+metric (Verified Useful Test Rate — zero real measurements, flagged the
+same way [[16-assumptions-and-validation]] flags every other unproven
+assumption here), and exit criteria for the three phases with enough
+information to scope now (TEP Phase 2 Evidence Foundation, TEP Phase 3
+Project Intelligence extensions, TEP Phase 4 Android/JVM Test Environment
+Discovery) — later phases deliberately left undefined, same
+anti-speculation discipline as ADR-006/009. No code written; no skill
+touched; no test count changed. ADR-023 updated with an addendum recording
+this; still logged as **Proposed, not Adopted** — TEP Phase 2 requires its
+own separate, explicit user instruction before starting.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
 
@@ -586,6 +621,14 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    yet updated with Phase 6-11 posts)
 
 ## Last updated
+
+2026-09-06 — TEP Phase 1 (Product Contract) for the newly-proposed
+"Project-Aware Test Engineering Platform" pivot ([[11-decisions|ADR-023]]),
+at the user's explicit direction following TEP Phase 0. See
+[[18-test-engineering-platform-contract]] and "What TEP Phase 1 built"
+above. No code, tests, or existing skill changed; separate from, and does
+not reopen, the closed 15-skill portfolio below. TEP Phase 2 not started —
+requires its own explicit approval.
 
 2026-08-29 — ADR-022: Java/Kotlin multi-language support, added at the
 user's explicit direction after they asked whether the 15-skill portfolio

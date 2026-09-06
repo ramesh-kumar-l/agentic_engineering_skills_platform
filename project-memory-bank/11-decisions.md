@@ -1563,3 +1563,18 @@ understanding) is complete per the supplied prompt's own contract; per
 that same contract's hard-stop rule (never continue automatically), Phase 1
 requires a new, explicit user instruction before any further work —
 including before this ADR's own status can move from Proposed to Adopted.
+
+**Addendum (2026-09-06)**: the user explicitly directed continuing to
+Phase 1. Executed as [[18-test-engineering-platform-contract]] — a Product
+Contract scoping mission, problem, target user, JTBD, scope/non-goals,
+honest current-maturity baseline (reusing Phase 0's findings, not
+re-deriving them), a proposed-only north-star metric, and exit criteria for
+the phases with enough information to scope (TEP Phase 2 Evidence
+Foundation, TEP Phase 3 Project Intelligence extensions, TEP Phase 4
+Android/JVM Test Environment Discovery). No code was written — this ADR's
+own status stays **Proposed**, not Adopted, and TEP Phase 2 still requires
+its own separate, explicit user instruction before starting, per the same
+hard-stop rule this ADR already established. No new memory files were
+created beyond the one contract file the master prompt's own Phase 1
+deliverable requires; [[07-current-state]] and [[active-context.md]] were
+updated to point to it rather than duplicate its content.

@@ -332,6 +332,15 @@ No code, tests, `SKILL.md` contracts, or evaluation harnesses changed in
 this pass — test count and evaluation results are unchanged from the Phase
 5 completion state (149/149 passing).
 
+## Test Engineering Platform pivot (new, 2026-09-06 — separate from the skill table above)
+
+No code exists yet. TEP Phase 0 (repo/memory audit) and TEP Phase 1
+(Product Contract, [[18-test-engineering-platform-contract]]) are complete;
+see [[11-decisions|ADR-023]] and `active-context.md`'s "What TEP Phase 1
+built". TEP Phase 2 (Evidence Foundation) is not started and needs its own
+explicit approval — nothing in this section should be read as a build
+in progress.
+
 ## Not yet built
 
 - **No further skill is next by default.** Phase 15 (`engineering-memory`)
@@ -398,6 +407,12 @@ this pass — test count and evaluation results are unchanged from the Phase
   instance without yet being acted on.
 
 ## Last updated
+
+2026-09-06 — TEP Phase 1 (Product Contract) for the newly-proposed Test
+Engineering Platform pivot ([[11-decisions|ADR-023]],
+[[18-test-engineering-platform-contract]]). No code, skill, or test count
+changed — see the new section above. TEP Phase 2 requires separate
+explicit approval before any build starts.
 
 2026-08-29 — ADR-022: Java/Kotlin multi-language support. User-directed,
 cross-cutting scope (touching `codebase-intelligence` and 5 downstream
