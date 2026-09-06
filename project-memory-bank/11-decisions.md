@@ -1641,3 +1641,77 @@ directly. The full schema and field-by-field rationale are documented in
 
 **Status**: Adopted. TEP Phase 2 (Evidence Foundation) is complete as of
 2026-09-06.
+
+---
+
+## ADR-025: `TestEnvironmentProfile` implemented as a new top-level `project_intelligence/` package, consuming a codebase-intelligence report.json rather than importing its engine
+
+**Decision**: TEP Phase 3's exit criteria ([[18-test-engineering-platform-contract]])
+— a `TestEnvironmentProfile`-equivalent derived from a real target repo,
+extending `codebase-intelligence`'s existing dependency output rather than
+re-parsing manifests separately — is implemented as a new,
+independently-packaged component at `project_intelligence/` (own
+`pyproject.toml`, stdlib-only, own test suite), following ADR-024's
+precedent of a platform-level package rather than a new skill directory.
+`ci_report_loader.py` reads a codebase-intelligence `report.json` file into
+its own lightweight local dataclasses — the exact same pattern
+`feature-planner/engine/ci_report_loader.py` established (ADR-010) — and
+never imports `codebase-intelligence`'s `engine` package directly. The full
+schema, detection-signature scope, and confidence-tier rationale are
+documented in [[20-test-environment-profile-schema]].
+
+- User Value: turns "what test tooling does this repo actually use" from a
+  question an agent would otherwise guess at into a derived, evidenced
+  answer — grounded in the same structural data `feature-planner`,
+  `regression-hunter`, and eight other skills already require, not a new
+  ungrounded heuristic.
+- Correctness: demonstrated on a real, non-fixture run —
+  `python -m project_intelligence.cli` against a freshly-generated
+  `codebase-intelligence` report of `skills/codebase-intelligence` itself,
+  captured in `examples/project-intelligence/example-run.md`. The run
+  correctly reported a `manifest-only` build-system finding (the skill's
+  `pyproject.toml` genuinely declares `dependencies = []`) and correctly
+  reported all three tooling categories `unavailable` rather than guessing
+  — which also surfaced a real, previously-undocumented gap in
+  `external_deps.py` (PEP 621 `[project.optional-dependencies]` is never
+  parsed), now logged as [[12-known-limitations|L34]]. 20 unit tests cover
+  the report loader's failure modes, exact-key signature matching
+  (including the `pytest` vs. `pytest-mock` collision the substring
+  alternative would have caused, and Maven `group:artifact` coordinate
+  matching), both confidence tiers, and the CLI's stdout/`--out` paths.
+- Security: no network calls (offline, per ADR-006); read-only against a
+  report the caller already has access to, same surface as
+  `ci_report_loader.py`'s existing precedent.
+- Simplicity: every finding category is a `list[Finding]`, not a single
+  guessed value — a real repo can mix ecosystems, and collapsing to one
+  value would hide the others rather than simplify anything. Considered and
+  rejected re-parsing manifests directly to work around the
+  optional-dependencies gap (L34) — the exit criteria explicitly forbids
+  it, and the correct fix (if ever needed) belongs in `external_deps.py`
+  itself, not duplicated here.
+- Maintainability: every module in `project_intelligence/` stays under 300
+  lines (largest is `ci_report_loader.py` at 75); Android-specific
+  frameworks (Robolectric, Espresso) were deliberately left out of
+  `signatures.py` — that is TEP Phase 4's own exit criteria, not this
+  phase's.
+- Portability: stdlib-only (`json`, `pathlib`, `dataclasses`) — zero new
+  runtime dependencies, continuing ADR-006.
+- Evidence: `examples/project-intelligence/example-run.md`,
+  `examples/project-intelligence/ci-report/report.json`,
+  `examples/project-intelligence/output/test-environment-profile.json`,
+  `project_intelligence/tests/` (20 passing tests).
+- Future Evolution: this ADR does not authorize TEP Phase 4 or beyond —
+  each requires its own separate, explicit user instruction per the master
+  prompt's hard-stop rule. It also fixes a real packaging defect found
+  while implementing this phase: both `evidence/` and `project_intelligence/`
+  use a flat `.py`-files-at-package-root layout that setuptools' automatic
+  discovery cannot resolve on a clean checkout (`pip install -e ".[dev]"`
+  failed with "Multiple top-level modules discovered" once verified against
+  a simulated clean checkout) — fixed in both packages'
+  `pyproject.toml` with an explicit `[tool.setuptools] packages`/
+  `package-dir` declaration. This was a real, previously-unverified gap in
+  ADR-024's own CI job, not scope creep: left unfixed, both packages' CI
+  jobs would fail on every real run.
+
+**Status**: Adopted. TEP Phase 3 (Project Intelligence extensions) is
+complete as of 2026-09-06.

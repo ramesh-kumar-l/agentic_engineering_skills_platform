@@ -335,10 +335,11 @@ this pass — test count and evaluation results are unchanged from the Phase
 ## Test Engineering Platform pivot (new, 2026-09-06 — separate from the skill table above)
 
 TEP Phase 0 (repo/memory audit), TEP Phase 1 (Product Contract,
-[[18-test-engineering-platform-contract]]), and TEP Phase 2 (Evidence
-Foundation) are complete; see [[11-decisions|ADR-023]],
-[[11-decisions|ADR-024]], and `active-context.md`'s "What TEP Phase 1
-built" / "What TEP Phase 2 built".
+[[18-test-engineering-platform-contract]]), TEP Phase 2 (Evidence
+Foundation), and TEP Phase 3 (Project Intelligence extensions) are
+complete; see [[11-decisions|ADR-023]], [[11-decisions|ADR-024]],
+[[11-decisions|ADR-025]], and `active-context.md`'s "What TEP Phase 1/2/3
+built".
 
 TEP Phase 2 shipped one new, independently-packaged component:
 
@@ -354,8 +355,28 @@ TEP Phase 2 shipped one new, independently-packaged component:
   count (733) is unchanged; `evidence/`'s 16 tests are a new, separate
   suite.
 
-TEP Phase 3 (Project Intelligence extensions) is not started and needs its
-own explicit approval.
+TEP Phase 3 shipped one new, independently-packaged component:
+
+- **`project_intelligence/`** — derives a `TestEnvironmentProfile`
+  (language, build system, test/mock/coverage tooling) from an existing
+  `codebase-intelligence` report.json. `models.py` (52 lines),
+  `ci_report_loader.py` (75), `signatures.py` (64), `detect.py` (68),
+  `profile_builder.py` (70), `cli.py` (52) — all under the 300-line limit.
+  20 tests, all passing. Schema documented in
+  [[20-test-environment-profile-schema]]. Demonstrated on a real run
+  against `skills/codebase-intelligence` itself (`examples/project-
+  intelligence/`), not a fixture — the run also surfaced a real,
+  previously-undocumented gap in `external_deps.py` (PEP 621 optional
+  dependencies aren't parsed), now logged as [[12-known-limitations|L34]].
+  Own CI job added. Also fixed a packaging defect shared with `evidence/`
+  (flat module layout broke a clean `pip install -e`) — see
+  [[11-decisions|ADR-025]].
+- No existing skill's code was touched. Test counts: 733 (skills) + 16
+  (evidence) unaffected; `project_intelligence/`'s 20 tests are a new,
+  separate suite.
+
+TEP Phase 4 (Test Environment Discovery, Android/JVM specifically) is not
+started and needs its own explicit approval.
 
 ## Not yet built
 
@@ -423,6 +444,14 @@ own explicit approval.
   instance without yet being acted on.
 
 ## Last updated
+
+2026-09-06 — TEP Phase 3 (Project Intelligence extensions) for the Test
+Engineering Platform pivot ([[11-decisions|ADR-025]],
+[[20-test-environment-profile-schema]]). New `project_intelligence`
+package + 20 tests; no existing skill's code changed. Also fixed a
+packaging defect in both `evidence/` and `project_intelligence/` (flat
+module layout broke `pip install -e` on a clean checkout). TEP Phase 4
+requires separate explicit approval before any build starts.
 
 2026-09-06 — TEP Phase 2 (Evidence Foundation) for the Test Engineering
 Platform pivot ([[11-decisions|ADR-024]], [[19-evidence-provenance-schema]]).

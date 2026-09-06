@@ -1,0 +1,722 @@
+{
+  "root_path": "D:\\ClaudeProjects\\agentic_engineering_skills_platform\\skills\\codebase-intelligence",
+  "generated_at": "2026-09-06T03:13:36.138002+00:00",
+  "file_count": 22,
+  "language_breakdown": {
+    "toml": 1,
+    "markdown": 2,
+    "python": 19
+  },
+  "files": [
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "size_bytes": 334,
+      "line_count": 13
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "size_bytes": 1219,
+      "line_count": 37
+    },
+    {
+      "path": "SKILL.md",
+      "language": "markdown",
+      "size_bytes": 7840,
+      "line_count": 160
+    },
+    {
+      "path": "engine/cli.py",
+      "language": "python",
+      "size_bytes": 1643,
+      "line_count": 51
+    },
+    {
+      "path": "engine/external_deps.py",
+      "language": "python",
+      "size_bytes": 5914,
+      "line_count": 152
+    },
+    {
+      "path": "engine/generic_parser.py",
+      "language": "python",
+      "size_bytes": 1405,
+      "line_count": 42
+    },
+    {
+      "path": "engine/graph.py",
+      "language": "python",
+      "size_bytes": 6460,
+      "line_count": 165
+    },
+    {
+      "path": "engine/jvm_parser.py",
+      "language": "python",
+      "size_bytes": 3059,
+      "line_count": 82
+    },
+    {
+      "path": "engine/models.py",
+      "language": "python",
+      "size_bytes": 2560,
+      "line_count": 83
+    },
+    {
+      "path": "engine/python_parser.py",
+      "language": "python",
+      "size_bytes": 3182,
+      "line_count": 90
+    },
+    {
+      "path": "engine/render_json.py",
+      "language": "python",
+      "size_bytes": 464,
+      "line_count": 16
+    },
+    {
+      "path": "engine/render_markdown.py",
+      "language": "python",
+      "size_bytes": 3238,
+      "line_count": 82
+    },
+    {
+      "path": "engine/report.py",
+      "language": "python",
+      "size_bytes": 3899,
+      "line_count": 95
+    },
+    {
+      "path": "engine/scanner.py",
+      "language": "python",
+      "size_bytes": 4163,
+      "line_count": 124
+    },
+    {
+      "path": "engine/__init__.py",
+      "language": "python",
+      "size_bytes": 111,
+      "line_count": 3
+    },
+    {
+      "path": "tests/test_external_deps.py",
+      "language": "python",
+      "size_bytes": 3585,
+      "line_count": 117
+    },
+    {
+      "path": "tests/test_graph.py",
+      "language": "python",
+      "size_bytes": 4520,
+      "line_count": 129
+    },
+    {
+      "path": "tests/test_integration.py",
+      "language": "python",
+      "size_bytes": 1164,
+      "line_count": 26
+    },
+    {
+      "path": "tests/test_jvm_parser.py",
+      "language": "python",
+      "size_bytes": 3269,
+      "line_count": 110
+    },
+    {
+      "path": "tests/test_python_parser.py",
+      "language": "python",
+      "size_bytes": 2282,
+      "line_count": 68
+    },
+    {
+      "path": "tests/test_report.py",
+      "language": "python",
+      "size_bytes": 2389,
+      "line_count": 62
+    },
+    {
+      "path": "tests/test_scanner.py",
+      "language": "python",
+      "size_bytes": 2582,
+      "line_count": 71
+    }
+  ],
+  "modules": [
+    {
+      "path": "engine/cli.py",
+      "language": "python",
+      "docstring": "Thin CLI entry point. All real logic lives in report.py and the renderers.\n\nUsage:\n    python -m engine.cli <path> [--format json|markdown|both] [--out DIR]",
+      "functions": [
+        "main"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "argparse",
+        "sys",
+        "pathlib",
+        ".render_json",
+        ".render_markdown",
+        ".report"
+      ],
+      "has_main_guard": true,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/external_deps.py",
+      "language": "python",
+      "docstring": "Parses external (third-party) dependency manifests.\n\nStdlib-only by design: uses a small manual TOML scan instead of `tomllib`\nso the engine works on Python 3.10+ without a version-dependent import.",
+      "functions": [
+        "parse_external_dependencies",
+        "_parse_requirements_txt",
+        "_parse_pyproject_toml",
+        "_parse_package_json",
+        "_parse_pom_xml",
+        "_pom_child_text",
+        "_parse_gradle"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "re",
+        "xml.etree.ElementTree",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/generic_parser.py",
+      "language": "python",
+      "docstring": "Heuristic (regex-based) import extraction for non-Python, non-JVM languages.\n\nKNOWN LIMITATION (see project-memory-bank/12-known-limitations.md): this is\nnot a real parser. It pattern-matches common import syntaxes for JS/TS and\nGo. It will miss dynamic imports, re-exports, and unusual formatting. Treat\nits output as a hint, not ground truth. Java/Kotlin are parsed separately by\njvm_parser.py, which also extracts package declarations and type names.",
+      "functions": [
+        "parse_generic_file"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/graph.py",
+      "language": "python",
+      "docstring": "Builds the internal (repo-local) dependency graph from parsed imports.\n\nOnly imports that resolve to a file inside the scanned repo become graph\nedges. Everything else (stdlib, third-party packages) is left out of the\ngraph on purpose \u2014 external_deps.py handles third-party dependencies\nseparately, so the graph stays a clean map of internal coupling.",
+      "functions": [
+        "build_graph",
+        "_build_python_index",
+        "_resolve_python_import",
+        "_resolve_js_import",
+        "_build_jvm_fqn_index",
+        "_resolve_jvm_import",
+        "_normalize_posix"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "collections",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/jvm_parser.py",
+      "language": "python",
+      "docstring": "Regex-based structural parsing for Java and Kotlin files.\n\nJava and Kotlin share enough package/import/type-declaration syntax that\none module serves both languages \u2014 the same \"one engine, language param\"\nshape as generic_parser.py. Unlike generic_parser.py's import-only regex,\nthis module also extracts the real `package` declaration and top-level\ntype/function names, needed both for the FQN index (graph.py's JVM\nresolver, ADR-022) and for entry-point detection (report.py).\n\nKNOWN LIMITATION (see project-memory-bank/12-known-limitations.md, L32):\nthis is regex-based, not a real parser \u2014 it does not track brace depth. A\nnested/inner class or interface is indistinguishable from a top-level one,\nso it can be mis-recorded into the FQN index as if it were top-level.\nTreat its output as a hint, not ground truth \u2014 same standing caveat as\ngeneric_parser.py.",
+      "functions": [
+        "parse_jvm_file"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/models.py",
+      "language": "python",
+      "docstring": "Shared data schema for the Codebase Intelligence report.\n\nEvery other engine module produces or consumes these types. Keeping the\nschema in one file means the JSON/Markdown renderers and the evaluation\nharness all agree on the same contract without importing each other.",
+      "functions": [],
+      "classes": [
+        "FileInfo",
+        "ModuleInfo",
+        "EntryPoint",
+        "ExternalDependency",
+        "DependencyEdge",
+        "DependencyGraph",
+        "DocCoverage",
+        "CodebaseIntelligenceReport"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/python_parser.py",
+      "language": "python",
+      "docstring": "AST-based structural parsing for Python files.\n\nOnly structure is extracted (imports, def/class names, docstrings) \u2014 never\nfull file contents \u2014 so downstream consumers get a condensed context object,\nnot a repo dump (see NFR2 in project-memory-bank/02-requirements.md).",
+      "functions": [
+        "parse_python_file",
+        "_is_top_level",
+        "_has_main_guard"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "ast",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/render_json.py",
+      "language": "python",
+      "docstring": "Full-detail JSON rendering of a CodebaseIntelligenceReport.\n\nThis is the machine-readable output other skills should consume \u2014 it is\nnot truncated, unlike the Markdown renderer.",
+      "functions": [
+        "render_json"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "json",
+        "dataclasses",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/render_markdown.py",
+      "language": "python",
+      "docstring": "Condensed, human/agent-readable Markdown rendering.\n\nDeliberately summarized (top hotspots, not every file) so the output stays\n\"minimum sufficient context\" even for large repos \u2014 see NFR2 in\nproject-memory-bank/02-requirements.md. Full detail belongs in the JSON\noutput (render_json.py), not here.",
+      "functions": [
+        "render_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/report.py",
+      "language": "python",
+      "docstring": "Orchestrates scanner + parsers + graph + external_deps into one report.\n\nThis is the only module that knows the full pipeline order; every other\nmodule is independently testable in isolation.",
+      "functions": [
+        "build_report",
+        "_parse_modules",
+        "_find_entry_points",
+        "_compute_doc_coverage"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "collections",
+        "datetime",
+        "pathlib",
+        ".external_deps",
+        ".generic_parser",
+        ".graph",
+        ".jvm_parser",
+        ".python_parser",
+        ".scanner",
+        ".models",
+        "json"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/scanner.py",
+      "language": "python",
+      "docstring": "Repo walk: builds the file inventory and applies exclusion/security rules.\n\nSecurity note: this module NEVER reads the contents of a file it classifies\nas secret-shaped (see SECRET_NAME_PATTERNS). Those files are recorded only\nas a warning (filename, nothing else) so the rest of the engine can never\nleak their contents downstream.",
+      "functions": [
+        "is_secret_shaped",
+        "detect_language",
+        "scan",
+        "_count_lines"
+      ],
+      "classes": [],
+      "imports": [
+        "__future__",
+        "os",
+        "re",
+        "pathlib",
+        ".models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "engine/__init__.py",
+      "language": "python",
+      "docstring": "Codebase Intelligence engine: deterministic, stdlib-only repo structure analysis.",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "tests/test_external_deps.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_parses_requirements_txt",
+        "test_parses_package_json",
+        "test_no_manifests_returns_empty",
+        "test_parses_pyproject_toml_dependencies",
+        "test_parses_pom_xml_dependencies",
+        "test_parses_namespaced_pom_xml_dependencies",
+        "test_parses_gradle_groovy_dependencies",
+        "test_parses_gradle_kts_dependencies"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "tests/test_graph.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_resolves_internal_python_import",
+        "test_ignores_external_python_import",
+        "test_resolves_relative_python_import",
+        "test_resolves_relative_js_import",
+        "test_ignores_bare_js_specifier",
+        "test_resolves_jvm_import_via_package_index",
+        "test_resolves_jvm_import_regardless_of_directory_layout",
+        "test_resolves_jvm_wildcard_import_to_every_class_in_package",
+        "test_ignores_unresolved_jvm_import",
+        "test_hotspots_ranks_by_combined_degree"
+      ],
+      "classes": [],
+      "imports": [
+        "engine",
+        "engine.models"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "tests/test_integration.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_full_pipeline_produces_valid_json_and_markdown"
+      ],
+      "classes": [],
+      "imports": [
+        "json",
+        "pathlib",
+        "engine.render_json",
+        "engine.render_markdown",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "tests/test_jvm_parser.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_parses_java_package_imports_and_class",
+        "test_parses_kotlin_package_imports_class_and_function",
+        "test_no_package_declaration_is_none",
+        "test_wildcard_import_captured_with_suffix",
+        "test_java_main_detected",
+        "test_java_main_not_detected_without_both_modifiers",
+        "test_kotlin_main_detected",
+        "test_kotlin_no_main_function",
+        "test_unreadable_file_sets_parse_error"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "tests/test_python_parser.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_parses_imports_defs_classes_docstring",
+        "test_handles_syntax_error_gracefully",
+        "test_relative_imports_captured",
+        "test_has_main_guard_detects_real_guard",
+        "test_has_main_guard_ignores_string_mentions"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "tests/test_report.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_build_report_basic_shape",
+        "test_build_report_on_empty_dir",
+        "test_build_report_java_kotlin_pipeline"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine.report"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    },
+    {
+      "path": "tests/test_scanner.py",
+      "language": "python",
+      "docstring": null,
+      "functions": [
+        "test_scan_finds_python_files",
+        "test_scan_excludes_default_dirs",
+        "test_scan_excludes_egg_info_dirs",
+        "test_scan_skips_secret_shaped_files_without_reading_content",
+        "test_scan_skips_oversized_files",
+        "test_detect_language"
+      ],
+      "classes": [],
+      "imports": [
+        "pathlib",
+        "engine"
+      ],
+      "has_main_guard": false,
+      "package": null,
+      "parse_error": null
+    }
+  ],
+  "entry_points": [
+    {
+      "path": "engine/cli.py",
+      "reason": "if __name__ == '__main__'"
+    }
+  ],
+  "dependency_graph": {
+    "edges": [
+      {
+        "source": "engine/cli.py",
+        "target": "engine/render_json.py"
+      },
+      {
+        "source": "engine/cli.py",
+        "target": "engine/render_markdown.py"
+      },
+      {
+        "source": "engine/cli.py",
+        "target": "engine/report.py"
+      },
+      {
+        "source": "engine/external_deps.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "engine/generic_parser.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "engine/graph.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "engine/jvm_parser.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "engine/python_parser.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "engine/render_json.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "engine/render_markdown.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "engine/report.py",
+        "target": "engine/external_deps.py"
+      },
+      {
+        "source": "engine/report.py",
+        "target": "engine/generic_parser.py"
+      },
+      {
+        "source": "engine/report.py",
+        "target": "engine/graph.py"
+      },
+      {
+        "source": "engine/report.py",
+        "target": "engine/jvm_parser.py"
+      },
+      {
+        "source": "engine/report.py",
+        "target": "engine/python_parser.py"
+      },
+      {
+        "source": "engine/report.py",
+        "target": "engine/scanner.py"
+      },
+      {
+        "source": "engine/report.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "engine/scanner.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "tests/test_external_deps.py",
+        "target": "engine/__init__.py"
+      },
+      {
+        "source": "tests/test_graph.py",
+        "target": "engine/__init__.py"
+      },
+      {
+        "source": "tests/test_graph.py",
+        "target": "engine/models.py"
+      },
+      {
+        "source": "tests/test_integration.py",
+        "target": "engine/render_json.py"
+      },
+      {
+        "source": "tests/test_integration.py",
+        "target": "engine/render_markdown.py"
+      },
+      {
+        "source": "tests/test_integration.py",
+        "target": "engine/report.py"
+      },
+      {
+        "source": "tests/test_jvm_parser.py",
+        "target": "engine/__init__.py"
+      },
+      {
+        "source": "tests/test_python_parser.py",
+        "target": "engine/__init__.py"
+      },
+      {
+        "source": "tests/test_report.py",
+        "target": "engine/report.py"
+      },
+      {
+        "source": "tests/test_scanner.py",
+        "target": "engine/__init__.py"
+      }
+    ],
+    "fan_in": {
+      "engine/render_json.py": 2,
+      "engine/render_markdown.py": 2,
+      "engine/report.py": 3,
+      "engine/models.py": 10,
+      "engine/external_deps.py": 1,
+      "engine/generic_parser.py": 1,
+      "engine/graph.py": 1,
+      "engine/jvm_parser.py": 1,
+      "engine/python_parser.py": 1,
+      "engine/scanner.py": 1,
+      "engine/__init__.py": 5
+    },
+    "fan_out": {
+      "engine/cli.py": 3,
+      "engine/external_deps.py": 1,
+      "engine/generic_parser.py": 1,
+      "engine/graph.py": 1,
+      "engine/jvm_parser.py": 1,
+      "engine/python_parser.py": 1,
+      "engine/render_json.py": 1,
+      "engine/render_markdown.py": 1,
+      "engine/report.py": 7,
+      "engine/scanner.py": 1,
+      "tests/test_external_deps.py": 1,
+      "tests/test_graph.py": 2,
+      "tests/test_integration.py": 3,
+      "tests/test_jvm_parser.py": 1,
+      "tests/test_python_parser.py": 1,
+      "tests/test_report.py": 1,
+      "tests/test_scanner.py": 1
+    },
+    "hotspots": [
+      "engine/report.py",
+      "engine/models.py",
+      "engine/__init__.py",
+      "engine/render_json.py",
+      "engine/render_markdown.py",
+      "engine/cli.py",
+      "tests/test_integration.py",
+      "engine/external_deps.py",
+      "engine/generic_parser.py",
+      "engine/graph.py"
+    ]
+  },
+  "external_dependencies": [],
+  "doc_coverage": {
+    "dirs_with_readme": [
+      ""
+    ],
+    "dirs_without_readme": [
+      "engine",
+      "tests"
+    ]
+  },
+  "excluded_dir_count": 4,
+  "skipped_file_count": 0,
+  "warnings": []
+}

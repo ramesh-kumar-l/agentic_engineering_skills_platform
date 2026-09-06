@@ -166,7 +166,16 @@ the new `evidence/` package — see [[19-evidence-provenance-schema]] and
 `examples/evidence/example-run.md` for the real, non-fixture demonstration
 this phase's exit criteria required.
 
-TEP Phase 3 (Project Intelligence extensions) has **not** started — per
-the master prompt's own hard-stop rule (section 39) and this project's own
-phase-by-phase discipline, it requires a new, separate, explicit user
-instruction, not automatic continuation from this contract's completion.
+TEP Phase 3 (Project Intelligence extensions) is also complete as of
+2026-09-06, per the user's explicit direction to continue past TEP Phase 2.
+Implemented as the new `project_intelligence/` package — see
+[[20-test-environment-profile-schema]] and [[11-decisions|ADR-025]] for the
+schema and implementation decision, and
+`examples/project-intelligence/example-run.md` for the real, non-fixture
+demonstration this phase's exit criteria required.
+
+TEP Phase 4 (Test Environment Discovery, Android/JVM specifically) has
+**not** started — per the master prompt's own hard-stop rule (section 39)
+and this project's own phase-by-phase discipline, it requires a new,
+separate, explicit user instruction, not automatic continuation from this
+contract's completion.

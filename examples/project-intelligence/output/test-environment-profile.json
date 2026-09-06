@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "repo_root": "D:\\ClaudeProjects\\agentic_engineering_skills_platform\\skills\\codebase-intelligence",
+  "ci_report_path": "../examples/project-intelligence/ci-report/report.json",
+  "primary_language": "python",
+  "language_breakdown": {
+    "toml": 1,
+    "markdown": 2,
+    "python": 19
+  },
+  "build_systems": [
+    {
+      "name": "python (pyproject.toml)",
+      "evidence": [
+        "pyproject.toml"
+      ],
+      "confidence": "manifest-only"
+    }
+  ],
+  "test_frameworks": [],
+  "mock_frameworks": [],
+  "coverage_tools": [],
+  "unavailable": [
+    "test_framework",
+    "mock_framework",
+    "coverage_tool"
+  ],
+  "warnings": [
+    "codebase-intelligence reported zero external_dependencies for this scan root \u2014 dependency-confirmed detection is impossible here; any build-system findings below are manifest-only (see project-memory-bank/12-known-limitations.md L2/L34 for why this can under-report)."
+  ]
+}

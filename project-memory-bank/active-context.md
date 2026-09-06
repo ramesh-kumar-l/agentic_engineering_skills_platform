@@ -14,14 +14,16 @@ explicit direction, **separately from** the closed 15-skill portfolio
 below. Its own phase sequence ("TEP Phase N") is unrelated to this
 section's Phase 1–15 numbering — see
 [[18-test-engineering-platform-contract]]'s naming note. TEP Phase 0
-(repository/memory understanding), TEP Phase 1 (Product Contract), and now
-TEP Phase 2 (Evidence Foundation — a new `evidence/` package, see
-[[11-decisions|ADR-024]]) are all complete; TEP Phase 3 (Project
-Intelligence extensions) has not started and requires its own separate,
-explicit user instruction, per the master prompt's own hard-stop rule. See
-"What TEP Phase 1 built" and "What TEP Phase 2 built" below. This does not
-change the status of the closed 15-skill portfolio described in the rest
-of this section.
+(repository/memory understanding), TEP Phase 1 (Product Contract), TEP
+Phase 2 (Evidence Foundation — a new `evidence/` package, see
+[[11-decisions|ADR-024]]), and now TEP Phase 3 (Project Intelligence
+extensions — a new `project_intelligence/` package, see
+[[11-decisions|ADR-025]]) are all complete; TEP Phase 4 (Test Environment
+Discovery, Android/JVM specifically) has not started and requires its own
+separate, explicit user instruction, per the master prompt's own hard-stop
+rule. See "What TEP Phase 1 built", "What TEP Phase 2 built", and "What TEP
+Phase 3 built" below. This does not change the status of the closed
+15-skill portfolio described in the rest of this section.
 
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
 originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
@@ -102,7 +104,43 @@ current commit — with the result hand-verified and committed at
 passing; every module in `evidence/` stays under 300 lines (largest is 77).
 See [[11-decisions|ADR-024]] for the full decision record, including two
 schema fields considered and deliberately rejected (`repo_dirty`,
-`platform_commit`). TEP Phase 3 (Project Intelligence extensions) requires
+`platform_commit`).
+
+## What TEP Phase 3 built
+
+Implemented [[20-test-environment-profile-schema|the TestEnvironmentProfile
+schema]] as a new, independently-packaged component at
+`project_intelligence/` (own `pyproject.toml`, stdlib-only, own CI job) —
+not code inside `codebase-intelligence` itself, not a new skill directory.
+`ci_report_loader.py` reads a `codebase-intelligence` report.json into its
+own lightweight local dataclasses (the exact pattern `feature-planner`'s
+`ci_report_loader.py` already established, ADR-010) — never imports
+`codebase-intelligence`'s `engine` package. `detect.py` matches
+`external_dependencies` entries against exact-key signature tables
+(`signatures.py`) to find test frameworks, mock frameworks, and coverage
+tools; `detect_build_systems` additionally falls back to checking
+already-scanned top-level filenames when a manifest declares zero
+dependencies, distinguishing that case as `manifest-only` confidence rather
+than claiming it's `dependency-confirmed`. Every finding category is a
+list, not a single guessed value, and any category with zero findings is
+listed in `unavailable` rather than silently empty. Demonstrated on a real,
+non-fixture run — `python -m project_intelligence.cli` against a fresh
+`codebase-intelligence` report of `skills/codebase-intelligence` itself —
+committed at `examples/project-intelligence/example-run.md`. That run
+correctly reported a `manifest-only` build system and all three tooling
+categories `unavailable`, and in doing so surfaced a real,
+previously-undocumented gap: `external_deps.py` never parses PEP 621
+`[project.optional-dependencies]`, so a skill's own genuine `dev =
+["pytest>=7.0"]` declaration is invisible to it — now logged as
+[[12-known-limitations|L34]]. 20 new unit tests, all passing; every module
+in `project_intelligence/` stays under 300 lines (largest is 75). Also
+fixed a packaging defect shared with `evidence/`: both packages' flat
+`.py`-files-at-root layout broke `pip install -e ".[dev]"` on a clean
+checkout (setuptools couldn't resolve automatic package discovery) — fixed
+in both `pyproject.toml`s with an explicit `[tool.setuptools] packages`
+declaration; left unfixed, both packages' CI jobs would have failed on
+every real run. See [[11-decisions|ADR-025]] for the full decision record.
+TEP Phase 4 (Test Environment Discovery, Android/JVM specifically) requires
 its own separate, explicit user instruction before starting.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
@@ -647,6 +685,18 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    yet updated with Phase 6-11 posts)
 
 ## Last updated
+
+2026-09-06 — TEP Phase 3 (Project Intelligence extensions) for the
+"Project-Aware Test Engineering Platform" pivot ([[11-decisions|ADR-025]]),
+at the user's explicit direction following TEP Phase 2. New
+`project_intelligence/` package deriving a `TestEnvironmentProfile` from an
+existing `codebase-intelligence` report, demonstrated on a real run
+against `skills/codebase-intelligence` itself. Also fixed a packaging
+defect shared with `evidence/` (flat module layout broke a clean
+`pip install -e`). See [[20-test-environment-profile-schema]] and "What TEP
+Phase 3 built" above. No existing skill's code changed; separate from, and
+does not reopen, the closed 15-skill portfolio below. TEP Phase 4 not
+started — requires its own explicit approval.
 
 2026-09-06 — TEP Phase 2 (Evidence Foundation) for the "Project-Aware Test
 Engineering Platform" pivot ([[11-decisions|ADR-024]]), at the user's

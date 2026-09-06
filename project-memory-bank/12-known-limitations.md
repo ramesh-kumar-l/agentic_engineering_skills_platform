@@ -1084,3 +1084,34 @@ a basename across more than one fixture module). See
 - **Regression prevention**: documented in `external_deps.py`'s module
   docstring, `codebase-intelligence/SKILL.md` Known Limitations, and
   `dependency-supply-chain/SKILL.md`'s Context Completeness section.
+
+## L34: `external_deps.py` only reads `[project.dependencies]`, so PEP 621 optional/dev dependencies are invisible to any downstream consumer
+
+- **What failed**: N/A (scope boundary, surfaced by real dogfooding, not a
+  bug in isolation — same shape as L2/L33).
+- **Why**: `_parse_pyproject_toml` scans for a top-level `dependencies = [`
+  block only. A real dependency declared under
+  `[project.optional-dependencies]` (e.g. this very repo's own skills each
+  declare `dev = ["pytest>=7.0"]` there) is never added to
+  `external_dependencies` — not a parsing failure, just a table the scanner
+  never looks at.
+- **Impact**: found via TEP Phase 3's `project_intelligence` package
+  (project-memory-bank/18-test-engineering-platform-contract.md), which
+  derives a `TestEnvironmentProfile`'s `test_frameworks`/`mock_frameworks`/
+  `coverage_tools` entirely from `external_dependencies`. Running it against
+  `skills/codebase-intelligence` itself reports `pytest` as `unavailable`
+  even though the skill's own `pyproject.toml` genuinely declares it as a
+  dev dependency — see `examples/project-intelligence/example-run.md`. Any
+  repo that declares test/mock/coverage tooling as optional/dev deps (a
+  common, idiomatic PEP 621 pattern) will under-report the same way.
+- **Fix**: Not yet fixed — deferred, same as L2. `project_intelligence`
+  discloses this explicitly (a `manifest-only` confidence tier plus a
+  `warnings` entry) rather than guessing or silently omitting the gap, per
+  this project's disclose-don't-hide discipline. Revisit `external_deps.py`
+  itself only if/when a real user hits this on an actual target repo,
+  consistent with L2's own deferral rationale (avoid over-engineering ahead
+  of evidence).
+- **Regression prevention**: `project_intelligence/tests/test_profile_builder.py::test_manifest_only_repo_reports_unavailable_and_warns`
+  and the real dogfood run in `examples/project-intelligence/example-run.md`
+  both pin this behavior so it's disclosed consistently, not re-discovered
+  from scratch later.
