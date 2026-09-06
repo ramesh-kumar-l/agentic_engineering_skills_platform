@@ -1578,3 +1578,66 @@ hard-stop rule this ADR already established. No new memory files were
 created beyond the one contract file the master prompt's own Phase 1
 deliverable requires; [[07-current-state]] and [[active-context.md]] were
 updated to point to it rather than duplicate its content.
+
+---
+
+## ADR-024: Evidence Foundation implemented as a new top-level `evidence/` package, treating skills as CLI black boxes
+
+**Decision**: TEP Phase 2's exit criteria ([[18-test-engineering-platform-contract]]) — a run-provenance schema, demonstrated on a real run of an existing skill — is implemented as a new,
+independently-packaged component at `evidence/` (own `pyproject.toml`,
+stdlib-only, own test suite), not as code inside any one skill and not as
+a new skill directory. `evidence/capture.py` invokes a target skill's own
+documented CLI (`python -m engine.cli ...`) as a subprocess from that
+skill's own directory, and never imports a skill's `engine` package
+directly. The full schema and field-by-field rationale are documented in
+[[19-evidence-provenance-schema]].
+
+- User Value: any future session (or a human) now gets a verifiable,
+  timestamped answer to "did this skill actually run, against which
+  commit, producing what" — not a description of a run, an artifact of
+  one. This is the concrete foundation the master prompt's "leads not
+  verdicts" and evidence-before-trust framing needs before any test
+  generation or validation work can honestly claim anything.
+- Correctness: demonstrated on a real, non-fixture run —
+  `python -m evidence.cli codebase-intelligence .` against this repo's own
+  current state, captured in `examples/evidence/example-run.md` and
+  `examples/evidence/provenance-record.json`. The record's `repo_commit`
+  was hand-verified against `git rev-parse HEAD` at run time and matched
+  exactly; `skill_version` matched `skills/codebase-intelligence/
+  pyproject.toml`; `output_sha256` is a real hash of the actual bytes
+  produced. 16 unit tests cover schema round-tripping, git-ref resolution
+  (loose ref, packed-refs, detached HEAD, missing-ref failure modes), skill
+  version lookup, save/load, and both a successful and a failing capture
+  run against fake skill fixtures (`evidence/tests/`).
+- Security: no network calls (offline, per ADR-006); `git_info.py` reads
+  `.git/HEAD` and refs directly rather than shelling out to a `git` binary,
+  avoiding a dependency on git being installed and keeping the module's
+  file-access surface auditable at a glance.
+- Simplicity: chose subprocess-invoke-the-real-CLI over importing a skill's
+  engine package, precisely because ADR-010 already established this
+  project's precedent — a consumer defines its own lightweight view of
+  another component rather than coupling to its internals, so every skill
+  stays independently packaged and versioned. Considered and rejected a
+  `repo_dirty` field and a second `platform_commit` field (see
+  [[19-evidence-provenance-schema]]'s "deliberately excluded" section) —
+  both would add real implementation weight this phase's exit criteria
+  does not require.
+- Maintainability: every module in `evidence/` stays under 300 lines
+  (largest is `capture.py` at 77); the package follows the exact
+  `pyproject.toml`/`engine`-analog layout every existing skill already
+  uses, and its CI job in `.github/workflows/tests.yml` mirrors the
+  existing per-skill matrix pattern rather than inventing a new one.
+- Portability: stdlib-only (`subprocess`, `hashlib`, `uuid`, `datetime`,
+  `pathlib`, `dataclasses`) — zero new runtime dependencies, continuing
+  ADR-006.
+- Evidence: `examples/evidence/example-run.md`,
+  `examples/evidence/provenance-record.json`, `evidence/tests/` (16
+  passing tests).
+- Future Evolution: this ADR does not authorize TEP Phase 3 or beyond —
+  each requires its own separate, explicit user instruction per the
+  master prompt's hard-stop rule, which this project has followed for
+  every phase so far. `model`/`prompt_version` stay `None` until a real
+  AI-driven generation phase exists to populate them honestly.
+
+**Status**: Adopted. TEP Phase 2 (Evidence Foundation) is complete as of
+2026-09-06.

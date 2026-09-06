@@ -5,3 +5,5 @@ __pycache__/
 .venv/
 venv/
 evaluations/workflow-composer/_run/
+evidence/runs/
+evidence/artifacts/

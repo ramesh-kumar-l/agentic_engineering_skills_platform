@@ -43,3 +43,21 @@ jobs:
       - name: Run tests for ${{ matrix.skill }}
         working-directory: skills/${{ matrix.skill }}
         run: pytest -q
+
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install evidence
+        working-directory: evidence
+        run: pip install -e ".[dev]"
+
+      - name: Run tests for evidence
+        working-directory: evidence
+        run: pytest -q

@@ -1,0 +1,51 @@
+"""CLI entry point for capturing a run-provenance record.
+
+Usage:
+    python -m evidence.cli <skill-name> <target-repo-path>
+
+Example:
+    python -m evidence.cli codebase-intelligence ../my-project
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from .capture import capture_run
+from .skill_info import UnknownSkillError
+from .store import save
+
+_PLATFORM_ROOT = Path(__file__).resolve().parent.parent
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="evidence", description=__doc__)
+    parser.add_argument("skill_name", help="Name of an existing skill under skills/, e.g. codebase-intelligence")
+    parser.add_argument("target_path", type=Path, help="Path to the repository the skill should analyze")
+    args = parser.parse_args(argv)
+
+    if not args.target_path.exists():
+        print(f"error: path does not exist: {args.target_path}", file=sys.stderr)
+        return 1
+
+    skills_root = _PLATFORM_ROOT / "skills"
+    artifacts_root = _PLATFORM_ROOT / "evidence" / "artifacts"
+    runs_root = _PLATFORM_ROOT / "evidence" / "runs"
+
+    try:
+        record = capture_run(args.skill_name, args.target_path, skills_root, artifacts_root)
+    except UnknownSkillError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+
+    out_path = save(record, runs_root)
+    print(json.dumps(record.to_dict(), indent=2))
+    print(f"wrote {out_path}", file=sys.stderr)
+    return 0 if record.status == "success" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

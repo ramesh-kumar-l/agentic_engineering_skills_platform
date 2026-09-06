@@ -334,12 +334,28 @@ this pass — test count and evaluation results are unchanged from the Phase
 
 ## Test Engineering Platform pivot (new, 2026-09-06 — separate from the skill table above)
 
-No code exists yet. TEP Phase 0 (repo/memory audit) and TEP Phase 1
-(Product Contract, [[18-test-engineering-platform-contract]]) are complete;
-see [[11-decisions|ADR-023]] and `active-context.md`'s "What TEP Phase 1
-built". TEP Phase 2 (Evidence Foundation) is not started and needs its own
-explicit approval — nothing in this section should be read as a build
-in progress.
+TEP Phase 0 (repo/memory audit), TEP Phase 1 (Product Contract,
+[[18-test-engineering-platform-contract]]), and TEP Phase 2 (Evidence
+Foundation) are complete; see [[11-decisions|ADR-023]],
+[[11-decisions|ADR-024]], and `active-context.md`'s "What TEP Phase 1
+built" / "What TEP Phase 2 built".
+
+TEP Phase 2 shipped one new, independently-packaged component:
+
+- **`evidence/`** — run-provenance capture for existing skills.
+  `schema.py` (49 lines), `git_info.py` (53), `skill_info.py` (42),
+  `capture.py` (77), `store.py` (26), `cli.py` (51) — all under the
+  300-line limit. 16 tests, all passing. Schema documented in
+  [[19-evidence-provenance-schema]]. Demonstrated on a real run of
+  `codebase-intelligence` against this repo (`examples/evidence/`), not a
+  fixture. Own CI job added to `.github/workflows/tests.yml`, mirroring
+  the existing per-skill matrix pattern.
+- No existing skill's code was touched. The 15-skill portfolio's test
+  count (733) is unchanged; `evidence/`'s 16 tests are a new, separate
+  suite.
+
+TEP Phase 3 (Project Intelligence extensions) is not started and needs its
+own explicit approval.
 
 ## Not yet built
 
@@ -408,11 +424,16 @@ in progress.
 
 ## Last updated
 
+2026-09-06 — TEP Phase 2 (Evidence Foundation) for the Test Engineering
+Platform pivot ([[11-decisions|ADR-024]], [[19-evidence-provenance-schema]]).
+New `evidence/` package + 16 tests; no existing skill's code changed, 733
+existing tests unaffected. See the updated section above. TEP Phase 3
+requires separate explicit approval before any build starts.
+
 2026-09-06 — TEP Phase 1 (Product Contract) for the newly-proposed Test
 Engineering Platform pivot ([[11-decisions|ADR-023]],
 [[18-test-engineering-platform-contract]]). No code, skill, or test count
-changed — see the new section above. TEP Phase 2 requires separate
-explicit approval before any build starts.
+changed.
 
 2026-08-29 — ADR-022: Java/Kotlin multi-language support. User-directed,
 cross-cutting scope (touching `codebase-intelligence` and 5 downstream

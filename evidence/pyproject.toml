@@ -1,0 +1,13 @@
+[project]
+name = "evidence"
+version = "0.1.0"
+description = "Run-provenance capture for existing skills (TEP Phase 2 — Evidence Foundation). Stdlib-only."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+pythonpath = [".."]
+testpaths = ["tests"]

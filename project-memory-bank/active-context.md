@@ -14,12 +14,14 @@ explicit direction, **separately from** the closed 15-skill portfolio
 below. Its own phase sequence ("TEP Phase N") is unrelated to this
 section's Phase 1–15 numbering — see
 [[18-test-engineering-platform-contract]]'s naming note. TEP Phase 0
-(repository/memory understanding) and TEP Phase 1 (Product Contract) are
-both complete; TEP Phase 2 (Evidence Foundation) has not started and
-requires its own separate, explicit user instruction, per the master
-prompt's own hard-stop rule. See "What TEP Phase 1 built" below. This does
-not change the status of the closed 15-skill portfolio described in the
-rest of this section.
+(repository/memory understanding), TEP Phase 1 (Product Contract), and now
+TEP Phase 2 (Evidence Foundation — a new `evidence/` package, see
+[[11-decisions|ADR-024]]) are all complete; TEP Phase 3 (Project
+Intelligence extensions) has not started and requires its own separate,
+explicit user instruction, per the master prompt's own hard-stop rule. See
+"What TEP Phase 1 built" and "What TEP Phase 2 built" below. This does not
+change the status of the closed 15-skill portfolio described in the rest
+of this section.
 
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
 originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
@@ -78,6 +80,30 @@ anti-speculation discipline as ADR-006/009. No code written; no skill
 touched; no test count changed. ADR-023 updated with an addendum recording
 this; still logged as **Proposed, not Adopted** — TEP Phase 2 requires its
 own separate, explicit user instruction before starting.
+
+## What TEP Phase 2 built
+
+Implemented [[19-evidence-provenance-schema|the run-provenance schema]] as
+a new, independently-packaged component at `evidence/` (own
+`pyproject.toml`, stdlib-only, own CI job) — not code inside any existing
+skill, not a new skill directory. `evidence/capture.py` invokes a target
+skill's real CLI as a subprocess (never imports a skill's `engine`
+package directly, following ADR-010's precedent) and produces a
+`RunProvenance` record: skill name/version, target repo/commit (read from
+`.git/HEAD` directly, no `git` binary dependency), start/end time, real
+exit code and status, and a SHA-256 of the actual output produced.
+`model`/`prompt_version` stay `None` — no skill's engine makes a model
+call today; the fields are reserved for a future AI-driven phase, not
+backfilled. Demonstrated on a real, non-fixture run —
+`python -m evidence.cli codebase-intelligence .` against this repo's own
+current commit — with the result hand-verified and committed at
+`examples/evidence/example-run.md` /
+`examples/evidence/provenance-record.json`. 16 new unit tests, all
+passing; every module in `evidence/` stays under 300 lines (largest is 77).
+See [[11-decisions|ADR-024]] for the full decision record, including two
+schema fields considered and deliberately rejected (`repo_dirty`,
+`platform_commit`). TEP Phase 3 (Project Intelligence extensions) requires
+its own separate, explicit user instruction before starting.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
 
@@ -622,13 +648,22 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
 
 ## Last updated
 
+2026-09-06 — TEP Phase 2 (Evidence Foundation) for the "Project-Aware Test
+Engineering Platform" pivot ([[11-decisions|ADR-024]]), at the user's
+explicit direction following TEP Phase 1. New `evidence/` package
+implementing the run-provenance schema, demonstrated on a real run of
+`codebase-intelligence` against this repo. See
+[[19-evidence-provenance-schema]] and "What TEP Phase 2 built" above. No
+existing skill's code changed; separate from, and does not reopen, the
+closed 15-skill portfolio below. TEP Phase 3 not started — requires its
+own explicit approval.
+
 2026-09-06 — TEP Phase 1 (Product Contract) for the newly-proposed
 "Project-Aware Test Engineering Platform" pivot ([[11-decisions|ADR-023]]),
 at the user's explicit direction following TEP Phase 0. See
 [[18-test-engineering-platform-contract]] and "What TEP Phase 1 built"
 above. No code, tests, or existing skill changed; separate from, and does
-not reopen, the closed 15-skill portfolio below. TEP Phase 2 not started —
-requires its own explicit approval.
+not reopen, the closed 15-skill portfolio below.
 
 2026-08-29 — ADR-022: Java/Kotlin multi-language support, added at the
 user's explicit direction after they asked whether the 15-skill portfolio

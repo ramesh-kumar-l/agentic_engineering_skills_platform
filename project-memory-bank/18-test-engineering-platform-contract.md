@@ -157,8 +157,16 @@ this project has repeatedly declined to do.
 ## Status
 
 TEP Phase 1 (this contract) is complete as of 2026-09-06, per the user's
-explicit direction to continue past TEP Phase 0. TEP Phase 2 has **not**
-started — per the master prompt's own hard-stop rule (section 39) and this
-project's own phase-by-phase discipline, it requires a new, separate,
-explicit user instruction, not automatic continuation from this contract's
-completion.
+explicit direction to continue past TEP Phase 0.
+
+TEP Phase 2 (Evidence Foundation) is also complete as of 2026-09-06, per
+the user's explicit direction to continue past TEP Phase 1. Implemented as
+the new `evidence/` package — see [[19-evidence-provenance-schema]] and
+[[11-decisions|ADR-024]] for the schema and implementation decision, and
+`examples/evidence/example-run.md` for the real, non-fixture demonstration
+this phase's exit criteria required.
+
+TEP Phase 3 (Project Intelligence extensions) has **not** started — per
+the master prompt's own hard-stop rule (section 39) and this project's own
+phase-by-phase discipline, it requires a new, separate, explicit user
+instruction, not automatic continuation from this contract's completion.
