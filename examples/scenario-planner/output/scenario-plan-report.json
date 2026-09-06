@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "repo_root": "D:\\ClaudeProjects\\agentic_engineering_skills_platform",
+  "test_strategy_report_path": "examples/test-strategy/output/test-strategy-report.json",
+  "regression_report_path": "examples/test-strategy/ci-report/regression-hunter-report.json",
+  "ci_report_path": "examples/test-strategy/ci-report/report.json",
+  "stats": {
+    "targets_considered": 0,
+    "targets_with_structural_detail": 0,
+    "targets_missing_structural_detail": 0,
+    "scenarios_generated": 0
+  },
+  "plans": [],
+  "warnings": [
+    "test-strategy report contained zero flagged targets \u2014 nothing to plan scenarios for"
+  ]
+}

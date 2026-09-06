@@ -142,14 +142,23 @@ this project has repeatedly declined to do.
   even feasible given the detected test framework (or "unavailable," never
   a guess) — demonstrated on at least one real, non-fixture diff and repo
   state.
-- **TEP Phase 5b and beyond** (Scenario Planner, Test Generation,
-  Independent Validation, Human Review, Engineering Memory extension,
-  Evaluation/Ablation, external validation, DX, security/ production
-  hardening, public distribution) are named in the master prompt's own
-  section 36 list but **not scoped here** — each requires its own Phase
-  Execution Contract pass (read memory, define objective, define exit
-  criteria) at the time it is actually started, per the master prompt's own
-  section 38 and this project's own phase-by-phase discipline.
+- **TEP Phase 5b — Scenario Planner.** Exit criteria: given a real
+  `test_strategy` report.json and the real `regression-hunter` and
+  `codebase-intelligence` reports it was derived from (same repo), produce
+  candidate test scenarios for each flagged target, where each scenario
+  cites a concrete existing signal (a regression-hunter flag's own
+  description, or a named function/class from codebase-intelligence's
+  structural listing) — never a new risk score, and never a claim about
+  which specific function a diff touched when no line-range data exists to
+  support that claim — demonstrated on at least one real, non-fixture run.
+- **TEP Phase 5c and beyond** (Test Generation, Independent Validation,
+  Human Review, Engineering Memory extension, Evaluation/Ablation, external
+  validation, DX, security/ production hardening, public distribution) are
+  named in the master prompt's own section 36 list but **not scoped here**
+  — each requires its own Phase Execution Contract pass (read memory, define
+  objective, define exit criteria) at the time it is actually started, per
+  the master prompt's own section 38 and this project's own phase-by-phase
+  discipline.
 
 ## Constraints carried over unchanged from the existing platform
 
@@ -212,7 +221,19 @@ coverage signal, rather than re-deriving it, also means it inherits that
 signal's own already-disclosed cross-skill identical-stem false-positive
 gap, L24).
 
-TEP Phase 5b and beyond has **not** started — per the master prompt's own
+TEP Phase 5b's Scenario Planner sub-initiative is also complete as of
+2026-09-06, per the user's explicit direction to continue past TEP Phase
+5a, and the user's explicit choice (asked directly again, since "TEP Phase
+5b" still named ten distinct, unscoped sub-initiatives) of Scenario Planner
+as the one to scope and build next. Implemented as the new
+`scenario_planner/` package — see [[22-scenario-plan-report-schema]] and
+[[11-decisions|ADR-028]] for the schema and implementation decision, and
+`examples/scenario-planner/example-run.md` for the real, non-fixture
+demonstration this phase's exit criteria required (an honest zero-plans
+result, inherited from TEP Phase 5a's own [[12-known-limitations|L36]]
+finding, with the positive path proven separately via unit tests).
+
+TEP Phase 5c and beyond has **not** started — per the master prompt's own
 hard-stop rule (section 39) and this project's own phase-by-phase
 discipline, it requires a new, separate, explicit user instruction, not
 automatic continuation from this contract's completion.

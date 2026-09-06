@@ -337,11 +337,12 @@ this pass — test count and evaluation results are unchanged from the Phase
 TEP Phase 0 (repo/memory audit), TEP Phase 1 (Product Contract,
 [[18-test-engineering-platform-contract]]), TEP Phase 2 (Evidence
 Foundation), TEP Phase 3 (Project Intelligence extensions), TEP Phase 4
-(Test Environment Discovery, Android/JVM specifically), and TEP Phase 5a
-(Test Strategy Engine) are complete; see [[11-decisions|ADR-023]],
-[[11-decisions|ADR-024]], [[11-decisions|ADR-025]], [[11-decisions|ADR-026]],
-[[11-decisions|ADR-027]], and `active-context.md`'s "What TEP Phase
-1/2/3/4/5a built".
+(Test Environment Discovery, Android/JVM specifically), TEP Phase 5a
+(Test Strategy Engine), and TEP Phase 5b's Scenario Planner sub-initiative
+are complete; see [[11-decisions|ADR-023]], [[11-decisions|ADR-024]],
+[[11-decisions|ADR-025]], [[11-decisions|ADR-026]], [[11-decisions|ADR-027]],
+[[11-decisions|ADR-028]], and `active-context.md`'s "What TEP Phase
+1/2/3/4/5a/5b built".
 
 TEP Phase 2 shipped one new, independently-packaged component:
 
@@ -436,7 +437,37 @@ TEP Phase 5a shipped one new, independently-packaged component:
   (project_intelligence) unaffected; `test_strategy/`'s 26 tests are a new,
   separate suite.
 
-TEP Phase 5b and beyond is not started and needs its own explicit approval.
+TEP Phase 5b's Scenario Planner sub-initiative shipped one new,
+independently-packaged component:
+
+- **`scenario_planner/`** — composes a real `test_strategy` report's
+  flagged targets with the real `regression-hunter` flags and
+  `codebase-intelligence` structural listing they were derived from,
+  proposing candidate test scenarios per target. `models.py` (82 lines),
+  `strategy_targets_loader.py` (67), `regression_flags_loader.py` (71),
+  `ci_module_loader.py` (57), `plan_builder.py` (150), `cli.py` (83) — all
+  under the 300-line limit (517 engine lines total). 26 tests, all
+  passing. Schema documented in [[22-scenario-plan-report-schema]].
+  Computes no risk score and no line-level diff attribution — priority/
+  feasibility/framework are copied verbatim from the input test_strategy
+  target; every scenario cites either a regression-hunter flag's own
+  description or a named function/class from codebase-intelligence's
+  structural listing, per the contract's "do not build a second, competing
+  risk scorer" mandate.
+- Demonstrated by reusing the exact real, committed inputs from TEP Phase
+  5a's own dogfood run — `examples/scenario-planner/`. The honest real
+  result is zero plans, because the upstream test_strategy report already
+  had zero targets (Phase 5a's own [[12-known-limitations|L36]] finding,
+  surfacing one level further downstream by design — no new limitation
+  entry needed). The positive "candidate scenarios" path is proven via 7 of
+  the 26 unit tests using synthetic fixtures. See [[11-decisions|ADR-028]].
+- No existing skill's code was touched, and neither `test_strategy`,
+  `regression-hunter`, nor `codebase-intelligence` was modified — this
+  package only reads their existing JSON outputs. Test counts: 733
+  (skills) + 16 (evidence) + 25 (project_intelligence) + 26 (test_strategy)
+  unaffected; `scenario_planner/`'s 26 tests are a new, separate suite.
+
+TEP Phase 5c and beyond is not started and needs its own explicit approval.
 
 ## Not yet built
 
@@ -504,6 +535,21 @@ TEP Phase 5b and beyond is not started and needs its own explicit approval.
   instance without yet being acted on.
 
 ## Last updated
+
+2026-09-06 — TEP Phase 5b's Scenario Planner sub-initiative for the Test
+Engineering Platform pivot ([[11-decisions|ADR-028]],
+[[22-scenario-plan-report-schema]]). New `scenario_planner/` package
+composes a real `test_strategy` report's flagged targets with the real
+`regression-hunter` flags and `codebase-intelligence` structural listing
+they came from, proposing candidate test scenarios, computing no risk
+score and no line-level diff attribution; 26 tests, all passing.
+Demonstrated by reusing TEP Phase 5a's own real, committed dogfood inputs;
+the honest result — zero plans — is an inherited instance of Phase 5a's own
+[[12-known-limitations|L36]] finding, surfacing one level further
+downstream by design (no new limitation entry needed). No existing skill's
+code changed, no change to test_strategy, regression-hunter, or
+codebase-intelligence. TEP Phase 5c and beyond not started — requires its
+own explicit approval.
 
 2026-09-06 — TEP Phase 5a (Test Strategy Engine) for the Test Engineering
 Platform pivot ([[11-decisions|ADR-027]], [[21-test-strategy-report-schema]]).

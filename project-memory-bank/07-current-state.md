@@ -739,19 +739,26 @@ extensions, [[11-decisions|ADR-025]],
 [[20-test-environment-profile-schema]]), TEP Phase 4 (Test Environment
 Discovery, Android/JVM specifically, [[11-decisions|ADR-026]]), and TEP
 Phase 5a (Test Strategy Engine, [[11-decisions|ADR-027]],
-[[21-test-strategy-report-schema]]) are now complete. TEP Phase 5b and
+[[21-test-strategy-report-schema]]), and TEP Phase 5b's Scenario Planner
+sub-initiative (a new `scenario_planner/` package, [[11-decisions|ADR-028]],
+[[22-scenario-plan-report-schema]]) are now complete. TEP Phase 5c and
 beyond requires a new, separate, explicit user instruction before any
 further implementation. Android-framework *detection* (JUnit/Robolectric/
 Espresso) exists, but real-world Android repos systematically under-report
 through it today: their build.gradle files almost universally version
 dependencies via Gradle variable/version-catalog interpolation, which the
 existing Gradle parser (L33) can't resolve — see
-[[12-known-limitations|L35]]. A new `test_strategy/` package now decides
-which changed files need a test by reusing regression-hunter's risk/
-coverage signals and project_intelligence's TestEnvironmentProfile
-unchanged; because it trusts regression-hunter's test-coverage signal as
-given, it also inherits that signal's own already-disclosed cross-skill
-identical-stem false-positive gap (L24), now logged as a new instance,
-[[12-known-limitations|L36]]. Neither gap is fixed — both remain the
-largest disclosed gaps in, respectively, Android readiness and test-
-strategy accuracy.
+[[12-known-limitations|L35]]. A `test_strategy/` package decides which
+changed files need a test by reusing regression-hunter's risk/coverage
+signals and project_intelligence's TestEnvironmentProfile unchanged;
+because it trusts regression-hunter's test-coverage signal as given, it
+also inherits that signal's own already-disclosed cross-skill identical-
+stem false-positive gap (L24), now logged as a new instance,
+[[12-known-limitations|L36]]. A `scenario_planner/` package now turns
+`test_strategy`'s flagged targets into candidate test scenarios grounded
+in regression-hunter's flag descriptions and codebase-intelligence's
+structural listing, computing no risk score and no line-level diff
+attribution; it inherits the same L36 chain one level further downstream
+by design (no new limitation entry needed). None of these gaps is fixed —
+L35/L24 remain the largest disclosed gaps in, respectively, Android
+readiness and test-strategy accuracy.

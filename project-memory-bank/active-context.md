@@ -22,12 +22,15 @@ TEP Phase 4 (Test Environment Discovery, Android/JVM specifically —
 extends `project_intelligence/` with `android_test_frameworks`/
 `android_frameworks_absent`, see [[11-decisions|ADR-026]]), and now TEP
 Phase 5a (Test Strategy Engine — a new `test_strategy/` package, see
-[[11-decisions|ADR-027]]) are all complete; TEP Phase 5b and beyond has not
+[[11-decisions|ADR-027]]), and now TEP Phase 5b's Scenario Planner
+sub-initiative (a new `scenario_planner/` package, see
+[[11-decisions|ADR-028]]) are all complete; TEP Phase 5c and beyond has not
 started and requires its own separate, explicit user instruction, per the
 master prompt's own hard-stop rule. See "What TEP Phase 1 built", "What TEP
-Phase 2 built", "What TEP Phase 3 built", "What TEP Phase 4 built", and
-"What TEP Phase 5a built" below. This does not change the status of the
-closed 15-skill portfolio described in the rest of this section.
+Phase 2 built", "What TEP Phase 3 built", "What TEP Phase 4 built", "What
+TEP Phase 5a built", and "What TEP Phase 5b built" below. This does not
+change the status of the closed 15-skill portfolio described in the rest
+of this section.
 
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
 originally-scoped 15-skill portfolio named in [[08-roadmap]] — there is
@@ -210,6 +213,40 @@ using synthetic fixtures. All 6 engine files stay under 300 lines (largest,
 `strategy_builder.py`, is 104 lines; 760 total including tests). See
 [[11-decisions|ADR-027]] and [[21-test-strategy-report-schema]] for the
 full decision record and schema. TEP Phase 5b and beyond requires its own
+separate, explicit user instruction before starting.
+
+## What TEP Phase 5b built
+
+Given "TEP Phase 5b" still names ten distinct, unscoped sub-initiatives,
+the user was asked directly again which to scope next; chose **Scenario
+Planner**. Built as a new top-level package, `scenario_planner/` (same
+flat-layout, packaging-fix precedent): three independent lightweight
+loaders (`strategy_targets_loader.py` for a test_strategy report.json,
+`regression_flags_loader.py` for a regression-hunter report.json,
+`ci_module_loader.py` for a codebase-intelligence report.json — no
+cross-package import, ADR-010 lineage), `plan_builder.py` (the composition
+logic), `models.py`, `cli.py`. Per the contract's own "do not build a
+second, competing risk scorer" mandate, `plan_builder.py` computes no
+priority/feasibility judgment of its own — those are copied verbatim from
+the input test_strategy target. Its only original logic composes two
+existing signals into candidate scenarios: one per regression-hunter flag
+(citing that flag's own description), and one per function/class in
+codebase-intelligence's structural listing (each rationale disclosing that
+no line-range data exists to attribute a diff to one specific symbol — a
+file-level fallback fires only when neither signal exists for a target).
+Demonstrated by reusing the exact real, committed inputs from TEP Phase
+5a's own dogfood run — committed at
+`examples/scenario-planner/example-run.md`. The honest real result: **zero
+plans**, because the upstream test_strategy report it consumes already had
+zero targets (Phase 5a's own [[12-known-limitations|L36]] finding,
+surfacing one level further downstream by design — no new limitation entry
+was needed). The positive "here are this target's candidate scenarios"
+path — which this real run's own honest data could not exercise — is
+proven separately via 7 of the 26 unit tests in `scenario_planner/tests/`
+using synthetic fixtures. All 6 engine files stay under 300 lines (largest,
+`plan_builder.py`, is 150 lines; 517 engine lines total). See
+[[11-decisions|ADR-028]] and [[22-scenario-plan-report-schema]] for the
+full decision record and schema. TEP Phase 5c and beyond requires its own
 separate, explicit user instruction before starting.
 
 ## Documentation check-in (2026-08-26, after Phase 11 — not a new phase)
@@ -754,6 +791,24 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    yet updated with Phase 6-11 posts)
 
 ## Last updated
+
+2026-09-06 — TEP Phase 5b's Scenario Planner sub-initiative for the
+"Project-Aware Test Engineering Platform" pivot ([[11-decisions|ADR-028]]),
+at the user's explicit direction following TEP Phase 5a, and the user's
+explicit choice of Scenario Planner among ten remaining unscoped TEP Phase
+5b sub-initiatives. Built a new `scenario_planner/` package that composes
+a real `test_strategy` report's flagged targets with the real
+`regression-hunter` flags and `codebase-intelligence` structural listing
+they came from, proposing candidate test scenarios — computing no new risk
+score and no line-level diff attribution, per the contract's mandate.
+Demonstrated by reusing TEP Phase 5a's own real, committed dogfood inputs.
+The honest real result — zero plans — is an inherited instance of TEP Phase
+5a's own [[12-known-limitations|L36]] finding, surfacing one level further
+downstream by design; no new limitation entry was needed. See
+[[22-scenario-plan-report-schema]] and "What TEP Phase 5b built" above. No
+existing skill's code changed; separate from, and does not reopen, the
+closed 15-skill portfolio below. TEP Phase 5c and beyond not started —
+requires its own explicit approval.
 
 2026-09-06 — TEP Phase 5a (Test Strategy Engine) for the "Project-Aware
 Test Engineering Platform" pivot ([[11-decisions|ADR-027]]), at the user's

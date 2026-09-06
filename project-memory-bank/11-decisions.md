@@ -1868,3 +1868,83 @@ coverage itself.
 
 **Status**: Adopted. TEP Phase 5a (Test Strategy Engine) is complete as of
 2026-09-06.
+
+## ADR-028: Scenario Planner built as a new `scenario_planner/` package that composes test_strategy's target list with regression-hunter's flag descriptions and codebase-intelligence's structural listing, computing zero risk score and no line-level attribution
+
+**Decision**: TEP Phase 5b is the remainder of the same named-but-unscoped
+bucket ADR-027 left open (Scenario Planner, Test Generation, Independent
+Validation, Human Review, Engineering Memory extension, Evaluation/
+Ablation, external validation, DX, security/production hardening,
+distribution). Per the user's explicit choice (asked directly again, same
+disambiguation discipline as Phase 5a), **TEP Phase 5b — Scenario Planner**
+is now scoped and implemented: given a real `test_strategy` report.json,
+the `regression-hunter` report.json and `codebase-intelligence`
+report.json it was derived from (same repo), propose candidate test
+scenarios for each flagged target.
+
+Implemented as a new top-level package, `scenario_planner/` (flat layout,
+matching `test_strategy/`'s precedent): three independent, lightweight
+loaders (`strategy_targets_loader.py`, `regression_flags_loader.py`,
+`ci_module_loader.py` — each an ADR-010-lineage local view of another
+package's JSON output, no cross-package import), `plan_builder.py` (the
+actual composition logic), `models.py`, and `cli.py`. Continuing the
+contract's "do not build a second, competing risk scorer" mandate,
+`plan_builder.py` computes no priority or feasibility judgment of its
+own — `priority`, `generation_feasible`, and `recommended_framework` are
+copied verbatim from the input test_strategy target. Its only original
+logic is composing two existing signals into candidate scenarios: one
+scenario per regression-hunter diff-pattern flag (citing that flag's own
+`description` field verbatim), and one scenario per function/class in
+codebase-intelligence's structural listing for that file (each rationale
+explicitly disclosing that no line-range data exists to attribute a diff
+to one specific symbol — confirmed by direct inspection of `ModuleInfo`
+during this phase's research — so every symbol in a flagged file is
+offered as an equally plausible candidate, never a guess at "the" one that
+changed). A file-level fallback scenario fires only when neither signal
+produced anything for a target.
+
+- User Value: turns the Test Strategy Engine's "this file needs a test"
+  verdict into a concrete starting list of "what to actually write a test
+  for" in that file — grounded in real, existing signals (a flag's own
+  description, or the file's real function/class names) rather than an
+  engineer re-reading the diff and the codebase-intelligence report by hand.
+- Correctness: demonstrated by reusing the exact real, committed inputs
+  from TEP Phase 5a's own dogfood run — see
+  `examples/scenario-planner/example-run.md`. The real result is again an
+  honest **zero plans**, because the upstream test_strategy report it
+  consumes already reported zero targets (Phase 5a's own L36 finding). This
+  is the same disclosed limitation surfacing one level further downstream,
+  by the explicit design choice of trusting the upstream target list rather
+  than re-deriving it — not a new defect, so no new limitation entry was
+  logged. Because the real demo could not exercise the positive path, 7
+  unit tests in `test_plan_builder.py` prove it directly with synthetic
+  fixtures: a flagged target with a regression-hunter flag → one scenario
+  per flag citing its description; a target found in codebase-intelligence's
+  modules listing → one scenario per function/class, each disclosing the
+  line-range limitation; a target with neither signal → exactly one
+  file-level fallback scenario; a target with flags but no structural
+  listing → no fallback added alongside the real signal; priority/
+  feasibility/framework carried through unchanged; zero upstream targets →
+  explicit warning, zero plans.
+- Security: no network calls, read-only against three report.json files
+  the caller already has, same trust boundary as ADR-025/ADR-026/ADR-027.
+- Simplicity: no new scoring logic anywhere — the only branching is "does a
+  flag exist for this file" and "does a module listing exist for this
+  file," both direct lookups. `plan_builder.py` is 150 lines, the largest
+  file in the package.
+- Maintainability: every module in `scenario_planner/` stays under 300
+  lines (517 engine lines total, 26 tests passing).
+- Portability: stdlib-only, no new runtime dependency, continuing ADR-006.
+- Evidence: `examples/scenario-planner/example-run.md` and its committed
+  `output/scenario-plan-report.json`; `scenario_planner/tests/` (26 tests,
+  all passing); [[22-scenario-plan-report-schema]].
+- Future Evolution: this ADR authorizes only TEP Phase 5b's Scenario
+  Planner sub-initiative. The remaining TEP Phase 5b items (Test
+  Generation, Independent Validation, Human Review, Engineering Memory
+  extension, Evaluation/Ablation, external validation, DX, security/
+  production hardening, distribution) remain unscoped, each requiring its
+  own explicit user instruction and Phase Execution Contract pass, per the
+  master prompt's hard-stop rule.
+
+**Status**: Adopted. TEP Phase 5b's Scenario Planner sub-initiative is
+complete as of 2026-09-06.
