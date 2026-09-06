@@ -302,6 +302,7 @@ and isn't bounded.
 | See every real bug found and fixed via dogfooding | [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md), or the [blog version](blogs/03-i-dogfooded-every-skill-i-built.md) |
 | Understand what's actually validated vs. still assumed | [`project-memory-bank/16-assumptions-and-validation.md`](project-memory-bank/16-assumptions-and-validation.md) |
 | Understand the Test Engineering Platform pipeline | [`project-memory-bank/25-tep-pipeline-overview.md`](project-memory-bank/25-tep-pipeline-overview.md), or §8 above |
+| Use this against my own Kotlin/Java Android project | [`AndroidGuide.md`](AndroidGuide.md) |
 | Propose a new skill | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
 | Report a security issue | [`SECURITY.md`](SECURITY.md) |
 | See what's next | [`ROADMAP.md`](ROADMAP.md) |

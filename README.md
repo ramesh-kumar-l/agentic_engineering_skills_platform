@@ -170,6 +170,10 @@ disclosed explicitly, not claimed away (see ADR-029/ADR-030 in
 [`project-memory-bank/11-decisions.md`](project-memory-bank/11-decisions.md)).
 Full pipeline diagram and package-by-package detail:
 [`project-memory-bank/25-tep-pipeline-overview.md`](project-memory-bank/25-tep-pipeline-overview.md).
+Pointing this pipeline at a legacy Kotlin/Java Android project specifically?
+See [`AndroidGuide.md`](AndroidGuide.md) — it covers what actually works
+today and what doesn't (Gradle version-catalog dependencies, JVM test
+execution) before you rely on it.
 
 ## Quickstart
 
