@@ -4,8 +4,9 @@
 ![Status](https://img.shields.io/badge/status-Phase%2015%20complete-blue)
 ![Skills](https://img.shields.io/badge/skills-15-informational)
 ![Tests](https://img.shields.io/badge/tests-733%20passing-brightgreen)
+![TEP pipeline](https://img.shields.io/badge/TEP%20pipeline-6%20packages%2C%20166%20passing-informational)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero-brightgreen)
+![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-zero%2A-brightgreen)
 ![Trust status](https://img.shields.io/badge/trust%20status-EXPERIMENTAL-yellow)
 ![License](https://img.shields.io/badge/license-Apache%202.0-lightgrey)
 
@@ -13,6 +14,11 @@ An open effort to build reusable, evaluated, secure engineering capabilities
 for AI coding agents, distributed as a portable `SKILL.md` contract — and
 built, deliberately, in the open about what's actually proven versus what's
 still assumed.
+
+\* Zero runtime dependencies across all 15 skills and 5 of 6 Test
+Engineering Platform packages; `test_validation` is the one disclosed
+exception (it subprocess-invokes `pytest` to execute agent-authored test
+files) — see [`DEPENDENCIES.md`](DEPENDENCIES.md).
 
 **New here?** Read [`QuickStarterGuide.md`](QuickStarterGuide.md) to clone,
 run a skill, and run the tests in under 10 minutes. This file is the map;
@@ -108,6 +114,62 @@ understanding before the skill list below makes full sense:
 evaluation harness against hand-authored fixtures
 (`evaluations/<skill>/RESULTS.md`) and a real "dogfood" run against actual
 work, not a synthetic demo (`examples/<skill>/example-run.md`).
+
+## The Test Engineering Platform pipeline
+
+Alongside the fifteen skills, six more packages at the repo root form a
+second, execution-capable pipeline: given a target repo and a real git
+diff, it decides which changed files need a test, plans concrete test
+scenarios, produces a deterministic generation plan for an agent to author
+tests from, and then actually **runs** those agent-authored tests and
+records real pass/fail evidence — this platform's only execution
+capability. Built across TEP Phases 1–5d; full history in
+[`project-memory-bank/18-test-engineering-platform-contract.md`](project-memory-bank/18-test-engineering-platform-contract.md).
+
+```mermaid
+flowchart LR
+    CI["codebase-intelligence"] --> PI["project_intelligence"]
+    CI --> SP["scenario_planner"]
+    RH["regression-hunter"] --> TS["test_strategy"]
+    RH --> SP
+    PI --> TS
+    TS --> SP
+    SP --> TG["test_generation"]
+    TG -->|agent authors test files| TV["test_validation"]
+    PI --> TV
+
+    style TG fill:#fff3cd,stroke:#b8860b
+```
+
+| Package | Produces | Tests |
+|---|---|---|
+| [`evidence`](evidence/) | `RunProvenance` — wraps any skill's CLI run, records which skill/version ran against which commit, with what result | 18/19 (1 skip) |
+| [`project_intelligence`](project_intelligence/) | `TestEnvironmentProfile` — language, build system, test/mock/coverage frameworks, Android-specific detection, derived from a `codebase-intelligence` report | 27/27 |
+| [`test_strategy`](test_strategy/) | `TestStrategyReport` — which changed files need a test, reusing regression-hunter/project_intelligence signals verbatim, no new risk score | 28/28 |
+| [`scenario_planner`](scenario_planner/) | `ScenarioPlanReport` — candidate test scenarios for each flagged target, no risk scoring of its own | 28/28 |
+| [`test_generation`](test_generation/) | `GenerationPlanReport` — a deterministic plan (file, framework, scenario) for an agent to write a test from; never authors code itself | 32/32 |
+| [`test_validation`](test_validation/) | `ValidationReport` — real, subprocess-executed pass/fail evidence for whatever an agent wrote from that plan | 33/35 (2 skip) |
+
+**166 tests passing, 3 skipped, across the TEP pipeline** (skips are a
+Windows unprivileged-symlink-creation limitation on 2 path-containment
+tests, confirmed via `pytest -rs`, not a failure). Chained end to end from
+the repo root:
+
+```bash
+python -m project_intelligence.cli /path/to/ci-report.json --out /path/to/tep-out
+python -m test_strategy.cli /path/to/regression-report.json /path/to/tep-out/test-environment-profile.json --out /path/to/tep-out
+python -m scenario_planner.cli /path/to/tep-out/test-strategy-report.json /path/to/regression-report.json /path/to/ci-report.json --out /path/to/tep-out
+python -m test_generation.cli /path/to/tep-out/scenario-plan-report.json /path/to/target-repo --out /path/to/tep-out
+# an agent authors test files into /path/to/generated-tests/ from the plan above
+python -m test_validation.cli /path/to/generated-tests /path/to/tep-out/test-environment-profile.json /path/to/target-repo --out /path/to/tep-out
+```
+
+This pipeline's only execution step (`test_validation`) has no sandboxing
+beyond a per-file timeout, path-containment checks, and resource caps —
+disclosed explicitly, not claimed away (see ADR-029/ADR-030 in
+[`project-memory-bank/11-decisions.md`](project-memory-bank/11-decisions.md)).
+Full pipeline diagram and package-by-package detail:
+[`project-memory-bank/25-tep-pipeline-overview.md`](project-memory-bank/25-tep-pipeline-overview.md).
 
 ## Quickstart
 
@@ -505,6 +567,12 @@ write-ups.)
 
 ```
 skills/<name>/          SKILL.md contract + engine/ + tests/ + README.md
+evidence/                TEP pipeline: RunProvenance (wraps any skill's CLI run)
+project_intelligence/    TEP pipeline: TestEnvironmentProfile
+test_strategy/           TEP pipeline: TestStrategyReport
+scenario_planner/        TEP pipeline: ScenarioPlanReport
+test_generation/         TEP pipeline: GenerationPlanReport
+test_validation/         TEP pipeline: ValidationReport (executes agent-authored tests)
 evaluations/<name>/     fixtures + expected/actual + run_evaluation.py + RESULTS.md
 examples/<name>/        real "dogfood" run write-ups
 blogs/                  technical deep-dives on how/why this was built
@@ -515,9 +583,12 @@ project-memory-bank/    the project's own working memory (vision → decisions �
 
 ## Read the blog series
 
-Five in-depth posts on the technical decisions behind this project, written
-for engineers, with real code and real data from this repo — not marketing
-copy. Start anywhere; each stands alone.
+Eleven in-depth posts on the technical decisions behind this project,
+written for engineers, with real code and real data from this repo — not
+marketing copy. Start anywhere; each stands alone. Full series with reading
+order and a note on the Mermaid diagrams: [`blogs/README.md`](blogs/README.md).
+
+**The 15-skill portfolio:**
 
 1. [A Skill Is Not a Prompt](blogs/01-a-skill-is-not-a-prompt.md) — the
    contract model and why it exists
@@ -529,6 +600,21 @@ copy. Start anywhere; each stands alone.
    — the self-grading trap
 5. [Building an AI Agent That Can't Authorize Its Own Actions](blogs/05-building-an-ai-agent-that-cant-authorize-its-own-actions.md)
    — the security model, end to end
+6. [Ten Skills In, I Stopped Building the Eleventh to Fix a Bug I'd Already Disclosed Four Times](blogs/06-ten-skills-and-the-bug-i-disclosed-four-times-before-fixing.md)
+   — a mentor-style review, and a bug fixed on the fourth disclosure
+
+**The Test Engineering Platform pipeline:**
+
+7. [Why I Built a Second Pipeline Instead of a Sixteenth Skill](blogs/07-why-i-built-a-second-pipeline-instead-of-a-sixteenth-skill.md)
+   — the JTBD behind an execution-capable pipeline
+8. [Six Packages, One Pattern](blogs/08-six-packages-one-pattern.md) —
+   reusing deterministic-engine-plus-judgment across a typed pipeline
+9. [Giving an Agent Execution Capability, Then Locking It Down](blogs/09-giving-an-agent-execution-capability-then-locking-it-down.md)
+   — from disclosed non-sandboxing to concrete hardening
+10. [The Test That Lied to Me](blogs/10-the-test-that-lied-to-me.md) —
+    debugging pytest's own output-capturing semantics
+11. [36 Known Limitations and Counting](blogs/11-36-known-limitations-and-counting.md)
+    — disclosure as a system, not a one-time confession
 
 ## Status and roadmap
 
@@ -548,8 +634,18 @@ by default. **2026-08-29 (ADR-022, not a new phase):** at the user's
 request, `codebase-intelligence` and 5 downstream skills gained real
 Java/Kotlin support (package-declaration FQN index for import resolution,
 Maven/Gradle manifest parsing, JVM-aware risk/test-coverage patterns) —
-40 new tests, 693 → 733. Full current snapshot:
-[`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
+40 new tests, 693 → 733. **Separately**, a Test Engineering Platform (TEP)
+pipeline was built across TEP Phases 1–5d (2026-09-06,
+[project-memory-bank/18-test-engineering-platform-contract.md](project-memory-bank/18-test-engineering-platform-contract.md)) —
+6 new packages, 166 tests passing, this platform's first execution
+capability, hardened in TEP Phase 5d. See
+[the pipeline section above](#the-test-engineering-platform-pipeline). TEP
+Phase 5e and beyond (Human Review, Engineering Memory extension, Evaluation/
+Ablation, external validation, DX/orchestration, public distribution) has
+not started. A public-documentation completion pass (ADR-031) then extended
+this README, `QuickStarterGuide.md`, and `DEPENDENCIES.md` to actually
+cover the TEP pipeline, and added 5 new blog posts about it. Full current
+snapshot: [`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it
 starts, never built just because it was planned): [`ROADMAP.md`](ROADMAP.md).
 

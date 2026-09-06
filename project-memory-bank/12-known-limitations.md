@@ -1193,3 +1193,53 @@ a basename across more than one fixture module). See
   with a synthetic fixture; `examples/test-strategy/example-run.md` records
   the real run where that trust produced a false negative, so the gap is
   disclosed consistently rather than re-discovered from scratch later.
+
+## L2 → L34 → L35 → L36: one root cause, four disclosed symptoms, not yet consolidated
+
+These four entries were found and disclosed separately, in four different
+files, across three different TEP phases, but trace back to the same root
+cause: `external_deps.py` only reads the scan root's manifests (L2), and
+only the literal `[project.dependencies]` array for Python (L34), and only
+literal (non-variable) coordinate strings for Gradle/Maven (part of L33,
+sharpened by L35). Downstream, every consumer of that output inherits
+whatever it misses: `project_intelligence`'s `TestEnvironmentProfile` can
+under-report `test_frameworks`/`android_test_frameworks` for a repo that
+declares them in a form `external_deps.py` doesn't parse (L34, L35), and
+`test_strategy`'s Test Strategy Engine inherits a *different*,
+unrelated-but-adjacent gap in the same family (L36, via L24) purely by
+reusing regression-hunter's coverage signal unchanged. Recorded here as one
+chain, not four independent facts, so a future fix to `external_deps.py`'s
+root-only/literal-only parsing is evaluated against all four downstream
+symptoms at once rather than being re-discovered fix-by-fix. Not fixed by
+this note — still deferred, same rationale as each entry gives
+individually (no real user need has justified the larger, cross-cutting
+parser rewrite yet).
+
+## L37: CI did not run for four of the six TEP packages — FIXED 2026-09-06
+
+- **What failed**: `.github/workflows/tests.yml` had jobs for all 15
+  `skills/*` packages plus `evidence` and `project_intelligence` only.
+  `test_strategy`, `scenario_planner`, `test_generation`, and
+  `test_validation` were added in later TEP phases (5a–5c) and no CI job
+  was added for them at the time.
+- **Why**: found during the 2026-09-06 public-documentation research pass
+  (not an observed bug — a coverage gap).
+- **Impact**: those four packages' test suites (28 + 28 + 32 + 33 tests)
+  were not verified on every push/PR the way every other package in this
+  repo is — a regression in any of them would not have been caught by CI,
+  only by someone remembering to run `pytest` locally inside that
+  directory.
+- **Fix**: four new jobs added to `.github/workflows/tests.yml`
+  (`test-strategy`, `scenario-planner`, `test-generation`,
+  `test-validation`), mirroring the existing `evidence`/
+  `project-intelligence` job shape exactly. One real difference:
+  `test_validation`'s job runs `pip install -e .` (no `[dev]` extra —
+  ADR-030 moved `pytest` to its real `dependencies` list, so there is no
+  `dev` extra left to install), while the other three use
+  `pip install -e ".[dev]"` like every other package. Verified locally
+  before committing: `cd test_validation && pip install -e . && pytest -q`
+  → 33 passed, 2 skipped.
+- **Regression prevention**: the four new CI jobs themselves are the
+  regression prevention — any future change that breaks one of these four
+  packages' tests now fails CI the same way a break in any of the other 17
+  packages already does.

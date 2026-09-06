@@ -6,15 +6,23 @@
 # nothing but the Python 3.10+ standard library (ast, re, json, pathlib,
 # dataclasses, argparse).
 #
-# The one and only dependency in the entire project is pytest, needed to run
-# the test suites (149 tests across five skills) and the evaluation harnesses.
+# The one and only dev/test dependency across all 21 packages (15 skills +
+# 6 Test Engineering Platform packages: evidence, project_intelligence,
+# test_strategy, scenario_planner, test_generation, test_validation) is
+# pytest, needed to run the test suites (899 tests passing: 733 across the
+# 15 skills, 166 across the 6 TEP packages) and the evaluation harnesses.
+#
+# One disclosed exception: test_validation declares pytest as a real
+# RUNTIME dependency, not just a dev/test one — it subprocess-invokes
+# pytest to execute agent-authored test files. See DEPENDENCIES.md for
+# the full explanation.
 #
 # Install with:
 #   pip install -r requirements.txt
 #
 # This installs pytest into whatever environment you run it in — it does NOT
-# install the five skills themselves as packages. Each skill is independently
+# install any of the 21 packages themselves. Each is independently
 # installable via its own pyproject.toml (see DEPENDENCIES.md and
-# QuickStarterGuide.md for per-skill install/run instructions).
+# QuickStarterGuide.md for per-package install/run instructions).
 
 pytest>=7.0

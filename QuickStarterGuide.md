@@ -20,6 +20,13 @@ You do not need an AI agent, an API key, or an internet connection to run
 any of this. Every skill's deterministic engine is a normal Python CLI you
 can run yourself, right now, from a terminal.
 
+A second, newer set of six packages at the repo root (`evidence/`,
+`project_intelligence/`, `test_strategy/`, `scenario_planner/`,
+`test_generation/`, `test_validation/`) forms the **Test Engineering
+Platform** — a pipeline that decides which changed files need a test, plans
+scenarios, and actually executes agent-authored tests against a real
+target repo. See §8 below to run it end to end.
+
 ## 2. Prerequisites
 
 | Requirement | Why |
@@ -73,6 +80,13 @@ skills/                       The fifteen skills — the actual product
   context-optimizer/
   workflow-composer/
   engineering-memory/
+
+evidence/                     TEP pipeline: wraps any skill's CLI run, records provenance
+project_intelligence/         TEP pipeline: derives a TestEnvironmentProfile
+test_strategy/                TEP pipeline: decides which changed files need a test
+scenario_planner/             TEP pipeline: turns flagged targets into test scenarios
+test_generation/               TEP pipeline: produces a deterministic test-generation plan
+test_validation/               TEP pipeline: executes agent-authored tests, records pass/fail
 
 evaluations/                  Per-skill evaluation harnesses + fixtures + RESULTS.md
 examples/                     Real "dogfood" runs — each skill used on real work, not synthetic demos
@@ -152,7 +166,12 @@ done
 ```
 
 Expect **733 passing tests** across all fifteen skills (42 + 29 + 24 + 21 + 58 + 32 + 34 + 65 + 70 + 84 + 55 + 47 + 64 + 51 + 57)
-as of the most recent change. See
+as of the most recent change. The same loop works for the 6 Test
+Engineering Platform packages at the repo root (`for d in evidence
+project_intelligence test_strategy scenario_planner test_generation
+test_validation; do (cd "$d" && pip install -e ".[dev]" -q && pytest -q);
+done`) — expect **166 passed, 3 skipped** (see §8 below for what these
+packages do). See
 [`project-memory-bank/implementation-status.md`](project-memory-bank/implementation-status.md)
 for the current authoritative count.
 
@@ -220,7 +239,58 @@ Two later skills compose differently, worth knowing about:
   `project-memory-bank/` markdown rather than a target repo's code — the
   first "self-referential" skill in the portfolio.
 
-## 8. Where to read next, depending on what you want
+## 8. Running the Test Engineering Platform pipeline end-to-end
+
+Six more packages at the repo root (`evidence/`, `project_intelligence/`,
+`test_strategy/`, `scenario_planner/`, `test_generation/`,
+`test_validation/`) form a second pipeline: given a target repo and a real
+git diff, it decides which changed files need a test, plans scenarios,
+produces a deterministic plan for an agent to write tests from, then
+actually **runs** those agent-authored tests — this platform's only
+execution capability. Unlike the fifteen skills above, most of these
+packages' CLIs are invoked from the **repo root**, not from inside the
+package directory, and each one's input is the previous one's JSON output:
+
+```bash
+# 1. codebase-intelligence and regression-hunter (existing skills) produce
+#    the two starting reports this pipeline builds on
+cd skills/codebase-intelligence
+python -m engine.cli /path/to/target-repo --format json --out /path/to/ci-out
+cd ../regression-hunter
+git -C /path/to/target-repo diff <base>..<head> | \
+  python -m engine.cli - --ci-report /path/to/ci-out/report.json --format json --out /path/to/rh-out
+
+# 2. derive a TestEnvironmentProfile from the codebase-intelligence report
+cd ../..
+python -m project_intelligence.cli /path/to/ci-out/report.json --out /path/to/tep-out
+
+# 3. decide which changed files need a test
+python -m test_strategy.cli /path/to/rh-out/report.json /path/to/tep-out/test-environment-profile.json --out /path/to/tep-out
+
+# 4. plan candidate test scenarios for each flagged target
+python -m scenario_planner.cli /path/to/tep-out/test-strategy-report.json /path/to/rh-out/report.json /path/to/ci-out/report.json --out /path/to/tep-out
+
+# 5. produce a deterministic generation plan (an agent writes the actual
+#    test files from this plan — no engine here authors code)
+python -m test_generation.cli /path/to/tep-out/scenario-plan-report.json /path/to/target-repo --out /path/to/tep-out
+
+# 6. once an agent has written files into, say, /path/to/generated-tests/,
+#    actually execute them and record real pass/fail evidence
+python -m test_validation.cli /path/to/generated-tests /path/to/tep-out/test-environment-profile.json /path/to/target-repo --out /path/to/tep-out
+```
+
+A real, non-synthetic run of this exact chain is committed at
+`examples/test-validation/example-run.md` (and the individual
+`examples/<tep-pkg>/example-run.md` for each earlier stage) — read those
+before running it yourself against an unfamiliar repo. `test_validation`
+has no sandboxing beyond a per-file timeout, path-containment checks, and
+file-count/size caps — see
+[`project-memory-bank/25-tep-pipeline-overview.md`](project-memory-bank/25-tep-pipeline-overview.md)
+for the full pipeline diagram and
+[ADR-029/ADR-030](project-memory-bank/11-decisions.md) for exactly what is
+and isn't bounded.
+
+## 9. Where to read next, depending on what you want
 
 | You want to... | Read this |
 |---|---|
@@ -231,11 +301,12 @@ Two later skills compose differently, worth knowing about:
 | Understand the two architecture patterns used across all fifteen skills | [`project-memory-bank/03-architecture.md`](project-memory-bank/03-architecture.md), or the more readable [blog version](blogs/02-two-architectures-for-ai-agent-skills.md) |
 | See every real bug found and fixed via dogfooding | [`project-memory-bank/12-known-limitations.md`](project-memory-bank/12-known-limitations.md), or the [blog version](blogs/03-i-dogfooded-every-skill-i-built.md) |
 | Understand what's actually validated vs. still assumed | [`project-memory-bank/16-assumptions-and-validation.md`](project-memory-bank/16-assumptions-and-validation.md) |
+| Understand the Test Engineering Platform pipeline | [`project-memory-bank/25-tep-pipeline-overview.md`](project-memory-bank/25-tep-pipeline-overview.md), or §8 above |
 | Propose a new skill | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
 | Report a security issue | [`SECURITY.md`](SECURITY.md) |
 | See what's next | [`ROADMAP.md`](ROADMAP.md) |
 
-## 9. FAQ
+## 10. FAQ
 
 **Do I need Claude, GPT, or any specific AI agent to use this?**
 No, not to run the engines or tests — those are plain Python. To actually

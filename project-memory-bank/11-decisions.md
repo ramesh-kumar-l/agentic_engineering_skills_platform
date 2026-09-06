@@ -2200,3 +2200,114 @@ attacker/network-controlled input — materially lower risk class).
 
 **Status**: Adopted. TEP Phase 5d's Security/Production Hardening
 sub-initiative is complete as of 2026-09-06.
+
+## ADR-031: Public documentation completion pass — root docs, memory-bank gaps, and a five-post TEP blog series
+
+**Decision**: at the user's explicit request, extend (not rewrite) the
+existing root-level docs (`README.md`, `QuickStarterGuide.md`,
+`DEPENDENCIES.md`, `requirements.txt`) so the TEP pipeline (`evidence`,
+`project_intelligence`, `test_strategy`, `scenario_planner`,
+`test_generation`, `test_validation` — built across TEP Phases 1–5d) is
+actually visible to a first-time reader, since a research pass confirmed it
+was documented only inside `project-memory-bank/` and each package's own
+`tests/`/`cli.py`, invisible everywhere else. Also fill the specific
+memory-bank gaps that same research pass surfaced (a missing whole-pipeline
+overview — see the new [[25-tep-pipeline-overview]] — plus L37 and an
+ADR-023 status clarification, below), and write five new blog posts under
+`blogs/` about the TEP work specifically, extending the existing 6-post
+series rather than duplicating it.
+
+- User Value: a newbie engineer cloning the repo, or a FAANG engineer/
+  recruiter reading the blog series as a technical-credibility signal, can
+  now find the TEP pipeline from the root README instead of only from
+  `project-memory-bank/`; the memory bank itself gets a single file that
+  shows the 6-package chain end to end, which no file provided before.
+- Correctness: every number written into a doc in this pass was measured
+  directly (`pytest -q` re-run across all 15 skills and all 6 TEP packages
+  in this session, not sourced from a prior summary) — 733 passed across
+  the 15 skills (unchanged, confirmed), 166 passed + 3 skipped across the 6
+  TEP packages (unchanged total from TEP Phase 5d's own count, confirmed).
+  Every new file path/command cited in README/QuickStarterGuide/
+  DEPENDENCIES.md/the new blog posts was checked against the real
+  `cli.py`/`pyproject.toml` it describes, not invented.
+- Security: publishing blog posts that describe real ADRs, real
+  limitations, and real (fixed) bugs discloses architecture and process,
+  not secrets or credentials — checked against
+  [[06-security-model|06-security-model.md]]'s publication quality gate
+  before writing; no post includes a real repo path outside this project,
+  a credential, or PII.
+- Simplicity: extends existing files in place rather than replacing them —
+  `README.md` and `QuickStarterGuide.md` were already well-structured for
+  the 15-skill portfolio; only the TEP-shaped gap needed filling, not a
+  rewrite of content that was already accurate.
+- Maintainability: no code changed in this pass — documentation only, so
+  no new tests were added or needed; verification is direct inspection and
+  real command re-runs, not pytest.
+- Portability: N/A — no runtime or packaging change.
+- Evidence: `project-memory-bank/25-tep-pipeline-overview.md` (new),
+  updated `README.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
+  `requirements.txt`/`blogs/README.md`, five new posts under `blogs/`
+  (`07`–`11`), this ADR, [[12-known-limitations|L37]], and the ADR-023
+  clarification below.
+- Future Evolution: this ADR authorizes only the documentation-completion
+  pass described here. It does not fix [[12-known-limitations|L37]] (CI
+  gap) or start TEP Phase 5e — both remain out of scope pending their own
+  explicit user instruction.
+
+**Status**: Adopted. Documentation-completion pass complete as of
+2026-09-06.
+
+## ADR-023 clarification (2026-09-06)
+
+Read literally, ADR-023's "Status: Proposed, not Adopted" can look like
+nothing was ever authorized to be built under it — misleading once TEP
+Phases 1 through 5d visibly shipped. For the record: "Proposed" describes
+only the *overarching pivot decision* (should this project take on a
+second, execution-capable pipeline at all). Each sub-phase since then
+(Phase 1 Product Contract, Phase 2 `evidence/`, Phase 3
+`project_intelligence/`, Phase 4 Android/JVM detection, Phase 5a
+`test_strategy/`, Phase 5b `scenario_planner/`, Phase 5c `test_generation/`
++ `test_validation/`, Phase 5d hardening) was separately authorized by its
+own explicit user instruction and got its own "Status: Adopted" ADR
+(ADR-024 through ADR-030). ADR-023 itself is left unedited above, per this
+log's append-only discipline — this paragraph is the clarification, not a
+correction to what ADR-023 originally said.
+
+## ADR-032: Add CI jobs for the four TEP packages L37 disclosed as uncovered
+
+**Decision**: at the user's explicit follow-up request (offered as one of
+two optional next steps after the ADR-031 documentation pass), fix
+[[12-known-limitations|L37]] rather than leave it only disclosed:
+`.github/workflows/tests.yml` gains four new jobs (`test-strategy`,
+`scenario-planner`, `test-generation`, `test-validation`), mirroring the
+existing `evidence`/`project-intelligence` job shape exactly. One real
+difference: `test_validation`'s job runs `pip install -e .`, not
+`pip install -e ".[dev]"` — ADR-030 moved `pytest` into its real
+`dependencies` list, so it has no `dev` extra left to install.
+
+- User Value: a regression in any of the four previously-uncovered TEP
+  packages now fails CI the same way a break in any of the other 17
+  packages already does, instead of depending on someone remembering to
+  run `pytest` locally.
+- Correctness: verified locally before committing —
+  `cd test_validation && pip install -e . && pytest -q` → 33 passed, 2
+  skipped, confirming the `[dev]`-less install path actually works, not
+  just that the YAML parses.
+- Security: no change — CI runs the same test suites that already run
+  locally; no new secrets, permissions, or external actions introduced.
+- Simplicity: reuses the exact existing job template four more times;
+  no new workflow structure, matrix, or reusable-workflow abstraction
+  introduced for four jobs that don't need one.
+- Maintainability: `.github/workflows/tests.yml` grows from 2 non-matrix
+  jobs to 6, each self-contained and copy-paste-obvious against its
+  neighbors — consistent with how the first two (`evidence`,
+  `project-intelligence`) were already written.
+- Portability: N/A — GitHub Actions YAML only.
+- Evidence: `.github/workflows/tests.yml`; [[12-known-limitations|L37]]
+  updated to FIXED.
+- Future Evolution: none of the six TEP packages' CI jobs are folded into
+  the 15-skill matrix job — they stay separate, named jobs, since none of
+  the six share the `skills/<name>/` layout the matrix assumes. TEP Phase
+  5e and beyond remains unstarted; this ADR authorizes only the CI-gap fix.
+
+**Status**: Adopted. L37 fixed as of 2026-09-06.

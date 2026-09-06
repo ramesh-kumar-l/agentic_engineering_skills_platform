@@ -619,6 +619,35 @@ TEP Phase 5e and beyond is not started and needs its own explicit approval.
 
 ## Last updated
 
+2026-09-06 — CI gap fix ([[11-decisions|ADR-032]]): four new CI jobs
+(`test-strategy`, `scenario-planner`, `test-generation`, `test-validation`)
+added to `.github/workflows/tests.yml`, closing
+[[12-known-limitations|L37]] (now FIXED, not just disclosed). Mirrors the
+existing `evidence`/`project-intelligence` job shape; `test_validation`'s
+job uses `pip install -e .` (no `[dev]` extra — ADR-030 moved `pytest` to
+real `dependencies`). Verified locally: 33 passed, 2 skipped.
+
+2026-09-06 — Public-documentation completion pass ([[11-decisions|ADR-031]]),
+a cross-cutting task, not a TEP phase (same framing as ADR-022). No code
+changed. The TEP pipeline (`evidence`, `project_intelligence`,
+`test_strategy`, `scenario_planner`, `test_generation`, `test_validation`)
+was, until now, documented only inside `project-memory-bank/` — invisible
+from `README.md`, `QuickStarterGuide.md`, and `DEPENDENCIES.md`. Closed:
+added `project-memory-bank/25-tep-pipeline-overview.md` (first file to show
+all 6 packages' data flow together); extended `README.md` with a new "Test
+Engineering Platform pipeline" section and fixed its stale blog list;
+extended `QuickStarterGuide.md`'s layout diagram and added an end-to-end
+TEP pipeline walkthrough section; fixed `DEPENDENCIES.md`'s stale
+"ten/nine skills" wording and added a TEP-packages dependency section;
+fixed `requirements.txt`'s stale test-count comment. Disclosed
+[[12-known-limitations|L37]] (CI has no job for 4 of the 6 TEP packages)
+and a new L2/L34/L35/L36 cross-reference note. Wrote five new blog posts
+(`blogs/07`–`11`) on the TEP build specifically, and updated `blogs/
+README.md`'s reading-order list to all 11 posts. All test counts cited
+(733 across 15 skills; 166 passed/3 skipped across the 6 TEP packages) were
+re-measured via a direct `pytest -q` run this session, matching the counts
+already on record. TEP Phase 5e and beyond remains not started.
+
 2026-09-06 — TEP Phase 5d's Security/Production Hardening sub-initiative
 for the Test Engineering Platform pivot ([[11-decisions|ADR-030]]). No new
 package — five existing files hardened, each narrowing an already-existing

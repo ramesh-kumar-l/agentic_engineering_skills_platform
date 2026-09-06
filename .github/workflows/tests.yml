@@ -79,3 +79,77 @@ jobs:
       - name: Run tests for project_intelligence
         working-directory: project_intelligence
         run: pytest -q
+
+  test-strategy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test_strategy
+        working-directory: test_strategy
+        run: pip install -e ".[dev]"
+
+      - name: Run tests for test_strategy
+        working-directory: test_strategy
+        run: pytest -q
+
+  scenario-planner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install scenario_planner
+        working-directory: scenario_planner
+        run: pip install -e ".[dev]"
+
+      - name: Run tests for scenario_planner
+        working-directory: scenario_planner
+        run: pytest -q
+
+  test-generation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test_generation
+        working-directory: test_generation
+        run: pip install -e ".[dev]"
+
+      - name: Run tests for test_generation
+        working-directory: test_generation
+        run: pytest -q
+
+  test-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # test_validation declares pytest as a real runtime dependency
+      # (ADR-030), not a dev extra — no "[dev]" extra exists to install.
+      - name: Install test_validation
+        working-directory: test_validation
+        run: pip install -e .
+
+      - name: Run tests for test_validation
+        working-directory: test_validation
+        run: pytest -q

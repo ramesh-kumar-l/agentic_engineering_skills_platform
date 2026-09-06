@@ -32,10 +32,17 @@ resource caps, JSON loader type validation, and a declared `pytest`
 runtime dependency — no new package, five existing files hardened, see
 [[11-decisions|ADR-030]]) are all complete; TEP Phase 5e and beyond has not
 started and requires its own separate, explicit user instruction, per the
-master prompt's own hard-stop rule. See "What TEP Phase 1 built", "What TEP
+master prompt's own hard-stop rule. Separately, a cross-cutting **public-
+documentation completion pass** (not a TEP phase — same framing as
+ADR-022's Java/Kotlin work) is also now complete: the TEP pipeline is now
+described in the root `README.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`,
+a new whole-pipeline overview exists at [[25-tep-pipeline-overview]], and
+five new blog posts extend the existing series (see
+[[11-decisions|ADR-031]]). See "What TEP Phase 1 built", "What TEP
 Phase 2 built", "What TEP Phase 3 built", "What TEP Phase 4 built", "What
 TEP Phase 5a built", "What TEP Phase 5b built", "What TEP Phase 5c built",
-and "What TEP Phase 5d built" below. This does not change the status of
+"What TEP Phase 5d built", and "What the public-documentation pass built"
+below. This does not change the status of
 the closed 15-skill portfolio described in the rest of this section.
 
 Phase 15 (`engineering-memory`) — COMPLETE. **This completes the
@@ -343,6 +350,34 @@ result as before (`exit_code: 0`, `5 passed`). Every modified file stays
 under 300 lines (largest, `validation_runner.py`, 130 lines); 166 passed,
 3 skipped across the combined TEP suite (up from 148 passed). See
 [[11-decisions|ADR-030]] for the full decision record.
+
+## What the public-documentation pass built
+
+At the user's explicit request (make the project's completed work visible
+to a first-time reader, and produce publishable technical content), a
+research pass first confirmed the concrete gap: the TEP pipeline was
+documented only inside `project-memory-bank/`, invisible from every
+root-level doc. This pass closed that gap without touching any code:
+
+- New [[25-tep-pipeline-overview]] — the first file showing all 6 TEP
+  packages' data flow in one place (a Mermaid diagram + a package→schema→
+  command table), since files 19–24 each only document one package's own
+  schema in isolation.
+- [[12-known-limitations|L37]] (CI has no job for `test_strategy`,
+  `scenario_planner`, `test_generation`, `test_validation`) newly disclosed,
+  and a cross-reference note consolidating the L2→L34→L35→L36 root-cause
+  chain that was previously scattered across three phases.
+- A clarifying note under ADR-023 resolving its "Proposed, not Adopted"
+  status wording, which reads ambiguously once TEP Phases 1–5d had visibly
+  shipped under it.
+- Root docs (`README.md`, `QuickStarterGuide.md`, `DEPENDENCIES.md`,
+  `requirements.txt`) extended to cover the TEP pipeline; five new blog
+  posts (`blogs/07`–`11`) written about the TEP build specifically, so the
+  existing 6-post series (15-skill portfolio) isn't duplicated.
+
+All numbers used were re-measured directly in this session (`pytest -q`
+across all 21 packages), not carried over from a prior summary. See
+[[11-decisions|ADR-031]] for the full decision record.
 
 TEP Phase 5e and beyond requires its own separate, explicit user
 instruction before starting.
@@ -889,6 +924,26 @@ root `README.md`/`ROADMAP.md`/`QuickStarterGuide.md`/`DEPENDENCIES.md`/
    yet updated with Phase 6-11 posts)
 
 ## Last updated
+
+2026-09-06 — CI gap fix ([[11-decisions|ADR-032]]): at the user's explicit
+follow-up request, [[12-known-limitations|L37]] (no CI job for
+`test_strategy`, `scenario_planner`, `test_generation`, `test_validation`)
+is now fixed, not just disclosed — four new jobs added to
+`.github/workflows/tests.yml`, mirroring the existing `evidence`/
+`project-intelligence` job shape (`test_validation`'s job installs with
+`pip install -e .`, no `[dev]` extra, since ADR-030 moved `pytest` to its
+real runtime dependencies). Verified locally before committing.
+
+2026-09-06 — Public-documentation completion pass ([[11-decisions|ADR-031]]):
+the TEP pipeline (built across TEP Phases 1–5d) is now visible in the root
+`README.md`, `QuickStarterGuide.md`, and `DEPENDENCIES.md`, which previously
+did not mention it at all. Added [[25-tep-pipeline-overview]] (the first
+whole-pipeline diagram), [[12-known-limitations|L37]] (CI gap for 4 of 6 TEP
+packages), an L2/L34/L35/L36 cross-reference note, and an ADR-023 status
+clarification. Five new blog posts (`blogs/07`–`11`) extend the existing
+series with TEP-specific content. No code changed; all cited numbers
+re-measured directly this session. See "What the public-documentation pass
+built" above.
 
 2026-09-06 — TEP Phase 5d's Security/Production Hardening sub-initiative
 for the "Project-Aware Test Engineering Platform" pivot

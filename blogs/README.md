@@ -1,15 +1,17 @@
 # Blog series: Building the Agentic Engineering Skills Platform
 
-Six posts, written as the project was actually built — not a retrospective
-marketing pass. Every code snippet, test count, and bug described here is
-real and traceable to a specific file in this repository at the time of
-writing. Where a claim is uncertain or unproven, the post says so explicitly,
-the same way the project's own [`project-memory-bank/`](../project-memory-bank/)
-does.
+Eleven posts, written as the project was actually built — not a
+retrospective marketing pass. Every code snippet, test count, and bug
+described here is real and traceable to a specific file in this repository
+at the time of writing. Where a claim is uncertain or unproven, the post
+says so explicitly, the same way the project's own
+[`project-memory-bank/`](../project-memory-bank/) does.
 
 ## Reading order
 
-Each post stands alone, but they build on each other in this order:
+Each post stands alone, but they build on each other in this order.
+
+**Part 1 — the 15-skill portfolio:**
 
 1. **[A Skill Is Not a Prompt](01-a-skill-is-not-a-prompt.md)** — why this
    project exists, and the contract model (`SKILL.md`) it's built around.
@@ -31,6 +33,24 @@ Each post stands alone, but they build on each other in this order:
    — what happened when a mentor-style review of the whole project found
    zero real users after ten phases, and a real correctness bug disclosed
    four times without ever being fixed.
+
+**Part 2 — the Test Engineering Platform pipeline:**
+
+7. **[Why I Built a Second Pipeline Instead of a Sixteenth Skill](07-why-i-built-a-second-pipeline-instead-of-a-sixteenth-skill.md)**
+   — the job-to-be-done behind an execution-capable pipeline, and why it's
+   a separate track from the 15-skill portfolio, not skill sixteen.
+8. **[Six Packages, One Pattern](08-six-packages-one-pattern.md)** — reusing
+   the deterministic-engine-plus-judgment split across six new packages with
+   typed schema contracts between every stage.
+9. **[Giving an Agent Execution Capability, Then Locking It Down](09-giving-an-agent-execution-capability-then-locking-it-down.md)**
+   — from a disclosed, unsandboxed first execution capability to the
+   concrete path-containment and resource hardening that followed it.
+10. **[The Test That Lied to Me](10-the-test-that-lied-to-me.md)** — a test
+    assumption disproven by actually running it, and what pytest's own
+    output-capturing semantics had to do with it.
+11. **[36 Known Limitations and Counting](11-36-known-limitations-and-counting.md)**
+    — the disclosure discipline behind every "L-number," and what it looks
+    like when the same bug gets disclosed more than once before it's fixed.
 
 
 ## A note on the Mermaid diagrams

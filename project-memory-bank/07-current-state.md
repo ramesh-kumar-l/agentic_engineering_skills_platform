@@ -787,3 +787,19 @@ platform's one execution capability without adding a sandboxing claim
 ADR-029 never made. None of the disclosed detection/accuracy gaps is
 fixed — L35/L24 remain the largest disclosed detection/accuracy gaps in,
 respectively, Android readiness and test-strategy accuracy.
+
+**Separately, a public-documentation completion pass** (2026-09-06,
+[[11-decisions|ADR-031]], cross-cutting — not a TEP phase) closed the gap
+between what TEP Phases 1–5d built and what a first-time reader of the
+root-level docs could actually see: until this pass, `README.md`,
+`QuickStarterGuide.md`, and `DEPENDENCIES.md` made no mention of the TEP
+pipeline at all. Added [[25-tep-pipeline-overview]] (the first file showing
+all 6 packages' data flow together), disclosed
+[[12-known-limitations|L37]] (CI runs for the 15 skills plus `evidence`/
+`project_intelligence` only — `test_strategy`, `scenario_planner`,
+`test_generation`, and `test_validation` have no CI job), consolidated the
+L2→L34→L35→L36 chain, clarified ADR-023's "Proposed" status wording, and
+extended all four root docs plus `blogs/` with five new posts on the TEP
+build. No code changed; every number written into a doc was re-measured
+directly (not carried over) via a real `pytest -q` run across all 21
+packages this session.

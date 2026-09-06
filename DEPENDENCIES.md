@@ -1,16 +1,24 @@
 # Dependencies
 
 This document explains exactly what this project depends on, why the list is
-so short, and how installation works across the ten skills. If you're
+so short, and how installation works across all 21 packages: the 15
+`skills/` and the 6 Test Engineering Platform (TEP) packages at the repo
+root (`evidence/`, `project_intelligence/`, `test_strategy/`,
+`scenario_planner/`, `test_generation/`, `test_validation/`). If you're
 looking for step-by-step setup instructions instead, see
 [`QuickStarterGuide.md`](QuickStarterGuide.md).
 
 ## The short version
 
-- **Runtime dependencies: zero.** Every skill engine runs on the Python
-  standard library only.
-- **Dev/test dependency: one.** `pytest>=7.0`, needed to run the test suites
-  and evaluation harnesses.
+- **Runtime dependencies: zero — with one disclosed exception.** Every
+  skill engine, and 5 of the 6 TEP packages, run on the Python standard
+  library only. `test_validation` is the one package in the entire repo
+  with a non-empty runtime `dependencies` list (`pytest>=7.0`) — it
+  subprocess-invokes pytest to execute agent-authored test files, so pytest
+  is a real runtime need there, not just a test-suite tool. See
+  [the TEP packages section](#the-test-engineering-platform-packages) below.
+- **Dev/test dependency everywhere else: one.** `pytest>=7.0`, needed to run
+  the test suites and evaluation harnesses.
 - **Interpreter requirement:** Python **3.10 or newer** (every skill's
   `pyproject.toml` declares `requires-python = ">=3.10"` — the engines use
   `X | None` union-type syntax and `dataclasses`, both of which need 3.10+).
@@ -20,8 +28,8 @@ looking for step-by-step setup instructions instead, see
 ## Why zero runtime dependencies is a deliberate choice, not an accident
 
 This is documented formally as [ADR-006](project-memory-bank/11-decisions.md)
-in the architectural decisions log, and it applies to all ten skills, not
-just the first one:
+in the architectural decisions log, and it applies to all fifteen skills,
+not just the first one:
 
 - **Portability.** An agent runtime invoking a skill only needs a Python 3.10+
   interpreter and a shell — no `pip install` round trip, no dependency
@@ -50,7 +58,7 @@ just the first one:
 
 ## What's actually in each skill's `pyproject.toml`
 
-All ten skills follow the identical shape:
+All fifteen skills follow the identical shape:
 
 ```toml
 [project]
@@ -68,7 +76,9 @@ testpaths = ["tests"]
 ```
 
 `dependencies = []` is not a placeholder — it's the actual, current, correct
-list for every skill:
+list for every one of the fifteen skills (illustrative rows below, not
+exhaustive — every skill in `skills/` has the identical `none` / `pytest>=7.0`
+shape):
 
 | Skill | Runtime dependencies | Dev dependencies |
 |---|---|---|
@@ -77,14 +87,42 @@ list for every skill:
 | `acceptance-test-engineer` | none | `pytest>=7.0` |
 | `feature-planner` | none | `pytest>=7.0` |
 | `security-context-guard` | none | `pytest>=7.0` |
+| *(the other ten skills)* | none | `pytest>=7.0` |
+
+## The Test Engineering Platform packages
+
+Six more packages, at the repo root rather than under `skills/`, built
+across TEP Phases 1–5d (see
+[`project-memory-bank/18-test-engineering-platform-contract.md`](project-memory-bank/18-test-engineering-platform-contract.md)
+and [`project-memory-bank/25-tep-pipeline-overview.md`](project-memory-bank/25-tep-pipeline-overview.md)
+for what they do and how they connect). Same `requires-python = ">=3.10"`
+floor, same `dev = ["pytest>=7.0"]` shape — except one:
+
+| Package | Runtime dependencies | Dev dependencies |
+|---|---|---|
+| `evidence` | none | `pytest>=7.0` |
+| `project_intelligence` | none | `pytest>=7.0` |
+| `test_strategy` | none | `pytest>=7.0` |
+| `scenario_planner` | none | `pytest>=7.0` |
+| `test_generation` | none | `pytest>=7.0` |
+| `test_validation` | **`pytest>=7.0`** | *(none — moved to runtime, see below)* |
+
+`test_validation` is the sole exception to this repo's "zero runtime
+dependencies" claim, and it's a deliberate, disclosed one
+([ADR-030](project-memory-bank/11-decisions.md)): it subprocess-invokes
+`sys.executable -m pytest` to actually execute agent-authored test files,
+so pytest has to be importable by the interpreter running it at runtime,
+not only present for `pytest`'s own test-suite run. An upfront
+`ensure_pytest_available()` check raises a clear error if it's missing,
+rather than surfacing as a buried subprocess failure.
 
 ## How to install
 
-This repo is a collection of nine **independent** Python packages under
-`skills/`, not one installable package at the root — there is no root
-`pyproject.toml` and none is planned until there's real evidence a unified
-package boundary is needed (avoid premature packaging, same discipline as
-everything else in this project).
+This repo is a collection of 21 **independent** Python packages (15 under
+`skills/`, 6 TEP packages at the root), not one installable package at the
+root — there is no root `pyproject.toml` and none is planned until there's
+real evidence a unified package boundary is needed (avoid premature
+packaging, same discipline as everything else in this project).
 
 **Option A — just run the tests/tools with pytest available (fastest):**
 
@@ -107,22 +145,28 @@ pip install -e ".[dev]"
 ```
 
 Repeat per skill you want installed. There is intentionally no single command
-that installs all nine at once — see
+that installs all fifteen at once — see
 [`QuickStarterGuide.md`](QuickStarterGuide.md) for a loop that does it if you
-want every skill available at once.
+want every skill available at once. Each of the 6 TEP packages at the repo
+root follows the same pattern — `cd project_intelligence && pip install
+-e ".[dev]"`, etc.
 
 ## Non-Python tooling you need
 
 - **Git** — to clone the repo and (for `adversarial-diff-reviewer`) to
   produce diffs via `git diff`.
 - **A POSIX-ish shell or PowerShell** — the CLIs are plain `python -m
-  engine.cli ...` invocations; nothing shell-specific is required beyond
-  piping stdin on Unix-likes (`git diff | python -m engine.cli -`) or the
-  PowerShell equivalent.
+  engine.cli ...` (or `python -m <tep_pkg>.cli ...`) invocations; nothing
+  shell-specific is required beyond piping stdin on Unix-likes
+  (`git diff | python -m engine.cli -`) or the PowerShell equivalent.
 
 Nothing else. No Docker, no database, no cloud account, no API key, no
 network access is required anywhere in this repository to clone it, run any
-skill, run any test, or run any evaluation harness.
+skill or TEP package, run any test, or run any evaluation harness.
+`project_intelligence`'s Android/JVM support is static manifest/source
+parsing only — no Gradle, Android SDK, emulator, or JVM installation is
+ever invoked (see [known limitation L33](project-memory-bank/12-known-limitations.md)
+for what that static parsing does and doesn't resolve).
 
 ## Where dependency scope might grow
 
