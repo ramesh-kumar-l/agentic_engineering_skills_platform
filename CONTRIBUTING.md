@@ -1,8 +1,12 @@
 # Contributing
 
-This project is in Phase 0 (Foundation) — no skills exist yet, so there's
-nothing to contribute to `skills/` at this moment. This document describes the
-bar a contribution will need to meet once Phase 1 opens that directory.
+The originally-scoped 15-skill portfolio is complete, plus a Test Engineering
+Platform pipeline and a native Claude Code skill built on top of it — see the
+[README](README.md#status-and-roadmap) for the current state. The roadmap is
+frozen pending real external validation evidence, not open by default, so a
+new skill needs the same justification any phase here has needed: a real gap,
+not a nice-to-have. This document describes the bar any contribution — to
+`skills/` or elsewhere — needs to meet.
 
 ## Proposing a skill
 

@@ -175,6 +175,23 @@ See [`AndroidGuide.md`](AndroidGuide.md) — it covers what actually works
 today and what doesn't (Gradle version-catalog dependencies, JVM test
 execution) before you rely on it.
 
+## The test-case-generator skill
+
+A later addition on top of both the 15-skill portfolio and the TEP pipeline:
+[`test-case-generator`](skills/test-case-generator/) runs the existing
+6-stage chain (`codebase-intelligence` → `regression-hunter` →
+`project_intelligence` → `test_strategy` → `scenario_planner` →
+`test_generation`) against a repo's `git diff --staged` in one call, then
+authors the actual test file(s) and runs the target project's own build tool,
+self-fixing on failure (max 2 retries). It is the platform's **first native
+Claude Code skill** — its `SKILL.md` carries YAML frontmatter, a documented,
+deliberate exception to every other skill's frontmatter-free convention (see
+its own Provenance section) — built at explicit user request after Phase 15
+and the TEP pipeline had already closed. 1/1 tests passing
+(`tests/test_pipeline_integration.py`, an end-to-end orchestrator-wiring
+test); Maturity is capped at Level 1 pending a real dogfood run, disclosed in
+its own `SKILL.md` exactly like every other skill's maturity claim here.
+
 ## Quickstart
 
 ```bash
@@ -648,7 +665,11 @@ Phase 5e and beyond (Human Review, Engineering Memory extension, Evaluation/
 Ablation, external validation, DX/orchestration, public distribution) has
 not started. A public-documentation completion pass (ADR-031) then extended
 this README, `QuickStarterGuide.md`, and `DEPENDENCIES.md` to actually
-cover the TEP pipeline, and added 5 new blog posts about it. Full current
+cover the TEP pipeline, and added 5 new blog posts about it. **Most
+recently:** [`test-case-generator`](#the-test-case-generator-skill), the
+platform's first native Claude Code skill, wraps the full TEP pipeline into
+one orchestrated call — 1 new test, 900 passing across the entire platform
+(733 skills + 166 TEP + 1 orchestrator). Full current
 snapshot: [`project-memory-bank/active-context.md`](project-memory-bank/active-context.md).
 Full roadmap (adaptive — a phase is re-justified against evidence before it
 starts, never built just because it was planned): [`ROADMAP.md`](ROADMAP.md).
